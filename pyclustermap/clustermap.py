@@ -2,8 +2,7 @@
 import os, sys
 import pandas as pd
 import numpy as np
-import matplotlib as mpl
-from matplotlib.colors import LinearSegmentedColormap
+import matplotlib
 import matplotlib.pylab as plt
 from scipy.cluster import hierarchy
 import collections
@@ -132,13 +131,13 @@ class heatmapPlotter:
         # Choose default colormaps if not provided
         if cmap is None:
             if center is None:
-                self.cmap = mpl.cm.get_cmap('turbo').copy()
+                self.cmap = matplotlib.cm.get_cmap('turbo')
             else:
-                self.cmap = mpl.cm.get_cmap('exp1').copy()
+                self.cmap = matplotlib.cm.get_cmap('exp1')
         elif isinstance(cmap, str):
-            self.cmap = mpl.cm.get_cmap(cmap).copy()
+            self.cmap = matplotlib.cm.get_cmap(cmap)
         elif isinstance(cmap, list):
-            self.cmap = mpl.colors.ListedColormap(cmap)
+            self.cmap = matplotlib.colors.ListedColormap(cmap)
         else:
             self.cmap = cmap
 
@@ -146,7 +145,7 @@ class heatmapPlotter:
         # Recenter a divergent colormap
         if center is not None:
             # Copy bad values
-            # in mpl<3.2 only masked values are honored with "bad" color spec
+            # in matplotlib<3.2 only masked values are honored with "bad" color spec
             # (see https://github.com/matplotlib/matplotlib/pull/14257)
             bad = self.cmap(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color
             # under/over values are set for sure when cmap extremes
@@ -157,10 +156,10 @@ class heatmapPlotter:
             over_set = over != self.cmap(self.cmap.N - 1)
 
             vrange = max(vmax - center, center - vmin)
-            normlize = mpl.colors.Normalize(center - vrange, center + vrange)
+            normlize = matplotlib.colors.Normalize(center - vrange, center + vrange)
             cmin, cmax = normlize([vmin, vmax])
             cc = np.linspace(cmin, cmax, 256)
-            self.cmap = mpl.colors.ListedColormap(self.cmap(cc))
+            self.cmap = matplotlib.colors.ListedColormap(self.cmap(cc))
             # self.cmap.set_bad(bad)
             if under_set:
                 self.cmap.set_under(under)  # set the color of -np.inf as the color for low out-of-range values.
@@ -266,7 +265,7 @@ class heatmapPlotter:
         # xticklabel_kwas: axis (x,y,both), which (major,minor,both),reset (True,False), direction (in, out, inout),
         # length, width, color (tick color), pad, labelsize, labelcolor, colors (for both tick and label),
         # zorder, bottom, top, left, right (bool), labelbottom, labeltop, labelleft,labelright (bool),
-        # labelrotation,grid_color,grid_alpha,grid_linewidth,grid_linestyle; ?mpl.axes.Axes.tick_params
+        # labelrotation,grid_color,grid_alpha,grid_linewidth,grid_linestyle; ?matplotlib.axes.Axes.tick_params
         if not xticklabels_kws is None:
             ax.xaxis.set_tick_params(**xticklabels_kws)
         else:
@@ -519,7 +518,7 @@ class AnnotationBase():
         col=self.df.columns.tolist()[0]
         cc_list = list(self.color_dict.keys())  # column values
         self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
-        self.cmap = mpl.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 
     def _type_specific_params(self):
         pass
@@ -572,7 +571,7 @@ class anno_simple(AnnotationBase):
         col=self.df.columns.tolist()[0]
         cc_list = list(self.color_dict.keys())  # column values
         self.cc_list=cc_list
-        self.cmap = mpl.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 
     def plot(self, ax=None,axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
@@ -1302,7 +1301,7 @@ class HeatmapAnnotation():
                                                   height_ratios=height_ratios,
                                                   width_ratios=width_ratios)
         else:
-            self.gs = mpl.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=hspace, wspace=wspace,
+            self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                            subplot_spec=subplot_spec,
                                                            height_ratios=height_ratios,
                                                            width_ratios=width_ratios)
@@ -1657,7 +1656,7 @@ class ClusterMapPlotter():
             self.ax_top_annotation = None
             self.ax_col_dendrogram = None
         elif self.col_dendrogram:
-            self.top_gs = mpl.gridspec.GridSpecFromSubplotSpec(2, 1, hspace=0, wspace=0, subplot_spec=self.gs[0, 1],
+            self.top_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(2, 1, hspace=0, wspace=0, subplot_spec=self.gs[0, 1],
                                height_ratios=[self.col_dendrogram_size,sum(self.top_annotation.heights)])
             self.ax_top_annotation = self.ax_top.figure.add_subplot(self.top_gs[1, 0])
             self.ax_col_dendrogram = self.ax_top.figure.add_subplot(self.top_gs[0, 0])
@@ -1675,7 +1674,7 @@ class ClusterMapPlotter():
             self.ax_left_annotation = None
             self.ax_row_dendrogram = None
         elif self.row_dendrogram:
-            self.left_gs = mpl.gridspec.GridSpecFromSubplotSpec(1, 2, hspace=0, wspace=0, subplot_spec=self.gs[1, 0],
+            self.left_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1, 2, hspace=0, wspace=0, subplot_spec=self.gs[1, 0],
                             width_ratios=[self.row_dendrogram_size,sum(self.left_annotation.heights)])
             self.ax_left_annotation = self.ax_left.figure.add_subplot(self.left_gs[0, 1])
             self.ax_row_dendrogram = self.ax_left.figure.add_subplot(self.left_gs[0, 0])
@@ -1862,7 +1861,7 @@ class ClusterMapPlotter():
                 gs = self.gs[1, 0]
             else:
                 gs = self.left_gs[0, 0]
-            self.row_dendrogram_gs = mpl.gridspec.GridSpecFromSubplotSpec(len(self.row_order),1,hspace=self.hspace,
+            self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(len(self.row_order),1,hspace=self.hspace,
                                                                           wspace=0,subplot_spec=gs,
                                                                           height_ratios=[len(rows) for rows
                                                                                         in self.row_order])
@@ -1890,7 +1889,7 @@ class ClusterMapPlotter():
                 gs = self.gs[0, 1]
             else:
                 gs = self.top_gs[0, 0]
-            self.col_dendrogram_gs = mpl.gridspec.GridSpecFromSubplotSpec(1,len(self.col_order),hspace=0,
+            self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1,len(self.col_order),hspace=0,
                                                                           wspace=self.wspace,subplot_spec=gs,
                                                                           width_ratios=[len(cols) for cols
                                                                                         in self.col_order])
@@ -1920,7 +1919,7 @@ class ClusterMapPlotter():
                     self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=0.0394 inch
         self.hspace = self.row_split_gap * 0.0394 * self.ax.figure.dpi / (
                     self.ax_heatmap.get_window_extent().height / ncols)
-        self.heatmap_gs = mpl.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace, wspace=self.wspace,
+        self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace, wspace=self.wspace,
                                                                subplot_spec=self.gs[1, 1],
                                                                height_ratios=[len(rows) for rows in self.row_order],
                                                                width_ratios=[len(cols) for cols in self.col_order])
@@ -2078,10 +2077,10 @@ class ClusterMapPlotter():
         self.ax.figure.tight_layout(**tight_params)
 
     def set_height(self, fig, height):
-        mpl.figure.Figure.set_figheight(fig, height)  # convert mm to inches
+        matplotlib.figure.Figure.set_figheight(fig, height)  # convert mm to inches
 
     def set_width(self, fig, width):
-        mpl.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
+        matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
 if __name__=="__main__":
     pass
