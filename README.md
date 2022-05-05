@@ -1,5 +1,5 @@
 # pyclustermap
-pyclustermap is a Python package for to plot complex heatmap (clustermap).
+pyclustermap is a Python package to plot complex heatmap (clustermap).
 
 ## Dependencies:
 - matplotlib
@@ -59,3 +59,4 @@ plt.show()
 ```
 
 ## **Examples**
+https://github.com/DingWB/pyclustermap/blob/main/examples.ipynb

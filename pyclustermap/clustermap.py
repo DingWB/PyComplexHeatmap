@@ -386,8 +386,16 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
 class AnnotationBase():
     """
     df: a pd.Series or pd.DataFrame
-    colors: a dict or list (for boxplot, barplot) or str, values are df.columns,
-            values are dict, keys are df[col].values and values are colors.
+    **, name-value pair, value can be a pandas dataframe, series, or annotation such as
+        anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
+    cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
+        matplotlib.pyplot.colormaps() to see all availabel cmap.
+        default cmap is 'auto', it would be determined based on the dtype for each columns of df.
+    colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+    legend: whether to plot legend for this annotation when legends are plotted.
+    legend_kws: kws passed to plt.legend
+    plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot
     """
 
     def __init__(self, df=None, cmap='auto', colors=None,
