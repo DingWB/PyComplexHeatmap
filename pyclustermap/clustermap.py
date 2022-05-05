@@ -703,7 +703,7 @@ class anno_label(AnnotationBase):
             x1 = ticks
             y1 = [text_y] * n
         else:
-            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             y = ticks
             x = [1] * n if self.side=='left' else [0]*n
             y1 = ticks
@@ -984,7 +984,7 @@ class anno_scatterplot(anno_barplot):
             x = np.arange(0.5, self.nrows, 1)
             y = values
         else:
-            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             y = np.arange(0.5, self.nrows, 1)
             x = values
         c = self.plot_kws.get('c', colors)
