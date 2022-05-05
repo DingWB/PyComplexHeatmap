@@ -697,7 +697,7 @@ class anno_label(AnnotationBase):
         if self.side=='bottom' or self.side=='left':
             text_y=-1*text_y
         if axis == 1:
-            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
             x=ticks
             y=[0]*n if self.side=='top' else [1]*n
             x1 = ticks
@@ -800,9 +800,9 @@ class anno_boxplot(AnnotationBase):
         else:
             vert = False
         if axis == 1:
-            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
         else:
-            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
         # bp = self.plot_data.T.boxplot(ax=ax, patch_artist=True,vert=vert,return_type='dict',**self.plot_kws)
         bp = ax.boxplot(x=self.plot_data.T.values, positions=np.arange(0.5, self.nrows, 1), patch_artist=True,
                         vert=vert, **self.plot_kws)
@@ -980,7 +980,7 @@ class anno_scatterplot(anno_barplot):
             spu = ax.get_window_extent().width * 72 / self.gap / fig.dpi  # size per unit
         self.s = (values - values.min() + self.gap * 0.1) * spu  # fontsize
         if axis == 1:
-            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1), labels=[])
+            ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
             x = np.arange(0.5, self.nrows, 1)
             y = values
         else:
