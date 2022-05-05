@@ -659,7 +659,7 @@ class anno_label(AnnotationBase):
         arrowprops = dict(arrowstyle="-", color="black",
                           shrinkA=shrink, shrinkB=shrink, relpos=relpos,
                           patchA=None, patchB=None,connectionstyle=None)
-        self.plot_kws.setdefault('transform_rotates_text', False)
+        # self.plot_kws.setdefault('transform_rotates_text', False)
         self.plot_kws.setdefault('arrowprops', arrowprops)
         self.plot_kws.setdefault('rotation_mode', 'anchor')
 
