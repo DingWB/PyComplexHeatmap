@@ -2,9 +2,10 @@
 pyclustermap is a Python package to plot complex heatmap (clustermap).
 
 ## Dependencies:
-- matplotlib
-- numpy
-- pandas
+- matplotlib==3.5.1
+- numpy==1.20.3
+- pandas==1.4.1
+pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 
 ## **Installation**
 1. **Install from github**:

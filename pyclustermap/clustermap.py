@@ -131,11 +131,20 @@ class heatmapPlotter:
         # Choose default colormaps if not provided
         if cmap is None:
             if center is None:
-                self.cmap = matplotlib.cm.get_cmap('turbo')
+                try:
+                    self.cmap = matplotlib.cm.get_cmap('turbo').copy()
+                except:
+                    self.cmap = matplotlib.cm.get_cmap('turbo')
             else:
-                self.cmap = matplotlib.cm.get_cmap('exp1')
+                try:
+                    self.cmap = matplotlib.cm.get_cmap('exp1').copy()
+                except:
+                    self.cmap = matplotlib.cm.get_cmap('exp1')
         elif isinstance(cmap, str):
-            self.cmap = matplotlib.cm.get_cmap(cmap)
+            try:
+                self.cmap = matplotlib.cm.get_cmap(cmap).copy()
+            except:
+                self.cmap = matplotlib.cm.get_cmap(cmap)
         elif isinstance(cmap, list):
             self.cmap = matplotlib.colors.ListedColormap(cmap)
         else:
