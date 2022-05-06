@@ -11,10 +11,10 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 1. **Install from github**:
 ```
 pip install git+https://github.com/DingWB/pyclustermap
-#if you have installed it previously and want to update it, please run 
-# pip uninstall pyclustermap
-#and install from github again
 ```
+if you have installed it previously and want to update it, please run 
+`pip uninstall pyclustermap`
+and install from github again
 OR
 ```
 git clone https://github.com/DingWB/pyclustermap

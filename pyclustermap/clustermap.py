@@ -1567,7 +1567,6 @@ class ClusterMapPlotter():
         self.cmap=cmap
         self.label=label if not label is None else 'heatmap'
         self.legend_gap=legend_gap
-        self._define_gs_ratio()
         if plot:
             self.plot()
             if plot_legend:
@@ -2042,6 +2041,7 @@ class ClusterMapPlotter():
             self.ax=plt.gca()
         else:
             self.ax=ax
+        self._define_gs_ratio()
         self._define_axes()
         self._define_top_axes()
         self._define_left_axes()
