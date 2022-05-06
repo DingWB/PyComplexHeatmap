@@ -517,7 +517,7 @@ class AnnotationBase():
     def _check_colors(self, colors):
         if not isinstance(colors, dict):
             raise TypeError("colors must be a dict!")
-        if len(colors) == self.df.iloc[:, 0].nunique():
+        if len(colors) >= self.df.iloc[:, 0].nunique():
             self.colors = colors
         else:
             raise TypeError("Unknown type of colors")
