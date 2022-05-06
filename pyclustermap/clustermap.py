@@ -1525,17 +1525,14 @@ class ClusterMapPlotter():
                  row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None,col_split=None,dendrogram_kws=None,tree_kws=None,
                  row_split_gap=0.5,col_split_gap=0.2,
-                 mask=None, ax=None,subplot_gap=1, plot=True,legend=True,legend_kws=None,
+                 mask=None,subplot_gap=1, legend=True,legend_kws=None,
+                 plot=True,plot_legend=True,
                  legend_anchor='ax_heatmap',legend_gap=3,
                  legend_side='right',cmap='jet',label=None,
                  xticklabels_kws=None,yticklabels_kws=None,rasterized=False,
                  **heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.mask = _check_mask(self.data2d, mask)
-        if ax is None:
-            self.ax = plt.gca()
-        else:
-            self.ax = ax
         self._define_kws(xticklabels_kws,yticklabels_kws)
         self.top_annotation = top_annotation
         self.bottom_annotation = bottom_annotation
@@ -1569,18 +1566,15 @@ class ClusterMapPlotter():
         self.legend_side=legend_side
         self.cmap=cmap
         self.label=label if not label is None else 'heatmap'
-        self.legend_anchor=legend_anchor
         self.legend_gap=legend_gap
         self._define_gs_ratio()
-        self._define_axes()
-        self._define_top_axes()
-        self._define_left_axes()
-        self._define_bottom_axes()
-        self._define_right_axes()
-        self._reorder_rows()
-        self._reorder_cols()
         if plot:
             self.plot()
+            if plot_legend:
+                if legend_anchor == 'ax_heatmap':
+                    self.plot_legends(ax=self.ax_heatmap)
+                else:
+                    self.plot_legends(ax=self.ax)
 
     def _define_kws(self,xticklabels_kws,yticklabels_kws):
         self.yticklabels_kws={} if yticklabels_kws is None else yticklabels_kws
@@ -1860,7 +1854,7 @@ class ClusterMapPlotter():
             else:
                 self.col_order.append(cols)
 
-    def plot_dendrograms(self):
+    def plot_dendrograms(self,row_order,col_order):
         rcmap=self.tree_kws.pop('row_cmap',None)
         ccmap = self.tree_kws.pop('col_cmap', None)
         tree_kws = self.tree_kws.copy()
@@ -1870,12 +1864,12 @@ class ClusterMapPlotter():
                 gs = self.gs[1, 0]
             else:
                 gs = self.left_gs[0, 0]
-            self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(len(self.row_order),1,hspace=self.hspace,
+            self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(len(row_order),1,hspace=self.hspace,
                                                                           wspace=0,subplot_spec=gs,
                                                                           height_ratios=[len(rows) for rows
-                                                                                        in self.row_order])
+                                                                                        in row_order])
             self.ax_row_dendrogram_axes = []
-            for i in range(len(self.row_order)):
+            for i in range(len(row_order)):
                 ax1=self.ax_row_dendrogram.figure.add_subplot(self.row_dendrogram_gs[i,0])
                 ax1.set_axis_off()
                 self.ax_row_dendrogram_axes.append(ax1)
@@ -1898,12 +1892,12 @@ class ClusterMapPlotter():
                 gs = self.gs[0, 1]
             else:
                 gs = self.top_gs[0, 0]
-            self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1,len(self.col_order),hspace=0,
+            self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1,len(col_order),hspace=0,
                                                                           wspace=self.wspace,subplot_spec=gs,
                                                                           width_ratios=[len(cols) for cols
-                                                                                        in self.col_order])
+                                                                                        in col_order])
             self.ax_col_dendrogram_axes = []
-            for i in range(len(self.col_order)):
+            for i in range(len(col_order)):
                 ax1=self.ax_col_dendrogram.figure.add_subplot(self.col_dendrogram_gs[0, i])
                 ax1.set_axis_off()
                 self.ax_col_dendrogram_axes.append(ax1)
@@ -1921,17 +1915,17 @@ class ClusterMapPlotter():
             except:
                 self.dendrogram_col.plot(ax=self.ax_col_dendrogram,tree_kws=self.tree_kws)
 
-    def plot_matrix(self):
-        nrows = len(self.row_order)
-        ncols = len(self.col_order)
+    def plot_matrix(self,row_order,col_order):
+        nrows = len(row_order)
+        ncols = len(col_order)
         self.wspace = self.col_split_gap * 0.0394 * self.ax.figure.dpi / (
                     self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=0.0394 inch
         self.hspace = self.row_split_gap * 0.0394 * self.ax.figure.dpi / (
                     self.ax_heatmap.get_window_extent().height / ncols)
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace, wspace=self.wspace,
                                                                subplot_spec=self.gs[1, 1],
-                                                               height_ratios=[len(rows) for rows in self.row_order],
-                                                               width_ratios=[len(cols) for cols in self.col_order])
+                                                               height_ratios=[len(rows) for rows in row_order],
+                                                               width_ratios=[len(cols) for cols in col_order])
 
         annot = self.heatmap_kws.pop("annot", None)
         if annot is None or annot is False:
@@ -1946,10 +1940,10 @@ class ClusterMapPlotter():
                     raise ValueError(err)
 
         self.heatmap_axes = np.empty(shape=(nrows, ncols), dtype=object)
-        if len(self.row_order) >1 or len(self.col_order) >1:
+        if len(row_order) >1 or len(col_order) >1:
             self.ax_heatmap.set_axis_off()
-        for i, rows in enumerate(self.row_order):
-            for j, cols in enumerate(self.col_order):
+        for i, rows in enumerate(row_order):
+            for j, cols in enumerate(col_order):
                 gs = self.heatmap_gs[i, j]
                 sharex = self.heatmap_axes[0, j]
                 sharey = self.heatmap_axes[i, 0]
@@ -1960,8 +1954,6 @@ class ClusterMapPlotter():
                 mask = self.mask.loc[rows, cols]
                 annot1=None if annot is None else annot_data.loc[rows,cols]
 
-                # Setting ax_cbar=None in clustermap call implies no colorbar
-                # kws.setdefault("cbar", self.ax_cbar is not None)
                 heatmap(data, ax=ax1, cbar=False,cmap=self.cmap,
                         cbar_kws=None, mask=mask,rasterized=self.rasterized,
                         xticklabels='auto', yticklabels='auto', annot=annot1, **self.heatmap_kws)
@@ -2041,37 +2033,46 @@ class ClusterMapPlotter():
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 
     def plot_legends(self,ax=None):
-        self.collect_legends()
         if len(self.legend_list) > 0:
             self.legend_axes,self.boundry=plot_legend_list(self.legend_list, ax=ax, space=self.label_max_width,
                                          legend_side=self.legend_side,gap=self.legend_gap)
 
-    def plot(self):
-        self.plot_matrix()
+    def plot(self,ax=None,row_order=None,col_order=None):
+        if ax is None:
+            self.ax=plt.gca()
+        else:
+            self.ax=ax
+        self._define_axes()
+        self._define_top_axes()
+        self._define_left_axes()
+        self._define_bottom_axes()
+        self._define_right_axes()
+        if row_order is None:
+            self._reorder_rows()
+            row_order = self.row_order
+        if col_order is None:
+            self._reorder_cols()
+            col_order = self.col_order
+        self.plot_matrix(row_order=row_order,col_order=col_order)
         if not self.top_annotation is None:
             gs=self.gs[0, 1] if not self.col_dendrogram else self.top_gs[1, 0]
             self.top_annotation.plot_annotations(ax=self.ax_top_annotation,subplot_spec=gs,
-                                     idxs=self.col_order, wspace=self.wspace)
+                                     idxs=col_order, wspace=self.wspace)
         if not self.bottom_annotation is None:
             self.bottom_annotation.plot_annotations(ax=self.ax_bottom_annotation, subplot_spec=self.gs[2, 1],
-                                        idxs=self.col_order, wspace=self.wspace)
+                                        idxs=col_order, wspace=self.wspace)
         if not self.left_annotation is None:
             gs = self.gs[1, 0] if not self.row_dendrogram else self.left_gs[0, 1]
             self.left_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=gs,
-                                      idxs=self.row_order,hspace=self.hspace)
+                                      idxs=row_order,hspace=self.hspace)
         if not self.right_annotation is None:
             self.right_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=self.gs[1, 2],
-                                       idxs=self.row_order,hspace=self.hspace)
+                                       idxs=row_order,hspace=self.hspace)
         if self.row_cluster or self.col_cluster:
-            self.plot_dendrograms()
+            self.plot_dendrograms(row_order,col_order)
         self.set_axes_labels_kws()
         self.collect_legends()
         # _draw_figure(self.ax_heatmap.figure)
-        if self.legend_anchor=='ax_heatmap':
-            self.plot_legends(ax=self.ax_heatmap)
-        else:
-            self.plot_legends(ax=self.ax)
-        # self.tight_layout()
         return self.ax
 
     def tight_layout(self,**tight_params):
@@ -2090,6 +2091,60 @@ class ClusterMapPlotter():
 
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
+
+def composite(ax=None,cmlist=None,main=None,axis=1,row_gap=0.5,col_gap=0.5,
+              legend_side='right',legend_gap=3):
+    """
+    cmlist: a list of ClusterMapPlotter (with plot=False).
+    axis: 1 for columns (align the cmlist horizontally), 0 for rows (vertically).
+    main: use which as main ClusterMapPlotter, will influence row/col order. main is the index
+        of cmlist.
+    row/col_gap, the row or columns gap between subplots, unit is mm.
+    legend_side: right,left
+    legend_gap, row gap between two legends, unit is mm.
+    """
+    if ax is None:
+        ax=plt.gca()
+    n=len(cmlist)
+    wspace,hspace=0,0
+    if axis==1: #horizontally
+        wspace = col_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().width / n)
+        nrows=1
+        ncols=n
+        width_ratios=[cm.data2d.shape[1] for cm in cmlist]
+        height_ratios=None
+    else: #vertically
+        hspace = row_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().height / n)
+        nrows=n
+        ncols=1
+        width_ratios = None
+        height_ratios = [cm.data2d.shape[0] for cm in cmlist]
+    gs = ax.figure.add_gridspec(nrows, ncols, width_ratios=width_ratios,
+                                          height_ratios=height_ratios,
+                                          wspace=wspace, hspace=hspace)
+    axes = []
+    for i,cm in enumerate(cmlist):
+        sharex=axes[0] if axis==0 and i>0 else None
+        sharey=axes[0] if axis==1 and i>0 else None
+        gs1=gs[i,0] if axis==0 else gs[0,i]
+        ax1 = ax.figure.add_subplot(gs1, sharex=sharex, sharey=sharey)
+        ax1.set_axis_off()
+        axes.append(ax1)
+    cm_list = cmlist.copy()
+    cm_1=cm_list.pop(main)
+    ax1=axes.pop(main)
+    cm_1.plot(ax=ax1, row_order=None, col_order=None)
+    legend_list=cm_1.legend_list
+    for i,cm in enumerate(cm_list):
+        cm.plot(ax=axes[i], row_order=cm_1.row_order, col_order=cm_1.col_order)
+        legend_list.extend(cm.legend_list)
+    legend_list=list(set(legend_list))
+    if len(legend_list)==0:
+        return None
+    legend_list = sorted(legend_list, key=lambda x: x[3])
+    legend_axes, boundry = plot_legend_list(legend_list, ax=ax, space=0,
+                                          legend_side=legend_side, gap=legend_gap)
+    return legend_axes
 
 if __name__=="__main__":
     pass
