@@ -2099,7 +2099,7 @@ class ClusterMapPlotter():
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
-def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=20,col_gap=20,
+def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=15,col_gap=15,
               legend_side='right',legend_gap=3,legend_y=0.8,legendpad=None):
     """
     cmlist: a list of ClusterMapPlotter (with plot=False).
