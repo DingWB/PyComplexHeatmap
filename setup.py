@@ -18,6 +18,6 @@ setup(
    author_email='ding.wu.bin.gm@gmail.com',
    url="https://github.com/DingWB/pyclustermap",
    packages=['pyclustermap'],
-   install_requires=['matplotlib>=3.4.3','pandas'],
+   install_requires=['matplotlib>=3.3.1','pandas'],
    #scripts=['scripts/pyclustermap'],
 )
