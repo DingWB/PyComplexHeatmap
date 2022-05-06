@@ -1567,6 +1567,7 @@ class ClusterMapPlotter():
         self.cmap=cmap
         self.label=label if not label is None else 'heatmap'
         self.legend_gap=legend_gap
+        self.legend_anchor=legend_anchor
         if plot:
             self.plot()
             if plot_legend:
@@ -1621,11 +1622,17 @@ class ClusterMapPlotter():
         self.heights = [sum(self.top_heights),heatmap_h,sum(self.bottom_heights)]
         self.widths = [sum(self.left_widths),heatmap_w,sum(self.right_widths)]
 
-    def _define_axes(self):
+    def _define_axes(self,subplot_spec=None):
         wspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().width / 3)
         hspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().height / 3)
-        self.gs = self.ax.figure.add_gridspec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
-                                              wspace=wspace, hspace=hspace)
+
+        if subplot_spec is None:
+            self.gs = self.ax.figure.add_gridspec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
+                                                  wspace=wspace, hspace=hspace)
+        else:
+            self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
+                                                  wspace=wspace, hspace=hspace, subplot_spec=subplot_spec)
+
         self.ax_heatmap = self.ax.figure.add_subplot(self.gs[1, 1])
         self.ax_top = self.ax.figure.add_subplot(self.gs[0, 1], sharex=self.ax_heatmap)
         self.ax_bottom = self.ax.figure.add_subplot(self.gs[2, 1], sharex=self.ax_heatmap)
@@ -2036,13 +2043,13 @@ class ClusterMapPlotter():
             self.legend_axes,self.boundry=plot_legend_list(self.legend_list, ax=ax, space=self.label_max_width,
                                          legend_side=self.legend_side,gap=self.legend_gap)
 
-    def plot(self,ax=None,row_order=None,col_order=None):
+    def plot(self,ax=None,subplot_spec=None,row_order=None,col_order=None):
         if ax is None:
             self.ax=plt.gca()
         else:
             self.ax=ax
         self._define_gs_ratio()
-        self._define_axes()
+        self._define_axes(subplot_spec)
         self._define_top_axes()
         self._define_left_axes()
         self._define_bottom_axes()
@@ -2092,8 +2099,8 @@ class ClusterMapPlotter():
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
-def composite(ax=None,cmlist=None,main=None,axis=1,row_gap=0.5,col_gap=0.5,
-              legend_side='right',legend_gap=3):
+def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=20,col_gap=20,
+              legend_side='right',legend_gap=3,legend_y=0.8,legendpad=None):
     """
     cmlist: a list of ClusterMapPlotter (with plot=False).
     axis: 1 for columns (align the cmlist horizontally), 0 for rows (vertically).
@@ -2120,8 +2127,8 @@ def composite(ax=None,cmlist=None,main=None,axis=1,row_gap=0.5,col_gap=0.5,
         width_ratios = None
         height_ratios = [cm.data2d.shape[0] for cm in cmlist]
     gs = ax.figure.add_gridspec(nrows, ncols, width_ratios=width_ratios,
-                                          height_ratios=height_ratios,
-                                          wspace=wspace, hspace=hspace)
+                              height_ratios=height_ratios,
+                              wspace=wspace, hspace=hspace)
     axes = []
     for i,cm in enumerate(cmlist):
         sharex=axes[0] if axis==0 and i>0 else None
@@ -2130,20 +2137,37 @@ def composite(ax=None,cmlist=None,main=None,axis=1,row_gap=0.5,col_gap=0.5,
         ax1 = ax.figure.add_subplot(gs1, sharex=sharex, sharey=sharey)
         ax1.set_axis_off()
         axes.append(ax1)
-    cm_list = cmlist.copy()
-    cm_1=cm_list.pop(main)
-    ax1=axes.pop(main)
-    cm_1.plot(ax=ax1, row_order=None, col_order=None)
+    cm_1=cmlist[main]
+    ax1=axes[main]
+    gs1 = gs[main, 0] if axis == 0 else gs[0, main]
+    cm_1.plot(ax=ax1, subplot_spec=gs1,row_order=None, col_order=None)
     legend_list=cm_1.legend_list
-    for i,cm in enumerate(cm_list):
-        cm.plot(ax=axes[i], row_order=cm_1.row_order, col_order=cm_1.col_order)
-        legend_list.extend(cm.legend_list)
-    legend_list=list(set(legend_list))
+    legend_names=[L[1] for L in legend_list]
+    label_max_width=ax.figure.get_window_extent().width*cm_1.label_max_width / cm_1.ax.figure.get_window_extent().width
+    for i,cm in enumerate(cmlist):
+        if i==main:
+            continue
+        gs1 = gs[i, 0] if axis == 0 else gs[0, i]
+        cm.plot(ax=axes[i], subplot_spec=gs1, row_order=cm_1.row_order, col_order=cm_1.col_order)
+        for L in cm.legend_list:
+            if L[1] not in legend_names:
+                legend_names.append(L[1])
+                legend_list.append(L)
+        w=ax.figure.get_window_extent().width*cm.label_max_width / cm.ax.figure.get_window_extent().width
+        if w > label_max_width:
+            label_max_width=w
     if len(legend_list)==0:
         return None
     legend_list = sorted(legend_list, key=lambda x: x[3])
-    legend_axes, boundry = plot_legend_list(legend_list, ax=ax, space=0,
-                                          legend_side=legend_side, gap=legend_gap)
+    if legendpad is None:
+        space=col_gap*0.0394*ax.figure.dpi+label_max_width
+    else:
+        space=legendpad*ax.figure.dpi / 72
+    legend_axes, boundry = plot_legend_list(legend_list, ax=ax, space=space,
+                                          legend_side=legend_side, gap=legend_gap,y0=legend_y)
+    ax.set_axis_off()
+    # import pdb;
+    # pdb.set_trace()
     return legend_axes
 
 if __name__=="__main__":

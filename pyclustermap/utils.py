@@ -249,7 +249,8 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     # f = cbar.ax.get_window_extent().height / cax.get_window_extent().height
     return cbar
 
-def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',gap=2):
+def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
+                     y0=None,gap=2):
     """
     :param legend_list: handles(dict) / cmap, title, legend_kws
     :param ax:
@@ -272,7 +273,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',gap=2)
     # print(ax.get_position(),ax_legend.get_position())
     legend_axes=[ax_legend]
     leg_pos = ax_legend.get_position()
-    y = leg_pos.y1
+    y = leg_pos.y1 if y0 is None else y0
     max_width=0
     h_gap=round(gap*0.0394*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm height gap between two legends
     for i,legend in enumerate(legend_list):
@@ -291,7 +292,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',gap=2)
                 ax1=legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y=leg_pos.y1
+                y=leg_pos.y1 if y0 is None else y0
                 max_width = 0
             y_cax_to_figure=y-f
             width=leg_pos.width
@@ -320,7 +321,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',gap=2)
                 ax1 = legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y = leg_pos.y1
+                y=leg_pos.y1 if y0 is None else y0
                 max_width=0
                 continue
             f = L.get_window_extent().height / ax.figure.get_window_extent().height
