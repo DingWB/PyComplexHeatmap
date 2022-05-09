@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; pyclustermap 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pyclustermap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#installing-the-latest-code-from-github-recommended">Installing the latest code from github (recommended)</a></li>
+<li><a class="reference internal" href="#installing-a-particular-release">Installing a particular release</a></li>
+<li><a class="reference internal" href="#to-run-using-docker">To run using docker</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyclustermap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p>A compiler that supports C++11 is needed to build nanopolish. Development of the code is performed using <a class="reference external" href="https://gcc.gnu.org/gcc-4.8/">gcc-4.8</a>.</p>
+<p>By default, nanopolish will download and compile all of its required dependencies. Some users however may want to use system-wide versions of the libraries. To turn off the automatic installation of dependencies set <cite>HDF5=noinstall</cite>, <cite>EIGEN=noinstall</cite> or <cite>HTS=noinstall</cite> parameters when running <cite>make</cite> as appropriate. The current versions and compile options for the dependencies are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.hdfgroup.org/HDF5/release/obtain5.html">libhdf5-1.8.14</a> compiled with multi-threading support <code class="docutils literal notranslate"><span class="pre">--enable-threadsafe</span></code></p></li>
+<li><p><a class="reference external" href="http://eigen.tuxfamily.org/">eigen-3.2.5</a></p></li>
+<li><p><a class="reference external" href="http://github.com/samtools/htslib">htslib-1.4</a></p></li>
+</ul>
+<p>Additionally the helper <cite>scripts</cite> require <a class="reference external" href="http://biopython.org/">biopython</a> and <a class="reference external" href="http://pysam.readthedocs.io/en/latest/installation.html">pysam</a>.</p>
+</section>
+<section id="installing-the-latest-code-from-github-recommended">
+<h2>Installing the latest code from github (recommended)<a class="headerlink" href="#installing-the-latest-code-from-github-recommended" title="Permalink to this headline"></a></h2>
+<p>You can download and compile the latest code from github as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">nanopolish</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">nanopolish</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-a-particular-release">
+<h2>Installing a particular release<a class="headerlink" href="#installing-a-particular-release" title="Permalink to this headline"></a></h2>
+<p>When major features have been added or bugs fixed, we will tag and release a new version of nanopolish. If you wish to use a particular version, you can checkout the tagged version before compiling</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">nanopolish</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">nanopolish</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">v0</span><span class="mf">.7.1</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+</section>
+<section id="to-run-using-docker">
+<h2>To run using docker<a class="headerlink" href="#to-run-using-docker" title="Permalink to this headline"></a></h2>
+<p>First build the image from the dockerfile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Note the uuid given upon successful build. Then you can run nanopolish from the image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="o">/</span> <span class="o">-</span><span class="n">it</span> <span class="p">:</span><span class="n">image_id</span>  <span class="o">./</span><span class="n">nanopolish</span> <span class="n">eventalign</span> <span class="o">-</span><span class="n">r</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">reads</span><span class="o">.</span><span class="n">fa</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">alignments</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> <span class="o">-</span><span class="n">g</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">ref</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

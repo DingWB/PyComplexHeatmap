@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart - how to polish a genome assembly &mdash; pyclustermap 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pyclustermap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Quickstart - how to polish a genome assembly</a><ul>
+<li><a class="reference internal" href="#download-example-dataset">Download example dataset</a></li>
+<li><a class="reference internal" href="#analysis-workflow">Analysis workflow</a></li>
+<li><a class="reference internal" href="#data-preprocessing">Data preprocessing</a></li>
+<li><a class="reference internal" href="#compute-the-draft-genome-assembly-using-canu">Compute the draft genome assembly using canu</a></li>
+<li><a class="reference internal" href="#compute-a-new-consensus-sequence-for-a-draft-assembly">Compute a new consensus sequence for a draft assembly</a></li>
+<li><a class="reference internal" href="#evaluate-the-assembly">Evaluate the assembly</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyclustermap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Quickstart - how to polish a genome assembly</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart_consensus.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart-how-to-polish-a-genome-assembly">
+<span id="quickstart-consensus"></span><h1>Quickstart - how to polish a genome assembly<a class="headerlink" href="#quickstart-how-to-polish-a-genome-assembly" title="Permalink to this headline"></a></h1>
+<p>The original purpose of nanopolish was to improve the consensus accuracy of an assembly of Oxford Nanopore Technology sequencing reads. Here we provide a step-by-step tutorial to help you get started.</p>
+<p><strong>Requirements</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="installation.html">nanopolish</a></p></li>
+<li><p><a class="reference external" href="https://htslib.org">samtools</a></p></li>
+<li><p><a class="reference external" href="https://github.com/lh3/minimap2">minimap2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mummer4/mummer">MUMmer</a></p></li>
+</ul>
+<section id="download-example-dataset">
+<h2>Download example dataset<a class="headerlink" href="#download-example-dataset" title="Permalink to this headline"></a></h2>
+<p>You can download the example dataset we will use here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">s3</span><span class="o">.</span><span class="n">climb</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">nanopolish_tutorial</span><span class="o">/</span><span class="n">ecoli_2kb_region</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">ecoli_2kb_region</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">ecoli_2kb_region</span>
+</pre></div>
+</div>
+<p><strong>Details</strong>:</p>
+<ul class="simple">
+<li><p>Sample :      E. coli str. K-12 substr. MG1655</p></li>
+<li><p>Instrument : MinION sequencing R9.4 chemistry</p></li>
+<li><p>Basecaller : Albacore v2.0.1</p></li>
+<li><p>Region: “tig00000001:200000-202000”</p></li>
+<li><p>Note: Ligation-mediated PCR amplification performed</p></li>
+</ul>
+<p>This is a subset of reads that aligned to a 2kb region in the E. coli draft assembly. To see how we generated these files please refer to the tutorial <span class="xref std std-ref">creating_example_dataset</span>.</p>
+<p>You should find the following files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reads.fasta</span></code> : subset of basecalled reads</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">draft.fa</span></code> : draft genome assembly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">draft.fa.fai</span></code> : draft genome assembly index</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fast5_files/</span></code> : a directory containing FAST5 files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ecoli_2kb_region.log</span></code> : a log file for how the dataset was created with nanopolish helper script (<code class="docutils literal notranslate"><span class="pre">scripts/extract_reads_aligned_to_region.py</span></code>)</p></li>
+</ul>
+<p>For the evaluation step you will need the reference genome:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">o</span> <span class="n">ref</span><span class="o">.</span><span class="n">fa</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">ncbi</span><span class="o">.</span><span class="n">nih</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">genomes</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">old_genbank</span><span class="o">/</span><span class="n">Bacteria</span><span class="o">/</span><span class="n">Escherichia_coli_K_12_substr__MG1655_uid225</span><span class="o">/</span><span class="n">U00096</span><span class="o">.</span><span class="n">ffn</span>
+</pre></div>
+</div>
+</section>
+<section id="analysis-workflow">
+<h2>Analysis workflow<a class="headerlink" href="#analysis-workflow" title="Permalink to this headline"></a></h2>
+<p>The pipeline below describes the recommended analysis workflow for larger datasets. In this tutorial, we will run through the basic steps of the pipeline for this smaller (2kb) dataset.</p>
+<figure class="align-default">
+<img alt="nanopolish-tutorial-workflow" src="_static/nanopolish-workflow.png" />
+</figure>
+</section>
+<section id="data-preprocessing">
+<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline"></a></h2>
+<p>nanopolish needs access to the signal-level data measured by the nanopore sequencer. To begin, we need to create an index <code class="docutils literal notranslate"><span class="pre">readdb</span></code> file that links read ids with their signal-level data in the FAST5 files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">index</span> <span class="o">-</span><span class="n">d</span> <span class="n">fast5_files</span><span class="o">/</span> <span class="n">reads</span><span class="o">.</span><span class="n">fasta</span>
+</pre></div>
+</div>
+<p>We get the following files: <code class="docutils literal notranslate"><span class="pre">reads.fasta.index</span></code>, <code class="docutils literal notranslate"><span class="pre">reads.fasta.index.fai</span></code>, <code class="docutils literal notranslate"><span class="pre">reads.fasta.index.gzi</span></code>, and <code class="docutils literal notranslate"><span class="pre">reads.fasta.index.readdb</span></code>.</p>
+</section>
+<section id="compute-the-draft-genome-assembly-using-canu">
+<h2>Compute the draft genome assembly using canu<a class="headerlink" href="#compute-the-draft-genome-assembly-using-canu" title="Permalink to this headline"></a></h2>
+<p>As computing the draft genome assembly takes a few hours we have included the pre-assembled data for you (<code class="docutils literal notranslate"><span class="pre">draft.fa</span></code>).
+We used the following parameters with <a class="reference external" href="http://canu.readthedocs.io/en/latest/">canu</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">canu</span> \
+    <span class="o">-</span><span class="n">p</span> <span class="n">ecoli</span> <span class="o">-</span><span class="n">d</span> <span class="n">outdir</span> <span class="n">genomeSize</span><span class="o">=</span><span class="mf">4.6</span><span class="n">m</span> \
+    <span class="o">-</span><span class="n">nanopore</span><span class="o">-</span><span class="n">raw</span> <span class="n">albacore</span><span class="o">-</span><span class="mf">2.0.1</span><span class="o">-</span><span class="n">merged</span><span class="o">.</span><span class="n">fastq</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-a-new-consensus-sequence-for-a-draft-assembly">
+<h2>Compute a new consensus sequence for a draft assembly<a class="headerlink" href="#compute-a-new-consensus-sequence-for-a-draft-assembly" title="Permalink to this headline"></a></h2>
+<p>Now that we have <code class="docutils literal notranslate"><span class="pre">reads.fasta</span></code> indexed with <code class="docutils literal notranslate"><span class="pre">nanopolish</span> <span class="pre">index</span></code>, and have a draft genome assembly <code class="docutils literal notranslate"><span class="pre">draft.fa</span></code>, we can begin to improve the assembly with nanopolish. Let us get started!</p>
+<p>First, we align the original reads (<code class="docutils literal notranslate"><span class="pre">reads.fasta</span></code>) to the draft assembly (<code class="docutils literal notranslate"><span class="pre">draft.fa</span></code>) and sort alignments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimap2</span> <span class="o">-</span><span class="n">ax</span> <span class="nb">map</span><span class="o">-</span><span class="n">ont</span> <span class="o">-</span><span class="n">t</span> <span class="mi">8</span> <span class="n">draft</span><span class="o">.</span><span class="n">fa</span> <span class="n">reads</span><span class="o">.</span><span class="n">fasta</span> <span class="o">|</span> <span class="n">samtools</span> <span class="n">sort</span> <span class="o">-</span><span class="n">o</span> <span class="n">reads</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> <span class="o">-</span><span class="n">T</span> <span class="n">reads</span><span class="o">.</span><span class="n">tmp</span>
+<span class="n">samtools</span> <span class="n">index</span> <span class="n">reads</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<p><strong>Checkpoint</strong>: we can do a quick check to see if this step worked. The bam file should not be empty.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samtools</span> <span class="n">view</span> <span class="n">reads</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> <span class="o">|</span> <span class="n">head</span>
+</pre></div>
+</div>
+<p>Then we run the consensus algorithm. For larger datasets we use <code class="docutils literal notranslate"><span class="pre">nanopolish_makerange.py</span></code> to split the draft genome assembly into 50kb segments, so that we can run the consensus algorithm on each segment in parallel. The output would be the polished segments in <code class="docutils literal notranslate"><span class="pre">fasta</span></code> format.
+Since our dataset is only covering a 2kb region, we skip this step and use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">variants</span> <span class="o">--</span><span class="n">consensus</span> <span class="o">-</span><span class="n">o</span> <span class="n">polished</span><span class="o">.</span><span class="n">vcf</span> \
+    <span class="o">-</span><span class="n">w</span> <span class="s2">&quot;tig00000001:200000-202000&quot;</span> \
+    <span class="o">-</span><span class="n">r</span> <span class="n">reads</span><span class="o">.</span><span class="n">fasta</span> \
+    <span class="o">-</span><span class="n">b</span> <span class="n">reads</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> \
+    <span class="o">-</span><span class="n">g</span> <span class="n">draft</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p>We are left with: <code class="docutils literal notranslate"><span class="pre">polished.vcf</span></code>.</p>
+<p><strong>Note</strong>: As of v0.10.1, <code class="docutils literal notranslate"><span class="pre">nanopolish</span> <span class="pre">variants</span> <span class="pre">--consensus</span></code> only outputs a VCF file instead of a fasta sequence.</p>
+<p>To generate the polished genome in fasta format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">vcf2fasta</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">checks</span> <span class="o">-</span><span class="n">g</span> <span class="n">draft</span><span class="o">.</span><span class="n">fa</span> <span class="n">polished</span><span class="o">.</span><span class="n">vcf</span> <span class="o">&gt;</span> <span class="n">polished_genome</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p>We only polished a 2kb region, so let’s pull that out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samtools</span> <span class="n">faidx</span> <span class="n">polished_genome</span><span class="o">.</span><span class="n">fa</span>
+<span class="n">samtools</span> <span class="n">faidx</span> <span class="n">polished_genome</span><span class="o">.</span><span class="n">fa</span> <span class="s2">&quot;tig00000001:200000-202000&quot;</span> <span class="o">&gt;</span> <span class="n">polished</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+</section>
+<section id="evaluate-the-assembly">
+<h2>Evaluate the assembly<a class="headerlink" href="#evaluate-the-assembly" title="Permalink to this headline"></a></h2>
+<p>To analyze how nanopolish performed improving the accuracy we use <a class="reference external" href="https://github.com/mummer4/mummer">MUMmer</a>. MUMmer contains “dnadiff”, a program that enables us to see a report on alignment statistics. With dnadiff we can compare the two different assemblies.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">analysis</span>
+<span class="n">MUMmer3</span><span class="mf">.23</span><span class="o">/</span><span class="n">dnadiff</span> <span class="o">--</span><span class="n">prefix</span> <span class="n">analysis</span><span class="o">/</span><span class="n">draft</span><span class="o">.</span><span class="n">dnadiff</span> <span class="n">ref</span><span class="o">.</span><span class="n">fa</span> <span class="n">draft</span><span class="o">.</span><span class="n">fa</span>
+<span class="n">MUMmer3</span><span class="mf">.23</span><span class="o">/</span><span class="n">dnadiff</span> <span class="o">--</span><span class="n">prefix</span> <span class="n">analysis</span><span class="o">/</span><span class="n">polished</span><span class="o">.</span><span class="n">dnadiff</span> <span class="n">ref</span><span class="o">.</span><span class="n">fa</span> <span class="n">polished</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p>This generates <code class="docutils literal notranslate"><span class="pre">draft.dnadiff.report</span></code> and <code class="docutils literal notranslate"><span class="pre">polished.dnadiff.report</span></code> along with other files. The metric we are interested in is <code class="docutils literal notranslate"><span class="pre">AvgIdentity</span></code> under <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">Alignments</span> <span class="pre">]</span> <span class="pre">1-to-1</span></code>, which is a measurement of how similar the genome assemblies are to the reference genome. We expect to see a higher value for the polished assembly than the draft ( <code class="docutils literal notranslate"><span class="pre">99.90</span></code> vs <code class="docutils literal notranslate"><span class="pre">99.53</span></code> ), concluding that the nanopolish consensus algorithm worked successfully.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The example dataset was PCR amplified causing a loss of methylation information. We recommend using the <code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">dam,dcm</span></code> with <code class="docutils literal notranslate"><span class="pre">nanopolish</span> <span class="pre">variants</span> <span class="pre">--consensus</span></code> if you have data with methylation information to account for known bacterial methyltransferases.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
