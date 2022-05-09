@@ -370,6 +370,9 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
             xticklabels_kws=None, yticklabels_kws=None, mask=None, na_col='white', ax=None,
             annot=None, fmt=".2g", annot_kws=None, linewidths=0, linecolor="white",
             **kwargs):
+    """
+    Plot heatmap
+    """
     plotter = heatmapPlotter(data=data, vmin=vmin, vmax=vmax, cmap=cmap, center=center, robust=robust,
                            annot=annot, fmt=fmt, annot_kws=annot_kws, cbar=cbar, cbar_kws=cbar_kws,
                            xlabel=xlabel, ylabel=ylabel, xticklabels=xticklabels, yticklabels=yticklabels,
@@ -547,6 +550,9 @@ class AnnotationBase():
         self._set_default_plot_kws(self.plot_kws)
 
 class anno_simple(AnnotationBase):
+    """
+    Annotate simple annotation, categorical or continuous variables.
+    """
     def __init__(self,df=None, cmap='auto', colors=None,add_text=False,
                  text_kws=None,height=None,legend=True,legend_kws=None,
                  **plot_kws):

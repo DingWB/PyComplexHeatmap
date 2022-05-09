@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyclustermap package &mdash; pyclustermap 1.0 documentation</title>
+  <title>pyclustermap package &mdash; pyclustermap 0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -44,10 +44,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyclustermap package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap.clustermap">pyclustermap.clustermap module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap.colors">pyclustermap.colors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap.example">pyclustermap.example module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap.test">pyclustermap.test module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap.utils">pyclustermap.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap">Module contents</a></li>
 </ul>
 </li>
@@ -399,133 +395,6 @@ legend_gap, row gap between two legends, unit is mm.</p>
 <dd><p>Draw the heatmap on the provided Axes.</p>
 </dd></dl>
 
-</dd></dl>
-
-</section>
-<section id="module-pyclustermap.colors">
-<span id="pyclustermap-colors-module"></span><h2>pyclustermap.colors module<a class="headerlink" href="#module-pyclustermap.colors" title="Permalink to this headline"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.colors.define_cmap">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.colors.</span></span><span class="sig-name descname"><span class="pre">define_cmap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.colors.define_cmap" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="module-pyclustermap.example">
-<span id="pyclustermap-example-module"></span><h2>pyclustermap.example module<a class="headerlink" href="#module-pyclustermap.example" title="Permalink to this headline"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.example.clustermap_example0">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.example.</span></span><span class="sig-name descname"><span class="pre">clustermap_example0</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.example.clustermap_example0" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.example.clustermap_example1">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.example.</span></span><span class="sig-name descname"><span class="pre">clustermap_example1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.example.clustermap_example1" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="module-pyclustermap.test">
-<span id="pyclustermap-test-module"></span><h2>pyclustermap.test module<a class="headerlink" href="#module-pyclustermap.test" title="Permalink to this headline"></a></h2>
-</section>
-<section id="module-pyclustermap.utils">
-<span id="pyclustermap-utils-module"></span><h2>pyclustermap.utils module<a class="headerlink" href="#module-pyclustermap.utils" title="Permalink to this headline"></a></h2>
-<p>Utility functions, for internal use.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.axis_ticklabels_overlap">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">axis_ticklabels_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.axis_ticklabels_overlap" title="Permalink to this definition"></a></dt>
-<dd><p>Return a boolean for whether the list of ticklabels have overlaps.
-:param labels:
-:type labels: list of matplotlib ticklabels</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>overlap</strong> – True if any of the labels overlap.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>boolean</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.cluster_labels">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">cluster_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.cluster_labels" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.despine">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">despine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.despine" title="Permalink to this definition"></a></dt>
-<dd><p>Remove the top and right spines from plot(s).
-fig : matplotlib figure, optional</p>
-<blockquote>
-<div><p>Figure to despine all axes of, defaults to the current figure.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>ax<span class="classifier">matplotlib axes, optional</span></dt><dd><p>Specific axes object to despine. Ignored if fig is provided.</p>
-</dd>
-<dt>top, right, left, bottom<span class="classifier">boolean, optional</span></dt><dd><p>If True, remove that spine.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.plot_cmap_legend">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_cmap_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'turbo'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.plot_cmap_legend" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cmap</strong> – turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.plot_color_dict_legend">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_color_dict_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.plot_color_dict_legend" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.plot_legend_list">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_legend_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.plot_legend_list" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>legend_list</strong> – handles(dict) / cmap, title, legend_kws</p></li>
-<li><p><strong>ax</strong> – </p></li>
-</ul>
-</dd>
-</dl>
-<p>:param space:unit is pixel
-:param legend_side:
-:return:</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyclustermap.utils.to_utf8">
-<span class="sig-prename descclassname"><span class="pre">pyclustermap.utils.</span></span><span class="sig-name descname"><span class="pre">to_utf8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.utils.to_utf8" title="Permalink to this definition"></a></dt>
-<dd><p>Return a string representing a Python object.
-Strings (i.e. type <code class="docutils literal notranslate"><span class="pre">str</span></code>) are returned unchanged.
-Byte strings (i.e. type <code class="docutils literal notranslate"><span class="pre">bytes</span></code>) are returned as UTF-8-decoded strings.
-For other objects, the method <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> is called, and the result is
-returned as a string.
-:param obj: Any Python object
-:type obj: object</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>s</strong> – UTF-8-decoded string representation of <code class="docutils literal notranslate"><span class="pre">obj</span></code></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
