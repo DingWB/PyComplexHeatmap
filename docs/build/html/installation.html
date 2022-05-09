@@ -18,6 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
     <link rel="prev" title="pyclustermap" href="index.html" /> 
 </head>
 
@@ -40,10 +41,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-the-latest-code-from-github-recommended">Installing the latest code from github (recommended)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-a-particular-release">Installing a particular release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#to-run-using-docker">To run using docker</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 </ul>
 
         </div>
@@ -74,42 +76,23 @@
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
-<p>A compiler that supports C++11 is needed to build nanopolish. Development of the code is performed using <a class="reference external" href="https://gcc.gnu.org/gcc-4.8/">gcc-4.8</a>.</p>
-<p>By default, nanopolish will download and compile all of its required dependencies. Some users however may want to use system-wide versions of the libraries. To turn off the automatic installation of dependencies set <cite>HDF5=noinstall</cite>, <cite>EIGEN=noinstall</cite> or <cite>HTS=noinstall</cite> parameters when running <cite>make</cite> as appropriate. The current versions and compile options for the dependencies are:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://www.hdfgroup.org/HDF5/release/obtain5.html">libhdf5-1.8.14</a> compiled with multi-threading support <code class="docutils literal notranslate"><span class="pre">--enable-threadsafe</span></code></p></li>
-<li><p><a class="reference external" href="http://eigen.tuxfamily.org/">eigen-3.2.5</a></p></li>
-<li><p><a class="reference external" href="http://github.com/samtools/htslib">htslib-1.4</a></p></li>
+<li><p><a href="#id2"><span class="problematic" id="id3">`matplotlib &gt;=3.3.1`_</span></a></p></li>
+<li><p><a href="#id4"><span class="problematic" id="id5">`pandas`_</span></a></p></li>
+<li><p><a href="#id6"><span class="problematic" id="id7">`numpy`_</span></a></p></li>
 </ul>
-<p>Additionally the helper <cite>scripts</cite> require <a class="reference external" href="http://biopython.org/">biopython</a> and <a class="reference external" href="http://pysam.readthedocs.io/en/latest/installation.html">pysam</a>.</p>
+<p>pip install –ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1</p>
 </section>
 <section id="installing-the-latest-code-from-github-recommended">
 <h2>Installing the latest code from github (recommended)<a class="headerlink" href="#installing-the-latest-code-from-github-recommended" title="Permalink to this headline"></a></h2>
 <p>You can download and compile the latest code from github as follows</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">nanopolish</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">nanopolish</span>
-<span class="n">make</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">DingWB</span><span class="o">/</span><span class="n">pyclustermap</span>
 </pre></div>
 </div>
-</section>
-<section id="installing-a-particular-release">
-<h2>Installing a particular release<a class="headerlink" href="#installing-a-particular-release" title="Permalink to this headline"></a></h2>
-<p>When major features have been added or bugs fixed, we will tag and release a new version of nanopolish. If you wish to use a particular version, you can checkout the tagged version before compiling</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">nanopolish</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">nanopolish</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="n">v0</span><span class="mf">.7.1</span>
-<span class="n">make</span>
-</pre></div>
-</div>
-</section>
-<section id="to-run-using-docker">
-<h2>To run using docker<a class="headerlink" href="#to-run-using-docker" title="Permalink to this headline"></a></h2>
-<p>First build the image from the dockerfile:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span>
-</pre></div>
-</div>
-<p>Note the uuid given upon successful build. Then you can run nanopolish from the image:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="o">/</span> <span class="o">-</span><span class="n">it</span> <span class="p">:</span><span class="n">image_id</span>  <span class="o">./</span><span class="n">nanopolish</span> <span class="n">eventalign</span> <span class="o">-</span><span class="n">r</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">reads</span><span class="o">.</span><span class="n">fa</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">alignments</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> <span class="o">-</span><span class="n">g</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">ref</span><span class="o">.</span><span class="n">fa</span>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">DingWB</span><span class="o">/</span><span class="n">pyclustermap</span>
+<span class="n">cd</span> <span class="n">pyclustermap</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </section>
@@ -120,6 +103,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="pyclustermap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

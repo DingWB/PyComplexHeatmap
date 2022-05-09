@@ -7,7 +7,6 @@ pyclustermap
 ======================================
 `pyclustermap <https://github.com/DingWB/pyclustermap>`_ is a python package to plot complex heatmap (clustermap) with biological data.
 
-
 .. toctree::
    :hidden:
 
@@ -15,7 +14,7 @@ pyclustermap
    quickstart_example
    documentation
    examples
-
+   modules
 
 Credits and Thanks
 ========================

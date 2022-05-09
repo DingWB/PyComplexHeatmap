@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart - calling methylation with nanopolish &mdash; pyclustermap 1.0 documentation</title>
+  <title>Quickstart - a quick example &mdash; pyclustermap 1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -37,6 +37,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 </ul>
 
         </div>
@@ -53,7 +56,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Quickstart - calling methylation with nanopolish</li>
+      <li>Quickstart - a quick example</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/quickstart_call_methylation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -63,122 +66,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="quickstart-calling-methylation-with-nanopolish">
-<span id="quickstart-call-methylation"></span><h1>Quickstart - calling methylation with nanopolish<a class="headerlink" href="#quickstart-calling-methylation-with-nanopolish" title="Permalink to this headline"></a></h1>
-<p>Oxford Nanopore sequencers are sensitive to base modifications. Here we provide a step-by-step tutorial to help you get started with detecting base modifications using nanopolish.</p>
-<p><strong>For more information about our approach:</strong></p>
-<ul class="simple">
-<li><p>Simpson, Jared T., et al. <a class="reference external" href="https://www.nature.com/articles/nmeth.4184">“Detecting DNA cytosine methylation using nanopore sequencing.”</a> Nature Methods (2017).</p></li>
-</ul>
-<p><strong>Requirements</strong>:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="installation.html">nanopolish v0.8.4</a></p></li>
-<li><p><a class="reference external" href="https://htslib.org">samtools v1.2</a></p></li>
-<li><p><a class="reference external" href="https://github.com/lh3/minimap2">minimap2</a></p></li>
-</ul>
-<section id="download-example-dataset">
-<h2>Download example dataset<a class="headerlink" href="#download-example-dataset" title="Permalink to this headline"></a></h2>
-<p>In this tutorial we will use a subset of the <a class="reference external" href="https://github.com/nanopore-wgs-consortium/NA12878/blob/master/Genome.md">NA12878 WGS Consortium data</a>. You can download the example dataset we will use here (warning: the file is about 2GB):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">s3</span><span class="o">.</span><span class="n">climb</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">nanopolish_tutorial</span><span class="o">/</span><span class="n">methylation_example</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">methylation_example</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="n">cd</span> <span class="n">methylation_example</span>
+  <section id="quickstart-a-quick-example">
+<span id="quickstart-call-methylation"></span><h1>Quickstart - a quick example<a class="headerlink" href="#quickstart-a-quick-example" title="Permalink to this headline"></a></h1>
+<section id="generating-example-dataset">
+<h2>Generating example dataset<a class="headerlink" href="#generating-example-dataset" title="Permalink to this headline"></a></h2>
+<p>In this tutorial we will generate an example dataframe</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_box</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gene&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+<span class="n">df_box</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_bar</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;TMB2&#39;</span><span class="p">])</span>
+<span class="n">df_bar</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_scatter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Scatter&#39;</span><span class="p">])</span>
+<span class="n">df_scatter</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
+<span class="n">df_heatmap</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fea&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+<p>Import package and plot</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyclustermap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Define annotation and plot</span>
+<span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">},</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                            <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
+                            <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">),</span> <span class="n">TMB_bar</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span> <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                       <span class="n">row_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">,</span> <span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;heatmap.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><strong>Details</strong>:</p>
 <ul class="simple">
-<li><p>Sample :      Human cell line (NA12878)</p></li>
-<li><p>Basecaller : Guppy v2.3.5</p></li>
-<li><p>Region: chr20:5,000,000-10,000,000</p></li>
+<li><p>HeatmapAnnotation :   a column (axis=1) or row (axis=0) annotation.</p></li>
+<li><p>anno_label : simple annotation, categorical or continuous variable.</p></li>
+<li><p>anno_boxplot: plot boxplot in annotation track.</p></li>
+<li><p>anno_scatterplot: plot scatter in annotation track.</p></li>
+<li><p>anno_barplot: plot barplot in annotation track.</p></li>
 </ul>
-<p>In the extracted example data you should find the following files:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">albacore_output.fastq</span></code> : the subset of the basecalled reads</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reference.fasta</span></code> : the chromsome 20 reference sequence</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fast5_files/</span></code> : a directory containing signal-level FAST5 files</p></li>
-</ul>
-<p>The reads were basecalled using this albacore command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">guppy_basecaller</span> <span class="o">-</span><span class="n">c</span> <span class="n">dna_r9</span><span class="mf">.4.1_450</span><span class="n">bps_flipflop</span><span class="o">.</span><span class="n">cfg</span> <span class="o">-</span><span class="n">i</span> <span class="n">fast5_files</span><span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">basecalled</span><span class="o">/</span>
-</pre></div>
-</div>
-<p>After the basecaller finished, we merged all of the fastq files together into a single file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">basecalled</span><span class="o">/*.</span><span class="n">fastq</span> <span class="o">&gt;</span> <span class="n">output</span><span class="o">.</span><span class="n">fastq</span>
-</pre></div>
-</div>
-</section>
-<section id="data-preprocessing">
-<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline"></a></h2>
-<p>nanopolish needs access to the signal-level data measured by the nanopore sequencer. To begin, we need to create an index file that links read ids with their signal-level data in the FAST5 files:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">index</span> <span class="o">-</span><span class="n">d</span> <span class="n">fast5_files</span><span class="o">/</span> <span class="n">output</span><span class="o">.</span><span class="n">fastq</span>
-</pre></div>
-</div>
-<p>We get the following files: <code class="docutils literal notranslate"><span class="pre">output.fastq.index</span></code>, <code class="docutils literal notranslate"><span class="pre">output.fastq.index.fai</span></code>, <code class="docutils literal notranslate"><span class="pre">output.fastq.fastq.index.gzi</span></code>, and <code class="docutils literal notranslate"><span class="pre">output.fastq.index.readdb</span></code>.</p>
-</section>
-<section id="aligning-reads-to-the-reference-genome">
-<h2>Aligning reads to the reference genome<a class="headerlink" href="#aligning-reads-to-the-reference-genome" title="Permalink to this headline"></a></h2>
-<p>Next, we need to align the basecalled reads to the reference genome. We use minimap2 as it is fast enough to map reads to the human genome. In this example we’ll pipe the output directly into <code class="docutils literal notranslate"><span class="pre">samtools</span> <span class="pre">sort</span></code> to get a sorted bam file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimap2</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">x</span> <span class="nb">map</span><span class="o">-</span><span class="n">ont</span> <span class="n">reference</span><span class="o">.</span><span class="n">fasta</span> <span class="n">output</span><span class="o">.</span><span class="n">fastq</span> <span class="o">|</span> <span class="n">samtools</span> <span class="n">sort</span> <span class="o">-</span><span class="n">T</span> <span class="n">tmp</span> <span class="o">-</span><span class="n">o</span> <span class="n">output</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span>
-<span class="n">samtools</span> <span class="n">index</span> <span class="n">output</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span>
-</pre></div>
-</div>
-</section>
-<section id="calling-methylation">
-<h2>Calling methylation<a class="headerlink" href="#calling-methylation" title="Permalink to this headline"></a></h2>
-<p>Now we’re ready to use nanopolish to detect methylated bases (in this case 5-methylcytosine in a CpG context). The command is fairly straightforward - we have to tell it what reads to use (<code class="docutils literal notranslate"><span class="pre">output.fastq</span></code>), where the alignments are (<code class="docutils literal notranslate"><span class="pre">output.sorted.bam</span></code>), the reference genome (<code class="docutils literal notranslate"><span class="pre">reference.fasta</span></code>) and what region of the genome we’re interested in (<code class="docutils literal notranslate"><span class="pre">chr20:5,000,000-10,000,000</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">call</span><span class="o">-</span><span class="n">methylation</span> <span class="o">-</span><span class="n">t</span> <span class="mi">8</span> <span class="o">-</span><span class="n">r</span> <span class="n">output</span><span class="o">.</span><span class="n">fastq</span> <span class="o">-</span><span class="n">b</span> <span class="n">output</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span> <span class="o">-</span><span class="n">g</span> <span class="n">reference</span><span class="o">.</span><span class="n">fasta</span> <span class="o">-</span><span class="n">w</span> <span class="s2">&quot;chr20:5,000,000-10,000,000&quot;</span> <span class="o">&gt;</span> <span class="n">methylation_calls</span><span class="o">.</span><span class="n">tsv</span>
-</pre></div>
-</div>
-<p>The output file contains a lot of information including the position of the CG dinucleotide on the reference genome, the ID of the read that was used to make the call, and the log-likelihood ratio calculated by our model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromosome</span>  <span class="n">start</span>    <span class="n">end</span>      <span class="n">read_name</span>                             <span class="n">log_lik_ratio</span>  <span class="n">log_lik_methylated</span>  <span class="n">log_lik_unmethylated</span>  <span class="n">num_calling_strands</span>  <span class="n">num_cpgs</span>  <span class="n">sequence</span>
-<span class="n">chr20</span>       <span class="mi">4980553</span>  <span class="mi">4980553</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">3.70</span>           <span class="o">-</span><span class="mf">167.47</span>             <span class="o">-</span><span class="mf">171.17</span>               <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">TGAGACGGGGT</span>
-<span class="n">chr20</span>       <span class="mi">4980599</span>  <span class="mi">4980599</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">2.64</span>           <span class="o">-</span><span class="mf">98.87</span>              <span class="o">-</span><span class="mf">101.51</span>               <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">AATCTCGGCTC</span>
-<span class="n">chr20</span>       <span class="mi">4980616</span>  <span class="mi">4980616</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="o">-</span><span class="mf">0.61</span>          <span class="o">-</span><span class="mf">95.35</span>              <span class="o">-</span><span class="mf">94.75</span>                <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">ACCTCCGCCTC</span>
-<span class="n">chr20</span>       <span class="mi">4980690</span>  <span class="mi">4980690</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="o">-</span><span class="mf">2.99</span>          <span class="o">-</span><span class="mf">99.58</span>              <span class="o">-</span><span class="mf">96.59</span>                <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">ACACCCGGCTA</span>
-<span class="n">chr20</span>       <span class="mi">4980780</span>  <span class="mi">4980780</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">5.27</span>           <span class="o">-</span><span class="mf">135.45</span>             <span class="o">-</span><span class="mf">140.72</span>               <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">CACCTCGGCCT</span>
-<span class="n">chr20</span>       <span class="mi">4980807</span>  <span class="mi">4980807</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="o">-</span><span class="mf">2.95</span>          <span class="o">-</span><span class="mf">89.20</span>              <span class="o">-</span><span class="mf">86.26</span>                <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">ATTACCGGTGT</span>
-<span class="n">chr20</span>       <span class="mi">4980820</span>  <span class="mi">4980822</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">7.47</span>           <span class="o">-</span><span class="mf">90.63</span>              <span class="o">-</span><span class="mf">98.10</span>                <span class="mi">1</span>                    <span class="mi">2</span>         <span class="n">GCCACCGCGCCCA</span>
-<span class="n">chr20</span>       <span class="mi">4980899</span>  <span class="mi">4980901</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">3.17</span>           <span class="o">-</span><span class="mf">96.40</span>              <span class="o">-</span><span class="mf">99.57</span>                <span class="mi">1</span>                    <span class="mi">2</span>         <span class="n">GTATACGCGTTCC</span>
-<span class="n">chr20</span>       <span class="mi">4980955</span>  <span class="mi">4980955</span>  <span class="n">c1e202f4</span><span class="o">-</span><span class="n">e8f9</span><span class="o">-</span><span class="mi">4</span><span class="n">eb8</span><span class="o">-</span><span class="n">b9a6</span><span class="o">-</span><span class="n">d79e6fab1e9a</span>  <span class="mf">0.33</span>           <span class="o">-</span><span class="mf">92.14</span>              <span class="o">-</span><span class="mf">92.47</span>                <span class="mi">1</span>                    <span class="mi">1</span>         <span class="n">AGTCCCGATAT</span>
-</pre></div>
-</div>
-<p>A positive value in the <code class="docutils literal notranslate"><span class="pre">log_lik_ratio</span></code> column indicates support for methylation. We have provided a helper script that can be used to calculate how often each reference position was methylated:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scripts</span><span class="o">/</span><span class="n">calculate_methylation_frequency</span><span class="o">.</span><span class="n">py</span> <span class="n">methylation_calls</span><span class="o">.</span><span class="n">tsv</span> <span class="o">&gt;</span> <span class="n">methylation_frequency</span><span class="o">.</span><span class="n">tsv</span>
-</pre></div>
-</div>
-<p>The output is another tab-separated file, this time summarized by genomic position:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromosome</span>  <span class="n">start</span>    <span class="n">end</span>      <span class="n">num_cpgs_in_group</span>  <span class="n">called_sites</span>  <span class="n">called_sites_methylated</span>  <span class="n">methylated_frequency</span>  <span class="n">group_sequence</span>
-<span class="n">chr20</span>       <span class="mi">5036763</span>  <span class="mi">5036763</span>  <span class="mi">1</span>                  <span class="mi">21</span>            <span class="mi">20</span>                       <span class="mf">0.952</span>                 <span class="n">split</span><span class="o">-</span><span class="n">group</span>
-<span class="n">chr20</span>       <span class="mi">5036770</span>  <span class="mi">5036770</span>  <span class="mi">1</span>                  <span class="mi">21</span>            <span class="mi">20</span>                       <span class="mf">0.952</span>                 <span class="n">split</span><span class="o">-</span><span class="n">group</span>
-<span class="n">chr20</span>       <span class="mi">5036780</span>  <span class="mi">5036780</span>  <span class="mi">1</span>                  <span class="mi">21</span>            <span class="mi">20</span>                       <span class="mf">0.952</span>                 <span class="n">split</span><span class="o">-</span><span class="n">group</span>
-<span class="n">chr20</span>       <span class="mi">5037173</span>  <span class="mi">5037173</span>  <span class="mi">1</span>                  <span class="mi">13</span>            <span class="mi">5</span>                        <span class="mf">0.385</span>                 <span class="n">AAGGACGTTAT</span>
-</pre></div>
-</div>
-<p>In the example data set we have also included bisulfite data from ENCODE for the same region of chromosome 20. We can use the included <code class="docutils literal notranslate"><span class="pre">compare_methylation.py</span></code> helper script to do a quick comparison between the nanopolish methylation output and bisulfite:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">compare_methylation</span><span class="o">.</span><span class="n">py</span> <span class="n">bisulfite</span><span class="o">.</span><span class="n">ENCFF835NTC</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">tsv</span> <span class="n">methylation_frequency</span><span class="o">.</span><span class="n">tsv</span> <span class="o">&gt;</span> <span class="n">bisulfite_vs_nanopolish</span><span class="o">.</span><span class="n">tsv</span>
-</pre></div>
-</div>
-<p>We can use R to visualize the results - we observe good correlation between the nanopolish methylation calls and bisulfite:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>library(ggplot2)
-library(RColorBrewer)
-data &lt;- read.table(&quot;bisulfite_vs_nanopolish.tsv&quot;, header=T)
-
-# Set color palette for 2D heatmap
-rf &lt;- colorRampPalette(rev(brewer.pal(11,&#39;Spectral&#39;)))
-r &lt;- rf(32)
-
-c &lt;- cor(data$frequency_1, data$frequency_2)
-title &lt;- sprintf(&quot;N = %d r = %.3f&quot;, nrow(data), c)
-ggplot(data, aes(frequency_1, frequency_2)) +
-    geom_bin2d(bins=25) + scale_fill_gradientn(colors=r, trans=&quot;log10&quot;) +
-    xlab(&quot;Bisulfite Methylation Frequency&quot;) +
-    ylab(&quot;Nanopolish Methylation Frequency&quot;) +
-    theme_bw(base_size=20) +
-    ggtitle(title)
-</pre></div>
-</div>
-<p>Here’s what the output should look like:</p>
-<figure class="align-default">
-<a class="reference internal image-reference" href="_static/quickstart_methylation_results.png"><img alt="quickstart_methylation_results" src="_static/quickstart_methylation_results.png" /></a>
-</figure>
 </section>
 </section>
 

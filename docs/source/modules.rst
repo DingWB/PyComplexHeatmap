@@ -1,6 +1,6 @@
-.. _manual:
+.. _modules:
 
-Manual
+Modules
 ===================
 
 Modules available: ::

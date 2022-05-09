@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manual &mdash; pyclustermap 1.0 documentation</title>
+  <title>Modules &mdash; pyclustermap 1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,7 +17,8 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,8 +36,60 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#extract">extract</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#index">index</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#readdb-file-format">Readdb file format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#call-methylation">call-methylation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#variants">variants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#event-align">event align</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#phase-reads-experimental">phase-reads - (experimental)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#polya">polya</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Usage example</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -53,9 +106,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Manual</li>
+      <li>Modules</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/manual.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -63,8 +116,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="manual">
-<span id="id1"></span><h1>Manual<a class="headerlink" href="#manual" title="Permalink to this headline"></a></h1>
+  <section id="modules">
+<span id="id1"></span><h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline"></a></h1>
 <p>Modules available:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nanopolish</span> <span class="n">extract</span><span class="p">:</span> <span class="n">extract</span> <span class="n">reads</span> <span class="ow">in</span> <span class="n">FASTA</span> <span class="ow">or</span> <span class="n">FASTQ</span> <span class="nb">format</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">directory</span> <span class="n">of</span> <span class="n">FAST5</span> <span class="n">files</span>
 <span class="n">nanopolish</span> <span class="n">call</span><span class="o">-</span><span class="n">methylation</span><span class="p">:</span> <span class="n">predict</span> <span class="n">genomic</span> <span class="n">bases</span> <span class="n">that</span> <span class="n">may</span> <span class="n">be</span> <span class="n">methylated</span>
@@ -636,7 +689,9 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
