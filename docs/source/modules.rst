@@ -5,4 +5,3 @@ pyclustermap
    :maxdepth: 4
 
    pyclustermap
-   setup
