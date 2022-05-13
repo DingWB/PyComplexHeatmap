@@ -400,21 +400,21 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
     return ax
 
 class AnnotationBase():
+    """
+    df: a pandas series or dataframe (only one column)
+    cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
+        matplotlib.pyplot.colormaps() to see all availabel cmap.
+        default cmap is 'auto', it would be determined based on the dtype for each columns of df.
+    colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+    height: height (if axis=1) / width (if axis=0) for the annotation size.
+    legend: whether to plot legend for this annotation when legends are plotted or
+            plot legend with HeatmapAnnotation.plot_legends().
+    legend_kws: kws passed to plt.legend
+    plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot
+    """
     def __init__(self, df=None, cmap='auto', colors=None,
                  height=None,legend=True,legend_kws=None,**plot_kws):
-        """
-            df: a pandas series or dataframe (only one column)
-            cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
-                https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
-                matplotlib.pyplot.colormaps() to see all availabel cmap.
-                default cmap is 'auto', it would be determined based on the dtype for each columns of df.
-            colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
-            height: height (if axis=1) / width (if axis=0) for the annotation size.
-            legend: whether to plot legend for this annotation when legends are plotted or
-                    plot legend with HeatmapAnnotation.plot_legends().
-            legend_kws: kws passed to plt.legend
-            plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot
-            """
         self._check_df(df)
         self.label = None
         self.ylim = None
@@ -1037,36 +1037,36 @@ class anno_scatterplot(anno_barplot):
         return self.ax
 
 class HeatmapAnnotation():
+    """
+        Annotation for heatmap
+        df: a pandas dataframe, each column will be converted to one anno_simple class.
+        **, name-value pair, value can be a pandas dataframe, series, or annotation such as
+            anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
+        axis: 1 for columns annotation, 0 for rows annotations.
+        cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+            https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
+            matplotlib.pyplot.colormaps() to see all availabel cmap.
+            default cmap is 'auto', it would be determined based on the dtype for each columns of df.
+            if df is None, then there is no need to specify cmap, cmap and colors will only be used when
+            df is provided.
+        colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+        label_side: top or bottom when axis=1, left or right when axis=0.
+        label_kws: xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or
+                matplotlib.axis.YAxis.label.properties()
+        ticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
+                        see ?matplotlib.axes.Axes.tick_params
+        plot_kws: kws passed to annotation, such as anno_simple, anno_label et.al.
+        plot: whether to plot, when the annotation are included in clustermap, plot would be
+                set to False automotially.
+        legend: True or False, or dict (when df no None), when legend is dict, keys are the
+                columns of df.
+        legend_side: right or left
+        legend_gap: default is 2 mm
+        plot_legend: whether to plot legends.
+    """
     def __init__(self,df=None,axis=1, cmap='auto',colors=None,label_side=None, label_kws=None,
                  ticklabels_kws= None, plot_kws= None,plot=False,legend=True,legend_side='right',
                  legend_gap=2,plot_legend=True,**args):
-        """
-            Annotation for heatmap
-            df: a pandas dataframe, each column will be converted to one anno_simple class.
-            **, name-value pair, value can be a pandas dataframe, series, or annotation such as
-                anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
-            axis: 1 for columns annotation, 0 for rows annotations.
-            cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
-                https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
-                matplotlib.pyplot.colormaps() to see all availabel cmap.
-                default cmap is 'auto', it would be determined based on the dtype for each columns of df.
-                if df is None, then there is no need to specify cmap, cmap and colors will only be used when
-                df is provided.
-            colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
-            label_side: top or bottom when axis=1, left or right when axis=0.
-            label_kws: xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or
-                    matplotlib.axis.YAxis.label.properties()
-            ticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-                            see ?matplotlib.axes.Axes.tick_params
-            plot_kws: kws passed to annotation, such as anno_simple, anno_label et.al.
-            plot: whether to plot, when the annotation are included in clustermap, plot would be
-                    set to False automotially.
-            legend: True or False, or dict (when df no None), when legend is dict, keys are the
-                    columns of df.
-            legend_side: right or left
-            legend_gap: default is 2 mm
-            plot_legend: whether to plot legends.
-        """
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
         if not df is None and len(args)>0:
@@ -1562,6 +1562,48 @@ class DendrogramPlotter(object):
         return self
 
 class ClusterMapPlotter():
+    """
+    Clustermap (Heatmap) plotter.
+    data: pandas dataframe or numpy array.
+    z_score: whether to perform z score scale, Either 0 (rows) or 1 (columns), after scale,
+            value range would be [-1,1]
+    standard_scale: Either 0 (rows) or 1 (columns), after scale,
+            value range would be [0,1]
+    [top/bottom/left/right]_annotation: class of HeatmapAnnotation.
+    [row/col]_cluster: whether to perform cluster on rows/columns.
+    [row/col]_cluster_method: cluster method for row/columns linkage, such single, complete, average,weighted,
+        centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+        (https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for detail.
+    [row/col]_cluster_metric: Pairwise distances between observations in n-dimensional space for row/columns,
+        such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
+        chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
+        centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+    show_rownames, show_colnames: True or False.
+    row_names_side: right or left.
+    col_names_side: top or bottom.
+    [row/col]_dendrogram: True or False, whether to show dendrogram.
+    [row/col]_dendrogram_size: default is 10mm.
+    dendrogram_kws: kws passed to hierarchy.dendrogram.
+    tree_kws: passed to DendrogramPlotter.plot()
+    [row/col]_split: int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
+    [row/col]_split_gap: default are 0.5 and 0.2 mm for row and col.
+    mask: mask the data in heatmap.
+    subplot_gap: the gap between subplots, default is 1mm.
+    legend: True or False, whether to plot heatmap legend, determined by cmap.
+    legend_kws: kws passed to plot.legend.
+    plot: whether to plot.
+    plot_legend: True or False, whether to plot legend, if False, legends can be plot with
+                ClusterMapPlotter.plot_legends()
+    legend_anchor: str, ax_heatmap or ax, the ax to which legend anchor.
+    legend_gap: the columns gap between different legends.
+    legend_side: right of left.
+    cmap: default is 'jet', the colormap for heatmap colorbar.
+    label: the title (label) that would be shown in heatmap colorbar legend.
+    xticklabels_kws, yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
+                        see ?matplotlib.axes.Axes.tick_params
+    rasterized: default is False.
+    **heatmap_kws: kws passed to heatmap.
+    """
     def __init__(self, data, z_score=None, standard_scale=None,
                  top_annotation=None, bottom_annotation=None,left_annotation=None, right_annotation=None,
                  row_cluster=True, col_cluster=True,row_cluster_method='average',row_cluster_metric='correlation',
@@ -1573,48 +1615,6 @@ class ClusterMapPlotter():
                  plot=True,plot_legend=True,legend_anchor='ax_heatmap',legend_gap=3,
                  legend_side='right',cmap='jet',label=None,xticklabels_kws=None,yticklabels_kws=None,rasterized=False,
                  **heatmap_kws):
-        """
-        Clustermap (Heatmap) plotter.
-        data: pandas dataframe or numpy array.
-        z_score: whether to perform z score scale, Either 0 (rows) or 1 (columns), after scale,
-                value range would be [-1,1]
-        standard_scale: Either 0 (rows) or 1 (columns), after scale,
-                value range would be [0,1]
-        [top/bottom/left/right]_annotation: class of HeatmapAnnotation.
-        [row/col]_cluster: whether to perform cluster on rows/columns.
-        [row/col]_cluster_method: cluster method for row/columns linkage, such single, complete, average,weighted,
-            centroid, median, ward. see scipy.cluster.hierarchy.linkage or
-            (https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for detail.
-        [row/col]_cluster_metric: Pairwise distances between observations in n-dimensional space for row/columns,
-            such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
-            chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
-            centroid, median, ward. see scipy.cluster.hierarchy.linkage or
-        show_rownames, show_colnames: True or False.
-        row_names_side: right or left.
-        col_names_side: top or bottom.
-        [row/col]_dendrogram: True or False, whether to show dendrogram.
-        [row/col]_dendrogram_size: default is 10mm.
-        dendrogram_kws: kws passed to hierarchy.dendrogram.
-        tree_kws: passed to DendrogramPlotter.plot()
-        [row/col]_split: int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
-        [row/col]_split_gap: default are 0.5 and 0.2 mm for row and col.
-        mask: mask the data in heatmap.
-        subplot_gap: the gap between subplots, default is 1mm.
-        legend: True or False, whether to plot heatmap legend, determined by cmap.
-        legend_kws: kws passed to plot.legend.
-        plot: whether to plot.
-        plot_legend: True or False, whether to plot legend, if False, legends can be plot with
-                    ClusterMapPlotter.plot_legends()
-        legend_anchor: str, ax_heatmap or ax, the ax to which legend anchor.
-        legend_gap: the columns gap between different legends.
-        legend_side: right of left.
-        cmap: default is 'jet', the colormap for heatmap colorbar.
-        label: the title (label) that would be shown in heatmap colorbar legend.
-        xticklabels_kws, yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-                            see ?matplotlib.axes.Axes.tick_params
-        rasterized: default is False.
-        **heatmap_kws: kws passed to heatmap.
-        """
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.mask = _check_mask(self.data2d, mask)
         self._define_kws(xticklabels_kws,yticklabels_kws)
