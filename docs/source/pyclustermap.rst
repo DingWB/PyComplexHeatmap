@@ -4,6 +4,14 @@ pyclustermap package
 Submodules
 ----------
 
+pyclustermap.bioinformatics\_plot module
+----------------------------------------
+
+.. automodule:: pyclustermap.bioinformatics_plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pyclustermap.clustermap module
 ------------------------------
 

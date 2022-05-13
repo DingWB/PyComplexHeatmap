@@ -4,6 +4,7 @@ import os
 from .clustermap import *
 from .colors import *
 from .example import *
+from .bioinformatics_plot import *
 
 #__all__=['*']
 __version__='1.0'
