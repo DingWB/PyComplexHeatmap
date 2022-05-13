@@ -10,7 +10,9 @@ from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.patches as mpatches
 
 def _check_mask(data, mask):
-    """Ensure that data and mask are compatible and add missing values and infinite values.
+    """
+
+    Ensure that data and mask are compatible and add missing values and infinite values.
     Values will be plotted for cells where ``mask`` is ``False``.
     ``data`` is expected to be a DataFrame; ``mask`` can be an array or
     a DataFrame.
@@ -31,7 +33,9 @@ def _check_mask(data, mask):
     return mask
 
 def _calculate_luminance(color):
-    """Calculate the relative luminance of a color according to W3C standards
+    """
+    Calculate the relative luminance of a color according to W3C standards
+
     Parameters
     ----------
     color : matplotlib color or sequence of matplotlib colors
@@ -39,6 +43,7 @@ def _calculate_luminance(color):
     Returns
     -------
     luminance : float(s) between 0 and 1
+
     """
     rgb = matplotlib.colors.colorConverter.to_rgba_array(color)[:, :3]
     rgb = np.where(rgb <= .03928, rgb / 12.92, ((rgb + .055) / 1.055) ** 2.4)
@@ -52,6 +57,7 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
             bottom=False):
     """
     Remove the top and right spines from plot(s).
+
     Parameters
     ----------
     fig : matplotlib figure, optional
@@ -63,7 +69,8 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
 
     Returns
     -------
-        None
+    None
+
     """
     if fig is None and ax is None:
         axes = plt.gcf().axes
@@ -95,7 +102,10 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
                 t.tick2line.set_visible(min_on)
 
 def _draw_figure(fig):
-    """Force draw of a matplotlib figure, accounting for back-compat."""
+    """
+    Force draw of a matplotlib figure, accounting for back-compat.
+
+    """
     # See https://github.com/matplotlib/matplotlib/issues/19197 for context
     fig.canvas.draw()
     if fig.stale:
@@ -107,6 +117,7 @@ def _draw_figure(fig):
 def axis_ticklabels_overlap(labels):
     """
     Return a boolean for whether the list of ticklabels have overlaps.
+
     Parameters
     ----------
     labels : list of matplotlib ticklabels
@@ -114,6 +125,7 @@ def axis_ticklabels_overlap(labels):
     -------
     overlap : boolean
         True if any of the labels overlap.
+
     """
     if not labels:
         return False
@@ -126,11 +138,13 @@ def axis_ticklabels_overlap(labels):
         return False
 
 def to_utf8(obj):
-    """Return a string representing a Python object.
+    """
+    Return a string representing a Python object.
     Strings (i.e. type ``str``) are returned unchanged.
     Byte strings (i.e. type ``bytes``) are returned as UTF-8-decoded strings.
     For other objects, the method ``__str__()`` is called, and the result is
     returned as a string.
+
     Parameters
     ----------
     obj : object
@@ -139,6 +153,7 @@ def to_utf8(obj):
     -------
     s : str
         UTF-8-decoded string representation of ``obj``
+
     """
     if isinstance(obj, str):
         return obj
@@ -148,20 +163,39 @@ def to_utf8(obj):
         return str(obj)
 
 def _index_to_label(index):
-    """Convert a pandas index or multiindex to an axis label."""
+    """
+    Convert a pandas index or multiindex to an axis label.
+
+    """
     if isinstance(index, pd.MultiIndex):
         return "-".join(map(to_utf8, index.names))
     else:
         return index.name
 
 def _index_to_ticklabels(index):
-    """Convert a pandas index or multiindex into ticklabels."""
+    """
+    Convert a pandas index or multiindex into ticklabels.
+
+    """
     if isinstance(index, pd.MultiIndex):
         return ["-".join(map(to_utf8, i)) for i in index.values]
     else:
         return index.values
 
 def cluster_labels(labels,xticks):
+    """
+    Merge the adjacent labels into one.
+
+    Parameters
+    ----------
+    labels : a list of labels.
+    xticks : a list of x or y ticks coordinates.
+
+    Returns
+    -------
+    labels,ticks: merged labels and ticks coordinates.
+
+    """
     clusters_x = collections.defaultdict(list)
     clusters_labels = {}
     scanned_labels = ''
@@ -179,18 +213,20 @@ def cluster_labels(labels,xticks):
 def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
                            label_side='right',kws=None):
     """
+    plot legned for color dict
 
     Parameters
     ----------
-    D
-    ax
-    title
-    color_text
-    label_side
-    kws
+    D: a dict, key is categorical variable, values are colors.
+    ax: axes to plot the legend.
+    title: title of legend.
+    color_text: whether to change the color of text based on the color in D.
+    label_side: right of left.
+    kws: kws passed to plt.legend.
 
     Returns
     -------
+    ax.legend
 
     """
     lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
@@ -243,8 +279,21 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
 
 def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_side='right'):
     """
-    :param cmap: turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2
-    :return:
+    Plot legend for cmap.
+
+    Parameters
+    ----------
+    cax : axes to plot legend.
+    ax :  axes to anchor.
+    cmap : turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2
+    label : title for legend.
+    kws : kws passed to plt.colorbar.
+    label_side : right or left.
+
+    Returns
+    -------
+    cbar: axes of legend
+
     """
     label='' if label is None else label
     cbar_kws={} if kws is None else kws.copy()
@@ -271,18 +320,20 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                      y0=None,gap=2):
     """
+    Plot all lengends for a given legend_list.
 
     Parameters
     ----------
-    legend_list : handles(dict) / cmap, title, legend_kws
-    ax :
+    legend_list : a list including [handles(dict) / cmap, title, legend_kws]
+    ax :axes to plot.
     space : unit is pixels.
-    legend_side :
-    y0 :
-    gap :
+    legend_side :right, or left
+    y0 : the initate coordinate of y for the legend.
+    gap : gap between legends, default is 2mm.
 
     Returns
     -------
+    legend_axes,boundry:
 
     """
     if ax is None:
