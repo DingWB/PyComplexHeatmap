@@ -100,6 +100,21 @@
 <dt class="sig sig-object py" id="pyclustermap.clustermap.AnnotationBase">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pyclustermap.clustermap.</span></span><span class="sig-name descname"><span class="pre">AnnotationBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.AnnotationBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>df: a pandas series or dataframe (only one column)
+cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</p>
+<blockquote>
+<div><p><a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+matplotlib.pyplot.colormaps() to see all availabel cmap.
+default cmap is ‘auto’, it would be determined based on the dtype for each columns of df.</p>
+</div></blockquote>
+<p>colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+height: height (if axis=1) / width (if axis=0) for the annotation size.
+legend: whether to plot legend for this annotation when legends are plotted or</p>
+<blockquote>
+<div><p>plot legend with HeatmapAnnotation.plot_legends().</p>
+</div></blockquote>
+<p>legend_kws: kws passed to plt.legend
+plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyclustermap.clustermap.AnnotationBase.reorder">
 <span class="sig-name descname"><span class="pre">reorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.AnnotationBase.reorder" title="Permalink to this definition"></a></dt>
@@ -132,6 +147,58 @@
 <dt class="sig sig-object py" id="pyclustermap.clustermap.ClusterMapPlotter">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pyclustermap.clustermap.</span></span><span class="sig-name descname"><span class="pre">ClusterMapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_rownames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_colnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_names_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_names_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bottom'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_dendrogram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_dendrogram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_dendrogram_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_dendrogram_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dendrogram_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_split_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_split_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ax_heatmap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">heatmap_kws</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.ClusterMapPlotter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Clustermap (Heatmap) plotter.
+data: pandas dataframe or numpy array.
+z_score: whether to perform z score scale, Either 0 (rows) or 1 (columns), after scale,</p>
+<blockquote>
+<div><p>value range would be [-1,1]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>standard_scale: Either 0 (rows) or 1 (columns), after scale,</dt><dd><p>value range would be [0,1]</p>
+</dd>
+</dl>
+<p>[top/bottom/left/right]_annotation: class of HeatmapAnnotation.
+[row/col]_cluster: whether to perform cluster on rows/columns.
+[row/col]_cluster_method: cluster method for row/columns linkage, such single, complete, average,weighted,</p>
+<blockquote>
+<div><p>centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+(<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html</a>) for detail.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>[row/col]_cluster_metric: Pairwise distances between observations in n-dimensional space for row/columns,</dt><dd><p>such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
+chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
+centroid, median, ward. see scipy.cluster.hierarchy.linkage or</p>
+</dd>
+</dl>
+<p>show_rownames, show_colnames: True or False.
+row_names_side: right or left.
+col_names_side: top or bottom.
+[row/col]_dendrogram: True or False, whether to show dendrogram.
+[row/col]_dendrogram_size: default is 10mm.
+dendrogram_kws: kws passed to hierarchy.dendrogram.
+tree_kws: passed to DendrogramPlotter.plot()
+[row/col]_split: int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
+[row/col]_split_gap: default are 0.5 and 0.2 mm for row and col.
+mask: mask the data in heatmap.
+subplot_gap: the gap between subplots, default is 1mm.
+legend: True or False, whether to plot heatmap legend, determined by cmap.
+legend_kws: kws passed to plot.legend.
+plot: whether to plot.
+plot_legend: True or False, whether to plot legend, if False, legends can be plot with</p>
+<blockquote>
+<div><p>ClusterMapPlotter.plot_legends()</p>
+</div></blockquote>
+<p>legend_anchor: str, ax_heatmap or ax, the ax to which legend anchor.
+legend_gap: the columns gap between different legends.
+legend_side: right of left.
+cmap: default is ‘jet’, the colormap for heatmap colorbar.
+label: the title (label) that would be shown in heatmap colorbar legend.
+xticklabels_kws, yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,</p>
+<blockquote>
+<div><p>see ?matplotlib.axes.Axes.tick_params</p>
+</div></blockquote>
+<p>rasterized: default is False.
+<a href="#id1"><span class="problematic" id="id2">**</span></a>heatmap_kws: kws passed to heatmap.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyclustermap.clustermap.ClusterMapPlotter.calculate_col_dendrograms">
 <span class="sig-name descname"><span class="pre">calculate_col_dendrograms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.ClusterMapPlotter.calculate_col_dendrograms" title="Permalink to this definition"></a></dt>
@@ -276,6 +343,43 @@ specified axis.</p>
 <dt class="sig sig-object py" id="pyclustermap.clustermap.HeatmapAnnotation">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pyclustermap.clustermap.</span></span><span class="sig-name descname"><span class="pre">HeatmapAnnotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.HeatmapAnnotation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Annotation for heatmap
+df: a pandas dataframe, each column will be converted to one anno_simple class.
+<a href="#id3"><span class="problematic" id="id4">**</span></a>, name-value pair, value can be a pandas dataframe, series, or annotation such as</p>
+<blockquote>
+<div><p>anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p>
+</div></blockquote>
+<p>axis: 1 for columns annotation, 0 for rows annotations.
+cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</p>
+<blockquote>
+<div><p><a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+matplotlib.pyplot.colormaps() to see all availabel cmap.
+default cmap is ‘auto’, it would be determined based on the dtype for each columns of df.
+if df is None, then there is no need to specify cmap, cmap and colors will only be used when
+df is provided.</p>
+</div></blockquote>
+<p>colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+label_side: top or bottom when axis=1, left or right when axis=0.
+label_kws: xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or</p>
+<blockquote>
+<div><p>matplotlib.axis.YAxis.label.properties()</p>
+</div></blockquote>
+<dl class="simple">
+<dt>ticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,</dt><dd><p>see ?matplotlib.axes.Axes.tick_params</p>
+</dd>
+</dl>
+<p>plot_kws: kws passed to annotation, such as anno_simple, anno_label et.al.
+plot: whether to plot, when the annotation are included in clustermap, plot would be</p>
+<blockquote>
+<div><p>set to False automotially.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>legend: True or False, or dict (when df no None), when legend is dict, keys are the</dt><dd><p>columns of df.</p>
+</dd>
+</dl>
+<p>legend_side: right or left
+legend_gap: default is 2 mm
+plot_legend: whether to plot legends.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyclustermap.clustermap.HeatmapAnnotation.collect_legends">
 <span class="sig-name descname"><span class="pre">collect_legends</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.HeatmapAnnotation.collect_legends" title="Permalink to this definition"></a></dt>
