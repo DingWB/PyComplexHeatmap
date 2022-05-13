@@ -20,7 +20,6 @@ from .utils import (
 )
 
 class heatmapPlotter:
-    """Draw a heatmap plot of a matrix with nice labels and colormaps."""
     def __init__(self, data=None, vmin=None, vmax=None, cmap='bwr', center=None,
                  robust=True, annot=None, fmt='.2g',
                  annot_kws=None, cbar=True, cbar_kws=None,
@@ -379,9 +378,9 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
     xlabel_kws / ylabel_kws: parameter from matplotlib.axis.XAxis.label.properties()
     """
     plotter = heatmapPlotter(data=data, vmin=vmin, vmax=vmax, cmap=cmap, center=center, robust=robust,
-                           annot=annot, fmt=fmt, annot_kws=annot_kws, cbar=cbar, cbar_kws=cbar_kws,
-                           xlabel=xlabel, ylabel=ylabel, xticklabels=xticklabels, yticklabels=yticklabels,
-                           mask=mask, na_col=na_col)
+                             annot=annot, fmt=fmt, annot_kws=annot_kws, cbar=cbar, cbar_kws=cbar_kws,
+                             xlabel=xlabel, ylabel=ylabel, xticklabels=xticklabels, yticklabels=yticklabels,
+                             mask=mask, na_col=na_col)
     # Add the pcolormesh kwargs here
     kwargs["linewidths"] = linewidths
     kwargs["edgecolor"] = linecolor
@@ -401,7 +400,11 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
 
 class AnnotationBase():
     """
-    df: a pandas series or dataframe (only one column)
+    Base class for annotation objects.
+
+    Parameters
+    ----------
+    df: a pandas series or dataframe (only one column).
     cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
         https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
         matplotlib.pyplot.colormaps() to see all availabel cmap.
@@ -409,12 +412,17 @@ class AnnotationBase():
     colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
     height: height (if axis=1) / width (if axis=0) for the annotation size.
     legend: whether to plot legend for this annotation when legends are plotted or
-            plot legend with HeatmapAnnotation.plot_legends().
-    legend_kws: kws passed to plt.legend
-    plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot
+        plot legend with HeatmapAnnotation.plot_legends().
+    legend_kws: kws passed to plt.legend.
+    plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot.
+    
+    Returns
+    ----------
+        Class AnnotationBase.
     """
+
     def __init__(self, df=None, cmap='auto', colors=None,
-                 height=None,legend=True,legend_kws=None,**plot_kws):
+                 height=None, legend=True, legend_kws=None, **plot_kws):
         self._check_df(df)
         self.label = None
         self.ylim = None
@@ -423,8 +431,8 @@ class AnnotationBase():
         self.height = self._height(height)
         self._set_default_plot_kws(plot_kws)
         self._type_specific_params()
-        self.legend=legend
-        self.legend_kws=legend_kws if not legend_kws is None else {}
+        self.legend = legend
+        self.legend_kws = legend_kws if not legend_kws is None else {}
 
         if colors is None:
             self._check_cmap(cmap)  # add self.dtype, self.cmap (a dict)
@@ -454,7 +462,7 @@ class AnnotationBase():
 
     def _set_default_plot_kws(self, plot_kws):
         self.plot_kws = {} if plot_kws is None else plot_kws
-        self.plot_kws.setdefault('zorder',10)
+        self.plot_kws.setdefault('zorder', 10)
 
     def update_plot_kws(self, plot_kws):
         self.plot_kws.update(plot_kws)
@@ -492,7 +500,7 @@ class AnnotationBase():
 
     def _check_cmap(self, cmap):
         if cmap == 'auto':
-            col=self.df.columns.tolist()[0]
+            col = self.df.columns.tolist()[0]
             if self.df.dtypes[col] == object:
                 if self.df[col].nunique() <= 10:
                     self.cmap = 'Set1'
@@ -511,7 +519,7 @@ class AnnotationBase():
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
-        col=self.df.columns.tolist()[0]
+        col = self.df.columns.tolist()[0]
         if plt.get_cmap(self.cmap).N < 256:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
@@ -531,7 +539,7 @@ class AnnotationBase():
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
-        col=self.df.columns.tolist()[0]
+        col = self.df.columns.tolist()[0]
         cc_list = list(self.color_dict.keys())  # column values
         self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
@@ -560,42 +568,43 @@ class anno_simple(AnnotationBase):
     """
     Annotate simple annotation, categorical or continuous variables.
     """
-    def __init__(self,df=None, cmap='auto', colors=None,add_text=False,
-                 text_kws=None,height=None,legend=True,legend_kws=None,
+
+    def __init__(self, df=None, cmap='auto', colors=None, add_text=False,
+                 text_kws=None, height=None, legend=True, legend_kws=None,
                  **plot_kws):
         self.add_text = add_text
         self.text_kws = text_kws if not text_kws is None else {}
         super().__init__(df=df, cmap=cmap, colors=colors,
-                 height=height,legend=legend,legend_kws=legend_kws,**plot_kws)
+                         height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
 
     def _set_default_plot_kws(self, plot_kws):
         self.plot_kws = {} if plot_kws is None else plot_kws
-        self.plot_kws.setdefault('zorder',10)
+        self.plot_kws.setdefault('zorder', 10)
         self.text_kws.setdefault('zorder', 16)
         self.text_kws.setdefault('ha', 'center')
         self.text_kws.setdefault('va', 'center')
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
-        col=self.df.columns.tolist()[0]
+        col = self.df.columns.tolist()[0]
         if plt.get_cmap(self.cmap).N < 256:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             for v in cc_list:
                 color = plt.get_cmap(self.cmap)(cc_list.index(v))
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
-            cc_list=None
+            cc_list = None
             self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
         self.cc_list = cc_list
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
-        col=self.df.columns.tolist()[0]
+        col = self.df.columns.tolist()[0]
         cc_list = list(self.color_dict.keys())  # column values
-        self.cc_list=cc_list
+        self.cc_list = cc_list
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 
-    def plot(self, ax=None,axis=1, subplot_spec=None, label_kws={},
+    def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
         vmax = plt.get_cmap(self.cmap).N
         vmin = 0
@@ -603,10 +612,10 @@ class anno_simple(AnnotationBase):
             vmax = None
             vmin = None
         if self.cc_list:
-            mat=self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
+            mat = self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
         else:
-            mat=self.plot_data.values
-        matrix=mat.reshape(1,-1) if axis==1 else mat.reshape(-1,1)
+            mat = self.plot_data.values
+        matrix = mat.reshape(1, -1) if axis == 1 else mat.reshape(-1, 1)
         xlabel = None if axis == 1 else self.label
         ylabel = self.label if axis == 1 else None
 
@@ -624,64 +633,65 @@ class anno_simple(AnnotationBase):
             else:
                 y = ticks
                 x = [0.5] * n
-            s=ax.get_window_extent().height if axis==1 else ax.get_window_extent().width
-            fontsize=self.text_kws.pop('fontsize',72*s*0.8/ax.figure.dpi)
+            s = ax.get_window_extent().height if axis == 1 else ax.get_window_extent().width
+            fontsize = self.text_kws.pop('fontsize', 72 * s * 0.8 / ax.figure.dpi)
             color = self.text_kws.pop('color', None)
-            for x0,y0,t in zip(x,y,labels):
+            for x0, y0, t in zip(x, y, labels):
                 lum = _calculate_luminance(self.color_dict[t])
                 text_color = "black" if lum > 0.408 else "white"
                 # print(t,self.color_dict,text_color,color)
                 if color is None:
-                    c=text_color
+                    c = text_color
                 else:
-                    c=color
-                ax.text(x0,y0,t,fontsize=fontsize,color=c,**self.text_kws)
+                    c = color
+                ax.text(x0, y0, t, fontsize=fontsize, color=c, **self.text_kws)
         self.ax = ax
         self.fig = self.ax.figure
-        self.label_width=self.ax.yaxis.label.get_window_extent().width
+        self.label_width = self.ax.yaxis.label.get_window_extent().width
         return self.ax
 
 class anno_label(AnnotationBase):
     """
     Add label and text annotations.
     """
-    def __init__(self,df=None, cmap='auto', colors=None,merge=False,
-                 height=None,legend=False,legend_kws=None,**plot_kws):
+
+    def __init__(self, df=None, cmap='auto', colors=None, merge=False,
+                 height=None, legend=False, legend_kws=None, **plot_kws):
         super().__init__(df=df, cmap=cmap, colors=colors,
-                 height=height,legend=legend,legend_kws=legend_kws,**plot_kws)
-        self.merge=merge
+                         height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
+        self.merge = merge
 
     def _height(self, height):
         return 4 if height is None else height
 
-    def set_side(self,side):
-        self.side=side
+    def set_side(self, side):
+        self.side = side
 
-    def set_plot_kws(self,axis):
-        shrink = 1 #1 * 0.0394 * 72  # 1mm -> points
+    def set_plot_kws(self, axis):
+        shrink = 1  # 1 * 0.0394 * 72  # 1mm -> points
         if axis == 1:
-            relpos = (0, 0) if self.side=='top' else (0,1)
-            rotation=45 if self.side=='top' else -45
-            ha='left'
+            relpos = (0, 0) if self.side == 'top' else (0, 1)
+            rotation = 45 if self.side == 'top' else -45
+            ha = 'left'
             va = 'center'
         else:
-            relpos = (1, 1) if self.side=='left' else (0, 0)
+            relpos = (1, 1) if self.side == 'left' else (0, 0)
             rotation = 0
-            ha = 'right' if self.side=='left' else 'left'
+            ha = 'right' if self.side == 'left' else 'left'
             va = 'center'
         self.plot_kws.setdefault('rotation', rotation)
         self.plot_kws.setdefault('ha', ha)
         self.plot_kws.setdefault('va', va)
         arrowprops = dict(arrowstyle="-", color="black",
                           shrinkA=shrink, shrinkB=shrink, relpos=relpos,
-                          patchA=None, patchB=None,connectionstyle=None)
+                          patchA=None, patchB=None, connectionstyle=None)
         # self.plot_kws.setdefault('transform_rotates_text', False)
         self.plot_kws.setdefault('arrowprops', arrowprops)
         self.plot_kws.setdefault('rotation_mode', 'anchor')
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
-        col=self.df.columns.tolist()[0]
+        col = self.df.columns.tolist()[0]
         if plt.get_cmap(self.cmap).N < 256:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             for v in cc_list:
@@ -695,61 +705,61 @@ class anno_label(AnnotationBase):
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
-        ax_index=ax.figure.axes.index(ax)
-        ax_n=len(ax.figure.axes)
-        i=ax_index/ax_n
+        ax_index = ax.figure.axes.index(ax)
+        ax_n = len(ax.figure.axes)
+        i = ax_index / ax_n
         if self.side is None:
-            if axis==1 and i <= 0.5:
-                side='top'
-            elif axis==1:
-                side='bottom'
-            elif axis==0 and i<=0.5:
-                side='left'
+            if axis == 1 and i <= 0.5:
+                side = 'top'
+            elif axis == 1:
+                side = 'bottom'
+            elif axis == 0 and i <= 0.5:
+                side = 'left'
             else:
-                side='right'
-            self.side=side
+                side = 'right'
+            self.side = side
         self.set_plot_kws(axis)
-        if self.merge: #merge the adjacent ticklabels with the same text to one, return labels and mean x coordinates.
-            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values,np.arange(0.5, self.nrows, 1))
+        if self.merge:  # merge the adjacent ticklabels with the same text to one, return labels and mean x coordinates.
+            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1))
         else:
             labels = self.plot_data.iloc[:, 0].values
             ticks = np.arange(0.5, self.nrows, 1)
 
-        n=len(ticks)
-        text_height=self.height * 0.0394 * ax.figure.dpi  #convert height (mm) to inch and to pixels.
+        n = len(ticks)
+        text_height = self.height * 0.0394 * ax.figure.dpi  # convert height (mm) to inch and to pixels.
         # print(ax.figure.dpi,text_height)
         text_y = text_height
-        if self.side=='bottom' or self.side=='left':
-            text_y=-1*text_y
+        if self.side == 'bottom' or self.side == 'left':
+            text_y = -1 * text_y
         if axis == 1:
             ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-            x=ticks
-            y=[0]*n if self.side=='top' else [1]*n
+            x = ticks
+            y = [0] * n if self.side == 'top' else [1] * n
             x1 = ticks
             y1 = [text_y] * n
         else:
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             y = ticks
-            x = [1] * n if self.side=='left' else [0]*n
+            x = [1] * n if self.side == 'left' else [0] * n
             y1 = ticks
             x1 = [text_y] * n
-        angleA, angleB = (-90, 90) if axis==1 else (180, 0)
-        xycoords = ax.get_xaxis_transform() if axis==1 else ax.get_yaxis_transform() #x: x is data coordinates,y is [0,1]
+        angleA, angleB = (-90, 90) if axis == 1 else (180, 0)
+        xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()  # x: x is data coordinates,y is [0,1]
         arm_height = text_height / 3
-        rad = 0 #arm_height / 10
+        rad = 0  # arm_height / 10
         connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
         if self.plot_kws['arrowprops']['connectionstyle'] is None:
-            self.plot_kws['arrowprops']['connectionstyle']=connectionstyle
-        hs=[]
-        ws=[]
+            self.plot_kws['arrowprops']['connectionstyle'] = connectionstyle
+        hs = []
+        ws = []
         for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
-            color=self.color_dict[t]
-            self.plot_kws['arrowprops']['color']=color
-            box=ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords,textcoords='offset pixels',
-                        color=color,**self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
+            color = self.color_dict[t]
+            self.plot_kws['arrowprops']['color'] = color
+            box = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords='offset pixels',
+                              color=color, **self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
             hs.append(box.get_window_extent(renderer=ax.figure.canvas.get_renderer()).height)
             ws.append(box.get_window_extent(renderer=ax.figure.canvas.get_renderer()).width)
-        self.label_width = max(hs) if axis==1 else max(ws)
+        self.label_width = max(hs) if axis == 1 else max(ws)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
@@ -763,6 +773,7 @@ class anno_boxplot(AnnotationBase):
     """
     annotate boxplots.
     """
+
     def _height(self, height):
         return 8 if height is None else height
 
@@ -801,10 +812,10 @@ class anno_boxplot(AnnotationBase):
         else:
             raise TypeError(
                 "Boxplot only support one string as colors now, if more colors are wanted, cmap can be specified.")
-        self.color_dict=None
+        self.color_dict = None
 
     def _calculate_cmap(self):
-        self.color_dict=None
+        self.color_dict = None
 
     def _type_specific_params(self):
         gap = self.df.max().max() - self.df.min().min()
@@ -835,7 +846,7 @@ class anno_boxplot(AnnotationBase):
         bp = ax.boxplot(x=self.plot_data.T.values, positions=np.arange(0.5, self.nrows, 1), patch_artist=True,
                         vert=vert, **self.plot_kws)
         if grid:
-            ax.grid(linestyle='--',zorder=-10)
+            ax.grid(linestyle='--', zorder=-10)
         for box, color in zip(bp['boxes'], colors):
             box.set_facecolor(color)
             box.set_edgecolor(edgecolor)
@@ -844,11 +855,11 @@ class anno_boxplot(AnnotationBase):
         if axis == 1:
             ax.set_xlim(0, self.nrows)
             ax.tick_params(axis='both', which='both',
-                        top=False, bottom=False, labeltop=False, labelbottom=False)
+                           top=False, bottom=False, labeltop=False, labelbottom=False)
         else:
             ax.set_ylim(0, self.nrows)
             ax.tick_params(axis='both', which='both',
-                                left=False, right=False, labelleft=False, labelright=False)
+                           left=False, right=False, labelleft=False, labelright=False)
             ax.invert_xaxis()
         self.fig = fig
         self.ax = ax
@@ -859,6 +870,7 @@ class anno_barplot(anno_boxplot):
     """
     Annotate barplot.
     """
+
     def _set_default_plot_kws(self, plot_kws):
         self.plot_kws = plot_kws if plot_kws is not None else {}
         self.plot_kws.setdefault('edgecolor', 'black')
@@ -898,9 +910,9 @@ class anno_barplot(anno_boxplot):
                 "the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!")
 
     def _calculate_cmap(self):
-        self.color_dict={}
-        for v,c in zip(self.df.columns.tolist(),self.colors):
-            self.color_dict[v]=c
+        self.color_dict = {}
+        for v, c in zip(self.df.columns.tolist(), self.colors):
+            self.color_dict[v] = c
 
     def _type_specific_params(self):
         if self.ncols > 1:
@@ -926,7 +938,7 @@ class anno_barplot(anno_boxplot):
             colors = self.colors
         grid = self.plot_kws.pop('grid')
         if grid:
-            ax.grid(linestyle='--',zorder=-10)
+            ax.grid(linestyle='--', zorder=-10)
         # bar_ct = ax.bar(x=list(range(1, self.nrows + 1,1)),
         #                 height=self.plot_data.values,**self.plot_kws)
         for col, color in zip(self.plot_data.columns, colors):
@@ -940,11 +952,11 @@ class anno_barplot(anno_boxplot):
         #     patch.set_edgecolor(edgecolor)
         if axis == 0:
             ax.tick_params(axis='both', which='both',
-                                left=False, right=False, labelleft=False, labelright=False)
+                           left=False, right=False, labelleft=False, labelright=False)
             ax.invert_xaxis()
         else:
             ax.tick_params(axis='both', which='both',
-                                top=False, bottom=False, labeltop=False, labelbottom=False)
+                           top=False, bottom=False, labeltop=False, labelbottom=False)
         self.fig = fig
         self.ax = ax
         self.label_width = self.ax.yaxis.label.get_window_extent().width
@@ -954,6 +966,7 @@ class anno_scatterplot(anno_barplot):
     """
     Annotate scatterplot.
     """
+
     def _check_df(self, df):
         if isinstance(df, pd.Series):
             df = df.to_frame(name=df.name)
@@ -984,7 +997,7 @@ class anno_scatterplot(anno_barplot):
         if not isinstance(colors, str):
             raise TypeError("colors must be string for scatterplot, if more colors are neded, please try cmap!")
         self.colors = colors
-        self.color_dict=None
+        self.color_dict = None
 
     def _calculate_cmap(self):
         self._check_cmap('auto')
@@ -1002,7 +1015,7 @@ class anno_scatterplot(anno_barplot):
         fig = ax.figure
         grid = self.plot_kws.pop('grid')
         if grid:
-            ax.grid(linestyle='--',zorder=-10)
+            ax.grid(linestyle='--', zorder=-10)
         values = self.plot_data.iloc[:, 0].values
         if self.colors is None:
             colors = values
@@ -1026,11 +1039,11 @@ class anno_scatterplot(anno_barplot):
         scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **self.plot_kws)
         if axis == 0:
             ax.tick_params(axis='both', which='both',
-                                left=False, right=False, labelleft=False, labelright=False)
+                           left=False, right=False, labelleft=False, labelright=False)
             ax.invert_xaxis()
         else:
             ax.tick_params(axis='both', which='both',
-                                top=False, bottom=False, labeltop=False, labelbottom=False)
+                           top=False, bottom=False, labeltop=False, labelbottom=False)
         self.fig = fig
         self.ax = ax
         self.label_width = self.ax.yaxis.label.get_window_extent().width
@@ -1038,56 +1051,66 @@ class anno_scatterplot(anno_barplot):
 
 class HeatmapAnnotation():
     """
+    Generate and plot heatmap annotations.
+    """
+    def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
+                 ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
+                 legend_gap=2, plot_legend=True, **args):
+        """
         Annotation for heatmap
-        df: a pandas dataframe, each column will be converted to one anno_simple class.
-        **, name-value pair, value can be a pandas dataframe, series, or annotation such as
-            anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
-        axis: 1 for columns annotation, 0 for rows annotations.
-        cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+        Parameters
+        ----------
+        self : Class HeatmapAnnotation
+        df :  a pandas dataframe, each column will be converted to one anno_simple class.
+        axis : 1 for columns annotation, 0 for rows annotations.
+        cmap : colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
             https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
             matplotlib.pyplot.colormaps() to see all availabel cmap.
             default cmap is 'auto', it would be determined based on the dtype for each columns of df.
             if df is None, then there is no need to specify cmap, cmap and colors will only be used when
             df is provided.
-        colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
-        label_side: top or bottom when axis=1, left or right when axis=0.
-        label_kws: xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or
-                matplotlib.axis.YAxis.label.properties()
-        ticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-                        see ?matplotlib.axes.Axes.tick_params
-        plot_kws: kws passed to annotation, such as anno_simple, anno_label et.al.
-        plot: whether to plot, when the annotation are included in clustermap, plot would be
-                set to False automotially.
-        legend: True or False, or dict (when df no None), when legend is dict, keys are the
-                columns of df.
-        legend_side: right or left
-        legend_gap: default is 2 mm
-        plot_legend: whether to plot legends.
-    """
-    def __init__(self,df=None,axis=1, cmap='auto',colors=None,label_side=None, label_kws=None,
-                 ticklabels_kws= None, plot_kws= None,plot=False,legend=True,legend_side='right',
-                 legend_gap=2,plot_legend=True,**args):
+        colors : a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+        label_side : top or bottom when axis=1, left or right when axis=0.
+        label_kws : xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or
+            matplotlib.axis.YAxis.label.properties()
+        ticklabels_kws : xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
+            see ?matplotlib.axes.Axes.tick_params
+        plot_kws : kws passed to annotation, such as anno_simple, anno_label et.al.
+        plot : whether to plot, when the annotation are included in clustermap, plot would be
+            set to False automotially.
+        legend : True or False, or dict (when df no None), when legend is dict, keys are the
+            columns of df.
+        legend_side : right or left
+        legend_gap : default is 2 mm
+        plot_legend : whether to plot legends.
+        args : name-value pair, value can be a pandas dataframe, series, or annotation such as 
+            anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
+
+        Returns
+        -------
+            Class HeatmapAnnotation.
+        """
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
-        if not df is None and len(args)>0:
+        if not df is None and len(args) > 0:
             raise ValueError("df and Name-value pairs can only be given one, not both.")
         if not df is None:
             self._check_df(df)
         else:
-            self.df=None
+            self.df = None
         self.axis = axis
         self.label_side = label_side
         self._set_label_kws(label_kws, ticklabels_kws)
-        self.plot_kws=plot_kws if not plot_kws is None else {}
+        self.plot_kws = plot_kws if not plot_kws is None else {}
         self._check_legend(legend)
-        self.legend_side=legend_side
+        self.legend_side = legend_side
         self.legend_gap = legend_gap
         self.plot_legend = plot_legend
-        self.plot=plot
+        self.plot = plot
         self.args = args
         if colors is None:
             self._check_cmap(cmap)
-            self.colors=None
+            self.colors = None
         else:
             self._check_colors(colors)
         self._process_data()
@@ -1096,22 +1119,22 @@ class HeatmapAnnotation():
         if self.plot:
             self.plot_annotations()
 
-    def _check_df(self,df):
+    def _check_df(self, df):
         if type(df) == list or isinstance(df, np.ndarray):
             df = pd.Series(df).to_frame(name='df')
         elif isinstance(df, pd.Series):
-            name=df.name if not df.name is None else 'df'
-            df=df.to_frame(name=name)
+            name = df.name if not df.name is None else 'df'
+            df = df.to_frame(name=name)
         if not isinstance(df, pd.DataFrame):
             raise TypeError("data type of df could not be recognized, should be a dataframe")
-        self.df=df
+        self.df = df
 
-    def _check_legend(self,legend):
+    def _check_legend(self, legend):
         if type(legend) == bool:
             if not self.df is None:
                 self.legend = {col: legend for col in self.df.columns}
             else:
-                self.legend = collections.defaultdict(lambda:legend)
+                self.legend = collections.defaultdict(lambda: legend)
         elif type(legend) == dict:
             if not self.df is None and len(legend) != self.df.shape[1]:
                 raise ValueError("legend must have the same length with number of columns of df")
@@ -1119,7 +1142,7 @@ class HeatmapAnnotation():
         else:
             raise TypeError("Unknow data type for legend!")
 
-    def _check_cmap(self,cmap):
+    def _check_cmap(self, cmap):
         if self.df is None:
             return
         self.cmap = {}
@@ -1151,7 +1174,7 @@ class HeatmapAnnotation():
         else:
             raise TypeError("Unknow data type for cmap!")
 
-    def _check_colors(self,colors):
+    def _check_colors(self, colors):
         if self.df is None:
             return
         self.colors = {}
@@ -1165,17 +1188,17 @@ class HeatmapAnnotation():
         self.annotations = []
         if not self.df is None:
             for col in self.df.columns:
-                plot_kws=self.plot_kws.copy()
+                plot_kws = self.plot_kws.copy()
                 if self.colors is None:
-                    plot_kws.setdefault("cmap",self.cmap[col])
+                    plot_kws.setdefault("cmap", self.cmap[col])
                 else:
                     plot_kws.setdefault("colors", self.colors[col])
-                anno1 = anno_simple(self.df[col], legend=self.legend[col],**plot_kws)
+                anno1 = anno_simple(self.df[col], legend=self.legend[col], **plot_kws)
                 anno1.set_label(col)
                 self.annotations.append(anno1)
         elif len(self.args) > 0:
             # print(self.args)
-            self.labels=[]
+            self.labels = []
             for arg in self.args:
                 # print(arg)
                 ann = self.args[arg]
@@ -1183,28 +1206,28 @@ class HeatmapAnnotation():
                     ann = pd.Series(ann).to_frame(name=arg)
                 elif isinstance(ann, pd.Series):
                     ann = ann.to_frame(name=arg)
-                if isinstance(ann,pd.DataFrame):
-                    if ann.shape[1]>1:
+                if isinstance(ann, pd.DataFrame):
+                    if ann.shape[1] > 1:
                         for col in ann.columns:
-                            anno1 = anno_simple(ann[col],legend=self.legend[col],**self.plot_kws)
+                            anno1 = anno_simple(ann[col], legend=self.legend[col], **self.plot_kws)
                             anno1.set_label(col)
                             self.annotations.append(anno1)
                     else:
-                        anno1 = anno_simple(ann, legend=self.legend[arg],**self.plot_kws)
+                        anno1 = anno_simple(ann, legend=self.legend[arg], **self.plot_kws)
                         anno1.set_label(arg)
                         self.annotations.append(anno1)
                 if hasattr(ann, 'set_label') and AnnotationBase.__subclasscheck__(type(ann)):
                     self.annotations.append(ann)
                     ann.set_label(arg)
                     ann.set_legend(self.legend[arg])
-                    if type(ann)==anno_label:
-                        if self.axis==1 and len(self.labels)==0:
+                    if type(ann) == anno_label:
+                        if self.axis == 1 and len(self.labels) == 0:
                             ann.set_side('top')
-                        elif self.axis==1:
+                        elif self.axis == 1:
                             ann.set_side('bottom')
-                        elif self.axis==0 and len(self.labels)==0:
+                        elif self.axis == 0 and len(self.labels) == 0:
                             ann.set_side('left')
-                        elif self.axis==0:
+                        elif self.axis == 0:
                             ann.set_side('right')
                 self.labels.append(arg)
 
@@ -1221,7 +1244,7 @@ class HeatmapAnnotation():
         self.label_kws['verticalalignment'] = 'center'
         if self.label_side is None:
             self.label_side = 'right' if self.axis == 1 else 'top'  # columns annotation, default ylabel is on the right
-        ha='right' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
+        ha = 'right' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
         va = 'bottom' if self.label_side == 'top' else 'top' if self.label_side == 'bottom' else 'center'
         self.label_kws['horizontalalignment'] = ha
         self.label_kws['verticalalignment'] = va
@@ -1305,64 +1328,86 @@ class HeatmapAnnotation():
                     self.axes[0, j].xaxis.set_tick_params(**self.ticklabels_kws)
 
     def collect_legends(self):
-        self.legend_list=[] #handles(dict) / cmap, title, kws
+        """
+        Collect legends.
+        Returns
+        -------
+            None
+        """
+        self.legend_list = []  # handles(dict) / cmap, title, kws
         for annotation in self.annotations:
-            legend_kws=annotation.legend_kws.copy()
+            legend_kws = annotation.legend_kws.copy()
             if not annotation.legend:
                 continue
             if plt.get_cmap(annotation.cmap).N < 256:
-                color_dict=annotation.color_dict
+                color_dict = annotation.color_dict
                 if color_dict is None:
                     continue
-                self.legend_list.append([annotation.color_dict,annotation.label,legend_kws,len(annotation.color_dict)])
+                self.legend_list.append(
+                    [annotation.color_dict, annotation.label, legend_kws, len(annotation.color_dict)])
             else:
-                if annotation.df.shape[1]==1:
-                    array=annotation.df.iloc[:, 0].values
+                if annotation.df.shape[1] == 1:
+                    array = annotation.df.iloc[:, 0].values
                 else:
                     array = annotation.df.values
-                vmax=np.nanmax(array[array != np.inf])
-                vmin=np.nanmin(array[array != -np.inf])
-                legend_kws.setdefault('vmin',round(vmin,2))
-                legend_kws.setdefault('vmax', round(vmax,2))
-                self.legend_list.append([annotation.cmap,annotation.label,legend_kws,4])
+                vmax = np.nanmax(array[array != np.inf])
+                vmin = np.nanmin(array[array != -np.inf])
+                legend_kws.setdefault('vmin', round(vmin, 2))
+                legend_kws.setdefault('vmax', round(vmax, 2))
+                self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
         if len(self.legend_list) > 1:
             self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
         self.label_max_width = max([ann.label_width for ann in self.annotations])
         # self.label_max_height = max([ann.ax.yaxis.label.get_window_extent().height for ann in self.annotations])
 
-    def plot_annotations(self, ax=None,subplot_spec=None, idxs=None, gap=0.5,
-             wspace=None,hspace=None):
+    def plot_annotations(self, ax=None, subplot_spec=None, idxs=None, gap=0.5,
+                         wspace=None, hspace=None):
+        """
+        Parameters
+        ----------
+        ax : axes to plot the annotations.
+        subplot_spec : object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.
+        idxs : index to reorder df and df of annotation class.
+        gap : gap to calculate wspace and hspace for gridspec.
+        wspace : if wspace not is None, use wspace, else wspace would be calculated based on gap.
+        hspace : if hspace not is None, use hspace, else hspace would be calculated based on gap.
+
+        Returns
+        -------
+            self.ax
+        """
         # print(ax.figure.get_size_inches())
         if ax is None:
             self.ax = plt.gca()
         else:
             self.ax = ax
         if idxs is None:
-            idxs=[self.annotations[0].plot_data.index.tolist()]
+            idxs = [self.annotations[0].plot_data.index.tolist()]
         if self.axis == 1:
             nrows = len(self.heights)
             ncols = len(idxs)
             height_ratios = self.heights
             width_ratios = [len(idx) for idx in idxs]
             wspace = gap * 0.0394 * self.ax.figure.dpi / (
-                        self.ax.get_window_extent().width / nrows) if wspace is None else wspace # 1mm=0.0394 inch
-            hspace=0
+                    self.ax.get_window_extent().width / nrows) if wspace is None else wspace  # 1mm=0.0394 inch
+            hspace = 0
         else:
             nrows = len(idxs)
             ncols = len(self.heights)
             width_ratios = self.heights
             height_ratios = [len(idx) for idx in idxs]
-            hspace = gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().height / ncols) if hspace is None else hspace
-            wspace=0
+            hspace = gap * 0.0394 * self.ax.figure.dpi / (
+                        self.ax.get_window_extent().height / ncols) if hspace is None else hspace
+            wspace = 0
         if subplot_spec is None:
             self.gs = self.ax.figure.add_gridspec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                   height_ratios=height_ratios,
                                                   width_ratios=width_ratios)
         else:
             self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=hspace, wspace=wspace,
-                                                           subplot_spec=subplot_spec,
-                                                           height_ratios=height_ratios,
-                                                           width_ratios=width_ratios)
+                                                                  subplot_spec=subplot_spec,
+                                                                  height_ratios=height_ratios,
+                                                                  width_ratios=width_ratios)
         self.axes = np.empty(shape=(nrows, ncols), dtype=object)
         self.fig = self.ax.figure
         self.ax.set_axis_off()
@@ -1393,25 +1438,36 @@ class HeatmapAnnotation():
                     self.ax.spines['right'].set_visible(False)
                     self.axes[j, i] = ax1
         self.set_axes_kws()
-        self.legend_list=None
+        self.legend_list = None
         if self.plot and self.plot_legend:
             self.plot_legends(ax=self.ax)
         # _draw_figure(self.ax.figure)
         return self.ax
 
-    def plot_legends(self,ax=None):
+    def plot_legends(self, ax=None):
+        """
+        Plot legends.
+        Parameters
+        ----------
+        ax : axes for the plot, is ax is None, then ax=plt.figure()
+
+        Returns
+        -------
+            None
+        """
         if self.legend_list is None:
             self.collect_legends()
         if len(self.legend_list) > 0:
-            space=self.label_max_width if self.label_side==self.legend_side else 0
-            self.legend_axes,self.boundry=plot_legend_list(self.legend_list, ax=ax, space=space,legend_side='right',gap=self.legend_gap)
+            space = self.label_max_width if self.label_side == self.legend_side else 0
+            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space, legend_side='right',
+                                                              gap=self.legend_gap)
 
 class DendrogramPlotter(object):
     # TODO https://stackoverflow.com/questions/46054082/plot-updated-dendogram-with-matplotlib
     # TODO https://python.tutorialink.com/how-to-draw-colored-rectangles-around-grouped-clusters-in-dendogram/
     """Object for drawing tree of similarities between data rows/columns"""
 
-    def __init__(self, data, linkage, metric, method, axis, label, rotate,dendrogram_kws=None):
+    def __init__(self, data, linkage, metric, method, axis, label, rotate, dendrogram_kws=None):
         """Plot a dendrogram of the relationships between the columns of data
         """
         self.axis = axis
@@ -1458,17 +1514,17 @@ class DendrogramPlotter(object):
         self.dependent_coord = np.array(self.dendrogram['dcoord'])
         self.independent_coord = np.array(self.dendrogram['icoord']) / 10
 
-    def check_array(self,data):
+    def check_array(self, data):
         if not isinstance(data, pd.DataFrame):
             data = pd.DataFrame(data)
         # To avoid missing values and infinite values and further error, remove missing values
-        nrow=data.shape[0]
-        keep_col=data.apply(np.isfinite).sum()==nrow
+        nrow = data.shape[0]
+        keep_col = data.apply(np.isfinite).sum() == nrow
         if keep_col.sum() < 3:
             raise ValueError("There are too many missing values or infinite values")
-        data=data.loc[:,keep_col[keep_col].index.tolist()]
+        data = data.loc[:, keep_col[keep_col].index.tolist()]
         self.data = data
-        self.array=data.values
+        self.array = data.values
 
     def _calculate_linkage_scipy(self):  # linkage is calculated by columns
         # print(type(self.array),self.method,self.metric)
@@ -1500,15 +1556,15 @@ class DendrogramPlotter(object):
         return self._calculate_linkage_scipy()
 
     def calculate_dendrogram(self):  # Z (linkage) shape = (n,4), then dendrogram icoord shape = (n,4)
-        return hierarchy.dendrogram(self.linkage, no_plot=True,labels=self.data.index.tolist(),
-                                    get_leaves=True,**self.dendrogram_kws)  # color_threshold=-np.inf,
+        return hierarchy.dendrogram(self.linkage, no_plot=True, labels=self.data.index.tolist(),
+                                    get_leaves=True, **self.dendrogram_kws)  # color_threshold=-np.inf,
 
     @property
     def reordered_ind(self):
         """Indices of the matrix, reordered by the dendrogram"""
         return self.dendrogram['leaves']  # idx of the matrix
 
-    def plot(self, ax,tree_kws):
+    def plot(self, ax, tree_kws):
         """Plots a dendrogram of the similarities between data on the axes
         Parameters
         ----------
@@ -1517,7 +1573,7 @@ class DendrogramPlotter(object):
         """
         tree_kws = {} if tree_kws is None else tree_kws
         tree_kws.setdefault("linewidth", .5)
-        tree_kws.setdefault("colors",None)
+        tree_kws.setdefault("colors", None)
         # tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
         if self.rotate and self.axis == 0:  # 0 is rows, 1 is columns (default)
             coords = zip(self.dependent_coord, self.independent_coord)  # independent is icoord (x), horizontal
@@ -1525,12 +1581,12 @@ class DendrogramPlotter(object):
             coords = zip(self.independent_coord, self.dependent_coord)  # vertical
         # lines = LineCollection([list(zip(x,y)) for x,y in coords], **tree_kws)  #
         # ax.add_collection(lines)
-        colors=tree_kws.pop('colors')
+        colors = tree_kws.pop('colors')
         if colors is None:
             # colors=self.dendrogram['leaves_color_list']
-            colors=['black']*len(self.dendrogram['ivl'])
+            colors = ['black'] * len(self.dendrogram['ivl'])
         for (x, y), color in zip(coords, colors):
-            ax.plot(x, y, color=color,**tree_kws)
+            ax.plot(x, y, color=color, **tree_kws)
         number_of_leaves = len(self.reordered_ind)
         max_dependent_coord = max(map(max, self.dependent_coord))  # max y
 
@@ -1564,60 +1620,84 @@ class DendrogramPlotter(object):
 class ClusterMapPlotter():
     """
     Clustermap (Heatmap) plotter.
-    data: pandas dataframe or numpy array.
-    z_score: whether to perform z score scale, Either 0 (rows) or 1 (columns), after scale,
-            value range would be [-1,1]
-    standard_scale: Either 0 (rows) or 1 (columns), after scale,
-            value range would be [0,1]
-    [top/bottom/left/right]_annotation: class of HeatmapAnnotation.
-    [row/col]_cluster: whether to perform cluster on rows/columns.
-    [row/col]_cluster_method: cluster method for row/columns linkage, such single, complete, average,weighted,
-        centroid, median, ward. see scipy.cluster.hierarchy.linkage or
-        (https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for detail.
-    [row/col]_cluster_metric: Pairwise distances between observations in n-dimensional space for row/columns,
-        such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
-        chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
-        centroid, median, ward. see scipy.cluster.hierarchy.linkage or
-    show_rownames, show_colnames: True or False.
-    row_names_side: right or left.
-    col_names_side: top or bottom.
-    [row/col]_dendrogram: True or False, whether to show dendrogram.
-    [row/col]_dendrogram_size: default is 10mm.
-    dendrogram_kws: kws passed to hierarchy.dendrogram.
-    tree_kws: passed to DendrogramPlotter.plot()
-    [row/col]_split: int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
-    [row/col]_split_gap: default are 0.5 and 0.2 mm for row and col.
-    mask: mask the data in heatmap.
-    subplot_gap: the gap between subplots, default is 1mm.
-    legend: True or False, whether to plot heatmap legend, determined by cmap.
-    legend_kws: kws passed to plot.legend.
-    plot: whether to plot.
-    plot_legend: True or False, whether to plot legend, if False, legends can be plot with
-                ClusterMapPlotter.plot_legends()
-    legend_anchor: str, ax_heatmap or ax, the ax to which legend anchor.
-    legend_gap: the columns gap between different legends.
-    legend_side: right of left.
-    cmap: default is 'jet', the colormap for heatmap colorbar.
-    label: the title (label) that would be shown in heatmap colorbar legend.
-    xticklabels_kws, yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-                        see ?matplotlib.axes.Axes.tick_params
-    rasterized: default is False.
-    **heatmap_kws: kws passed to heatmap.
     """
     def __init__(self, data, z_score=None, standard_scale=None,
-                 top_annotation=None, bottom_annotation=None,left_annotation=None, right_annotation=None,
-                 row_cluster=True, col_cluster=True,row_cluster_method='average',row_cluster_metric='correlation',
+                 top_annotation=None, bottom_annotation=None, left_annotation=None, right_annotation=None,
+                 row_cluster=True, col_cluster=True, row_cluster_method='average', row_cluster_metric='correlation',
                  col_cluster_method='average', col_cluster_metric='correlation',
-                 show_rownames=True,show_colnames=True,row_names_side='right',col_names_side='bottom',
-                 row_dendrogram=True, col_dendrogram=True,row_dendrogram_size=10, col_dendrogram_size=10,
-                 row_split=None,col_split=None,dendrogram_kws=None,tree_kws=None,
-                 row_split_gap=0.5,col_split_gap=0.2,mask=None,subplot_gap=1, legend=True,legend_kws=None,
-                 plot=True,plot_legend=True,legend_anchor='ax_heatmap',legend_gap=3,
-                 legend_side='right',cmap='jet',label=None,xticklabels_kws=None,yticklabels_kws=None,rasterized=False,
-                 **heatmap_kws):
+                 show_rownames=True, show_colnames=True, row_names_side='right', col_names_side='bottom',
+                 row_dendrogram=True, col_dendrogram=True, row_dendrogram_size=10, col_dendrogram_size=10,
+                 row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
+                 row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
+                 plot=True, plot_legend=True, legend_anchor='ax_heatmap', legend_gap=3,
+                 legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
+                 rasterized=False,**heatmap_kws):
+        """
+        Plot heatmap / clustermap with annotation and legends.
+
+        Parameters
+        ----------
+        data : pandas dataframe or numpy array.
+        z_score : whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
+            value range would be from -1 to 1.
+        standard_scale : either 0 for rows or 1 for columns,, after scale,value range would be from 0 tp 1.
+        top_annotation : annotation: class of HeatmapAnnotation.
+        bottom_annotation : the same as top_annotation.
+        left_annotation :the same as top_annotation.
+        right_annotation :the same as top_annotation.
+        row_cluster :whether to perform cluster on rows/columns.
+        col_cluster :whether to perform cluster on rows/columns.
+        row_cluster_method :cluster method for row/columns linkage, such single, complete, average,weighted,
+            centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+            (https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for detail.
+        row_cluster_metric : Pairwise distances between observations in n-dimensional space for row/columns,
+            such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
+            chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
+            centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+            https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html
+        col_cluster_method :same as row_cluster_method
+        col_cluster_metric :same as row_cluster_metric
+        show_rownames :True (default) or False, whether to show row ticklabels.
+        show_colnames : True of False, same as show_rownames.
+        row_names_side :right or left.
+        col_names_side :top or bottom.
+        row_dendrogram :True or False, whether to show dendrogram.
+        col_dendrogram :True or False, whether to show dendrogram.
+        row_dendrogram_size :int, default is 10mm.
+        col_dendrogram_size :int, default is 10mm.
+        row_split :int (number of cluster for hierarchical clustering) or pd.Series or pd.DataFrame,
+            used to split rows or rows into subplots.
+        col_split :int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
+        dendrogram_kws :kws passed to hierarchy.dendrogram.
+        tree_kws :kws passed to DendrogramPlotter.plot()
+        row_split_gap :default are 0.5 and 0.2 mm for row and col.
+        col_split_gap :default are 0.5 and 0.2 mm for row and col.
+        mask :mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.
+        subplot_gap :the gap between subplots, default is 1mm.
+        legend :True or False, whether to plot heatmap legend, determined by cmap.
+        legend_kws :kws passed to plot.legend.
+        plot :whether to plot or not.
+        plot_legend :True or False, whether to plot legend, if False, legends can be plot with
+            ClusterMapPlotter.plot_legends()
+        legend_anchor :str, ax_heatmap or ax, the ax to which legend anchor.
+        legend_gap :the columns gap between different legends.
+        legend_side :right of left.
+        cmap :default is 'jet', the colormap for heatmap colorbar.
+        label :the title (label) that will be shown in heatmap colorbar legend.
+        xticklabels_kws :yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
+            see ?matplotlib.axes.Axes.tick_params
+        yticklabels_kws :the same as xticklabels_kws.
+        rasterized :default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
+            to be True, otherwise the plot would be very slow.
+        heatmap_kws :kws passed to heatmap.
+
+        Returns
+        -------
+            Class ClusterMapPlotter.
+        """
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.mask = _check_mask(self.data2d, mask)
-        self._define_kws(xticklabels_kws,yticklabels_kws)
+        self._define_kws(xticklabels_kws, yticklabels_kws)
         self.top_annotation = top_annotation
         self.bottom_annotation = bottom_annotation
         self.left_annotation = left_annotation
@@ -1630,28 +1710,28 @@ class ClusterMapPlotter():
         self.row_cluster_metric = row_cluster_metric
         self.col_cluster_method = col_cluster_method
         self.col_cluster_metric = col_cluster_metric
-        self.show_rownames=show_rownames
-        self.show_colnames=show_colnames
-        self.row_names_side=row_names_side
-        self.col_names_side=col_names_side
+        self.show_rownames = show_rownames
+        self.show_colnames = show_colnames
+        self.row_names_side = row_names_side
+        self.col_names_side = col_names_side
         self.row_dendrogram = row_dendrogram
         self.col_dendrogram = col_dendrogram
         self.subplot_gap = subplot_gap
-        self.dendrogram_kws=dendrogram_kws
+        self.dendrogram_kws = dendrogram_kws
         self.tree_kws = {} if tree_kws is None else tree_kws
-        self.row_split=row_split
-        self.col_split=col_split
+        self.row_split = row_split
+        self.col_split = col_split
         self.row_split_gap = row_split_gap
         self.col_split_gap = col_split_gap
-        self.rasterized=rasterized
-        self.heatmap_kws=heatmap_kws if not heatmap_kws is None else {}
-        self.legend=legend
-        self.legend_kws=legend_kws if not legend_kws is None else {}
-        self.legend_side=legend_side
-        self.cmap=cmap
-        self.label=label if not label is None else 'heatmap'
-        self.legend_gap=legend_gap
-        self.legend_anchor=legend_anchor
+        self.rasterized = rasterized
+        self.heatmap_kws = heatmap_kws if not heatmap_kws is None else {}
+        self.legend = legend
+        self.legend_kws = legend_kws if not legend_kws is None else {}
+        self.legend_side = legend_side
+        self.cmap = cmap
+        self.label = label if not label is None else 'heatmap'
+        self.legend_gap = legend_gap
+        self.legend_anchor = legend_anchor
         if plot:
             self.plot()
             if plot_legend:
@@ -1660,8 +1740,8 @@ class ClusterMapPlotter():
                 else:
                     self.plot_legends(ax=self.ax)
 
-    def _define_kws(self,xticklabels_kws,yticklabels_kws):
-        self.yticklabels_kws={} if yticklabels_kws is None else yticklabels_kws
+    def _define_kws(self, xticklabels_kws, yticklabels_kws):
+        self.yticklabels_kws = {} if yticklabels_kws is None else yticklabels_kws
         self.yticklabels_kws.setdefault('labelrotation', 0)
         self.xticklabels_kws = {} if xticklabels_kws is None else xticklabels_kws
         self.xticklabels_kws.setdefault('labelrotation', 90)
@@ -1682,31 +1762,31 @@ class ClusterMapPlotter():
         self.left_widths = []
         self.right_widths = []
         if self.col_dendrogram:
-            self.top_heights.append(self.col_dendrogram_size* 0.0394 * self.ax.figure.dpi)
+            self.top_heights.append(self.col_dendrogram_size * 0.0394 * self.ax.figure.dpi)
         if self.row_dendrogram:
-            self.left_widths.append(self.row_dendrogram_size* 0.0394 * self.ax.figure.dpi)
+            self.left_widths.append(self.row_dendrogram_size * 0.0394 * self.ax.figure.dpi)
         if not self.top_annotation is None:
             self.top_heights.append(sum(self.top_annotation.heights) * 0.0394 * self.ax.figure.dpi)
         else:
             self.top_heights.append(0)
         if not self.left_annotation is None:
-            self.left_widths.append(sum(self.left_annotation.heights)* 0.0394 * self.ax.figure.dpi)
+            self.left_widths.append(sum(self.left_annotation.heights) * 0.0394 * self.ax.figure.dpi)
         else:
             self.left_widths.append(0)
         if not self.bottom_annotation is None:
-            self.bottom_heights.append(sum(self.bottom_annotation.heights)* 0.0394 * self.ax.figure.dpi)
+            self.bottom_heights.append(sum(self.bottom_annotation.heights) * 0.0394 * self.ax.figure.dpi)
         else:
             self.bottom_heights.append(0)
         if not self.right_annotation is None:
-            self.right_widths.append(sum(self.right_annotation.heights)* 0.0394 * self.ax.figure.dpi)
+            self.right_widths.append(sum(self.right_annotation.heights) * 0.0394 * self.ax.figure.dpi)
         else:
             self.right_widths.append(0)
-        heatmap_h=self.ax.get_window_extent().height-sum(self.top_heights)-sum(self.bottom_heights)
-        heatmap_w=self.ax.get_window_extent().width-sum(self.left_widths)-sum(self.right_widths)
-        self.heights = [sum(self.top_heights),heatmap_h,sum(self.bottom_heights)]
-        self.widths = [sum(self.left_widths),heatmap_w,sum(self.right_widths)]
+        heatmap_h = self.ax.get_window_extent().height - sum(self.top_heights) - sum(self.bottom_heights)
+        heatmap_w = self.ax.get_window_extent().width - sum(self.left_widths) - sum(self.right_widths)
+        self.heights = [sum(self.top_heights), heatmap_h, sum(self.bottom_heights)]
+        self.widths = [sum(self.left_widths), heatmap_w, sum(self.right_widths)]
 
-    def _define_axes(self,subplot_spec=None):
+    def _define_axes(self, subplot_spec=None):
         wspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().width / 3)
         hspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().height / 3)
 
@@ -1714,8 +1794,10 @@ class ClusterMapPlotter():
             self.gs = self.ax.figure.add_gridspec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
                                                   wspace=wspace, hspace=hspace)
         else:
-            self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
-                                                  wspace=wspace, hspace=hspace, subplot_spec=subplot_spec)
+            self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(3, 3, width_ratios=self.widths,
+                                                                  height_ratios=self.heights,
+                                                                  wspace=wspace, hspace=hspace,
+                                                                  subplot_spec=subplot_spec)
 
         self.ax_heatmap = self.ax.figure.add_subplot(self.gs[1, 1])
         self.ax_top = self.ax.figure.add_subplot(self.gs[0, 1], sharex=self.ax_heatmap)
@@ -1749,8 +1831,10 @@ class ClusterMapPlotter():
             self.ax_top_annotation = None
             self.ax_col_dendrogram = None
         elif self.col_dendrogram:
-            self.top_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(2, 1, hspace=0, wspace=0, subplot_spec=self.gs[0, 1],
-                               height_ratios=[self.col_dendrogram_size,sum(self.top_annotation.heights)])
+            self.top_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(2, 1, hspace=0, wspace=0,
+                                                                      subplot_spec=self.gs[0, 1],
+                                                                      height_ratios=[self.col_dendrogram_size,
+                                                                                     sum(self.top_annotation.heights)])
             self.ax_top_annotation = self.ax_top.figure.add_subplot(self.top_gs[1, 0])
             self.ax_col_dendrogram = self.ax_top.figure.add_subplot(self.top_gs[0, 0])
         else:
@@ -1767,8 +1851,10 @@ class ClusterMapPlotter():
             self.ax_left_annotation = None
             self.ax_row_dendrogram = None
         elif self.row_dendrogram:
-            self.left_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1, 2, hspace=0, wspace=0, subplot_spec=self.gs[1, 0],
-                            width_ratios=[self.row_dendrogram_size,sum(self.left_annotation.heights)])
+            self.left_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1, 2, hspace=0, wspace=0,
+                                                                       subplot_spec=self.gs[1, 0],
+                                                                       width_ratios=[self.row_dendrogram_size,
+                                                                                     sum(self.left_annotation.heights)])
             self.ax_left_annotation = self.ax_left.figure.add_subplot(self.left_gs[0, 1])
             self.ax_row_dendrogram = self.ax_left.figure.add_subplot(self.left_gs[0, 0])
             self.ax_row_dendrogram.set_axis_off()
@@ -1849,53 +1935,54 @@ class ClusterMapPlotter():
         else:
             return standardized.T
 
-    def calculate_row_dendrograms(self,data):
+    def calculate_row_dendrograms(self, data):
         if self.row_cluster:
-            self.dendrogram_row=DendrogramPlotter(data, linkage=None, axis=0,
-                                 metric=self.row_cluster_metric, method=self.row_cluster_method,
-                                 label=False, rotate=True,dendrogram_kws=self.dendrogram_kws)
+            self.dendrogram_row = DendrogramPlotter(data, linkage=None, axis=0,
+                                                    metric=self.row_cluster_metric, method=self.row_cluster_method,
+                                                    label=False, rotate=True, dendrogram_kws=self.dendrogram_kws)
         if not self.ax_row_dendrogram is None:
             self.ax_row_dendrogram.set_axis_off()
         # despine(ax=self.ax_row_dendrogram, bottom=True, left=True, top=True, right=True)
         # self.ax_col_dendrogram.spines['top'].set_visible(False)
 
-    def calculate_col_dendrograms(self,data):
+    def calculate_col_dendrograms(self, data):
         if self.col_cluster:
-            self.dendrogram_col = DendrogramPlotter(data,linkage=None, axis=1,
+            self.dendrogram_col = DendrogramPlotter(data, linkage=None, axis=1,
                                                     metric=self.col_cluster_metric, method=self.col_cluster_method,
                                                     label=False, rotate=False, dendrogram_kws=self.dendrogram_kws)
-            #self.dendrogram_col.plot(ax=self.ax_col_dendrogram)
+            # self.dendrogram_col.plot(ax=self.ax_col_dendrogram)
         # despine(ax=self.ax_col_dendrogram, bottom=True, left=True, top=True, right=True)
         if not self.ax_col_dendrogram is None:
             self.ax_col_dendrogram.set_axis_off()
 
     def _reorder_rows(self):
         if self.row_split is None and self.row_cluster:
-            self.calculate_row_dendrograms(self.data2d) #xind=self.dendrogram_row.reordered_ind
-            self.row_order=[self.dendrogram_row.dendrogram['ivl']] #self.data2d.iloc[:, xind].columns.tolist()
+            self.calculate_row_dendrograms(self.data2d)  # xind=self.dendrogram_row.reordered_ind
+            self.row_order = [self.dendrogram_row.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
-        elif isinstance(self.row_split,int) and self.row_cluster:
+        elif isinstance(self.row_split, int) and self.row_cluster:
             self.calculate_row_dendrograms(self.data2d)
             self.row_clusters = pd.Series(hierarchy.fcluster(self.dendrogram_row.linkage, t=self.row_split,
-                   criterion='maxclust'),index=self.dendrogram_row.dendrogram['ivl']).to_frame(name='cluster')\
-                .groupby('cluster').apply(lambda x:x.index.tolist()).to_dict()
+                                                             criterion='maxclust'),
+                                          index=self.dendrogram_row.dendrogram['ivl']).to_frame(name='cluster') \
+                .groupby('cluster').apply(lambda x: x.index.tolist()).to_dict()
 
-        elif isinstance(self.row_split,(pd.Series,pd.DataFrame)):
-            if isinstance(self.row_split,pd.Series):
-                self.row_split=self.row_split.to_frame(name=self.row_split.name)
-            cols=self.row_split.columns.tolist()
-            self.row_clusters=self.row_split.groupby(cols).apply(lambda x: x.index.tolist()).to_dict()
+        elif isinstance(self.row_split, (pd.Series, pd.DataFrame)):
+            if isinstance(self.row_split, pd.Series):
+                self.row_split = self.row_split.to_frame(name=self.row_split.name)
+            cols = self.row_split.columns.tolist()
+            self.row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist()).to_dict()
         elif not self.row_cluster:
-            self.row_order=[self.data2d.index.tolist()]
+            self.row_order = [self.data2d.index.tolist()]
             return None
         else:
             raise TypeError("row_split must be integar or dataframe or series")
 
         self.row_order = []
-        self.dendrogram_rows=[]
+        self.dendrogram_rows = []
         for i, cluster in enumerate(self.row_clusters):
             rows = self.row_clusters[cluster]
-            if len(rows)<=1:
+            if len(rows) <= 1:
                 self.row_order.append(rows)
                 self.dendrogram_rows.append(None)
                 continue
@@ -1909,43 +1996,43 @@ class ClusterMapPlotter():
     def _reorder_cols(self):
         if self.col_split is None and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
-            self.col_order=[self.dendrogram_col.dendrogram['ivl']] #self.data2d.iloc[:, xind].columns.tolist()
+            self.col_order = [self.dendrogram_col.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
         elif isinstance(self.col_split, int) and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
             self.col_clusters = pd.Series(hierarchy.fcluster(self.dendrogram_col.linkage, t=self.col_split,
                                                              criterion='maxclust'),
-                                          index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster')\
+                                          index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster') \
                 .groupby('cluster').apply(lambda x: x.index.tolist()).to_dict()
 
-        elif isinstance(self.col_split,(pd.Series,pd.DataFrame)):
+        elif isinstance(self.col_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.col_split, pd.Series):
                 self.col_split = self.col_split.to_frame(name=self.col_split.name)
             cols = self.col_split.columns.tolist()
             self.col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist()).to_dict()
         elif not self.col_cluster:
-            self.col_order=[self.data2d.columns.tolist()]
+            self.col_order = [self.data2d.columns.tolist()]
             return None
         else:
             raise TypeError("row_split must be integar or dataframe or series")
 
         self.col_order = []
-        self.dendrogram_cols=[]
+        self.dendrogram_cols = []
         for i, cluster in enumerate(self.col_clusters):
             cols = self.col_clusters[cluster]
-            if len(cols)<=1:
+            if len(cols) <= 1:
                 self.col_order.append(cols)
                 self.dendrogram_cols.append(None)
                 continue
             if self.col_cluster:
-                self.calculate_col_dendrograms(self.data2d.loc[:,cols])
+                self.calculate_col_dendrograms(self.data2d.loc[:, cols])
                 self.dendrogram_cols.append(self.dendrogram_col)
                 self.col_order.append(self.dendrogram_col.dendrogram['ivl'])
             else:
                 self.col_order.append(cols)
 
-    def plot_dendrograms(self,row_order,col_order):
-        rcmap=self.tree_kws.pop('row_cmap',None)
+    def plot_dendrograms(self, row_order, col_order):
+        rcmap = self.tree_kws.pop('row_cmap', None)
         ccmap = self.tree_kws.pop('col_cmap', None)
         tree_kws = self.tree_kws.copy()
 
@@ -1954,68 +2041,71 @@ class ClusterMapPlotter():
                 gs = self.gs[1, 0]
             else:
                 gs = self.left_gs[0, 0]
-            self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(len(row_order),1,hspace=self.hspace,
-                                                                          wspace=0,subplot_spec=gs,
-                                                                          height_ratios=[len(rows) for rows
-                                                                                        in row_order])
+            self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(len(row_order), 1, hspace=self.hspace,
+                                                                                 wspace=0, subplot_spec=gs,
+                                                                                 height_ratios=[len(rows) for rows
+                                                                                                in row_order])
             self.ax_row_dendrogram_axes = []
             for i in range(len(row_order)):
-                ax1=self.ax_row_dendrogram.figure.add_subplot(self.row_dendrogram_gs[i,0])
+                ax1 = self.ax_row_dendrogram.figure.add_subplot(self.row_dendrogram_gs[i, 0])
                 ax1.set_axis_off()
                 self.ax_row_dendrogram_axes.append(ax1)
 
             try:
                 if rcmap is None:
-                    colors=['black']*len(self.dendrogram_rows)
+                    colors = ['black'] * len(self.dendrogram_rows)
                 else:
-                    colors=[plt.get_cmap(rcmap)(i) for i in range(len(self.dendrogram_rows))]
-                for ax_row_dendrogram,dendrogram_row,color in zip(self.ax_row_dendrogram_axes,self.dendrogram_rows,colors):
+                    colors = [plt.get_cmap(rcmap)(i) for i in range(len(self.dendrogram_rows))]
+                for ax_row_dendrogram, dendrogram_row, color in zip(self.ax_row_dendrogram_axes, self.dendrogram_rows,
+                                                                    colors):
                     if dendrogram_row is None:
                         continue
-                    tree_kws['colors'] = [color]*len(dendrogram_row.dendrogram['ivl'])
-                    dendrogram_row.plot(ax=ax_row_dendrogram,tree_kws=tree_kws)
+                    tree_kws['colors'] = [color] * len(dendrogram_row.dendrogram['ivl'])
+                    dendrogram_row.plot(ax=ax_row_dendrogram, tree_kws=tree_kws)
             except:
-                self.dendrogram_row.plot(ax=self.ax_row_dendrogram,tree_kws=self.tree_kws)
+                self.dendrogram_row.plot(ax=self.ax_row_dendrogram, tree_kws=self.tree_kws)
 
         if self.col_cluster and self.col_dendrogram:
             if self.top_annotation is None:
                 gs = self.gs[0, 1]
             else:
                 gs = self.top_gs[0, 0]
-            self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1,len(col_order),hspace=0,
-                                                                          wspace=self.wspace,subplot_spec=gs,
-                                                                          width_ratios=[len(cols) for cols
-                                                                                        in col_order])
+            self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(1, len(col_order), hspace=0,
+                                                                                 wspace=self.wspace, subplot_spec=gs,
+                                                                                 width_ratios=[len(cols) for cols
+                                                                                               in col_order])
             self.ax_col_dendrogram_axes = []
             for i in range(len(col_order)):
-                ax1=self.ax_col_dendrogram.figure.add_subplot(self.col_dendrogram_gs[0, i])
+                ax1 = self.ax_col_dendrogram.figure.add_subplot(self.col_dendrogram_gs[0, i])
                 ax1.set_axis_off()
                 self.ax_col_dendrogram_axes.append(ax1)
 
             try:
                 if ccmap is None:
-                    colors=['black']*len(self.dendrogram_cols)
+                    colors = ['black'] * len(self.dendrogram_cols)
                 else:
-                    colors=[plt.get_cmap(ccmap)(i) for i in range(len(self.dendrogram_cols))]
-                for ax_col_dendrogram,dendrogram_col,color in zip(self.ax_col_dendrogram_axes,self.dendrogram_cols,colors):
+                    colors = [plt.get_cmap(ccmap)(i) for i in range(len(self.dendrogram_cols))]
+                for ax_col_dendrogram, dendrogram_col, color in zip(self.ax_col_dendrogram_axes, self.dendrogram_cols,
+                                                                    colors):
                     if dendrogram_col is None:
                         continue
                     tree_kws['colors'] = [color] * len(dendrogram_col.dendrogram['ivl'])
-                    dendrogram_col.plot(ax=ax_col_dendrogram,tree_kws=tree_kws)
+                    dendrogram_col.plot(ax=ax_col_dendrogram, tree_kws=tree_kws)
             except:
-                self.dendrogram_col.plot(ax=self.ax_col_dendrogram,tree_kws=self.tree_kws)
+                self.dendrogram_col.plot(ax=self.ax_col_dendrogram, tree_kws=self.tree_kws)
 
-    def plot_matrix(self,row_order,col_order):
+    def plot_matrix(self, row_order, col_order):
         nrows = len(row_order)
         ncols = len(col_order)
         self.wspace = self.col_split_gap * 0.0394 * self.ax.figure.dpi / (
-                    self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=0.0394 inch
+                self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=0.0394 inch
         self.hspace = self.row_split_gap * 0.0394 * self.ax.figure.dpi / (
-                    self.ax_heatmap.get_window_extent().height / ncols)
-        self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace, wspace=self.wspace,
-                                                               subplot_spec=self.gs[1, 1],
-                                                               height_ratios=[len(rows) for rows in row_order],
-                                                               width_ratios=[len(cols) for cols in col_order])
+                self.ax_heatmap.get_window_extent().height / ncols)
+        self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace,
+                                                                      wspace=self.wspace,
+                                                                      subplot_spec=self.gs[1, 1],
+                                                                      height_ratios=[len(rows) for rows in row_order],
+                                                                      width_ratios=[len(cols) for cols in col_order])
 
         annot = self.heatmap_kws.pop("annot", None)
         if annot is None or annot is False:
@@ -2030,7 +2120,7 @@ class ClusterMapPlotter():
                     raise ValueError(err)
 
         self.heatmap_axes = np.empty(shape=(nrows, ncols), dtype=object)
-        if len(row_order) >1 or len(col_order) >1:
+        if len(row_order) > 1 or len(col_order) > 1:
             self.ax_heatmap.set_axis_off()
         for i, rows in enumerate(row_order):
             for j, cols in enumerate(col_order):
@@ -2042,16 +2132,16 @@ class ClusterMapPlotter():
                 ax1.set_ylim([0, len(cols)])
                 data = self.data2d.loc[rows, cols]
                 mask = self.mask.loc[rows, cols]
-                annot1=None if annot is None else annot_data.loc[rows,cols]
+                annot1 = None if annot is None else annot_data.loc[rows, cols]
 
-                heatmap(data, ax=ax1, cbar=False,cmap=self.cmap,
-                        cbar_kws=None, mask=mask,rasterized=self.rasterized,
+                heatmap(data, ax=ax1, cbar=False, cmap=self.cmap,
+                        cbar_kws=None, mask=mask, rasterized=self.rasterized,
                         xticklabels='auto', yticklabels='auto', annot=annot1, **self.heatmap_kws)
                 self.heatmap_axes[i, j] = ax1
                 ax1.yaxis.label.set_visible(False)
                 ax1.xaxis.label.set_visible(False)
                 ax1.tick_params(left=False, right=False, labelleft=False, labelright=False,
-                               top=False,bottom=False,labeltop=False,labelbottom=False)
+                                top=False, bottom=False, labeltop=False, labelbottom=False)
 
     def set_axes_labels_kws(self):
         # ax.set_xticks(ticks=np.arange(1, self.nrows + 1, 1), labels=self.plot_data.index.tolist())
@@ -2060,13 +2150,14 @@ class ClusterMapPlotter():
         self.yticklabels = []
         self.xticklabels = []
         if (self.show_rownames and self.left_annotation is None and not self.row_dendrogram) \
-                and ((not self.right_annotation is None) or (self.right_annotation is None and self.row_names_side=='left')): #tick left
+                and ((not self.right_annotation is None) or (
+                self.right_annotation is None and self.row_names_side == 'left')):  # tick left
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, 0].yaxis.set_visible(True)
                 self.heatmap_axes[i, 0].tick_params(axis='y', which='both', left=False, labelleft=True)
-                self.heatmap_axes[i, 0].yaxis.set_tick_params(**self.yticklabels_kws) #**self.ticklabels_kws
+                self.heatmap_axes[i, 0].yaxis.set_tick_params(**self.yticklabels_kws)  # **self.ticklabels_kws
                 self.yticklabels.extend(self.heatmap_axes[i, 0].get_yticklabels())
-        elif self.show_rownames and self.right_annotation is None: #tick right
+        elif self.show_rownames and self.right_annotation is None:  # tick right
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, -1].yaxis.tick_right()  # set_ticks_position('right')
                 self.heatmap_axes[i, -1].yaxis.set_visible(True)
@@ -2074,7 +2165,8 @@ class ClusterMapPlotter():
                 self.heatmap_axes[i, -1].yaxis.set_tick_params(**self.yticklabels_kws)
                 self.yticklabels.extend(self.heatmap_axes[i, -1].get_yticklabels())
         if self.show_colnames and self.top_annotation is None and not self.row_dendrogram and \
-                ((not self.bottom_annotation is None) or (self.bottom_annotation is None and self.row_names_side=='top')):
+                ((not self.bottom_annotation is None) or (
+                        self.bottom_annotation is None and self.row_names_side == 'top')):
             for j in range(self.heatmap_axes.shape[1]):
                 # self.heatmap_axes[-1, j].xaxis.label.update(self.label_kws)
                 self.heatmap_axes[0, j].xaxis.tick_top()  # ticks
@@ -2082,7 +2174,7 @@ class ClusterMapPlotter():
                 self.heatmap_axes[0, j].tick_params(axis='x', which='both', top=False, labeltop=True)
                 self.heatmap_axes[0, j].xaxis.set_tick_params(**self.xticklabels_kws)
                 self.xticklabels.extend(self.heatmap_axes[0, j].get_xticklabels())
-        elif self.show_colnames and self.bottom_annotation is None: #tick bottom
+        elif self.show_colnames and self.bottom_annotation is None:  # tick bottom
             for j in range(self.heatmap_axes.shape[1]):
                 self.heatmap_axes[-1, j].xaxis.tick_bottom()  # ticks
                 self.heatmap_axes[-1, j].xaxis.set_visible(True)
@@ -2098,40 +2190,42 @@ class ClusterMapPlotter():
         # _draw_figure(self.ax.figure)
 
     def collect_legends(self):
-        self.legend_list=[]
-        self.label_max_width=0
-        for annotation in [self.top_annotation,self.bottom_annotation,self.left_annotation,self.right_annotation]:
+        self.legend_list = []
+        self.label_max_width = 0
+        for annotation in [self.top_annotation, self.bottom_annotation, self.left_annotation, self.right_annotation]:
             if not annotation is None:
                 if not annotation.plot_legend:
                     continue
                 annotation.collect_legends()
-                if len(annotation.legend_list)>0:
+                if len(annotation.legend_list) > 0:
                     self.legend_list.extend(annotation.legend_list)
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
             vmax = np.nanmax(self.data2d[self.data2d != np.inf])
             vmin = np.nanmin(self.data2d[self.data2d != -np.inf])
-            self.legend_kws.setdefault('vmin',round(vmin,2))
-            self.legend_kws.setdefault('vmax',round(vmax,2))
+            self.legend_kws.setdefault('vmin', round(vmin, 2))
+            self.legend_kws.setdefault('vmax', round(vmax, 2))
             self.legend_list.append([self.cmap, self.label, self.legend_kws, 4])
-            heatmap_label_max_width=max([label.get_window_extent().width for label in self.yticklabels]) if len(self.yticklabels) >0 else 0
-            heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(self.yticklabels) >0 else 0
-            if heatmap_label_max_width >= self.label_max_width or self.legend_anchor=='ax_heatmap':
-                self.label_max_width = heatmap_label_max_width*1.1
+            heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
+                self.yticklabels) > 0 else 0
+            heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(
+                self.yticklabels) > 0 else 0
+            if heatmap_label_max_width >= self.label_max_width or self.legend_anchor == 'ax_heatmap':
+                self.label_max_width = heatmap_label_max_width * 1.1
             if len(self.legend_list) > 1:
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 
-    def plot_legends(self,ax=None):
+    def plot_legends(self, ax=None):
         if len(self.legend_list) > 0:
-            self.legend_axes,self.boundry=plot_legend_list(self.legend_list, ax=ax, space=self.label_max_width,
-                                         legend_side=self.legend_side,gap=self.legend_gap)
+            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=self.label_max_width,
+                                                              legend_side=self.legend_side, gap=self.legend_gap)
 
-    def plot(self,ax=None,subplot_spec=None,row_order=None,col_order=None):
+    def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
         if ax is None:
-            self.ax=plt.gca()
+            self.ax = plt.gca()
         else:
-            self.ax=ax
+            self.ax = ax
         self._define_gs_ratio()
         self._define_axes(subplot_spec)
         self._define_top_axes()
@@ -2144,37 +2238,37 @@ class ClusterMapPlotter():
         if col_order is None:
             self._reorder_cols()
             col_order = self.col_order
-        self.plot_matrix(row_order=row_order,col_order=col_order)
+        self.plot_matrix(row_order=row_order, col_order=col_order)
         if not self.top_annotation is None:
-            gs=self.gs[0, 1] if not self.col_dendrogram else self.top_gs[1, 0]
-            self.top_annotation.plot_annotations(ax=self.ax_top_annotation,subplot_spec=gs,
-                                     idxs=col_order, wspace=self.wspace)
+            gs = self.gs[0, 1] if not self.col_dendrogram else self.top_gs[1, 0]
+            self.top_annotation.plot_annotations(ax=self.ax_top_annotation, subplot_spec=gs,
+                                                 idxs=col_order, wspace=self.wspace)
         if not self.bottom_annotation is None:
             self.bottom_annotation.plot_annotations(ax=self.ax_bottom_annotation, subplot_spec=self.gs[2, 1],
-                                        idxs=col_order, wspace=self.wspace)
+                                                    idxs=col_order, wspace=self.wspace)
         if not self.left_annotation is None:
             gs = self.gs[1, 0] if not self.row_dendrogram else self.left_gs[0, 1]
             self.left_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=gs,
-                                      idxs=row_order,hspace=self.hspace)
+                                                  idxs=row_order, hspace=self.hspace)
         if not self.right_annotation is None:
             self.right_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=self.gs[1, 2],
-                                       idxs=row_order,hspace=self.hspace)
+                                                   idxs=row_order, hspace=self.hspace)
         if self.row_cluster or self.col_cluster:
-            self.plot_dendrograms(row_order,col_order)
+            self.plot_dendrograms(row_order, col_order)
         self.set_axes_labels_kws()
         self.collect_legends()
         # _draw_figure(self.ax_heatmap.figure)
         return self.ax
 
-    def tight_layout(self,**tight_params):
+    def tight_layout(self, **tight_params):
         tight_params = dict(h_pad=.02, w_pad=.02) if tight_params is None else tight_params
-        left=0
-        right=1
-        if self.legend and self.legend_side=='right':
-            right=self.boundry
-        elif self.legend and self.legend_side=='left':
-            left=self.boundry
-        tight_params.setdefault("rect",[left,0,right,1])
+        left = 0
+        right = 1
+        if self.legend and self.legend_side == 'right':
+            right = self.boundry
+        elif self.legend and self.legend_side == 'left':
+            left = self.boundry
+        tight_params.setdefault("rect", [left, 0, right, 1])
         self.ax.figure.tight_layout(**tight_params)
 
     def set_height(self, fig, height):
@@ -2183,9 +2277,12 @@ class ClusterMapPlotter():
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
-def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=15,col_gap=15,
-              legend_side='right',legend_gap=3,legend_y=0.8,legendpad=None):
+def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
+              legend_side='right', legend_gap=3, legend_y=0.8, legendpad=None):
     """
+    Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
+    Parameters
+    ----------
     cmlist: a list of ClusterMapPlotter (with plot=False).
     axis: 1 for columns (align the cmlist horizontally), 0 for rows (vertically).
     main: use which as main ClusterMapPlotter, will influence row/col order. main is the index
@@ -2193,43 +2290,47 @@ def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=15,col_gap=15,
     row/col_gap, the row or columns gap between subplots, unit is mm.
     legend_side: right,left
     legend_gap, row gap between two legends, unit is mm.
+
+    Returns
+    -------
+        legend_axes
     """
     if ax is None:
-        ax=plt.gca()
-    n=len(cmlist)
-    wspace,hspace=0,0
-    if axis==1: #horizontally
+        ax = plt.gca()
+    n = len(cmlist)
+    wspace, hspace = 0, 0
+    if axis == 1:  # horizontally
         wspace = col_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().width / n)
-        nrows=1
-        ncols=n
-        width_ratios=[cm.data2d.shape[1] for cm in cmlist]
-        height_ratios=None
-    else: #vertically
+        nrows = 1
+        ncols = n
+        width_ratios = [cm.data2d.shape[1] for cm in cmlist]
+        height_ratios = None
+    else:  # vertically
         hspace = row_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().height / n)
-        nrows=n
-        ncols=1
+        nrows = n
+        ncols = 1
         width_ratios = None
         height_ratios = [cm.data2d.shape[0] for cm in cmlist]
     gs = ax.figure.add_gridspec(nrows, ncols, width_ratios=width_ratios,
-                              height_ratios=height_ratios,
-                              wspace=wspace, hspace=hspace)
+                                height_ratios=height_ratios,
+                                wspace=wspace, hspace=hspace)
     axes = []
-    for i,cm in enumerate(cmlist):
-        sharex=axes[0] if axis==0 and i>0 else None
-        sharey=axes[0] if axis==1 and i>0 else None
-        gs1=gs[i,0] if axis==0 else gs[0,i]
+    for i, cm in enumerate(cmlist):
+        sharex = axes[0] if axis == 0 and i > 0 else None
+        sharey = axes[0] if axis == 1 and i > 0 else None
+        gs1 = gs[i, 0] if axis == 0 else gs[0, i]
         ax1 = ax.figure.add_subplot(gs1, sharex=sharex, sharey=sharey)
         ax1.set_axis_off()
         axes.append(ax1)
-    cm_1=cmlist[main]
-    ax1=axes[main]
+    cm_1 = cmlist[main]
+    ax1 = axes[main]
     gs1 = gs[main, 0] if axis == 0 else gs[0, main]
-    cm_1.plot(ax=ax1, subplot_spec=gs1,row_order=None, col_order=None)
-    legend_list=cm_1.legend_list
-    legend_names=[L[1] for L in legend_list]
-    label_max_width=ax.figure.get_window_extent().width*cm_1.label_max_width / cm_1.ax.figure.get_window_extent().width
-    for i,cm in enumerate(cmlist):
-        if i==main:
+    cm_1.plot(ax=ax1, subplot_spec=gs1, row_order=None, col_order=None)
+    legend_list = cm_1.legend_list
+    legend_names = [L[1] for L in legend_list]
+    label_max_width = ax.figure.get_window_extent().width * cm_1.label_max_width / cm_1.ax.figure.get_window_extent().width
+    for i, cm in enumerate(cmlist):
+        if i == main:
             continue
         gs1 = gs[i, 0] if axis == 0 else gs[0, i]
         cm.plot(ax=axes[i], subplot_spec=gs1, row_order=cm_1.row_order, col_order=cm_1.col_order)
@@ -2237,22 +2338,22 @@ def composite(cmlist=None,main=None,ax=None,axis=1,row_gap=15,col_gap=15,
             if L[1] not in legend_names:
                 legend_names.append(L[1])
                 legend_list.append(L)
-        w=ax.figure.get_window_extent().width*cm.label_max_width / cm.ax.figure.get_window_extent().width
+        w = ax.figure.get_window_extent().width * cm.label_max_width / cm.ax.figure.get_window_extent().width
         if w > label_max_width:
-            label_max_width=w
-    if len(legend_list)==0:
+            label_max_width = w
+    if len(legend_list) == 0:
         return None
     legend_list = sorted(legend_list, key=lambda x: x[3])
     if legendpad is None:
-        space=col_gap*0.0394*ax.figure.dpi+label_max_width
+        space = col_gap * 0.0394 * ax.figure.dpi + label_max_width
     else:
-        space=legendpad*ax.figure.dpi / 72
+        space = legendpad * ax.figure.dpi / 72
     legend_axes, boundry = plot_legend_list(legend_list, ax=ax, space=space,
-                                          legend_side=legend_side, gap=legend_gap,y0=legend_y)
+                                            legend_side=legend_side, gap=legend_gap, y0=legend_y)
     ax.set_axis_off()
     # import pdb;
     # pdb.set_trace()
     return legend_axes
 
-if __name__=="__main__":
+if __name__ == "__main__":
     pass

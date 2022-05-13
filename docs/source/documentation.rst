@@ -1,5 +1,3 @@
-.. _documentation:
-
 Documentation
 ===============================
 

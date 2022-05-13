@@ -50,16 +50,20 @@ def _calculate_luminance(color):
 
 def despine(fig=None, ax=None, top=True, right=True, left=False,
             bottom=False):
-    """Remove the top and right spines from plot(s).
+    """
+    Remove the top and right spines from plot(s).
+    Parameters
+    ----------
     fig : matplotlib figure, optional
         Figure to despine all axes of, defaults to the current figure.
     ax : matplotlib axes, optional
         Specific axes object to despine. Ignored if fig is provided.
     top, right, left, bottom : boolean, optional
         If True, remove that spine.
+
     Returns
     -------
-    None
+        None
     """
     if fig is None and ax is None:
         axes = plt.gcf().axes
@@ -174,6 +178,21 @@ def cluster_labels(labels,xticks):
 
 def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
                            label_side='right',kws=None):
+    """
+
+    Parameters
+    ----------
+    D
+    ax
+    title
+    color_text
+    label_side
+    kws
+
+    Returns
+    -------
+
+    """
     lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
     lgd_kws.setdefault("frameon",True)
     lgd_kws.setdefault("ncol", 1)
@@ -252,11 +271,19 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                      y0=None,gap=2):
     """
-    :param legend_list: handles(dict) / cmap, title, legend_kws
-    :param ax:
-    :param space:unit is pixel
-    :param legend_side:
-    :return:
+
+    Parameters
+    ----------
+    legend_list : handles(dict) / cmap, title, legend_kws
+    ax :
+    space : unit is pixels.
+    legend_side :
+    y0 :
+    gap :
+
+    Returns
+    -------
+
     """
     if ax is None:
         print("No ax was provided, using plt.gca()")

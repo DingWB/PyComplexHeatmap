@@ -36,14 +36,6 @@ pyclustermap.example module
    :undoc-members:
    :show-inheritance:
 
-pyclustermap.test module
-------------------------
-
-.. automodule:: pyclustermap.test
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pyclustermap.utils module
 -------------------------
 
