@@ -418,7 +418,7 @@ class AnnotationBase():
     
     Returns
     ----------
-        Class AnnotationBase.
+    Class AnnotationBase.
     """
 
     def __init__(self, df=None, cmap='auto', colors=None,
@@ -1088,7 +1088,7 @@ class HeatmapAnnotation():
 
         Returns
         -------
-            Class HeatmapAnnotation.
+        Class HeatmapAnnotation.
         """
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
@@ -1332,7 +1332,7 @@ class HeatmapAnnotation():
         Collect legends.
         Returns
         -------
-            None
+        None
         """
         self.legend_list = []  # handles(dict) / cmap, title, kws
         for annotation in self.annotations:
@@ -1374,7 +1374,7 @@ class HeatmapAnnotation():
 
         Returns
         -------
-            self.ax
+        self.ax
         """
         # print(ax.figure.get_size_inches())
         if ax is None:
@@ -1453,7 +1453,7 @@ class HeatmapAnnotation():
 
         Returns
         -------
-            None
+        None
         """
         if self.legend_list is None:
             self.collect_legends()
@@ -1619,6 +1619,7 @@ class DendrogramPlotter(object):
 
 class ClusterMapPlotter():
     """
+
     Clustermap (Heatmap) plotter.
     """
     def __init__(self, data, z_score=None, standard_scale=None,
@@ -1633,6 +1634,7 @@ class ClusterMapPlotter():
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False,**heatmap_kws):
         """
+
         Plot heatmap / clustermap with annotation and legends.
 
         Parameters
@@ -1640,7 +1642,7 @@ class ClusterMapPlotter():
         data : pandas dataframe or numpy array.
         z_score : whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
             value range would be from -1 to 1.
-        standard_scale : either 0 for rows or 1 for columns,, after scale,value range would be from 0 tp 1.
+        standard_scale : either 0 for rows or 1 for columns, after scale,value range would be from 0 to 1.
         top_annotation : annotation: class of HeatmapAnnotation.
         bottom_annotation : the same as top_annotation.
         left_annotation :the same as top_annotation.
@@ -1693,7 +1695,7 @@ class ClusterMapPlotter():
 
         Returns
         -------
-            Class ClusterMapPlotter.
+        Class ClusterMapPlotter.
         """
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.mask = _check_mask(self.data2d, mask)
@@ -1879,7 +1881,9 @@ class ClusterMapPlotter():
 
     @staticmethod
     def z_score(data2d, axis=1):
-        """Standarize the mean and variance of the data axis
+        """
+        Standarize the mean and variance of the data axis
+
         Parameters
         ----------
         data2d : pandas.DataFrame
@@ -1893,6 +1897,7 @@ class ClusterMapPlotter():
         normalized : pandas.DataFrame
             Noramlized data with a mean of 0 and variance of 1 across the
             specified axis.
+
         """
         if axis == 1:
             z_scored = data2d
@@ -1907,7 +1912,9 @@ class ClusterMapPlotter():
 
     @staticmethod
     def standard_scale(data2d, axis=1):
-        """Divide the data by the difference between the max and min
+        """
+        Divide the data by the difference between the max and min
+
         Parameters
         ----------
         data2d : pandas.DataFrame
@@ -1915,11 +1922,13 @@ class ClusterMapPlotter():
         axis : int
             Which axis to normalize across. If 0, normalize across rows, if 1,
             normalize across columns.
+
         Returns
         -------
         standardized : pandas.DataFrame
             Noramlized data with a mean of 0 and variance of 1 across the
             specified axis.
+
         """
         # Normalize these values to range from 0 to 1
         if axis == 1:
@@ -2293,7 +2302,7 @@ def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
 
     Returns
     -------
-        legend_axes
+    legend_axes
     """
     if ax is None:
         ax = plt.gca()

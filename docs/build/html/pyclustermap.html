@@ -18,7 +18,6 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="setup module" href="setup.html" />
     <link rel="prev" title="pyclustermap" href="modules.html" /> 
 </head>
 
@@ -52,7 +51,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-pyclustermap">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 </li>
 </ul>
@@ -211,20 +209,21 @@ default cmap is ‘auto’, it would be determined based on the dtype for each c
 <dl class="py method">
 <dt class="sig sig-object py" id="pyclustermap.clustermap.ClusterMapPlotter.standard_scale">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">standard_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.ClusterMapPlotter.standard_scale" title="Permalink to this definition"></a></dt>
-<dd><p>Divide the data by the difference between the max and min
-:param data2d: Data to normalize
-:type data2d: pandas.DataFrame
-:param axis: Which axis to normalize across. If 0, normalize across rows, if 1,</p>
-<blockquote>
-<div><p>normalize across columns.</p>
-</div></blockquote>
+<dd><p>Divide the data by the difference between the max and min</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>standardized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data2d</strong> (<em>pandas.DataFrame</em>) – Data to normalize</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – Which axis to normalize across. If 0, normalize across rows, if 1,
+normalize across columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>standardized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
 specified axis.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pandas.DataFrame</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -237,20 +236,21 @@ specified axis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyclustermap.clustermap.ClusterMapPlotter.z_score">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyclustermap.clustermap.ClusterMapPlotter.z_score" title="Permalink to this definition"></a></dt>
-<dd><p>Standarize the mean and variance of the data axis
-:param data2d: Data to normalize
-:type data2d: pandas.DataFrame
-:param axis: Which axis to normalize across. If 0, normalize across rows, if 1,</p>
-<blockquote>
-<div><p>normalize across columns.</p>
-</div></blockquote>
+<dd><p>Standarize the mean and variance of the data axis</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>normalized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data2d</strong> (<em>pandas.DataFrame</em>) – Data to normalize</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – Which axis to normalize across. If 0, normalize across rows, if 1,
+normalize across columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>normalized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
 specified axis.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pandas.DataFrame</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -610,7 +610,6 @@ returned as a string.
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="modules.html" class="btn btn-neutral float-left" title="pyclustermap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="setup.html" class="btn btn-neutral float-right" title="setup module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
