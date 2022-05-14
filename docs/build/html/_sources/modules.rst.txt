@@ -1,7 +1,7 @@
-pyclustermap
-============
+BioHeatmap
+==========
 
 .. toctree::
    :maxdepth: 4
 
-   pyclustermap
+   BioHeatmap

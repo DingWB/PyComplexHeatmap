@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'pyclustermap'
+project = 'BioHeatmap'
 copyright = '2022, Wubin Ding'
 author = 'Wubin Ding'
 
@@ -79,10 +79,10 @@ html_sidebars = {
     ]
 }
 
-htmlhelp_basename = 'pyclustermapdoc'
+htmlhelp_basename = 'BioHeatmapDoc'
 
 latex_documents = [
-    (master_doc, 'pyclustermap.tex', 'pyclustermap Documentation',
+    (master_doc, 'BioHeatmap.tex', 'BioHeatmap Documentation',
      'Wubin Ding', 'manual'),
 ]
 
@@ -91,7 +91,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pyclustermap', 'pyclustermap Documentation',
+    (master_doc, 'BioHeatmap', 'BioHeatmap Documentation',
      [author], 1)
 ]
 
@@ -99,8 +99,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pyclustermap', 'pyclustermap Documentation',
-     author, 'pyclustermap', 'One line description of project.',
+    (master_doc, 'BioHeatmap', 'BioHeatmap Documentation',
+     author, 'BioHeatmap', 'One line description of project.',
      'Miscellaneous'),
 ]
 

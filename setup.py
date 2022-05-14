@@ -11,13 +11,13 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-   name='pyclustermap',
+   name='BioHeatmap',
    version='1.0',
    description='A Python package to plot complex heatmap',
    author='Wubin Ding',
    author_email='ding.wu.bin.gm@gmail.com',
-   url="https://github.com/DingWB/pyclustermap",
-   packages=['pyclustermap'],
+   url="https://github.com/DingWB/BioHeatmap",
+   packages=['BioHeatmap'],
    install_requires=['matplotlib>=3.3.1','pandas'],
-   #scripts=['scripts/pyclustermap'],
+   #scripts=['scripts/BioHeatmap'],
 )

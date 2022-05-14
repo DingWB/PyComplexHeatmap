@@ -1,8 +1,8 @@
-# pyclustermap
-pyclustermap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/pyclustermap) for documentation.
+# BioHeatmap
+BioHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/BioHeatmap) for documentation.
 
 ## Documentation:
-[https://dingwb.github.io/pyclustermap](https://dingwb.github.io/pyclustermap)
+[https://dingwb.github.io/BioHeatmap](https://dingwb.github.io/BioHeatmap)
 
 ## Dependencies:
 - matplotlib>=3.4.3
@@ -15,27 +15,27 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 ## **Installation**
 1. **Install from github**:
 ```
-pip install git+https://github.com/DingWB/pyclustermap
+pip install git+https://github.com/DingWB/BioHeatmap
 ```
 if you have installed it previously and want to update it, please run 
-`pip uninstall pyclustermap`
+`pip uninstall BioHeatmap`
 and install from github again
 OR
 ```
-git clone https://github.com/DingWB/pyclustermap
-cd pyclustermap
+git clone https://github.com/DingWB/BioHeatmap
+cd BioHeatmap
 python setup.py install
 ```
 
 2. **Install with pip**:
 ```shell
-pip install pyclustermap (TODO)
+pip install BioHeatmap (TODO)
 ```
 
 ## **Usage**
 ### **1. Simple Guide To Get started.**
 ```
-from pyclustermap import *
+from BioHeatmap import *
 
 # Generate fake dataset
 df = pd.DataFrame(['AAAA1'] * 5 + ['BBBBB2'] * 5, columns=['AB'])
@@ -68,4 +68,4 @@ plt.show()
 ```
 
 ## **Examples**
-https://github.com/DingWB/pyclustermap/blob/main/examples.ipynb
+https://github.com/DingWB/BioHeatmap/blob/main/examples.ipynb
