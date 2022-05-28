@@ -7,6 +7,7 @@ import matplotlib.pylab as plt
 from scipy.cluster import hierarchy
 import collections
 import warnings
+import copy
 from .utils import (
     _check_mask,
     _calculate_luminance,
@@ -512,7 +513,7 @@ class AnnotationBase():
                 elif self.df[col].nunique() <= 20:
                     self.cmap = 'tab20'
                 else:
-                    self.cmap = 'gist_rainbow'
+                    self.cmap = 'hsv'
             elif self.df.dtypes[col] == float or self.df.dtypes[col] == int:
                 self.cmap = 'jet'
             else:
@@ -525,7 +526,7 @@ class AnnotationBase():
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
         col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256:
+        if plt.get_cmap(self.cmap).N < 256 or self.df.dtypes[col] == object:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
             for v in cc_list:
@@ -575,9 +576,10 @@ class anno_simple(AnnotationBase):
     """
 
     def __init__(self, df=None, cmap='auto', colors=None, add_text=False,
-                 text_kws=None, height=None, legend=True, legend_kws=None,
-                 **plot_kws):
+                 majority=False,text_kws=None, height=None, legend=True,
+                 legend_kws=None,**plot_kws):
         self.add_text = add_text
+        self.majority=majority
         self.text_kws = text_kws if not text_kws is None else {}
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
@@ -630,7 +632,7 @@ class anno_simple(AnnotationBase):
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
         if self.add_text:
-            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1))
+            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1),self.majority)
             n = len(ticks)
             if axis == 1:
                 x = ticks
@@ -660,14 +662,17 @@ class anno_label(AnnotationBase):
     Add label and text annotations.
     """
 
-    def __init__(self, df=None, cmap='auto', colors=None, merge=False,
-                 height=None, legend=False, legend_kws=None, **plot_kws):
+    def __init__(self, df=None, cmap='auto', colors=None, merge=False,extend=False,frac=0.15,
+                 majority=True,height=None, legend=False, legend_kws=None, **plot_kws):
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
         self.merge = merge
+        self.majority=majority
+        self.extend = extend
+        self.frac=frac
 
     def _height(self, height):
-        return 4 if height is None else height
+        return 5 if height is None else height
 
     def set_side(self, side):
         self.side = side
@@ -675,12 +680,12 @@ class anno_label(AnnotationBase):
     def set_plot_kws(self, axis):
         shrink = 1  # 1 * 0.0394 * 72  # 1mm -> points
         if axis == 1:
-            relpos = (0, 0) if self.side == 'top' else (0, 1)
-            rotation = 45 if self.side == 'top' else -45
-            ha = 'left'
+            relpos = (0.5, 0) if self.side == 'top' else (0.5, 1) #position to anchor
+            rotation = 90 if self.side == 'top' else -90
+            ha = 'left' #'left'
             va = 'center'
         else:
-            relpos = (1, 1) if self.side == 'left' else (0, 0)
+            relpos = (1, 0.5) if self.side == 'left' else (0, 0.5) #(1, 1) if self.side == 'left' else (0, 0)
             rotation = 0
             ha = 'right' if self.side == 'left' else 'left'
             va = 'center'
@@ -697,7 +702,7 @@ class anno_label(AnnotationBase):
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
         col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256:
+        if plt.get_cmap(self.cmap).N < 256 or self.df.dtypes[col] == object:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             for v in cc_list:
                 color = plt.get_cmap(self.cmap)(cc_list.index(v))
@@ -707,6 +712,9 @@ class anno_label(AnnotationBase):
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
+        col = self.df.columns.tolist()[0]
+        cc_list = list(self.color_dict.keys())  # column values
+        self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
@@ -725,7 +733,7 @@ class anno_label(AnnotationBase):
             self.side = side
         self.set_plot_kws(axis)
         if self.merge:  # merge the adjacent ticklabels with the same text to one, return labels and mean x coordinates.
-            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1))
+            labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1),self.majority)
         else:
             labels = self.plot_data.iloc[:, 0].values
             ticks = np.arange(0.5, self.nrows, 1)
@@ -739,18 +747,29 @@ class anno_label(AnnotationBase):
         if axis == 1:
             ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
             x = ticks
-            y = [0] * n if self.side == 'top' else [1] * n
-            x1 = ticks
-            y1 = [text_y] * n
+            y = [0] * n if self.side == 'top' else [1] * n #position for line on axes
+            if self.extend:
+                extend_pos=np.linspace(0, 1, n+1)
+                x1 = [(extend_pos[i]+extend_pos[i-1])/2 for i in range(1,n+1)]
+                y1 = [1+text_y/ax.figure.get_window_extent().height] * n if self.side=='top' else [text_y/ax.figure.get_window_extent().height] * n
+            else:
+                x1=[0]*n
+                y1=[text_y] * n
         else:
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             y = ticks
-            x = [1] * n if self.side == 'left' else [0] * n
-            y1 = ticks
-            x1 = [text_y] * n
+            x = [0] * n if self.side == 'left' else [0] * n
+            if self.extend:
+                extend_pos = np.linspace(0, 1, n + 1)
+                y1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
+                x1 = [1+text_y/ax.figure.get_window_extent().width] * n if self.side=='right' else [0+text_y/ax.figure.get_window_extent().width] * n
+            else:
+                y1=[0] * n
+                x1=[text_y] * n
         angleA, angleB = (-90, 90) if axis == 1 else (180, 0)
         xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()  # x: x is data coordinates,y is [0,1]
-        arm_height = text_height / 3
+        text_xycoords=ax.transAxes if self.extend else 'offset pixels' #ax.transAxes, ax.figure.transFigure
+        arm_height = text_height*self.frac
         rad = 0  # arm_height / 10
         connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
         if self.plot_kws['arrowprops']['connectionstyle'] is None:
@@ -760,15 +779,16 @@ class anno_label(AnnotationBase):
         for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
             color = self.color_dict[t]
             self.plot_kws['arrowprops']['color'] = color
-            box = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords='offset pixels',
+            box = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords=text_xycoords,
                               color=color, **self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
-            hs.append(box.get_window_extent(renderer=ax.figure.canvas.get_renderer()).height)
-            ws.append(box.get_window_extent(renderer=ax.figure.canvas.get_renderer()).width)
-        self.label_width = max(hs) if axis == 1 else max(ws)
+        _draw_figure(ax.figure)
+        # hs=[text.get_window_extent().height for text in ax.texts]
+        ws=[text.get_window_extent().width for text in ax.texts]
+        self.label_width = 0 if axis==1 else ax.get_window_extent().width+max(ws) #max(hs) if axis == 1 else max(ws)
+        # print('anno_label:',self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
-        # _draw_figure(ax.figure)
         ax.set_axis_off()
         self.ax = ax
         self.fig = self.ax.figure
@@ -1093,7 +1113,7 @@ class HeatmapAnnotation():
     """
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
-                 legend_gap=2, plot_legend=True, **args):
+                 legend_gap=2, plot_legend=True,rasterized=False, **args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
         if not df is None and len(args) > 0:
@@ -1110,6 +1130,7 @@ class HeatmapAnnotation():
         self.legend_side = legend_side
         self.legend_gap = legend_gap
         self.plot_legend = plot_legend
+        self.rasterized=rasterized
         self.plot = plot
         self.args = args
         if colors is None:
@@ -1155,10 +1176,10 @@ class HeatmapAnnotation():
                 if self.df.dtypes[col] == object:
                     if self.df[col].nunique() <= 10:
                         self.cmap[col] = 'Set1'
-                    elif self.df[col].nunique() <= 20:
+                    else: # self.df[col].nunique() <= 20:
                         self.cmap[col] = 'tab20'
-                    else:
-                        self.cmap[col] = 'gist_rainbow'
+                    # else:
+                    #     self.cmap[col] = 'gist_rainbow'
                 elif self.df.dtypes[col] == float or self.df.dtypes[col] == int:
                     self.cmap[col] = 'jet'
                 else:
@@ -1190,14 +1211,15 @@ class HeatmapAnnotation():
 
     def _process_data(self):  # add self.annotations,self.names,self.labels
         self.annotations = []
+        self.plot_kws["rasterized"]=self.rasterized
         if not self.df is None:
             for col in self.df.columns:
                 plot_kws = self.plot_kws.copy()
                 if self.colors is None:
-                    plot_kws.setdefault("cmap", self.cmap[col])
+                    plot_kws.setdefault("cmap", self.cmap[col]) #
                 else:
                     plot_kws.setdefault("colors", self.colors[col])
-                anno1 = anno_simple(self.df[col], legend=self.legend[col], **plot_kws)
+                anno1 = anno_simple(self.df[col], legend=self.legend.get(col,False), **plot_kws)
                 anno1.set_label(col)
                 self.annotations.append(anno1)
         elif len(self.args) > 0:
@@ -1213,17 +1235,17 @@ class HeatmapAnnotation():
                 if isinstance(ann, pd.DataFrame):
                     if ann.shape[1] > 1:
                         for col in ann.columns:
-                            anno1 = anno_simple(ann[col], legend=self.legend[col], **self.plot_kws)
+                            anno1 = anno_simple(ann[col], legend=self.legend.get(col,False), **self.plot_kws)
                             anno1.set_label(col)
                             self.annotations.append(anno1)
                     else:
-                        anno1 = anno_simple(ann, legend=self.legend[arg], **self.plot_kws)
+                        anno1 = anno_simple(ann, legend=self.legend.get(arg,False), **self.plot_kws)
                         anno1.set_label(arg)
                         self.annotations.append(anno1)
                 if hasattr(ann, 'set_label') and AnnotationBase.__subclasscheck__(type(ann)):
                     self.annotations.append(ann)
                     ann.set_label(arg)
-                    ann.set_legend(self.legend[arg])
+                    ann.set_legend(self.legend.get(arg,False))
                     if type(ann) == anno_label:
                         if self.axis == 1 and len(self.labels) == 0:
                             ann.set_side('top')
@@ -1338,27 +1360,27 @@ class HeatmapAnnotation():
         -------
         None
         """
+        print("Collecting annotation legends..")
         self.legend_list = []  # handles(dict) / cmap, title, kws
         for annotation in self.annotations:
             legend_kws = annotation.legend_kws.copy()
-            if not annotation.legend:
-                continue
-            if plt.get_cmap(annotation.cmap).N < 256:
-                color_dict = annotation.color_dict
-                if color_dict is None:
-                    continue
-                self.legend_list.append(
-                    [annotation.color_dict, annotation.label, legend_kws, len(annotation.color_dict)])
-            else:
-                if annotation.df.shape[1] == 1:
-                    array = annotation.df.iloc[:, 0].values
+            if annotation.legend:
+                if plt.get_cmap(annotation.cmap).N < 256:
+                    color_dict = annotation.color_dict
+                    if color_dict is None:
+                        continue
+                    self.legend_list.append(
+                        [annotation.color_dict, annotation.label, legend_kws, len(annotation.color_dict)])
                 else:
-                    array = annotation.df.values
-                vmax = np.nanmax(array[array != np.inf])
-                vmin = np.nanmin(array[array != -np.inf])
-                legend_kws.setdefault('vmin', round(vmin, 2))
-                legend_kws.setdefault('vmax', round(vmax, 2))
-                self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
+                    if annotation.df.shape[1] == 1:
+                        array = annotation.df.iloc[:, 0].values
+                    else:
+                        array = annotation.df.values
+                    vmax = np.nanmax(array[array != np.inf])
+                    vmin = np.nanmin(array[array != -np.inf])
+                    legend_kws.setdefault('vmin', round(vmin, 2))
+                    legend_kws.setdefault('vmax', round(vmax, 2))
+                    self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
         if len(self.legend_list) > 1:
             self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
         self.label_max_width = max([ann.label_width for ann in self.annotations])
@@ -1381,6 +1403,7 @@ class HeatmapAnnotation():
         self.ax
         """
         # print(ax.figure.get_size_inches())
+        print("Starting plotting HeatmapAnnotations")
         if ax is None:
             self.ax = plt.gca()
         else:
@@ -1418,6 +1441,7 @@ class HeatmapAnnotation():
         # self.ax.margins(x=0, y=0)
         for j, idx in enumerate(idxs):
             for i, ann in enumerate(self.annotations):
+                # print(ann.label)
                 ann.reorder(idx)
                 gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
                 sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
@@ -1462,7 +1486,7 @@ class HeatmapAnnotation():
         if self.legend_list is None:
             self.collect_legends()
         if len(self.legend_list) > 0:
-            space = self.label_max_width if self.label_side == self.legend_side else 0
+            space = self.label_max_width if (self.legend_side=='right' and self.axis==0) else 0
             self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space, legend_side='right',
                                                               gap=self.legend_gap)
 
@@ -1690,7 +1714,7 @@ class ClusterMapPlotter():
                  row_dendrogram=True, col_dendrogram=True, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
-                 plot=True, plot_legend=True, legend_anchor='ax_heatmap', legend_gap=3,
+                 plot=True, plot_legend=True, legend_anchor='auto', legend_gap=3,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False,**heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
@@ -1733,6 +1757,11 @@ class ClusterMapPlotter():
         if plot:
             self.plot()
             if plot_legend:
+                if legend_anchor=='auto':
+                    if not self.right_annotation is None and self.legend_side=='right':
+                        legend_anchor='ax'
+                    else:
+                        legend_anchor='ax_heatmap'
                 if legend_anchor == 'ax_heatmap':
                     self.plot_legends(ax=self.ax_heatmap)
                 else:
@@ -2195,15 +2224,15 @@ class ClusterMapPlotter():
         # _draw_figure(self.ax.figure)
 
     def collect_legends(self):
+        print("Collecting legends..")
         self.legend_list = []
         self.label_max_width = 0
         for annotation in [self.top_annotation, self.bottom_annotation, self.left_annotation, self.right_annotation]:
             if not annotation is None:
-                if not annotation.plot_legend:
-                    continue
                 annotation.collect_legends()
-                if len(annotation.legend_list) > 0:
+                if annotation.plot_legend and len(annotation.legend_list) > 0:
                     self.legend_list.extend(annotation.legend_list)
+                print(annotation.label_max_width,self.label_max_width)
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
@@ -2222,11 +2251,16 @@ class ClusterMapPlotter():
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 
     def plot_legends(self, ax=None):
+        print("Plotting legends..")
         if len(self.legend_list) > 0:
-            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=self.label_max_width,
+            space = self.label_max_width if (self.legend_side == 'right' and not self.right_annotation is None) else 0
+            if self.right_annotation:
+                space+=sum(self.right_widths)
+            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
                                                               legend_side=self.legend_side, gap=self.legend_gap)
 
     def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
+        print("Starting plotting..")
         if ax is None:
             self.ax = plt.gca()
         else:
