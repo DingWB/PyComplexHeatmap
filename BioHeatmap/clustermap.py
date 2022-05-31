@@ -660,6 +660,16 @@ class anno_simple(AnnotationBase):
 class anno_label(AnnotationBase):
     """
     Add label and text annotations.
+
+    Parameters
+    ----------
+    merge: whether to merge the same clusters into one and label only once.
+    extend: whether to distribute all the labels extend to the all axis, figure or ax or False.
+    frac: fraction of the armA and armB.
+
+    Returns
+    ----------
+    Class AnnotationBase.
     """
 
     def __init__(self, df=None, cmap='auto', colors=None, merge=False,extend=False,frac=0.15,
@@ -768,7 +778,10 @@ class anno_label(AnnotationBase):
                 x1=[text_y] * n
         angleA, angleB = (-90, 90) if axis == 1 else (180, 0)
         xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()  # x: x is data coordinates,y is [0,1]
-        text_xycoords=ax.transAxes if self.extend else 'offset pixels' #ax.transAxes, ax.figure.transFigure
+        if self.extend:
+            text_xycoords=ax.transAxes if self.extend=='ax' else ax.figure.transFigure #ax.transAxes,
+        else:
+            text_xycoords='offset pixels'
         arm_height = text_height*self.frac
         rad = 0  # arm_height / 10
         connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
@@ -2253,7 +2266,12 @@ class ClusterMapPlotter():
     def plot_legends(self, ax=None):
         print("Plotting legends..")
         if len(self.legend_list) > 0:
-            space = self.label_max_width if (self.legend_side == 'right' and not self.right_annotation is None) else 0
+            if self.legend_side == 'right' and not self.right_annotation is None:
+                space = self.label_max_width
+            elif self.legend_side == 'right' and self.show_rownames and self.row_names_side=='right':
+                space = self.label_max_width
+            else:
+                space=0
             if self.right_annotation:
                 space+=sum(self.right_widths)
             self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
