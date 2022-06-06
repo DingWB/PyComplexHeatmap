@@ -1561,7 +1561,7 @@ class DendrogramPlotter(object):
         #     raise ValueError("There are too many missing values or infinite values")
         # data = data.loc[:, keep_col[keep_col].index.tolist()]
         if data.isna().sum().sum() > 0:
-            data = data.apply(lambda x: x.fillna(x.loc.median()))
+            data = data.apply(lambda x: x.fillna(x.median()))
         self.data = data
         self.array = data.values
 
