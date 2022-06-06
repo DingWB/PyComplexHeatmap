@@ -672,7 +672,7 @@ class anno_label(AnnotationBase):
     Class AnnotationBase.
     """
 
-    def __init__(self, df=None, cmap='auto', colors=None, merge=False,extend=False,frac=0.15,
+    def __init__(self, df=None, cmap='auto', colors=None, merge=False,extend=False,frac=0.2,
                  majority=True,height=None, legend=False, legend_kws=None, **plot_kws):
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
@@ -779,7 +779,7 @@ class anno_label(AnnotationBase):
         angleA, angleB = (-90, 90) if axis == 1 else (180, 0)
         xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()  # x: x is data coordinates,y is [0,1]
         if self.extend:
-            text_xycoords=ax.transAxes if self.extend=='ax' else ax.figure.transFigure #ax.transAxes,
+            text_xycoords=ax.transAxes #if self.extend=='ax' else ax.figure.transFigure #ax.transAxes,
         else:
             text_xycoords='offset pixels'
         arm_height = text_height*self.frac
@@ -1555,11 +1555,13 @@ class DendrogramPlotter(object):
         if not isinstance(data, pd.DataFrame):
             data = pd.DataFrame(data)
         # To avoid missing values and infinite values and further error, remove missing values
-        nrow = data.shape[0]
-        keep_col = data.apply(np.isfinite).sum() == nrow
-        if keep_col.sum() < 3:
-            raise ValueError("There are too many missing values or infinite values")
-        data = data.loc[:, keep_col[keep_col].index.tolist()]
+        # nrow = data.shape[0]
+        # keep_col = data.apply(np.isfinite).sum() == nrow
+        # if keep_col.sum() < 3:
+        #     raise ValueError("There are too many missing values or infinite values")
+        # data = data.loc[:, keep_col[keep_col].index.tolist()]
+        if data.isna().sum().sum() > 0:
+            data = data.apply(lambda x: x.fillna(x.loc.median()))
         self.data = data
         self.array = data.values
 
