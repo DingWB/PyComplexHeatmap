@@ -2026,7 +2026,10 @@ class ClusterMapPlotter():
             if isinstance(self.row_split, pd.Series):
                 self.row_split = self.row_split.to_frame(name=self.row_split.name)
             cols = self.row_split.columns.tolist()
-            self.row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist()).to_dict()
+            row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist())
+            if self.row_split_order:
+                row_clusters=row_clusters.loc[self.row_split_order]
+            self.row_clusters=row_clusters.to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
             return None
@@ -2035,8 +2038,7 @@ class ClusterMapPlotter():
 
         self.row_order = []
         self.dendrogram_rows = []
-        cluster_list=self.row_clusters if self.row_split_order is None else self.row_split_order
-        for i, cluster in enumerate(cluster_list):
+        for i, cluster in enumerate(self.row_clusters):
             rows = self.row_clusters[cluster]
             if len(rows) <= 1:
                 self.row_order.append(rows)
@@ -2065,7 +2067,10 @@ class ClusterMapPlotter():
             if isinstance(self.col_split, pd.Series):
                 self.col_split = self.col_split.to_frame(name=self.col_split.name)
             cols = self.col_split.columns.tolist()
-            self.col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist()).to_dict()
+            col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist())
+            if self.col_split_order:
+                col_clusters=col_clusters.loc[self.col_split_order]
+            self.col_clusters=col_clusters.to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]
             return None
@@ -2074,8 +2079,7 @@ class ClusterMapPlotter():
 
         self.col_order = []
         self.dendrogram_cols = []
-        cluster_list = self.col_clusters if self.col_split_order is None else self.col_split_order
-        for i, cluster in enumerate(cluster_list):
+        for i, cluster in enumerate(self.col_clusters):
             cols = self.col_clusters[cluster]
             if len(cols) <= 1:
                 self.col_order.append(cols)
