@@ -1141,13 +1141,13 @@ class HeatmapAnnotation():
         self.label_side = label_side
         self._set_label_kws(label_kws, ticklabels_kws)
         self.plot_kws = plot_kws if not plot_kws is None else {}
+        self.args = args
         self._check_legend(legend)
         self.legend_side = legend_side
         self.legend_gap = legend_gap
         self.plot_legend = plot_legend
         self.rasterized=rasterized
         self.plot = plot
-        self.args = args
         if colors is None:
             self._check_cmap(cmap)
             self.colors = None
