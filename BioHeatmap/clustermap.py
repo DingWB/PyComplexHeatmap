@@ -632,6 +632,8 @@ class anno_simple(AnnotationBase):
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
         if self.add_text:
+            if axis==0:
+                self.text_kws.setdefault('rotation', 90)
             labels, ticks = cluster_labels(self.plot_data.iloc[:, 0].values, np.arange(0.5, self.nrows, 1),self.majority)
             n = len(ticks)
             if axis == 1:
@@ -1728,10 +1730,11 @@ class ClusterMapPlotter():
                  show_rownames=True, show_colnames=True, row_names_side='right', col_names_side='bottom',
                  row_dendrogram=True, col_dendrogram=True, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
+                 row_split_order=None,col_split_order=None,
                  row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
                  plot=True, plot_legend=True, legend_anchor='auto', legend_gap=3,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
-                 rasterized=False,**heatmap_kws):
+                 rasterized=False,legend_delta_x=None,**heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.mask = _check_mask(self.data2d, mask)
         self._define_kws(xticklabels_kws, yticklabels_kws)
@@ -1760,6 +1763,8 @@ class ClusterMapPlotter():
         self.col_split = col_split
         self.row_split_gap = row_split_gap
         self.col_split_gap = col_split_gap
+        self.row_split_order=row_split_order,
+        self.col_split_order = col_split_order,
         self.rasterized = rasterized
         self.heatmap_kws = heatmap_kws if not heatmap_kws is None else {}
         self.legend = legend
@@ -1769,6 +1774,7 @@ class ClusterMapPlotter():
         self.label = label if not label is None else 'heatmap'
         self.legend_gap = legend_gap
         self.legend_anchor = legend_anchor
+        self.legend_delta_x=legend_delta_x
         if plot:
             self.plot()
             if plot_legend:
@@ -2029,7 +2035,8 @@ class ClusterMapPlotter():
 
         self.row_order = []
         self.dendrogram_rows = []
-        for i, cluster in enumerate(self.row_clusters):
+        cluster_list=self.row_clusters if self.row_split_order is None else self.row_split_order
+        for i, cluster in enumerate(cluster_list):
             rows = self.row_clusters[cluster]
             if len(rows) <= 1:
                 self.row_order.append(rows)
@@ -2067,7 +2074,8 @@ class ClusterMapPlotter():
 
         self.col_order = []
         self.dendrogram_cols = []
-        for i, cluster in enumerate(self.col_clusters):
+        cluster_list = self.col_clusters if self.col_split_order is None else self.col_split_order
+        for i, cluster in enumerate(cluster_list):
             cols = self.col_clusters[cluster]
             if len(cols) <= 1:
                 self.col_order.append(cols)
@@ -2277,7 +2285,8 @@ class ClusterMapPlotter():
             if self.right_annotation:
                 space+=sum(self.right_widths)
             self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
-                                                              legend_side=self.legend_side, gap=self.legend_gap)
+                                                              legend_side=self.legend_side, gap=self.legend_gap,
+                                                              delta_x=self.legend_delta_x)
 
     def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
         print("Starting plotting..")

@@ -343,7 +343,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     return cbar
 
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2):
+                     y0=None,gap=2,delta_x=None):
     """
     Plot all lengends for a given legend_list.
 
@@ -365,9 +365,9 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         print("No ax was provided, using plt.gca()")
         ax=plt.gca()
         ax.set_axis_off()
-        left=ax.get_position().x0+ax.yaxis.labelpad*2/ax.figure.get_window_extent().width
+        left=ax.get_position().x0+ax.yaxis.labelpad*2/ax.figure.get_window_extent().width if delta_x is None else ax.get_position().x0+delta_x
     else:
-        pad = (space+ax.yaxis.labelpad*2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width #labelpad unit is points
+        pad = (space+ax.yaxis.labelpad*2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
     width=4.5*0.0394*ax.figure.dpi / ax.figure.get_window_extent().width
