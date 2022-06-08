@@ -1173,8 +1173,9 @@ class HeatmapAnnotation():
         if type(legend) == bool:
             if not self.df is None:
                 self.legend = {col: legend for col in self.df.columns}
-            else:
-                self.legend = collections.defaultdict(lambda: legend)
+            if len(self.args)>0:
+                # self.legend = collections.defaultdict(lambda: legend)
+                self.legend = {arg: legend for arg in self.args}
         elif type(legend) == dict:
             if not self.df is None and len(legend) != self.df.shape[1]:
                 raise ValueError("legend must have the same length with number of columns of df")
