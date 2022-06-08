@@ -2028,7 +2028,7 @@ class ClusterMapPlotter():
                 self.row_split = self.row_split.to_frame(name=self.row_split.name)
             cols = self.row_split.columns.tolist()
             row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist())
-            if self.row_split_order:
+            if not self.row_split_order is None:
                 row_clusters=row_clusters.loc[self.row_split_order]
             self.row_clusters=row_clusters.to_dict()
         elif not self.row_cluster:
@@ -2069,7 +2069,7 @@ class ClusterMapPlotter():
                 self.col_split = self.col_split.to_frame(name=self.col_split.name)
             cols = self.col_split.columns.tolist()
             col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist())
-            if self.col_split_order:
+            if not self.col_split_order is None:
                 col_clusters=col_clusters.loc[self.col_split_order]
             self.col_clusters=col_clusters.to_dict()
         elif not self.col_cluster:
