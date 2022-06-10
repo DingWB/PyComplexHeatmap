@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/env python3
 import matplotlib.pylab as plt
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap,ListedColormap,CSS4_COLORS
+import random
 
 def define_cmap():
     c = LinearSegmentedColormap.from_list('exp1', [(0, 'blue'), (0.5, 'yellow'), (1, 'red')])
@@ -17,6 +18,9 @@ def define_cmap():
                                            (0.7, 'darkorange'), (0.9, 'tomato'),(1,'red')])
     plt.register_cmap(cmap=c)
     c = LinearSegmentedColormap.from_list('diverging1',[(0, '#67a9cf'), (0.5, '#f7f7f7'), (1, '#ef8a62')])
+    plt.register_cmap(cmap=c)
+
+    c=ListedColormap(random.sample(list(CSS4_COLORS.keys()),100),'random100')
     plt.register_cmap(cmap=c)
 
     cm_data = [[0.2081, 0.1663, 0.5292], [0.2116238095, 0.1897809524, 0.5776761905],

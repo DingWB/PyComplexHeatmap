@@ -513,7 +513,7 @@ class AnnotationBase():
                 elif self.df[col].nunique() <= 20:
                     self.cmap = 'tab20'
                 else:
-                    self.cmap = 'hsv'
+                    self.cmap = 'random100'
             elif self.df.dtypes[col] == float or self.df.dtypes[col] == int:
                 self.cmap = 'jet'
             else:
@@ -1192,10 +1192,10 @@ class HeatmapAnnotation():
                 if self.df.dtypes[col] == object:
                     if self.df[col].nunique() <= 10:
                         self.cmap[col] = 'Set1'
-                    else: # self.df[col].nunique() <= 20:
+                    elif self.df[col].nunique() <= 20:
                         self.cmap[col] = 'tab20'
-                    # else:
-                    #     self.cmap[col] = 'gist_rainbow'
+                    else:
+                        self.cmap[col] = 'random100'
                 elif self.df.dtypes[col] == float or self.df.dtypes[col] == int:
                     self.cmap[col] = 'jet'
                 else:
