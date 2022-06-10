@@ -576,7 +576,7 @@ class anno_simple(AnnotationBase):
     """
 
     def __init__(self, df=None, cmap='auto', colors=None, add_text=False,
-                 majority=False,text_kws=None, height=None, legend=True,
+                 majority=True,text_kws=None, height=None, legend=True,
                  legend_kws=None,**plot_kws):
         self.add_text = add_text
         self.majority=majority
@@ -2016,6 +2016,7 @@ class ClusterMapPlotter():
             self.ax_col_dendrogram.set_axis_off()
 
     def _reorder_rows(self):
+        print("Reordering rows..")
         if self.row_split is None and self.row_cluster:
             self.calculate_row_dendrograms(self.data2d)  # xind=self.dendrogram_row.reordered_ind
             self.row_order = [self.dendrogram_row.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
@@ -2057,6 +2058,7 @@ class ClusterMapPlotter():
                 self.row_order.append(rows)
 
     def _reorder_cols(self):
+        print("Reordering cols..")
         if self.col_split is None and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
             self.col_order = [self.dendrogram_col.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
@@ -2161,6 +2163,7 @@ class ClusterMapPlotter():
                 self.dendrogram_col.plot(ax=self.ax_col_dendrogram, tree_kws=self.tree_kws)
 
     def plot_matrix(self, row_order, col_order):
+        print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
         self.wspace = self.col_split_gap * 0.0394 * self.ax.figure.dpi / (
