@@ -428,7 +428,7 @@ class AnnotationBase():
     """
 
     def __init__(self, df=None, cmap='auto', colors=None,
-                 height=None, legend=True, legend_kws=None, **plot_kws):
+                 height=None, legend=None, legend_kws=None, **plot_kws):
         self._check_df(df)
         self.label = None
         self.ylim = None
@@ -477,7 +477,8 @@ class AnnotationBase():
         self.label = label
 
     def set_legend(self, legend):
-        self.legend = legend
+        if self.legend is None:
+            self.legend = legend
 
     def set_axes_kws(self, subplot_ax):
         # ax.set_xticks(ticks=np.arange(1, self.nrows + 1, 1), labels=self.plot_data.index.tolist())
@@ -555,20 +556,16 @@ class AnnotationBase():
 
     def reorder(self, idx):  # Before plotting, df needs to be reordered according to the new clustered order.
         """
-        idx: the index of df, used to reorder the rows or cols.
+        idx: list
         """
-        if isinstance(idx, pd.Series):
-            idx = idx.values
-        if not isinstance(idx, (list, np.ndarray)):
-            raise TypeError("idx must be a pd.Series, list or numpy array")
-        n_overlap = len(set(self.df.index.tolist()) & set(idx))
-        if n_overlap == 0:
-            raise ValueError("The input idx is not consistent with the df.index")
-        else:
-            self.plot_data = self.df.reindex(idx)
-            self.plot_data.fillna(np.nan, inplace=True)
+        # n_overlap = len(set(self.df.index.tolist()) & set(idx))
+        # if n_overlap == 0:
+        #     raise ValueError("The input idx is not consistent with the df.index")
+        # else:
+        self.plot_data = self.df.reindex(idx)
+        self.plot_data.fillna(np.nan, inplace=True)
         self.nrows = self.plot_data.shape[0]
-        self._set_default_plot_kws(self.plot_kws)
+        # self._set_default_plot_kws(self.plot_kws)
 
 class anno_simple(AnnotationBase):
     """
@@ -2189,22 +2186,18 @@ class ClusterMapPlotter():
                     raise ValueError(err)
 
         self.heatmap_axes = np.empty(shape=(nrows, ncols), dtype=object)
-        if len(row_order) > 1 or len(col_order) > 1:
+        if nrows > 1 or ncols > 1:
             self.ax_heatmap.set_axis_off()
         for i, rows in enumerate(row_order):
             for j, cols in enumerate(col_order):
-                gs = self.heatmap_gs[i, j]
-                sharex = self.heatmap_axes[0, j]
-                sharey = self.heatmap_axes[i, 0]
-                ax1 = self.ax_heatmap.figure.add_subplot(gs, sharex=sharex, sharey=sharey)
+                ax1 = self.ax_heatmap.figure.add_subplot(self.heatmap_gs[i, j],
+                                                        sharex=self.heatmap_axes[0, j],
+                                                        sharey=self.heatmap_axes[i, 0])
                 ax1.set_xlim([0, len(rows)])
                 ax1.set_ylim([0, len(cols)])
-                data = self.data2d.loc[rows, cols]
-                mask = self.mask.loc[rows, cols]
                 annot1 = None if annot is None else annot_data.loc[rows, cols]
-
-                heatmap(data, ax=ax1, cbar=False, cmap=self.cmap,
-                        cbar_kws=None, mask=mask, rasterized=self.rasterized,
+                heatmap(self.data2d.loc[rows, cols], ax=ax1, cbar=False, cmap=self.cmap,
+                        cbar_kws=None, mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
                         xticklabels='auto', yticklabels='auto', annot=annot1, **self.heatmap_kws)
                 self.heatmap_axes[i, j] = ax1
                 ax1.yaxis.label.set_visible(False)
@@ -2278,8 +2271,8 @@ class ClusterMapPlotter():
             self.legend_list.append([self.cmap, self.label, self.legend_kws, 4])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
                 self.yticklabels) > 0 else 0
-            heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(
-                self.yticklabels) > 0 else 0
+            # heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(
+            #     self.yticklabels) > 0 else 0
             if heatmap_label_max_width >= self.label_max_width or self.legend_anchor == 'ax_heatmap':
                 self.label_max_width = heatmap_label_max_width * 1.1
             if len(self.legend_list) > 1:
