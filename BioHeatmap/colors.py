@@ -20,7 +20,8 @@ def define_cmap():
     c = LinearSegmentedColormap.from_list('diverging1',[(0, '#67a9cf'), (0.5, '#f7f7f7'), (1, '#ef8a62')])
     plt.register_cmap(cmap=c)
 
-    c=ListedColormap(random.sample(list(CSS4_COLORS.keys()),100),'random100')
+    c=ListedColormap(random.sample([c for c in CSS4_COLORS.keys() if c not in ['white','snow'] and 'gray' not in c],100),
+                     'random100')
     plt.register_cmap(cmap=c)
 
     cm_data = [[0.2081, 0.1663, 0.5292], [0.2116238095, 0.1897809524, 0.5776761905],
