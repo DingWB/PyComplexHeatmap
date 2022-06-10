@@ -793,6 +793,9 @@ class anno_label(AnnotationBase):
         ws = []
         for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
             color = self.color_dict[t]
+            lum = _calculate_luminance(color)
+            if lum > 0.408:
+                color = 'black'
             self.plot_kws['arrowprops']['color'] = color
             box = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords=text_xycoords,
                               color=color, **self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
@@ -1177,9 +1180,10 @@ class HeatmapAnnotation():
                 # self.legend = collections.defaultdict(lambda: legend)
                 self.legend = {arg: legend for arg in self.args}
         elif type(legend) == dict:
-            if not self.df is None and len(legend) != self.df.shape[1]:
-                raise ValueError("legend must have the same length with number of columns of df")
             self.legend = legend
+            for arg in self.args:
+                if arg not in self.legend:
+                    self.legend[arg]=False
         else:
             raise TypeError("Unknow data type for legend!")
 
@@ -1564,7 +1568,7 @@ class DendrogramPlotter(object):
         #     raise ValueError("There are too many missing values or infinite values")
         # data = data.loc[:, keep_col[keep_col].index.tolist()]
         if data.isna().sum().sum() > 0:
-            data = data.apply(lambda x: x.fillna(x.median()))
+            data = data.apply(lambda x: x.fillna(x.median()),axis=1)
         self.data = data
         self.array = data.values
 
