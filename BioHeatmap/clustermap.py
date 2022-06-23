@@ -1256,8 +1256,9 @@ class HeatmapAnnotation():
                             anno1.set_label(col)
                             self.annotations.append(anno1)
                     else:
-                        anno1 = anno_simple(ann, legend=self.legend.get(arg,False), **self.plot_kws)
+                        anno1 = anno_simple(ann,**self.plot_kws)
                         anno1.set_label(arg)
+                        anno1.set_legend(self.legend.get(arg,False))
                         self.annotations.append(anno1)
                 if hasattr(ann, 'set_label') and AnnotationBase.__subclasscheck__(type(ann)):
                     self.annotations.append(ann)
@@ -1458,7 +1459,7 @@ class HeatmapAnnotation():
         # self.ax.margins(x=0, y=0)
         for j, idx in enumerate(idxs):
             for i, ann in enumerate(self.annotations):
-                # print(ann.label)
+                print(i,j,ann.label)
                 ann.reorder(idx)
                 gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
                 sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
@@ -1729,8 +1730,8 @@ class ClusterMapPlotter():
                  top_annotation=None, bottom_annotation=None, left_annotation=None, right_annotation=None,
                  row_cluster=True, col_cluster=True, row_cluster_method='average', row_cluster_metric='correlation',
                  col_cluster_method='average', col_cluster_metric='correlation',
-                 show_rownames=True, show_colnames=True, row_names_side='right', col_names_side='bottom',
-                 row_dendrogram=True, col_dendrogram=True, row_dendrogram_size=10, col_dendrogram_size=10,
+                 show_rownames=False, show_colnames=False, row_names_side='right', col_names_side='bottom',
+                 row_dendrogram=False, col_dendrogram=False, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_order=None,col_split_order=None,
                  row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
@@ -2190,6 +2191,7 @@ class ClusterMapPlotter():
             self.ax_heatmap.set_axis_off()
         for i, rows in enumerate(row_order):
             for j, cols in enumerate(col_order):
+                print(i,j)
                 ax1 = self.ax_heatmap.figure.add_subplot(self.heatmap_gs[i, j],
                                                         sharex=self.heatmap_axes[0, j],
                                                         sharey=self.heatmap_axes[i, 0])
@@ -2264,8 +2266,8 @@ class ClusterMapPlotter():
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
-            vmax = np.nanmax(self.data2d[self.data2d != np.inf])
-            vmin = np.nanmin(self.data2d[self.data2d != -np.inf])
+            vmax = self.heatmap_kws.get('vmax',np.nanmax(self.data2d[self.data2d != np.inf]))
+            vmin = self.heatmap_kws.get('vmin',np.nanmin(self.data2d[self.data2d != -np.inf]))
             self.legend_kws.setdefault('vmin', round(vmin, 2))
             self.legend_kws.setdefault('vmax', round(vmax, 2))
             self.legend_list.append([self.cmap, self.label, self.legend_kws, 4])
