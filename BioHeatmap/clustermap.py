@@ -615,6 +615,11 @@ class anno_simple(AnnotationBase):
         if vmax == 256:  # then heatmap will automatically calculate vmin and vmax
             vmax = None
             vmin = None
+        plot_kws=self.plot_kws.copy()
+        if 'vmax' not in plot_kws:
+            plot_kws['vmax']=vmax
+        if 'vmin' not in plot_kws:
+            plot_kws['vmin']=vmin
         if self.cc_list:
             mat = self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
         else:
@@ -624,7 +629,7 @@ class anno_simple(AnnotationBase):
         ylabel = self.label if axis == 1 else None
 
         ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
-                      xticklabels=False, yticklabels=False, vmin=vmin, vmax=vmax, **self.plot_kws)
+                      xticklabels=False, yticklabels=False, **plot_kws)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
@@ -788,7 +793,11 @@ class anno_label(AnnotationBase):
             self.plot_kws['arrowprops']['connectionstyle'] = connectionstyle
         hs = []
         ws = []
+        # import pdb;
+        # pdb.set_trace()
         for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
+            if pd.isna(t):
+                continue
             color = self.color_dict[t]
             lum = _calculate_luminance(color)
             if lum > 0.408:
@@ -870,9 +879,10 @@ class anno_boxplot(AnnotationBase):
         else:
             colors = [self.colors] * self.plot_data.shape[0]  # self.colors is a string
         # print(self.plot_kws)
-        edgecolor = self.plot_kws.pop('edgecolor')
-        mlinecolor = self.plot_kws.pop('medianlinecolor')
-        grid = self.plot_kws.pop('grid')
+        plot_kws=self.plot_kws.copy()
+        edgecolor = plot_kws.pop('edgecolor')
+        mlinecolor = plot_kws.pop('medianlinecolor')
+        grid = plot_kws.pop('grid')
         # bp = ax.boxplot(self.plot_data.T.values, patch_artist=True,**self.plot_kws)
         if axis == 1:
             vert = True
@@ -884,7 +894,7 @@ class anno_boxplot(AnnotationBase):
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
         # bp = self.plot_data.T.boxplot(ax=ax, patch_artist=True,vert=vert,return_type='dict',**self.plot_kws)
         bp = ax.boxplot(x=self.plot_data.T.values, positions=np.arange(0.5, self.nrows, 1), patch_artist=True,
-                        vert=vert, **self.plot_kws)
+                        vert=vert, **plot_kws)
         if grid:
             ax.grid(linestyle='--', zorder=-10)
         for box, color in zip(bp['boxes'], colors):
@@ -976,7 +986,8 @@ class anno_barplot(anno_boxplot):
             colors = [plt.get_cmap(self.cmap)(col_list.index(v)) for v in self.plot_data.columns]
         else:  # self.colors is a list, length equal to the plot_data.shape[1]
             colors = self.colors
-        grid = self.plot_kws.pop('grid')
+        plot_kws=self.plot_kws.copy()
+        grid = plot_kws.pop('grid',False)
         if grid:
             ax.grid(linestyle='--', zorder=-10)
         # bar_ct = ax.bar(x=list(range(1, self.nrows + 1,1)),
@@ -984,10 +995,10 @@ class anno_barplot(anno_boxplot):
         for col, color in zip(self.plot_data.columns, colors):
             if axis == 1:
                 ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-                ax.bar(x=np.arange(0.5, self.nrows, 1), height=self.plot_data[col].values, color=color, **self.plot_kws)
+                ax.bar(x=np.arange(0.5, self.nrows, 1), height=self.plot_data[col].values, color=color, **plot_kws)
             else:
                 ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
-                ax.barh(y=np.arange(0.5, self.nrows, 1), width=self.plot_data[col].values, color=color, **self.plot_kws)
+                ax.barh(y=np.arange(0.5, self.nrows, 1), width=self.plot_data[col].values, color=color, **plot_kws)
         # for patch in ax.patches:
         #     patch.set_edgecolor(edgecolor)
         if axis == 0:
@@ -1053,7 +1064,8 @@ class anno_scatterplot(anno_barplot):
         if ax is None:
             ax = plt.gca()
         fig = ax.figure
-        grid = self.plot_kws.pop('grid')
+        plot_kws=self.plot_kws.copy()
+        grid = plot_kws.pop('grid',False)
         if grid:
             ax.grid(linestyle='--', zorder=-10)
         values = self.plot_data.iloc[:, 0].values
@@ -1076,7 +1088,7 @@ class anno_scatterplot(anno_barplot):
             x = values
         c = self.plot_kws.get('c', colors)
         s = self.plot_kws.get('s', self.s)
-        scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **self.plot_kws)
+        scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **plot_kws)
         if axis == 0:
             ax.tick_params(axis='both', which='both',
                            left=False, right=False, labelleft=False, labelright=False)
@@ -1459,7 +1471,7 @@ class HeatmapAnnotation():
         # self.ax.margins(x=0, y=0)
         for j, idx in enumerate(idxs):
             for i, ann in enumerate(self.annotations):
-                print(i,j,ann.label)
+                # print(i,j,ann.label)
                 ann.reorder(idx)
                 gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
                 sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
@@ -1593,7 +1605,7 @@ class DendrogramPlotter(object):
         try:
             return self._calculate_linkage_fastcluster()
         except ImportError:
-            if np.product(self.shape) >= 10000:
+            if np.product(self.shape) >= 1000:
                 msg = ("Clustering large matrix with scipy. Installing "
                        "`fastcluster` may give better performance.")
                 warnings.warn(msg)
@@ -2191,7 +2203,7 @@ class ClusterMapPlotter():
             self.ax_heatmap.set_axis_off()
         for i, rows in enumerate(row_order):
             for j, cols in enumerate(col_order):
-                print(i,j)
+                # print(i,j)
                 ax1 = self.ax_heatmap.figure.add_subplot(self.heatmap_gs[i, j],
                                                         sharex=self.heatmap_axes[0, j],
                                                         sharey=self.heatmap_axes[i, 0])
@@ -2262,7 +2274,7 @@ class ClusterMapPlotter():
                 annotation.collect_legends()
                 if annotation.plot_legend and len(annotation.legend_list) > 0:
                     self.legend_list.extend(annotation.legend_list)
-                print(annotation.label_max_width,self.label_max_width)
+                # print(annotation.label_max_width,self.label_max_width)
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
@@ -2308,9 +2320,11 @@ class ClusterMapPlotter():
         self._define_bottom_axes()
         self._define_right_axes()
         if row_order is None:
+            print("Starting calculating row orders..")
             self._reorder_rows()
             row_order = self.row_order
         if col_order is None:
+            print("Starting calculating col orders..")
             self._reorder_cols()
             col_order = self.col_order
         self.plot_matrix(row_order=row_order, col_order=col_order)
@@ -2329,7 +2343,8 @@ class ClusterMapPlotter():
             self.right_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=self.gs[1, 2],
                                                    idxs=row_order, hspace=self.hspace)
         if self.row_cluster or self.col_cluster:
-            self.plot_dendrograms(row_order, col_order)
+            if self.row_dendrogram or self.col_dendrogram:
+                self.plot_dendrograms(row_order, col_order)
         self.set_axes_labels_kws()
         self.collect_legends()
         # _draw_figure(self.ax_heatmap.figure)
