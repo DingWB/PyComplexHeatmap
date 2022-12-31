@@ -13,10 +13,10 @@ Installing the latest code from github (recommended)
 ------------------------------------------------------
 You can download and compile the latest code from github as follows ::
 
-    pip install git+https://github.com/DingWB/pyclustermap
+    pip install git+https://github.com/DingWB/PyComplexHeatmap
 
 or ::
 
-    git clone https://github.com/DingWB/pyclustermap
-    cd pyclustermap
+    git clone https://github.com/DingWB/PyComplexHeatmap
+    cd PyComplexHeatmap
     python setup.py install
