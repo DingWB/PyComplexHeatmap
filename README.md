@@ -1,8 +1,8 @@
-# BioHeatmap
-BioHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/BioHeatmap) for documentation.
+# PyComplexHeatmap
+PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/PyComplexHeatmap) for documentation.
 
 ## Documentation:
-[https://dingwb.github.io/BioHeatmap](https://dingwb.github.io/BioHeatmap)
+[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap)
 
 ## Dependencies:
 - matplotlib>=3.4.3
@@ -15,27 +15,27 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 ## **Installation**
 1. **Install from github**:
 ```
-pip install git+https://github.com/DingWB/BioHeatmap
+pip install git+https://github.com/DingWB/PyComplexHeatmap
 ```
 if you have installed it previously and want to update it, please run 
-`pip uninstall BioHeatmap`
+`pip uninstall PyComplexHeatmap`
 and install from github again
 OR
 ```
-git clone https://github.com/DingWB/BioHeatmap
-cd BioHeatmap
+git clone https://github.com/DingWB/PyComplexHeatmap
+cd PyComplexHeatmap
 python setup.py install
 ```
 
 2. **Install with pip**:
 ```shell
-pip install BioHeatmap (TODO)
+pip install PyComplexHeatmap (TODO)
 ```
 
 ## **Usage**
 ### **1. Simple Guide To Get started.**
 ```
-from BioHeatmap import *
+from PyComplexHeatmap import *
 
 # Generate fake dataset
 df = pd.DataFrame(['AAAA1'] * 5 + ['BBBBB2'] * 5, columns=['AB'])
@@ -68,4 +68,4 @@ plt.show()
 ```
 
 ## **Examples**
-https://github.com/DingWB/BioHeatmap/blob/main/examples.ipynb
+https://github.com/DingWB/PyComplexHeatmap/blob/main/examples.ipynb
