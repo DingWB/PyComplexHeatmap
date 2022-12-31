@@ -3,7 +3,7 @@ import os, sys
 import pandas as pd
 import numpy as np
 import matplotlib.pylab as plt
-import BioHeatmap
+import PyComplexHeatmap
 from .clustermap import *
 import pandas as pd
 import numpy as np
@@ -68,7 +68,7 @@ def clustermap_example0():
 
 def clustermap_example1():
     import pickle
-    f = open(os.path.join(BioHeatmap._ROOT, 'data', "influence_of_snp_on_beta.pickle"), 'rb')
+    f = open(os.path.join(PyComplexHeatmap._ROOT, 'data', "influence_of_snp_on_beta.pickle"), 'rb')
     data=pickle.load(f)
     f.close()
     beta,snp,df_row,df_col,col_colors_dict,row_colors_dict=data

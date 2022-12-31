@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'BioHeatmap'
+project = 'PyComplexHeatmap'
 copyright = '2022, Wubin Ding'
 author = 'Wubin Ding'
 
@@ -66,6 +66,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+html_theme_path=[sphinx_rtd_theme.get_html_theme_path()]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -79,10 +80,10 @@ html_sidebars = {
     ]
 }
 
-htmlhelp_basename = 'BioHeatmapDoc'
+htmlhelp_basename = 'PyComplexHeatmapDoc'
 
 latex_documents = [
-    (master_doc, 'BioHeatmap.tex', 'BioHeatmap Documentation',
+    (master_doc, 'PyComplexHeatmap.tex', 'PyComplexHeatmap Documentation',
      'Wubin Ding', 'manual'),
 ]
 
@@ -91,7 +92,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'BioHeatmap', 'BioHeatmap Documentation',
+    (master_doc, 'PyComplexHeatmap', 'PyComplexHeatmap Documentation',
      [author], 1)
 ]
 
@@ -99,8 +100,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'BioHeatmap', 'BioHeatmap Documentation',
-     author, 'BioHeatmap', 'One line description of project.',
+    (master_doc, 'PyComplexHeatmap', 'PyComplexHeatmap Documentation',
+     author, 'PyComplexHeatmap', 'One line description of project.',
      'Miscellaneous'),
 ]
 

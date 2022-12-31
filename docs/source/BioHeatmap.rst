@@ -1,10 +1,10 @@
-BioHeatmap package
+PyComplexHeatmap package
 ==================
 
 Submodules
 ----------
 
-BioHeatmap.bioinformatics\_plot module
+PyComplexHeatmap.bioinformatics\_plot module
 --------------------------------------
 
 .. automodule:: BioHeatmap.bioinformatics_plot

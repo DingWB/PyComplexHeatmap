@@ -1,7 +1,8 @@
-BioHeatmap
-==========
+PyComplexHeatmap
+================
 
 .. toctree::
    :maxdepth: 4
 
-   BioHeatmap
+   PyComplexHeatmap
+   setup

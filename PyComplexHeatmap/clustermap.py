@@ -1749,8 +1749,9 @@ class ClusterMapPlotter():
                  row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
                  plot=True, plot_legend=True, legend_anchor='auto', legend_gap=3,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
-                 rasterized=False,legend_delta_x=None,**heatmap_kws):
+                 rasterized=False,legend_delta_x=None,debug=False,**heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
+        self.debug=debug
         self.mask = _check_mask(self.data2d, mask)
         self._define_kws(xticklabels_kws, yticklabels_kws)
         self.top_annotation = top_annotation
@@ -2026,7 +2027,8 @@ class ClusterMapPlotter():
             self.ax_col_dendrogram.set_axis_off()
 
     def _reorder_rows(self):
-        print("Reordering rows..")
+        if self.debug:
+            print("Reordering rows..")
         if self.row_split is None and self.row_cluster:
             self.calculate_row_dendrograms(self.data2d)  # xind=self.dendrogram_row.reordered_ind
             self.row_order = [self.dendrogram_row.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
@@ -2068,7 +2070,8 @@ class ClusterMapPlotter():
                 self.row_order.append(rows)
 
     def _reorder_cols(self):
-        print("Reordering cols..")
+        if self.debug:
+            print("Reordering cols..")
         if self.col_split is None and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
             self.col_order = [self.dendrogram_col.dendrogram['ivl']]  # self.data2d.iloc[:, xind].columns.tolist()
@@ -2173,7 +2176,8 @@ class ClusterMapPlotter():
                 self.dendrogram_col.plot(ax=self.ax_col_dendrogram, tree_kws=self.tree_kws)
 
     def plot_matrix(self, row_order, col_order):
-        print("Plotting matrix..")
+        if self.debug:
+            print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
         self.wspace = self.col_split_gap * 0.0394 * self.ax.figure.dpi / (
@@ -2266,7 +2270,8 @@ class ClusterMapPlotter():
         # _draw_figure(self.ax.figure)
 
     def collect_legends(self):
-        print("Collecting legends..")
+        if self.debug:
+            print("Collecting legends..")
         self.legend_list = []
         self.label_max_width = 0
         for annotation in [self.top_annotation, self.bottom_annotation, self.left_annotation, self.right_annotation]:
@@ -2293,7 +2298,8 @@ class ClusterMapPlotter():
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 
     def plot_legends(self, ax=None):
-        print("Plotting legends..")
+        if self.debug:
+            print("Plotting legends..")
         if len(self.legend_list) > 0:
             if self.legend_side == 'right' and not self.right_annotation is None:
                 space = self.label_max_width
@@ -2308,7 +2314,8 @@ class ClusterMapPlotter():
                                                               delta_x=self.legend_delta_x)
 
     def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
-        print("Starting plotting..")
+        if self.debug:
+            print("Starting plotting..")
         if ax is None:
             self.ax = plt.gca()
         else:
@@ -2378,8 +2385,8 @@ def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
     axis: 1 for columns (align the cmlist horizontally), 0 for rows (vertically).
     main: use which as main ClusterMapPlotter, will influence row/col order. main is the index
         of cmlist.
-    row/col_gap, the row or columns gap between subplots, unit is mm.
-    legend_side: right,left
+    row/col_gap, the row or columns gap between subplots, unit is mm [15].
+    legend_side: right,left [right].
     legend_gap, row gap between two legends, unit is mm.
 
     Returns

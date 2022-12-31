@@ -1,4 +1,4 @@
 Examples
 ===================
 
-https://github.com/DingWB/pyclustermap/blob/main/examples.ipynb
+https://github.com/DingWB/PyComplexHeatmap/blob/main/examples.ipynb
