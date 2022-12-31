@@ -4,4 +4,4 @@ Documentation
 Overview
 """""""""""""""""""""""
 
-Documentation website https://pyclustermap.readthedocs.io/en/main/
+Documentation website https://dingwb.github.io/PyComplexHeatmap
