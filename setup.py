@@ -11,13 +11,13 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-   name='BioHeatmap',
+   name='PyComplexHeatmap',
    version='1.0',
    description='A Python package to plot complex heatmap',
    author='Wubin Ding',
    author_email='ding.wu.bin.gm@gmail.com',
-   url="https://github.com/DingWB/BioHeatmap",
-   packages=['BioHeatmap'],
+   url="https://github.com/DingWB/PyComplexHeatmap",
+   packages=['PyComplexHeatmap'],
    install_requires=['matplotlib>=3.3.1','pandas'],
-   #scripts=['scripts/BioHeatmap'],
+   #scripts=['scripts/PyComplexHeatmap'],
 )
