@@ -31,12 +31,6 @@ python setup.py install
 pip install PyComplexHeatmap (TODO)
 ```
 
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_6_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_19_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_21_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_23_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_25_1.png)
-
 ## **Usage**
 ### **1. Simple Guide To Get started.**
 ```
@@ -71,6 +65,12 @@ cm = ClusterMapPlotter(data=df_heatmap, top_annotation=row_ha, col_split=2,
 plt.savefig("heatmap.pdf", bbox_inches='tight')
 plt.show()
 ```
+### Example output
+![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_6_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_19_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_21_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_23_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_25_1.png)
 
 ## **Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
