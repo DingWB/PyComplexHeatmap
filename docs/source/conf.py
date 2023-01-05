@@ -35,9 +35,11 @@ release = '0.1'
 extensions = [
 'sphinx.ext.autodoc',
 'sphinx.ext.todo',
+'sphinx.ext.viewcode',
 'sphinx.ext.autosectionlabel',
 'recommonmark',
-'sphinx.ext.napoleon'
+'sphinx.ext.napoleon',
+'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -45,7 +47,7 @@ templates_path = ['_templates']
 
 from recommonmark.parser import CommonMarkParser
 source_parsers = {
-    '.md': CommonMarkParser,
+    '.md': 'recommonmark.parser.CommonMarkParser',
 }
 source_suffix = ['.rst', '.md']
 

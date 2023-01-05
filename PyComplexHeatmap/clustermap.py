@@ -419,8 +419,11 @@ class AnnotationBase():
     height: height (if axis=1) / width (if axis=0) for the annotation size.
     legend: whether to plot legend for this annotation when legends are plotted or
         plot legend with HeatmapAnnotation.plot_legends().
-    legend_kws: kws passed to plt.legend.
-    plot_kws: other plot kws passed to annotation.plot, such as anno_simple.plot.
+    legend_kws: vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
+        markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
+        arguments, pleast type ?plt.legend.
+    plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
+        annotation_clip, arrowprops and matplotlib.text.Text for anno_label.
     
     Returns
     ----------
@@ -567,6 +570,19 @@ class AnnotationBase():
         self.nrows = self.plot_data.shape[0]
         # self._set_default_plot_kws(self.plot_kws)
 
+    def get_label_width(self):
+        return self.ax.yaxis.label.get_window_extent().width
+
+    def get_ticklabel_width(self):
+        yticklabels = self.ax.yaxis.get_ticklabels()
+        if len(yticklabels) == 0:
+            return 0
+        else:
+            return max([label.get_window_extent().width for label in self.ax.yaxis.get_ticklabels()])
+
+    def get_max_label_width(self):
+        return max([self.get_label_width(),self.get_ticklabel_width()])
+
 class anno_simple(AnnotationBase):
     """
     Annotate simple annotation, categorical or continuous variables.
@@ -658,7 +674,6 @@ class anno_simple(AnnotationBase):
                 ax.text(x0, y0, t, fontsize=fontsize, color=c, **self.text_kws)
         self.ax = ax
         self.fig = self.ax.figure
-        self.label_width = self.ax.yaxis.label.get_window_extent().width
         return self.ax
 
 class anno_label(AnnotationBase):
@@ -670,10 +685,14 @@ class anno_label(AnnotationBase):
     merge: whether to merge the same clusters into one and label only once.
     extend: whether to distribute all the labels extend to the all axis, figure or ax or False.
     frac: fraction of the armA and armB.
+    plot_kws is passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
+        more information about arrowprops could be found in
+        matplotlib.patches.FancyArrowPatch
 
     Returns
     ----------
     Class AnnotationBase.
+
     """
 
     def __init__(self, df=None, cmap='auto', colors=None, merge=False,extend=False,frac=0.2,
@@ -684,6 +703,7 @@ class anno_label(AnnotationBase):
         self.majority=majority
         self.extend = extend
         self.frac=frac
+        self.annotated_texts = []
 
     def _height(self, height):
         return 5 if height is None else height
@@ -693,22 +713,27 @@ class anno_label(AnnotationBase):
 
     def set_plot_kws(self, axis):
         shrink = 1  # 1 * 0.0394 * 72  # 1mm -> points
-        if axis == 1:
-            relpos = (0.5, 0) if self.side == 'top' else (0.5, 1) #position to anchor
+        if axis == 1: #columns
+            relpos = (0, 0) if self.side == 'top' else (0, 1) #position to anchor, x: left -> right, y: down -> top
             rotation = 90 if self.side == 'top' else -90
-            ha = 'left' #'left'
+            ha = 'left'
             va = 'center'
         else:
-            relpos = (1, 0.5) if self.side == 'left' else (0, 0.5) #(1, 1) if self.side == 'left' else (0, 0)
+            relpos = (1, 1) if self.side == 'left' else (0, 0) #(1, 1) if self.side == 'left' else (0, 0)
             rotation = 0
             ha = 'right' if self.side == 'left' else 'left'
             va = 'center'
+        #relpos: The exact starting point position of the arrow is defined by relpos. It's a tuple of relative
+        # coordinates of the text box, where (0, 0) is the lower left corner and (1, 1) is the upper right corner.
+        # Values <0 and >1 are supported and specify points outside the text box. By default (0.5, 0.5) the starting
+        # point is centered in the text box.
         self.plot_kws.setdefault('rotation', rotation)
         self.plot_kws.setdefault('ha', ha)
         self.plot_kws.setdefault('va', va)
         arrowprops = dict(arrowstyle="-", color="black",
                           shrinkA=shrink, shrinkB=shrink, relpos=relpos,
                           patchA=None, patchB=None, connectionstyle=None)
+        #arrow: ->, from text to point.
         # self.plot_kws.setdefault('transform_rotates_text', False)
         self.plot_kws.setdefault('arrowprops', arrowprops)
         self.plot_kws.setdefault('rotation_mode', 'anchor')
@@ -732,6 +757,7 @@ class anno_label(AnnotationBase):
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
+        self.axis = axis
         ax_index = ax.figure.axes.index(ax)
         ax_n = len(ax.figure.axes)
         i = ax_index / ax_n
@@ -751,16 +777,21 @@ class anno_label(AnnotationBase):
         else:
             labels = self.plot_data.iloc[:, 0].values
             ticks = np.arange(0.5, self.nrows, 1)
+        #labels are the merged labels, ticks are the merged mean x coordinates.
 
         n = len(ticks)
         text_height = self.height * 0.0394 * ax.figure.dpi  # convert height (mm) to inch and to pixels.
         # print(ax.figure.dpi,text_height)
         text_y = text_height
         if self.side == 'bottom' or self.side == 'left':
+            #when axis=0, there is an invertion for the x axes.
             text_y = -1 * text_y
+            #bottom, y coordinate for text should be smaller than arrow start position (offset pixels)
+            # left, x coordinate for text should be smaller than arrow start pos.
+        #x,y are the coordinates where arrow starting from and x1,y1 is the end coordinates (text).
         if axis == 1:
             ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-            x = ticks
+            x = ticks #coordinate for the labels (text).
             y = [0] * n if self.side == 'top' else [1] * n #position for line on axes
             if self.extend:
                 extend_pos=np.linspace(0, 1, n+1)
@@ -772,7 +803,7 @@ class anno_label(AnnotationBase):
         else:
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             y = ticks
-            x = [0] * n if self.side == 'left' else [0] * n
+            x = [1] * n if self.side == 'left' else [0] * n
             if self.extend:
                 extend_pos = np.linspace(0, 1, n + 1)
                 y1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
@@ -780,16 +811,26 @@ class anno_label(AnnotationBase):
             else:
                 y1=[0] * n
                 x1=[text_y] * n
-        angleA, angleB = (-90, 90) if axis == 1 else (180, 0)
-        xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()  # x: x is data coordinates,y is [0,1]
+        #angleA is the angle for the data point (clockwise), B is for text.
+        #https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
+        xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()
+        # get_xaxis_transform: x is data coordinates,y is between [0,1]
         if self.extend:
             text_xycoords=ax.transAxes #if self.extend=='ax' else ax.figure.transFigure #ax.transAxes,
         else:
             text_xycoords='offset pixels'
-        arm_height = text_height*self.frac
-        rad = 0  # arm_height / 10
-        connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
         if self.plot_kws['arrowprops']['connectionstyle'] is None:
+            arm_height = text_height * self.frac
+            rad = 2  # arm_height / 10
+            if axis == 1 and self.side == 'top':
+                angleA, angleB = (self.plot_kws['rotation'] - 180,90)
+            elif axis == 1 and self.side == 'bottom':
+                angleA, angleB = (180 + self.plot_kws['rotation'], -90)
+            elif axis==0 and self.side=='left':
+                angleA, angleB = (self.plot_kws['rotation'], -180)
+            else:
+                angleA, angleB = (self.plot_kws['rotation'] - 180,0)
+            connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
             self.plot_kws['arrowprops']['connectionstyle'] = connectionstyle
         hs = []
         ws = []
@@ -803,12 +844,10 @@ class anno_label(AnnotationBase):
             if lum > 0.408:
                 color = 'black'
             self.plot_kws['arrowprops']['color'] = color
-            box = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords=text_xycoords,
+            annotated_text = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords=text_xycoords,
                               color=color, **self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
+            self.annotated_texts.append(annotated_text)
         _draw_figure(ax.figure)
-        # hs=[text.get_window_extent().height for text in ax.texts]
-        ws=[text.get_window_extent().width for text in ax.texts]
-        self.label_width = 0 if axis==1 else ax.get_window_extent().width+max(ws) #max(hs) if axis == 1 else max(ws)
         # print('anno_label:',self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
@@ -818,9 +857,18 @@ class anno_label(AnnotationBase):
         self.fig = self.ax.figure
         return self.ax
 
+    def get_ticklabel_width(self):
+        hs=[text.get_window_extent().width for text in self.annotated_texts]
+        if len(hs) == 0:
+            return 0
+        else:
+            return max(hs)
+
 class anno_boxplot(AnnotationBase):
     """
-    annotate boxplots.
+    annotate boxplots, all arguments are included in AnnotationBase,
+    plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
+        width and other arguments passed to plt.boxplot.
     """
 
     def _height(self, height):
@@ -913,12 +961,13 @@ class anno_boxplot(AnnotationBase):
             ax.invert_xaxis()
         self.fig = fig
         self.ax = ax
-        self.label_width = self.ax.yaxis.label.get_window_extent().width
         return self.ax
 
 class anno_barplot(anno_boxplot):
     """
-    Annotate barplot.
+    Annotate barplot, all arguments are included in AnnotationBase,
+        plot_kws for anno_boxplot include edgecolor, grid,
+        and other arguments passed to plt.barplot.
     """
 
     def _set_default_plot_kws(self, plot_kws):
@@ -1010,12 +1059,13 @@ class anno_barplot(anno_boxplot):
                            top=False, bottom=False, labeltop=False, labelbottom=False)
         self.fig = fig
         self.ax = ax
-        self.label_width = self.ax.yaxis.label.get_window_extent().width
         return self.ax
 
 class anno_scatterplot(anno_barplot):
     """
-    Annotate scatterplot.
+    Annotate scatterplot, all arguments are included in AnnotationBase,
+        plot_kws for anno_boxplot include linewidths, grid, edgecolors
+        and other arguments passed to plt.scatter.
     """
 
     def _check_df(self, df):
@@ -1098,7 +1148,6 @@ class anno_scatterplot(anno_barplot):
                            top=False, bottom=False, labeltop=False, labelbottom=False)
         self.fig = fig
         self.ax = ax
-        self.label_width = self.ax.yaxis.label.get_window_extent().width
         return self.ax
 
 class HeatmapAnnotation():
@@ -1116,21 +1165,32 @@ class HeatmapAnnotation():
         default cmap is 'auto', it would be determined based on the dtype for each columns of df.
         if df is None, then there is no need to specify cmap, cmap and colors will only be used when
         df is provided.
-    colors : a dict or list (for boxplot, barplot) or str, df.values and values are colors.
-    label_side : top or bottom when axis=1, left or right when axis=0.
-    label_kws : xlabel or ylabel kws, see matplotlib.axis.XAxis.label.properties() or
-        matplotlib.axis.YAxis.label.properties()
-    ticklabels_kws : xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-        see ?matplotlib.axes.Axes.tick_params
-    plot_kws : kws passed to annotation, such as anno_simple, anno_label et.al.
+        If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
+        a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).
+    colors : a dict, keys are the column names of df, values are list or dict passed to anno_simple, anno_boxplot,
+        anno_label and anno_scatter.
+        colors must have the same length as the df.columns, if colors is not provided (default),
+        auto cmap would be used. If colors is given, then the cmap would be invalid.
+    label_side : top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).
+    label_kws :kws passed to the labels of the annotation labels (would be df.columns if df is given).
+        such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
+        va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.
+        For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()
+    ticklabels_kws : label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
+        such as axis, which, direction, length, width,
+        color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
+        labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
+        For more information,see ?matplotlib.axes.Axes.tick_params
+    plot_kws : kws passed to annotation functions, such as anno_simple, anno_label et.al.
     plot : whether to plot, when the annotation are included in clustermap, plot would be
         set to False automotially.
-    legend : True or False, or dict (when df no None), when legend is dict, keys are the
+    legend : True or False, or dict (when df is no None), when legend is dict, keys are the
         columns of df.
     legend_side : right or left
-    legend_gap : default is 2 mm
+    legend_gap : the vertical gap between two legends, default is 2 [mm]
     plot_legend : whether to plot legends.
-    args : name-value pair, value can be a pandas dataframe, series, or annotation such as
+    args : name-value pair, key is the annotation label (name), values can be a pandas dataframe,
+        series, or annotation such as
         anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
 
     Returns
@@ -1296,14 +1356,14 @@ class HeatmapAnnotation():
     def _set_label_kws(self, label_kws, ticklabels_kws):
         self.label_kws = {} if label_kws is None else label_kws
         self.ticklabels_kws = {} if ticklabels_kws is None else ticklabels_kws
-        self.label_kws['horizontalalignment'] = 'center'
-        self.label_kws['verticalalignment'] = 'center'
+        self.label_kws.setdefault("rotation_mode",'anchor')
         if self.label_side is None:
             self.label_side = 'right' if self.axis == 1 else 'top'  # columns annotation, default ylabel is on the right
-        ha = 'right' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
-        va = 'bottom' if self.label_side == 'top' else 'top' if self.label_side == 'bottom' else 'center'
-        self.label_kws['horizontalalignment'] = ha
-        self.label_kws['verticalalignment'] = va
+        # ha = 'left' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
+        # va = 'bottom' if self.label_side == 'top' else 'top' if self.label_side == 'bottom' else 'center'
+        ha,va='left','center'
+        self.label_kws.setdefault('horizontalalignment', ha)
+        self.label_kws.setdefault('verticalalignment', va)
         if self.label_side in ['left', 'right'] and self.axis != 1:
             raise ValueError("For columns annotation, label_side must be left or right!")
         if self.label_side in ['top', 'bottom'] and self.axis != 0:
@@ -1413,7 +1473,7 @@ class HeatmapAnnotation():
                     self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
         if len(self.legend_list) > 1:
             self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
-        self.label_max_width = max([ann.label_width for ann in self.annotations])
+        self.label_max_width = max([ann.get_max_label_width() for ann in self.annotations])
         # self.label_max_height = max([ann.ax.yaxis.label.get_window_extent().height for ann in self.annotations])
 
     def plot_annotations(self, ax=None, subplot_spec=None, idxs=None, gap=0.5,
@@ -1516,7 +1576,8 @@ class HeatmapAnnotation():
         if self.legend_list is None:
             self.collect_legends()
         if len(self.legend_list) > 0:
-            space = self.label_max_width if (self.legend_side=='right' and self.axis==0) else 0
+            #if the legend is on the right side
+            space = self.label_max_width if (self.legend_side=='right' and self.label_side=='right') else 0
             self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space, legend_side='right',
                                                               gap=self.legend_gap)
 
@@ -1727,8 +1788,10 @@ class ClusterMapPlotter():
     legend_side :right of left.
     cmap :default is 'jet', the colormap for heatmap colorbar.
     label :the title (label) that will be shown in heatmap colorbar legend.
-    xticklabels_kws :yticklabels_kws: xticklabels or yticklabels kws, parameters for mpl.axes.Axes.tick_params,
-        see ?matplotlib.axes.Axes.tick_params
+    xticklabels_kws :xticklabels or yticklabels kws, such as axis, which, direction, length, width,
+        color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
+        labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
+        For more information,see ?matplotlib.axes.Axes.tick_params
     yticklabels_kws :the same as xticklabels_kws.
     rasterized :default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
@@ -1806,9 +1869,9 @@ class ClusterMapPlotter():
 
     def _define_kws(self, xticklabels_kws, yticklabels_kws):
         self.yticklabels_kws = {} if yticklabels_kws is None else yticklabels_kws
-        self.yticklabels_kws.setdefault('labelrotation', 0)
+        # self.yticklabels_kws.setdefault('labelrotation', 0)
         self.xticklabels_kws = {} if xticklabels_kws is None else xticklabels_kws
-        self.xticklabels_kws.setdefault('labelrotation', 90)
+        # self.xticklabels_kws.setdefault('labelrotation', 90)
 
     def format_data(self, data, z_score=None, standard_scale=None):
         data2d = data.copy()
@@ -1863,6 +1926,7 @@ class ClusterMapPlotter():
                                                                   wspace=wspace, hspace=hspace,
                                                                   subplot_spec=subplot_spec)
 
+        #left -> right, top -> bottom
         self.ax_heatmap = self.ax.figure.add_subplot(self.gs[1, 1])
         self.ax_top = self.ax.figure.add_subplot(self.gs[0, 1], sharex=self.ax_heatmap)
         self.ax_bottom = self.ax.figure.add_subplot(self.gs[2, 1], sharex=self.ax_heatmap)
@@ -2227,42 +2291,54 @@ class ClusterMapPlotter():
         # ax.set_xticks(ticks=np.arange(1, self.nrows + 1, 1), labels=self.plot_data.index.tolist())
         self.ax_heatmap.yaxis.set_tick_params(**self.yticklabels_kws)
         self.ax_heatmap.xaxis.set_tick_params(**self.xticklabels_kws)
+        # self.ax_heatmap.tick_params(axis='both', which='both',
+        #                             left=False, right=False, top=False, bottom=False)
         self.yticklabels = []
         self.xticklabels = []
         if (self.show_rownames and self.left_annotation is None and not self.row_dendrogram) \
                 and ((not self.right_annotation is None) or (
                 self.right_annotation is None and self.row_names_side == 'left')):  # tick left
+            self.yticklabels_kws.setdefault('labelrotation', 0)
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, 0].yaxis.set_visible(True)
                 self.heatmap_axes[i, 0].tick_params(axis='y', which='both', left=False, labelleft=True)
                 self.heatmap_axes[i, 0].yaxis.set_tick_params(**self.yticklabels_kws)  # **self.ticklabels_kws
+                plt.setp(self.heatmap_axes[i, 0].get_yticklabels(), rotation_mode='anchor',
+                         ha='right', va='center')
                 self.yticklabels.extend(self.heatmap_axes[i, 0].get_yticklabels())
         elif self.show_rownames and self.right_annotation is None:  # tick right
+            self.yticklabels_kws.setdefault('labelrotation', 0)
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, -1].yaxis.tick_right()  # set_ticks_position('right')
                 self.heatmap_axes[i, -1].yaxis.set_visible(True)
                 self.heatmap_axes[i, -1].tick_params(axis='y', which='both', right=False, labelright=True)
                 self.heatmap_axes[i, -1].yaxis.set_tick_params(**self.yticklabels_kws)
+                plt.setp(self.heatmap_axes[i, -1].get_yticklabels(), rotation_mode='anchor',
+                         ha='left', va='center')
                 self.yticklabels.extend(self.heatmap_axes[i, -1].get_yticklabels())
-        if self.show_colnames and self.top_annotation is None and not self.row_dendrogram and \
+        if self.show_colnames and self.top_annotation is None and not self.col_dendrogram and \
                 ((not self.bottom_annotation is None) or (
-                        self.bottom_annotation is None and self.row_names_side == 'top')):
+                        self.bottom_annotation is None and self.col_names_side == 'top')):
+            # print("here,test")
+            self.xticklabels_kws.setdefault('labelrotation', 90)
             for j in range(self.heatmap_axes.shape[1]):
-                # self.heatmap_axes[-1, j].xaxis.label.update(self.label_kws)
                 self.heatmap_axes[0, j].xaxis.tick_top()  # ticks
                 self.heatmap_axes[0, j].xaxis.set_visible(True)
                 self.heatmap_axes[0, j].tick_params(axis='x', which='both', top=False, labeltop=True)
                 self.heatmap_axes[0, j].xaxis.set_tick_params(**self.xticklabels_kws)
+                plt.setp(self.heatmap_axes[0, j].get_xticklabels(), rotation_mode = 'anchor',
+                         ha = 'left',va='center') #rotation=90,ha=left is bottom, va is horizonal
                 self.xticklabels.extend(self.heatmap_axes[0, j].get_xticklabels())
         elif self.show_colnames and self.bottom_annotation is None:  # tick bottom
+            self.xticklabels_kws.setdefault('labelrotation', -90)
             for j in range(self.heatmap_axes.shape[1]):
                 self.heatmap_axes[-1, j].xaxis.tick_bottom()  # ticks
                 self.heatmap_axes[-1, j].xaxis.set_visible(True)
                 self.heatmap_axes[-1, j].tick_params(axis='x', which='both', bottom=False, labelbottom=True)
                 self.heatmap_axes[-1, j].xaxis.set_tick_params(**self.xticklabels_kws)
+                plt.setp(self.heatmap_axes[-1, j].get_xticklabels(), rotation_mode='anchor',
+                         ha='left', va='center')
                 self.xticklabels.extend(self.heatmap_axes[-1, j].get_xticklabels())
-        self.ax_heatmap.tick_params(axis='both', which='both',
-                                    left=False, right=False, top=False, bottom=False)
         # self.ax.figure.subplots_adjust(left=0.03, right=2, bottom=0.03, top=0.97)
         # self.ax.margins(x=0.1,y=0.1)
         # tight_params = dict(h_pad=.1, w_pad=.1)
@@ -2307,8 +2383,8 @@ class ClusterMapPlotter():
                 space = self.label_max_width
             else:
                 space=0
-            if self.right_annotation:
-                space+=sum(self.right_widths)
+            # if self.right_annotation:
+            #     space+=sum(self.right_widths)
             self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
                                                               legend_side=self.legend_side, gap=self.legend_gap,
                                                               delta_x=self.legend_delta_x)
@@ -2347,7 +2423,7 @@ class ClusterMapPlotter():
             self.left_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=gs,
                                                   idxs=row_order, hspace=self.hspace)
         if not self.right_annotation is None:
-            self.right_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=self.gs[1, 2],
+            self.right_annotation.plot_annotations(ax=self.ax_right_annotation, subplot_spec=self.gs[1, 2],
                                                    idxs=row_order, hspace=self.hspace)
         if self.row_cluster or self.col_cluster:
             if self.row_dendrogram or self.col_dendrogram:

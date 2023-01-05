@@ -26,11 +26,16 @@ git clone https://github.com/DingWB/PyComplexHeatmap
 cd PyComplexHeatmap
 python setup.py install
 ```
-
 2. **Install with pip**:
 ```shell
 pip install PyComplexHeatmap (TODO)
 ```
+
+![image](https://github.com/DingWB/PyComplexHeatmap/tree/main/docs/images/output_6_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/tree/main/docs/images/output_19_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/tree/main/docs/images/output_21_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/tree/main/docs/images/output_23_1.png)
+![image](https://github.com/DingWB/PyComplexHeatmap/tree/main/docs/images/output_25_1.png)
 
 ## **Usage**
 ### **1. Simple Guide To Get started.**
@@ -68,4 +73,4 @@ plt.show()
 ```
 
 ## **Examples**
-https://github.com/DingWB/PyComplexHeatmap/blob/main/examples.ipynb
+https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb

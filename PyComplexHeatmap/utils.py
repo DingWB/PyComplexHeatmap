@@ -367,7 +367,9 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         ax.set_axis_off()
         left=ax.get_position().x0+ax.yaxis.labelpad*2/ax.figure.get_window_extent().width if delta_x is None else ax.get_position().x0+delta_x
     else:
-        pad = (space+ax.yaxis.labelpad*2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
+        #labelpad: Spacing in points, pad is the fraction relative to x1.
+        pad = (space+ax.yaxis.labelpad*1.2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
+        # print(space,pad)
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
     width=4.5*0.0394*ax.figure.dpi / ax.figure.get_window_extent().width

@@ -8,12 +8,11 @@ PyComplexHeatmap
 `PyComplexHeatmap <https://github.com/DingWB/PyComplexHeatmap>`_ is a python package to plot complex heatmap (clustermap) with biological data.
 
 .. toctree::
-   :hidden:
+   :maxdepth: 2
+   :caption: Contents:
 
    installation
-   quickstart_example
    documentation
-   examples
    modules
 
 Credits and Thanks

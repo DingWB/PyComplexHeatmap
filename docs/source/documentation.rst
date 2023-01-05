@@ -1,7 +1,7 @@
 Documentation
-===============================
+=======================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-Overview
-"""""""""""""""""""""""
-
-Documentation website https://dingwb.github.io/PyComplexHeatmap
+   notebooks/examples.ipynb
