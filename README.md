@@ -13,7 +13,7 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 ```
 
 ## **Installation**
-1. **Install from github**:
+1. **Install the developmental version directly from github**:
 ```
 pip install git+https://github.com/DingWB/PyComplexHeatmap
 ```
