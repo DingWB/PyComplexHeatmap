@@ -72,5 +72,5 @@ plt.show()
 ![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_23_1.png)
 ![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_25_1.png)
 
-## **Examples**
+## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb

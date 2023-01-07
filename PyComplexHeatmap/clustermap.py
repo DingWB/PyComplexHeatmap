@@ -415,7 +415,11 @@ class AnnotationBase():
         https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
         matplotlib.pyplot.colormaps() to see all availabel cmap.
         default cmap is 'auto', it would be determined based on the dtype for each columns of df.
-    colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.
+    colors: a dict or list (for boxplot, barplot) or str.
+        If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
+        values for the dict should be colors (color names or HEX color).
+        If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()
+        If colors is a string, means all values in df.iloc[:,0].unique() share the same color.
     height: height (if axis=1) / width (if axis=0) for the annotation size.
     legend: whether to plot legend for this annotation when legends are plotted or
         plot legend with HeatmapAnnotation.plot_legends().
@@ -540,6 +544,11 @@ class AnnotationBase():
             self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
 
     def _check_colors(self, colors):
+        if isinstance(colors,str):
+            colors={label:colors for label in self.df.iloc[:,0].unique()}
+        if isinstance(colors,list):
+            assert len(colors) == self.df.iloc[:, 0].nunique()
+            colors = {label: color for label,color in zip(self.df.iloc[:, 0].unique(),colors)}
         if not isinstance(colors, dict):
             raise TypeError("colors must be a dict!")
         if len(colors) >= self.df.iloc[:, 0].nunique():
@@ -847,7 +856,7 @@ class anno_label(AnnotationBase):
             annotated_text = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords, textcoords=text_xycoords,
                               color=color, **self.plot_kws)  # unit for shrinkA is point (1 point = 1/72 inches)
             self.annotated_texts.append(annotated_text)
-        _draw_figure(ax.figure)
+        # _draw_figure(ax.figure)
         # print('anno_label:',self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
@@ -1162,15 +1171,16 @@ class HeatmapAnnotation():
     cmap : colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
         https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
         matplotlib.pyplot.colormaps() to see all availabel cmap.
-        default cmap is 'auto', it would be determined based on the dtype for each columns of df.
-        if df is None, then there is no need to specify cmap, cmap and colors will only be used when
+        default cmap is 'auto', it would be determined based on the dtype for each columns in df.
+        If df is None, then there is no need to specify cmap, cmap and colors will only be used when
         df is provided.
         If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
         a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).
-    colors : a dict, keys are the column names of df, values are list or dict passed to anno_simple, anno_boxplot,
-        anno_label and anno_scatter.
-        colors must have the same length as the df.columns, if colors is not provided (default),
-        auto cmap would be used. If colors is given, then the cmap would be invalid.
+    colors : a dict, keys are the column names of df, values are list, dict or string passed to
+        AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
+        colors must have the same length as the df.columns, if colors is not provided (default), else,
+        colors would be calculated based on the given cmap.
+        If colors is given, then the cmap would be invalid.
     label_side : top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).
     label_kws :kws passed to the labels of the annotation labels (would be df.columns if df is given).
         such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
@@ -1200,7 +1210,7 @@ class HeatmapAnnotation():
     """
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
-                 legend_gap=2, plot_legend=True,rasterized=False, **args):
+                 legend_gap=2, plot_legend=True,rasterized=False,verbose=1,**args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
         if not df is None and len(args) > 0:
@@ -1210,6 +1220,7 @@ class HeatmapAnnotation():
         else:
             self.df = None
         self.axis = axis
+        self.verbose=verbose
         self.label_side = label_side
         self._set_label_kws(label_kws, ticklabels_kws)
         self.plot_kws = plot_kws if not plot_kws is None else {}
@@ -1450,7 +1461,8 @@ class HeatmapAnnotation():
         -------
         None
         """
-        print("Collecting annotation legends..")
+        if self.verbose >= 1:
+            print("Collecting annotation legends..")
         self.legend_list = []  # handles(dict) / cmap, title, kws
         for annotation in self.annotations:
             legend_kws = annotation.legend_kws.copy()
@@ -1493,7 +1505,8 @@ class HeatmapAnnotation():
         self.ax
         """
         # print(ax.figure.get_size_inches())
-        print("Starting plotting HeatmapAnnotations")
+        if self.verbose >= 1:
+            print("Starting plotting HeatmapAnnotations")
         if ax is None:
             self.ax = plt.gca()
         else:
@@ -1727,7 +1740,7 @@ class DendrogramPlotter(object):
         xtl = ax.set_xticklabels(self.xticklabels)
         ytl = ax.set_yticklabels(self.yticklabels, rotation='vertical')
         # Force a draw of the plot to avoid matplotlib window error
-        _draw_figure(ax.figure)
+        # _draw_figure(ax.figure)
         if len(ytl) > 0 and axis_ticklabels_overlap(ytl):
             plt.setp(ytl, rotation="horizontal")
         if len(xtl) > 0 and axis_ticklabels_overlap(xtl):
@@ -1812,9 +1825,9 @@ class ClusterMapPlotter():
                  row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
                  plot=True, plot_legend=True, legend_anchor='auto', legend_gap=3,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
-                 rasterized=False,legend_delta_x=None,debug=False,**heatmap_kws):
+                 rasterized=False,legend_delta_x=None,verbose=1,**heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
-        self.debug=debug
+        self.verbose=verbose
         self.mask = _check_mask(self.data2d, mask)
         self._define_kws(xticklabels_kws, yticklabels_kws)
         self.top_annotation = top_annotation
@@ -2091,7 +2104,7 @@ class ClusterMapPlotter():
             self.ax_col_dendrogram.set_axis_off()
 
     def _reorder_rows(self):
-        if self.debug:
+        if self.verbose >= 1:
             print("Reordering rows..")
         if self.row_split is None and self.row_cluster:
             self.calculate_row_dendrograms(self.data2d)  # xind=self.dendrogram_row.reordered_ind
@@ -2134,7 +2147,7 @@ class ClusterMapPlotter():
                 self.row_order.append(rows)
 
     def _reorder_cols(self):
-        if self.debug:
+        if self.verbose >= 1:
             print("Reordering cols..")
         if self.col_split is None and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
@@ -2240,7 +2253,7 @@ class ClusterMapPlotter():
                 self.dendrogram_col.plot(ax=self.ax_col_dendrogram, tree_kws=self.tree_kws)
 
     def plot_matrix(self, row_order, col_order):
-        if self.debug:
+        if self.verbose >= 1:
             print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
@@ -2319,7 +2332,6 @@ class ClusterMapPlotter():
         if self.show_colnames and self.top_annotation is None and not self.col_dendrogram and \
                 ((not self.bottom_annotation is None) or (
                         self.bottom_annotation is None and self.col_names_side == 'top')):
-            # print("here,test")
             self.xticklabels_kws.setdefault('labelrotation', 90)
             for j in range(self.heatmap_axes.shape[1]):
                 self.heatmap_axes[0, j].xaxis.tick_top()  # ticks
@@ -2346,7 +2358,7 @@ class ClusterMapPlotter():
         # _draw_figure(self.ax.figure)
 
     def collect_legends(self):
-        if self.debug:
+        if self.verbose >= 1:
             print("Collecting legends..")
         self.legend_list = []
         self.label_max_width = 0
@@ -2374,7 +2386,7 @@ class ClusterMapPlotter():
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 
     def plot_legends(self, ax=None):
-        if self.debug:
+        if self.verbose >= 1:
             print("Plotting legends..")
         if len(self.legend_list) > 0:
             if self.legend_side == 'right' and not self.right_annotation is None:
@@ -2390,7 +2402,7 @@ class ClusterMapPlotter():
                                                               delta_x=self.legend_delta_x)
 
     def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
-        if self.debug:
+        if self.verbose >= 1:
             print("Starting plotting..")
         if ax is None:
             self.ax = plt.gca()
@@ -2403,11 +2415,13 @@ class ClusterMapPlotter():
         self._define_bottom_axes()
         self._define_right_axes()
         if row_order is None:
-            print("Starting calculating row orders..")
+            if self.verbose >= 1:
+                print("Starting calculating row orders..")
             self._reorder_rows()
             row_order = self.row_order
         if col_order is None:
-            print("Starting calculating col orders..")
+            if self.verbose >= 1:
+                print("Starting calculating col orders..")
             self._reorder_cols()
             col_order = self.col_order
         self.plot_matrix(row_order=row_order, col_order=col_order)
