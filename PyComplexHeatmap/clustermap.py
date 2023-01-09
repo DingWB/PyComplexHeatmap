@@ -20,6 +20,8 @@ from .utils import (
     plot_legend_list
 )
 
+mm2inch = 1/25.4
+
 class heatmapPlotter:
     def __init__(self, data=None, vmin=None, vmax=None, cmap='bwr', center=None,
                  robust=True, annot=None, fmt='.2g',
@@ -721,7 +723,7 @@ class anno_label(AnnotationBase):
         self.side = side
 
     def set_plot_kws(self, axis):
-        shrink = 1  # 1 * 0.0394 * 72  # 1mm -> points
+        shrink = 1  # 1 * mm2inch * 72  # 1mm -> points
         if axis == 1: #columns
             relpos = (0, 0) if self.side == 'top' else (0, 1) #position to anchor, x: left -> right, y: down -> top
             rotation = 90 if self.side == 'top' else -90
@@ -789,7 +791,7 @@ class anno_label(AnnotationBase):
         #labels are the merged labels, ticks are the merged mean x coordinates.
 
         n = len(ticks)
-        text_height = self.height * 0.0394 * ax.figure.dpi  # convert height (mm) to inch and to pixels.
+        text_height = self.height * mm2inch * ax.figure.dpi  # convert height (mm) to inch and to pixels.
         # print(ax.figure.dpi,text_height)
         text_y = text_height
         if self.side == 'bottom' or self.side == 'left':
@@ -1383,7 +1385,7 @@ class HeatmapAnnotation():
         map_dict = {'right': 'left', 'left': 'right', 'top': 'bottom', 'bottom': 'top'}
         self.ticklabels_side = map_dict[self.label_side]
 
-        # self.label_kws.setdefault('fontsize', self.height * 0.0394 * 72)
+        # self.label_kws.setdefault('fontsize', self.height * mm2inch * 72)
         if self.axis == 1:
             self.label_kws.setdefault('rotation', 0)
         else:
@@ -1518,15 +1520,15 @@ class HeatmapAnnotation():
             ncols = len(idxs)
             height_ratios = self.heights
             width_ratios = [len(idx) for idx in idxs]
-            wspace = gap * 0.0394 * self.ax.figure.dpi / (
-                    self.ax.get_window_extent().width / nrows) if wspace is None else wspace  # 1mm=0.0394 inch
+            wspace = gap * mm2inch * self.ax.figure.dpi / (
+                    self.ax.get_window_extent().width / nrows) if wspace is None else wspace  # 1mm=mm2inch inch
             hspace = 0
         else:
             nrows = len(idxs)
             ncols = len(self.heights)
             width_ratios = self.heights
             height_ratios = [len(idx) for idx in idxs]
-            hspace = gap * 0.0394 * self.ax.figure.dpi / (
+            hspace = gap * mm2inch * self.ax.figure.dpi / (
                         self.ax.get_window_extent().height / ncols) if hspace is None else hspace
             wspace = 0
         if subplot_spec is None:
@@ -1591,7 +1593,7 @@ class HeatmapAnnotation():
         if len(self.legend_list) > 0:
             #if the legend is on the right side
             space = self.label_max_width if (self.legend_side=='right' and self.label_side=='right') else 0
-            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space, legend_side='right',
+            self.legend_axes, self.cbars,self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space, legend_side='right',
                                                               gap=self.legend_gap)
 
 class DendrogramPlotter(object):
@@ -1792,7 +1794,13 @@ class ClusterMapPlotter():
     mask :mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.
     subplot_gap :the gap between subplots, default is 1mm.
     legend :True or False, whether to plot heatmap legend, determined by cmap.
-    legend_kws :kws passed to plot.legend.
+    legend_kws :kws passed to plot.legend. If one want to change the outline color and linewidth of cbar:
+        for cbar in cm.cbars:
+            if isinstance(cbar,matplotlib.colorbar.Colorbar):
+                cbar.outline.set_color('white')
+                cbar.outline.set_linewidth(2)
+                cbar.dividers.set_color('red')
+                cbar.dividers.set_linewidth(2)
     plot :whether to plot or not.
     plot_legend :True or False, whether to plot legend, if False, legends can be plot with
         ClusterMapPlotter.plot_legends()
@@ -1902,23 +1910,23 @@ class ClusterMapPlotter():
         self.left_widths = []
         self.right_widths = []
         if self.col_dendrogram:
-            self.top_heights.append(self.col_dendrogram_size * 0.0394 * self.ax.figure.dpi)
+            self.top_heights.append(self.col_dendrogram_size * mm2inch * self.ax.figure.dpi)
         if self.row_dendrogram:
-            self.left_widths.append(self.row_dendrogram_size * 0.0394 * self.ax.figure.dpi)
+            self.left_widths.append(self.row_dendrogram_size * mm2inch * self.ax.figure.dpi)
         if not self.top_annotation is None:
-            self.top_heights.append(sum(self.top_annotation.heights) * 0.0394 * self.ax.figure.dpi)
+            self.top_heights.append(sum(self.top_annotation.heights) * mm2inch * self.ax.figure.dpi)
         else:
             self.top_heights.append(0)
         if not self.left_annotation is None:
-            self.left_widths.append(sum(self.left_annotation.heights) * 0.0394 * self.ax.figure.dpi)
+            self.left_widths.append(sum(self.left_annotation.heights) * mm2inch * self.ax.figure.dpi)
         else:
             self.left_widths.append(0)
         if not self.bottom_annotation is None:
-            self.bottom_heights.append(sum(self.bottom_annotation.heights) * 0.0394 * self.ax.figure.dpi)
+            self.bottom_heights.append(sum(self.bottom_annotation.heights) * mm2inch * self.ax.figure.dpi)
         else:
             self.bottom_heights.append(0)
         if not self.right_annotation is None:
-            self.right_widths.append(sum(self.right_annotation.heights) * 0.0394 * self.ax.figure.dpi)
+            self.right_widths.append(sum(self.right_annotation.heights) * mm2inch * self.ax.figure.dpi)
         else:
             self.right_widths.append(0)
         heatmap_h = self.ax.get_window_extent().height - sum(self.top_heights) - sum(self.bottom_heights)
@@ -1927,8 +1935,8 @@ class ClusterMapPlotter():
         self.widths = [sum(self.left_widths), heatmap_w, sum(self.right_widths)]
 
     def _define_axes(self, subplot_spec=None):
-        wspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().width / 3)
-        hspace = self.subplot_gap * 0.0394 * self.ax.figure.dpi / (self.ax.get_window_extent().height / 3)
+        wspace = self.subplot_gap * mm2inch * self.ax.figure.dpi / (self.ax.get_window_extent().width / 3)
+        hspace = self.subplot_gap * mm2inch * self.ax.figure.dpi / (self.ax.get_window_extent().height / 3)
 
         if subplot_spec is None:
             self.gs = self.ax.figure.add_gridspec(3, 3, width_ratios=self.widths, height_ratios=self.heights,
@@ -2257,9 +2265,9 @@ class ClusterMapPlotter():
             print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
-        self.wspace = self.col_split_gap * 0.0394 * self.ax.figure.dpi / (
-                self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=0.0394 inch
-        self.hspace = self.row_split_gap * 0.0394 * self.ax.figure.dpi / (
+        self.wspace = self.col_split_gap * mm2inch * self.ax.figure.dpi / (
+                self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=mm2inch inch
+        self.hspace = self.row_split_gap * mm2inch * self.ax.figure.dpi / (
                 self.ax_heatmap.get_window_extent().height / ncols)
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace,
                                                                       wspace=self.wspace,
@@ -2397,7 +2405,7 @@ class ClusterMapPlotter():
                 space=0
             # if self.right_annotation:
             #     space+=sum(self.right_widths)
-            self.legend_axes, self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
+            self.legend_axes, self.cbars,self.boundry = plot_legend_list(self.legend_list, ax=ax, space=space,
                                                               legend_side=self.legend_side, gap=self.legend_gap,
                                                               delta_x=self.legend_delta_x)
 
@@ -2464,7 +2472,7 @@ class ClusterMapPlotter():
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
-def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
+def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
               legend_side='right', legend_gap=3, legend_y=0.8, legendpad=None):
     """
     Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
@@ -2489,13 +2497,13 @@ def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
     n = len(cmlist)
     wspace, hspace = 0, 0
     if axis == 1:  # horizontally
-        wspace = col_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().width / n)
+        wspace = col_gap * mm2inch * ax.figure.dpi / (ax.get_window_extent().width / n)
         nrows = 1
         ncols = n
         width_ratios = [cm.data2d.shape[1] for cm in cmlist]
         height_ratios = None
     else:  # vertically
-        hspace = row_gap * 0.0394 * ax.figure.dpi / (ax.get_window_extent().height / n)
+        hspace = row_gap * mm2inch * ax.figure.dpi / (ax.get_window_extent().height / n)
         nrows = n
         ncols = 1
         width_ratios = None
@@ -2534,10 +2542,10 @@ def composite(cmlist=None, main=None, ax=None, axis=1, row_gap=15, col_gap=15,
         return None
     legend_list = sorted(legend_list, key=lambda x: x[3])
     if legendpad is None:
-        space = col_gap * 0.0394 * ax.figure.dpi + label_max_width
+        space = col_gap * mm2inch * ax.figure.dpi + label_max_width
     else:
         space = legendpad * ax.figure.dpi / 72
-    legend_axes, boundry = plot_legend_list(legend_list, ax=ax, space=space,
+    legend_axes, cbars,boundry = plot_legend_list(legend_list, ax=ax, space=space,
                                             legend_side=legend_side, gap=legend_gap, y0=legend_y)
     ax.set_axis_off()
     # import pdb;

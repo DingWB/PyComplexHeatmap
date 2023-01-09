@@ -8,6 +8,7 @@ import matplotlib
 import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.patches as mpatches
+mm2inch=1/25.4
 
 def _check_mask(data, mask):
     """
@@ -252,13 +253,13 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     lgd_kws.setdefault("ncol", 1)
     lgd_kws['loc'] = 'upper left'
     lgd_kws['bbox_transform'] = ax.figure.transFigure
-    lgd_kws.setdefault('borderpad',0.1 * 0.0394 * 72)  # 0.1mm
+    lgd_kws.setdefault('borderpad',0.1 * mm2inch * 72)  # 0.1mm
     lgd_kws.setdefault('markerscale',1)
     lgd_kws.setdefault('handleheight',1)  # font size, units is points
     lgd_kws.setdefault('handlelength',1)  # font size, units is points
     lgd_kws.setdefault('borderaxespad',0)
     lgd_kws.setdefault('handletextpad',0.1)
-    lgd_kws.setdefault('labelspacing',0.1)  # gap height between two Patches,  0.05*0.0394*72
+    lgd_kws.setdefault('labelspacing',0.1)  # gap height between two Patches,  0.05*mm2inch*72
     lgd_kws.setdefault('columnspacing', 1)
     if label_side=='left':
         lgd_kws.setdefault("markerfirst", False)
@@ -308,7 +309,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
 
     Parameters
     ----------
-    cax : axes to plot legend.
+    cax : Axes into which the colorbar will be drawn.
     ax :  axes to anchor.
     cmap : turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2
     label : title for legend.
@@ -322,7 +323,10 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     """
     label='' if label is None else label
     cbar_kws={} if kws is None else kws.copy()
-    cbar_kws.setdefault("aspect",3)
+    # cbar_kws.setdefault("aspect",3)
+    cbar_kws.setdefault("orientation","vertical")
+    # cbar_kws.setdefault("use_gridspec", True)
+    # cbar_kws.setdefault("location", "bottom")
     cbar_kws.setdefault("fraction", 1)
     cbar_kws.setdefault("shrink", 1)
     cbar_kws.setdefault("pad", 0)
@@ -337,6 +341,11 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     cax.yaxis.set_label_position(label_side)
     cax.yaxis.set_ticks_position(label_side)
     cbar=ax.figure.colorbar(m,cax=cax,label=label,**cbar_kws) #use_gridspec=True
+    # cbar.outline.set_color('white')
+    # cbar.outline.set_linewidth(2)
+    # cbar.dividers.set_color('red')
+    # cbar.dividers.set_linewidth(2)
+    # ax.figure.tight_layout(rect=[cax.get_position().x0, 0, cax.get_position().x1, 1],h_pad=0,w_pad=0) #
     # cax.spines['top'].set_visible(False)
     # cax.spines['bottom'].set_visible(False)
     # f = cbar.ax.get_window_extent().height / cax.get_window_extent().height
@@ -372,15 +381,16 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(space,pad)
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
-    width=4.5*0.0394*ax.figure.dpi / ax.figure.get_window_extent().width
+    width=4.5*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width
     if legend_side=='right':
         ax_legend=ax.figure.add_axes([left,ax.get_position().y0,width,ax.get_position().height]) #left, bottom, width, height
     # print(ax.get_position(),ax_legend.get_position())
     legend_axes=[ax_legend]
+    cbars=[]
     leg_pos = ax_legend.get_position()
     y = leg_pos.y1 if y0 is None else y0
     max_width=0
-    h_gap=round(gap*0.0394*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm height gap between two legends
+    h_gap=round(gap*mm2inch*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm height gap between two legends
     i=0
     while i <= len(legend_list)-1:
     # for i,legend in enumerate(legend_list):
@@ -390,7 +400,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(i,legend_list[i])
         color_text=legend_kws.pop("color_text",True)
         if type(color)==str: # a cmap, plot colorbar
-            f=round(15*0.0394*ax.figure.dpi / ax.figure.get_window_extent().height,2) #15 mm
+            f=15*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().height #15 mm
             if y-f < 0: #add a new column of axes to plot legends
                 left_pos=ax1.get_position()
                 pad=(max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
@@ -403,9 +413,15 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                 max_width = 0
             y_cax_to_figure=y-f
             width=leg_pos.width
-            cax=ax.figure.add_axes([leg_pos.x0,y_cax_to_figure,width,f])
-            cbar=plot_cmap_legend(ax=ax,cax=cax,cmap=color,label=title,label_side=legend_side,kws=legend_kws)
+            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y_cax_to_figure,width,f],
+                                   xmargin=0,ymargin=0)
+            # [i.set_linewidth(0.5) for i in cax.spines.values()]
+            cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0
+            #https://matplotlib.org/stable/api/figure_api.html
+            #[left, bottom, width, height],sharex=True,anchor=(0,0),frame_on=False.
+            cbar=plot_cmap_legend(ax=ax1,cax=cax,cmap=color,label=title,label_side=legend_side,kws=legend_kws)
             cbar_width=cbar.ax.get_window_extent().width
+            cbars.append(cbar)
             if cbar_width > max_width:
                 max_width=cbar_width
             # print(cax.get_position(),cbar.ax.get_position())
@@ -434,10 +450,11 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             if L_width > max_width:
                 max_width = L_width
             f = L.get_window_extent().height / ax.figure.get_window_extent().height
+            cbars.append(L)
         y = y - f - h_gap
         i+=1
     if legend_side=='right':
         boundry=ax1.get_position().y1+max_width / ax.figure.get_window_extent().width
     else:
         boundry = ax1.get_position().y0 - max_width / ax.figure.get_window_extent().width
-    return legend_axes,boundry
+    return legend_axes,cbars,boundry
