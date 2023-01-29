@@ -1794,7 +1794,7 @@ class ClusterMapPlotter():
     mask :mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.
     subplot_gap :the gap between subplots, default is 1mm.
     legend :True or False, whether to plot heatmap legend, determined by cmap.
-    legend_kws :kws passed to plot.legend. If one want to change the outline color and linewidth of cbar:
+    legend_kws :kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
         for cbar in cm.cbars:
             if isinstance(cbar,matplotlib.colorbar.Colorbar):
                 cbar.outline.set_color('white')
@@ -2288,8 +2288,8 @@ class ClusterMapPlotter():
                     raise ValueError(err)
 
         self.heatmap_axes = np.empty(shape=(nrows, ncols), dtype=object)
-        if nrows > 1 or ncols > 1:
-            self.ax_heatmap.set_axis_off()
+        # if nrows > 1 or ncols > 1:
+        self.ax_heatmap.set_axis_off()
         for i, rows in enumerate(row_order):
             for j, cols in enumerate(col_order):
                 # print(i,j)
