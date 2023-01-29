@@ -422,7 +422,7 @@
     <span class="k">return</span> <span class="n">cbar</span></div>
 
 <div class="viewcode-block" id="plot_legend_list"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.utils.plot_legend_list">[docs]</a><span class="k">def</span> <span class="nf">plot_legend_list</span><span class="p">(</span><span class="n">legend_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">space</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
-                     <span class="n">y0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                     <span class="n">y0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot all lengends for a given legend_list.</span>
 
@@ -434,6 +434,7 @@
 <span class="sd">    legend_side :right, or left</span>
 <span class="sd">    y0 : the initate coordinate of y for the legend.</span>
 <span class="sd">    gap : gap between legends, default is 2mm.</span>
+<span class="sd">    legend_width: width of the legend, default is 4.5mm.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -451,7 +452,7 @@
         <span class="c1"># print(space,pad)</span>
         <span class="n">left</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span><span class="o">.</span><span class="n">x1</span> <span class="o">+</span> <span class="n">pad</span>
         <span class="c1"># print(ax.get_position(),space,pad,left)</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="o">*</span><span class="n">mm2inch</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">legend_width</span><span class="o">*</span><span class="n">mm2inch</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
     <span class="k">if</span> <span class="n">legend_side</span><span class="o">==</span><span class="s1">&#39;right&#39;</span><span class="p">:</span>
         <span class="n">ax_legend</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="n">left</span><span class="p">,</span><span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">])</span> <span class="c1">#left, bottom, width, height</span>
     <span class="c1"># print(ax.get_position(),ax_legend.get_position())</span>

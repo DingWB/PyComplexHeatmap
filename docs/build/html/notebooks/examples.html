@@ -374,7 +374,7 @@ div.rendered_html tbody tr:hover {
 <section id="1.-Import-packages">
 <h1>1. Import packages<a class="headerlink" href="#1.-Import-packages" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -383,6 +383,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -392,7 +393,7 @@ div.rendered_html tbody tr:hover {
 <section id="2.-A-quick-example">
 <h1>2. A quick example<a class="headerlink" href="#2.-A-quick-example" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -423,7 +424,7 @@ div.rendered_html tbody tr:hover {
                            <span class="p">)</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span> <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                      <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+                     <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 <span class="c1"># cm.ax_heatmap.set_axis_off()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -452,6 +453,40 @@ Plotting legends..
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_examples_3_1.png" src="../_images/notebooks_examples_3_1.png" />
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">legend_axes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;Axes:&gt;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;values&#39;
+</pre></div></div>
 </div>
 </section>
 <section id="3.-Plotting-annotations">
@@ -488,7 +523,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_6_1.png" src="../_images/notebooks_examples_6_1.png" />
+<img alt="../_images/notebooks_examples_8_1.png" src="../_images/notebooks_examples_8_1.png" />
 </div>
 </div>
 <section id="anno_label:">
@@ -523,7 +558,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_8_1.png" src="../_images/notebooks_examples_8_1.png" />
+<img alt="../_images/notebooks_examples_10_1.png" src="../_images/notebooks_examples_10_1.png" />
 </div>
 </div>
 </section>
@@ -553,7 +588,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_10_1.png" src="../_images/notebooks_examples_10_1.png" />
+<img alt="../_images/notebooks_examples_12_1.png" src="../_images/notebooks_examples_12_1.png" />
 </div>
 </div>
 </section>
@@ -594,7 +629,7 @@ Starting plotting HeatmapAnnotations
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_12_1.png" src="../_images/notebooks_examples_12_1.png" />
+<img alt="../_images/notebooks_examples_14_1.png" src="../_images/notebooks_examples_14_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -610,7 +645,7 @@ No ax was provided, using plt.gca()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_12_3.png" src="../_images/notebooks_examples_12_3.png" />
+<img alt="../_images/notebooks_examples_14_3.png" src="../_images/notebooks_examples_14_3.png" />
 </div>
 </div>
 </section>
@@ -1237,7 +1272,7 @@ Incresing ncol
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_20_1.png" src="../_images/notebooks_examples_20_1.png" />
+<img alt="../_images/notebooks_examples_22_1.png" src="../_images/notebooks_examples_22_1.png" />
 </div>
 </div>
 <p>If you have a very long list of legends, the function will automatically increace another column of legend, for example, in the above plot, there are two columns of legends.</p>
@@ -1280,7 +1315,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_22_1.png" src="../_images/notebooks_examples_22_1.png" />
+<img alt="../_images/notebooks_examples_24_1.png" src="../_images/notebooks_examples_24_1.png" />
 </div>
 </div>
 <p>If you want to put the columns annotations on the bottom, then you need to <strong>change the order of HeatmapAnnotation</strong>, <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> should be the <strong>last one</strong> and <code class="docutils literal notranslate"><span class="pre">anno_label(df_cols.Family)</span></code> should be the second last one. When the columns annotation is on the top, the <code class="docutils literal notranslate"><span class="pre">rotation</span></code> of the <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> is 45, but when it is on the bottom, rotation should be -45 (rotate to the other direction). In addition, you can change the row labels to the right by setting <code class="docutils literal notranslate"><span class="pre">row_names_side='right'</span></code>. It’s
@@ -1327,7 +1362,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_24_1.png" src="../_images/notebooks_examples_24_1.png" />
+<img alt="../_images/notebooks_examples_26_1.png" src="../_images/notebooks_examples_26_1.png" />
 </div>
 </div>
 <p>To put annotation on the left in this example, we tranpose the dataframe by useing df.T and use left_annotation. We can put the columns labels on the top by set <code class="docutils literal notranslate"><span class="pre">col_names_side='top'</span></code> and use <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> to change the rotation and color of the columsn labels. We can also change the rotation and color for the annotation labels (for example, <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Tissue</span></code> in this plot) by set <code class="docutils literal notranslate"><span class="pre">label_kws={'rotation':45,'rotation_mode':'anchor','color':'red'}</span></code>.</p>
@@ -1374,7 +1409,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_26_1.png" src="../_images/notebooks_examples_26_1.png" />
+<img alt="../_images/notebooks_examples_28_1.png" src="../_images/notebooks_examples_28_1.png" />
 </div>
 </div>
 </section>
@@ -1500,7 +1535,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_30_1.png" src="../_images/notebooks_examples_30_1.png" />
+<img alt="../_images/notebooks_examples_32_1.png" src="../_images/notebooks_examples_32_1.png" />
 </div>
 </div>
 <section id="Key-features:">
@@ -1574,7 +1609,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_33_1.png" src="../_images/notebooks_examples_33_1.png" />
+<img alt="../_images/notebooks_examples_35_1.png" src="../_images/notebooks_examples_35_1.png" />
 </div>
 </div>
 </section>

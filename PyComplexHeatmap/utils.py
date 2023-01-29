@@ -352,7 +352,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     return cbar
 
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None):
+                     y0=None,gap=2,delta_x=None,legend_width=4.5):
     """
     Plot all lengends for a given legend_list.
 
@@ -364,6 +364,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     legend_side :right, or left
     y0 : the initate coordinate of y for the legend.
     gap : gap between legends, default is 2mm.
+    legend_width: width of the legend, default is 4.5mm.
 
     Returns
     -------
@@ -381,7 +382,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(space,pad)
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
-    width=4.5*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width
+    width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width
     if legend_side=='right':
         ax_legend=ax.figure.add_axes([left,ax.get_position().y0,width,ax.get_position().height]) #left, bottom, width, height
     # print(ax.get_position(),ax_legend.get_position())
