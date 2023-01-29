@@ -147,7 +147,9 @@ which would set the color of the text to the same color as legend marker. if one
 <cite>legend_kws={‘color_text’:False}</cite>, then, black would be the default color for the text.
 If the user want to use a custom color instead of black (such as blue), please set
 legend_kws={‘color_text’:False,’labelcolor’:’blue’}.</p></li>
-<li><p><strong>plot_kws</strong> (<em>other plot kws passed to annotation.plot</em><em>, </em><em>such as rotation</em><em>, </em><em>rotation_mode</em><em>, </em><em>ha</em><em>, </em><em>va</em><em>,</em>) – annotation_clip, arrowprops and matplotlib.text.Text for anno_label.</p></li>
+<li><p><strong>plot_kws</strong> (<em>other plot kws passed to annotation.plot</em><em>, </em><em>such as rotation</em><em>, </em><em>rotation_mode</em><em>, </em><em>ha</em><em>, </em><em>va</em><em>,</em>) – annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
+there is also kws: vmin and vmax, if one want to change the range, please try:
+anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>

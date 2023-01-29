@@ -503,7 +503,9 @@
 <span class="sd">        If the user want to use a custom color instead of black (such as blue), please set</span>
 <span class="sd">        legend_kws={&#39;color_text&#39;:False,&#39;labelcolor&#39;:&#39;blue&#39;}.</span>
 <span class="sd">    plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,</span>
-<span class="sd">        annotation_clip, arrowprops and matplotlib.text.Text for anno_label.</span>
+<span class="sd">        annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,</span>
+<span class="sd">        there is also kws: vmin and vmax, if one want to change the range, please try:</span>
+<span class="sd">        anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={&#39;vmin&#39;:0,&#39;vmax&#39;:1}).</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ----------</span>
