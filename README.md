@@ -74,3 +74,5 @@ plt.show()
 
 ## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
+Or
+https://dingwb.github.io/PyComplexHeatmap/build/html/documentation.html
