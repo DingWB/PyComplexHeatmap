@@ -427,7 +427,11 @@ class AnnotationBase():
         plot legend with HeatmapAnnotation.plot_legends().
     legend_kws: vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
         markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
-        arguments, pleast type ?plt.legend.
+        arguments, pleast type ?plt.legend. There is an additional parameter `color_text` (default is True),
+        which would set the color of the text to the same color as legend marker. if one set
+        `legend_kws={'color_text':False}`, then, black would be the default color for the text.
+        If the user want to use a custom color instead of black (such as blue), please set
+        legend_kws={'color_text':False,'labelcolor':'blue'}.
     plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
         annotation_clip, arrowprops and matplotlib.text.Text for anno_label.
     
