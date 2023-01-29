@@ -90,6 +90,8 @@
     <span class="n">plot_legend_list</span>
 <span class="p">)</span>
 
+<span class="n">mm2inch</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">25.4</span>
+
 <div class="viewcode-block" id="heatmapPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.heatmapPlotter">[docs]</a><span class="k">class</span> <span class="nc">heatmapPlotter</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">robust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2g&#39;</span><span class="p">,</span>
@@ -97,7 +99,7 @@
                  <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">xticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">na_col</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the plotting object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the plotting object.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="n">plot_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span>
         <span class="k">else</span><span class="p">:</span>
@@ -183,7 +185,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;shrink&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_determine_cmap_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_data</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">robust</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Use some heuristics to set good defaults for colorbar and range.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use some heuristics to set good defaults for colorbar and range.&quot;&quot;&quot;</span>
         <span class="c1"># plot_data is a np.ma.array instance</span>
         <span class="n">calc_data</span> <span class="o">=</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">vmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -246,7 +248,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="o">.</span><span class="n">set_over</span><span class="p">(</span><span class="n">over</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_annotate_heatmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add textual labels with the value in each cell.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add textual labels with the value in each cell.&quot;&quot;&quot;</span>
         <span class="n">mesh</span><span class="o">.</span><span class="n">update_scalarmappable</span><span class="p">()</span>
         <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">annot_data</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">xpos</span><span class="p">,</span> <span class="n">ypos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="mf">.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="o">+</span> <span class="mf">.5</span><span class="p">)</span>
@@ -262,7 +264,7 @@
                 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">annotation</span><span class="p">,</span> <span class="o">**</span><span class="n">text_kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_skip_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tickevery</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return ticks and labels at evenly spaced intervals.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return ticks and labels at evenly spaced intervals.&quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tickevery</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">ticks</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -275,7 +277,7 @@
         <span class="k">return</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">labels</span>
 
     <span class="k">def</span> <span class="nf">_auto_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine ticks and ticklabels that minimize overlap.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine ticks and ticklabels that minimize overlap.&quot;&quot;&quot;</span>
         <span class="n">transform</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi_scale_trans</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span>
         <span class="n">bbox</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">transformed</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
         <span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="n">bbox</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">height</span><span class="p">][</span><span class="n">axis</span><span class="p">]</span>
@@ -371,7 +373,7 @@
 <div class="viewcode-block" id="heatmapPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">cax</span><span class="p">,</span> <span class="n">xlabel_kws</span><span class="p">,</span> <span class="n">xlabel_bbox_kws</span><span class="p">,</span> <span class="n">ylabel_kws</span><span class="p">,</span> <span class="n">ylabel_bbox_kws</span><span class="p">,</span>
              <span class="n">xlabel_side</span><span class="p">,</span> <span class="n">ylabel_side</span><span class="p">,</span> <span class="n">xlabel_pad</span><span class="p">,</span> <span class="n">ylabel_pad</span><span class="p">,</span> <span class="n">xticklabels_side</span><span class="p">,</span> <span class="n">yticklabels_side</span><span class="p">,</span>
              <span class="n">xticklabels_kws</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="p">,</span> <span class="n">kws</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Draw the heatmap on the provided Axes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw the heatmap on the provided Axes.&quot;&quot;&quot;</span>
         <span class="c1"># Remove all the Axes spines</span>
         <span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># setting vmin/vmax in addition to norm is deprecated</span>
@@ -440,7 +442,7 @@
             <span class="n">xticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">na_col</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">annot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2g&quot;</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot heatmap.</span>
 
 <span class="sd">    Parameters</span>
@@ -475,7 +477,7 @@
     <span class="k">return</span> <span class="n">ax</span></div>
 
 <div class="viewcode-block" id="AnnotationBase"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.AnnotationBase">[docs]</a><span class="k">class</span> <span class="nc">AnnotationBase</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for annotation objects.</span>
 
 <span class="sd">    Parameters</span>
@@ -485,13 +487,21 @@
 <span class="sd">        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run</span>
 <span class="sd">        matplotlib.pyplot.colormaps() to see all availabel cmap.</span>
 <span class="sd">        default cmap is &#39;auto&#39;, it would be determined based on the dtype for each columns of df.</span>
-<span class="sd">    colors: a dict or list (for boxplot, barplot) or str, df.values and values are colors.</span>
+<span class="sd">    colors: a dict or list (for boxplot, barplot) or str.</span>
+<span class="sd">        If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),</span>
+<span class="sd">        values for the dict should be colors (color names or HEX color).</span>
+<span class="sd">        If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()</span>
+<span class="sd">        If colors is a string, means all values in df.iloc[:,0].unique() share the same color.</span>
 <span class="sd">    height: height (if axis=1) / width (if axis=0) for the annotation size.</span>
 <span class="sd">    legend: whether to plot legend for this annotation when legends are plotted or</span>
 <span class="sd">        plot legend with HeatmapAnnotation.plot_legends().</span>
 <span class="sd">    legend_kws: vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,</span>
 <span class="sd">        markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more</span>
-<span class="sd">        arguments, pleast type ?plt.legend.</span>
+<span class="sd">        arguments, pleast type ?plt.legend. There is an additional parameter `color_text` (default is True),</span>
+<span class="sd">        which would set the color of the text to the same color as legend marker. if one set</span>
+<span class="sd">        `legend_kws={&#39;color_text&#39;:False}`, then, black would be the default color for the text.</span>
+<span class="sd">        If the user want to use a custom color instead of black (such as blue), please set</span>
+<span class="sd">        legend_kws={&#39;color_text&#39;:False,&#39;labelcolor&#39;:&#39;blue&#39;}.</span>
 <span class="sd">    plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,</span>
 <span class="sd">        annotation_clip, arrowprops and matplotlib.text.Text for anno_label.</span>
 <span class="sd">    </span>
@@ -610,6 +620,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">)(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_check_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="n">label</span><span class="p">:</span><span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">color</span> <span class="k">for</span> <span class="n">label</span><span class="p">,</span><span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">colors</span><span class="p">)}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;colors must be a dict!&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">():</span>
@@ -628,7 +643,7 @@
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="AnnotationBase.reorder"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.AnnotationBase.reorder">[docs]</a>    <span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>  <span class="c1"># Before plotting, df needs to be reordered according to the new clustered order.</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        idx: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># n_overlap = len(set(self.df.index.tolist()) &amp; set(idx))</span>
@@ -654,7 +669,7 @@
         <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_label_width</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ticklabel_width</span><span class="p">()])</span></div></div>
 
 <div class="viewcode-block" id="anno_simple"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_simple">[docs]</a><span class="k">class</span> <span class="nc">anno_simple</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Annotate simple annotation, categorical or continuous variables.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -747,7 +762,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
 <div class="viewcode-block" id="anno_label"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_label">[docs]</a><span class="k">class</span> <span class="nc">anno_label</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add label and text annotations.</span>
 
 <span class="sd">    Parameters</span>
@@ -782,7 +797,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span></div>
 
 <div class="viewcode-block" id="anno_label.set_plot_kws"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_label.set_plot_kws">[docs]</a>    <span class="k">def</span> <span class="nf">set_plot_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-        <span class="n">shrink</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 1 * 0.0394 * 72  # 1mm -&gt; points</span>
+        <span class="n">shrink</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 1 * mm2inch * 72  # 1mm -&gt; points</span>
         <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#columns</span>
             <span class="n">relpos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#position to anchor, x: left -&gt; right, y: down -&gt; top</span>
             <span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">90</span>
@@ -850,7 +865,7 @@
         <span class="c1">#labels are the merged labels, ticks are the merged mean x coordinates.</span>
 
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
-        <span class="n">text_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>  <span class="c1"># convert height (mm) to inch and to pixels.</span>
+        <span class="n">text_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>  <span class="c1"># convert height (mm) to inch and to pixels.</span>
         <span class="c1"># print(ax.figure.dpi,text_height)</span>
         <span class="n">text_y</span> <span class="o">=</span> <span class="n">text_height</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;bottom&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span>
@@ -917,7 +932,7 @@
             <span class="n">annotated_text</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="n">xycoords</span><span class="p">,</span> <span class="n">textcoords</span><span class="o">=</span><span class="n">text_xycoords</span><span class="p">,</span>
                               <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">)</span>  <span class="c1"># unit for shrinkA is point (1 point = 1/72 inches)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">annotated_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">annotated_text</span><span class="p">)</span>
-        <span class="n">_draw_figure</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="p">)</span>
+        <span class="c1"># _draw_figure(ax.figure)</span>
         <span class="c1"># print(&#39;anno_label:&#39;,self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
                        <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -935,7 +950,7 @@
             <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">hs</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="anno_boxplot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_boxplot">[docs]</a><span class="k">class</span> <span class="nc">anno_boxplot</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    annotate boxplots, all arguments are included in AnnotationBase,</span>
 <span class="sd">    plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor</span>
 <span class="sd">        width and other arguments passed to plt.boxplot.</span>
@@ -1034,7 +1049,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
 <div class="viewcode-block" id="anno_barplot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_barplot">[docs]</a><span class="k">class</span> <span class="nc">anno_barplot</span><span class="p">(</span><span class="n">anno_boxplot</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Annotate barplot, all arguments are included in AnnotationBase,</span>
 <span class="sd">        plot_kws for anno_boxplot include edgecolor, grid,</span>
 <span class="sd">        and other arguments passed to plt.barplot.</span>
@@ -1132,7 +1147,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
 <div class="viewcode-block" id="anno_scatterplot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.anno_scatterplot">[docs]</a><span class="k">class</span> <span class="nc">anno_scatterplot</span><span class="p">(</span><span class="n">anno_barplot</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Annotate scatterplot, all arguments are included in AnnotationBase,</span>
 <span class="sd">        plot_kws for anno_boxplot include linewidths, grid, edgecolors</span>
 <span class="sd">        and other arguments passed to plt.scatter.</span>
@@ -1221,7 +1236,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
 <div class="viewcode-block" id="HeatmapAnnotation"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.HeatmapAnnotation">[docs]</a><span class="k">class</span> <span class="nc">HeatmapAnnotation</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate and plot heatmap annotations.</span>
 
 <span class="sd">    Parameters</span>
@@ -1232,15 +1247,16 @@
 <span class="sd">    cmap : colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</span>
 <span class="sd">        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run</span>
 <span class="sd">        matplotlib.pyplot.colormaps() to see all availabel cmap.</span>
-<span class="sd">        default cmap is &#39;auto&#39;, it would be determined based on the dtype for each columns of df.</span>
-<span class="sd">        if df is None, then there is no need to specify cmap, cmap and colors will only be used when</span>
+<span class="sd">        default cmap is &#39;auto&#39;, it would be determined based on the dtype for each columns in df.</span>
+<span class="sd">        If df is None, then there is no need to specify cmap, cmap and colors will only be used when</span>
 <span class="sd">        df is provided.</span>
 <span class="sd">        If cmap is a string, then all columns in the df would have the same cmap, cmap can also be</span>
 <span class="sd">        a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).</span>
-<span class="sd">    colors : a dict, keys are the column names of df, values are list or dict passed to anno_simple, anno_boxplot,</span>
-<span class="sd">        anno_label and anno_scatter.</span>
-<span class="sd">        colors must have the same length as the df.columns, if colors is not provided (default),</span>
-<span class="sd">        auto cmap would be used. If colors is given, then the cmap would be invalid.</span>
+<span class="sd">    colors : a dict, keys are the column names of df, values are list, dict or string passed to</span>
+<span class="sd">        AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.</span>
+<span class="sd">        colors must have the same length as the df.columns, if colors is not provided (default), else,</span>
+<span class="sd">        colors would be calculated based on the given cmap.</span>
+<span class="sd">        If colors is given, then the cmap would be invalid.</span>
 <span class="sd">    label_side : top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</span>
 <span class="sd">    label_kws :kws passed to the labels of the annotation labels (would be df.columns if df is given).</span>
 <span class="sd">        such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),</span>
@@ -1270,7 +1286,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">ticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
-                 <span class="n">legend_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">plot_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
+                 <span class="n">legend_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">plot_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please specify either df or other args&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1280,6 +1296,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_side</span> <span class="o">=</span> <span class="n">label_side</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_label_kws</span><span class="p">(</span><span class="n">label_kws</span><span class="p">,</span> <span class="n">ticklabels_kws</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span> <span class="o">=</span> <span class="n">plot_kws</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">plot_kws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
@@ -1442,7 +1459,7 @@
         <span class="n">map_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ticklabels_side</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">label_side</span><span class="p">]</span>
 
-        <span class="c1"># self.label_kws.setdefault(&#39;fontsize&#39;, self.height * 0.0394 * 72)</span>
+        <span class="c1"># self.label_kws.setdefault(&#39;fontsize&#39;, self.height * mm2inch * 72)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">label_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;rotation&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1514,13 +1531,14 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ticklabels_kws</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HeatmapAnnotation.collect_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.HeatmapAnnotation.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Collect legends.</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Collecting annotation legends..&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Collecting annotation legends..&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># handles(dict) / cmap, title, kws</span>
         <span class="k">for</span> <span class="n">annotation</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">:</span>
             <span class="n">legend_kws</span> <span class="o">=</span> <span class="n">annotation</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1548,7 +1566,7 @@
 
 <div class="viewcode-block" id="HeatmapAnnotation.plot_annotations"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.HeatmapAnnotation.plot_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">plot_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">idxs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                          <span class="n">wspace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        ax : axes to plot the annotations.</span>
@@ -1563,7 +1581,8 @@
 <span class="sd">        self.ax</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># print(ax.figure.get_size_inches())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting HeatmapAnnotations&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting HeatmapAnnotations&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1575,15 +1594,15 @@
             <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span>
             <span class="n">height_ratios</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heights</span>
             <span class="n">width_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">)</span> <span class="k">if</span> <span class="n">wspace</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">wspace</span>  <span class="c1"># 1mm=0.0394 inch</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">)</span> <span class="k">if</span> <span class="n">wspace</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">wspace</span>  <span class="c1"># 1mm=mm2inch inch</span>
             <span class="n">hspace</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span>
             <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span>
             <span class="n">width_ratios</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heights</span>
             <span class="n">height_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">ncols</span><span class="p">)</span> <span class="k">if</span> <span class="n">hspace</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">hspace</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">subplot_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1633,7 +1652,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div>
 
 <div class="viewcode-block" id="HeatmapAnnotation.plot_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.HeatmapAnnotation.plot_legends">[docs]</a>    <span class="k">def</span> <span class="nf">plot_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot legends.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1648,12 +1667,12 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1">#if the legend is on the right side</span>
             <span class="n">space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_max_width</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span><span class="o">==</span><span class="s1">&#39;right&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_side</span><span class="o">==</span><span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">legend_axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span> <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend_axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cbars</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span> <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
                                                               <span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="DendrogramPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.DendrogramPlotter">[docs]</a><span class="k">class</span> <span class="nc">DendrogramPlotter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">rotate</span><span class="p">,</span> <span class="n">dendrogram_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plot a dendrogram of the relationships between the columns of data</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot a dendrogram of the relationships between the columns of data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># default 1, columns, when calculating dendrogram, each row is a point.</span>
@@ -1748,11 +1767,11 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">reordered_ind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Indices of the matrix, reordered by the dendrogram&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of the matrix, reordered by the dendrogram&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span>  <span class="c1"># idx of the matrix</span>
 
 <div class="viewcode-block" id="DendrogramPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tree_kws</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plots a dendrogram of the similarities between data on the axes</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots a dendrogram of the similarities between data on the axes</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        ax : matplotlib.axes.Axes</span>
@@ -1797,7 +1816,7 @@
         <span class="n">xtl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xticklabels</span><span class="p">)</span>
         <span class="n">ytl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yticklabels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
         <span class="c1"># Force a draw of the plot to avoid matplotlib window error</span>
-        <span class="n">_draw_figure</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="p">)</span>
+        <span class="c1"># _draw_figure(ax.figure)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytl</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">axis_ticklabels_overlap</span><span class="p">(</span><span class="n">ytl</span><span class="p">):</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ytl</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xtl</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">axis_ticklabels_overlap</span><span class="p">(</span><span class="n">xtl</span><span class="p">):</span>
@@ -1805,7 +1824,7 @@
         <span class="k">return</span> <span class="bp">self</span></div></div>
 
 <div class="viewcode-block" id="ClusterMapPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter">[docs]</a><span class="k">class</span> <span class="nc">ClusterMapPlotter</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clustermap (Heatmap) plotter.</span>
 <span class="sd">    Plot heatmap / clustermap with annotation and legends.</span>
 
@@ -1849,7 +1868,13 @@
 <span class="sd">    mask :mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</span>
 <span class="sd">    subplot_gap :the gap between subplots, default is 1mm.</span>
 <span class="sd">    legend :True or False, whether to plot heatmap legend, determined by cmap.</span>
-<span class="sd">    legend_kws :kws passed to plot.legend.</span>
+<span class="sd">    legend_kws :kws passed to plot legend. If one want to change the outline color and linewidth of cbar:</span>
+<span class="sd">        for cbar in cm.cbars:</span>
+<span class="sd">            if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
+<span class="sd">                cbar.outline.set_color(&#39;white&#39;)</span>
+<span class="sd">                cbar.outline.set_linewidth(2)</span>
+<span class="sd">                cbar.dividers.set_color(&#39;red&#39;)</span>
+<span class="sd">                cbar.dividers.set_linewidth(2)</span>
 <span class="sd">    plot :whether to plot or not.</span>
 <span class="sd">    plot_legend :True or False, whether to plot legend, if False, legends can be plot with</span>
 <span class="sd">        ClusterMapPlotter.plot_legends()</span>
@@ -1882,9 +1907,9 @@
                  <span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_anchor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                  <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend_delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">heatmap_kws</span><span class="p">):</span>
+                 <span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend_delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="o">**</span><span class="n">heatmap_kws</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data2d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">z_score</span><span class="p">,</span> <span class="n">standard_scale</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">=</span><span class="n">debug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">_check_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_define_kws</span><span class="p">(</span><span class="n">xticklabels_kws</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_annotation</span> <span class="o">=</span> <span class="n">top_annotation</span>
@@ -1959,23 +1984,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right_widths</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_dendrogram</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_dendrogram_size</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_dendrogram_size</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_dendrogram</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_dendrogram_size</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_dendrogram_size</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">bottom_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bottom_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bottom_heights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">right_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">)</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">right_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">heatmap_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_heights</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_heights</span><span class="p">)</span>
@@ -1984,8 +2009,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_widths</span><span class="p">),</span> <span class="n">heatmap_w</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_widths</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_define_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">wspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subplot_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
-        <span class="n">hspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subplot_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subplot_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">hspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subplot_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">subplot_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">widths</span><span class="p">,</span> <span class="n">height_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">heights</span><span class="p">,</span>
@@ -2077,7 +2102,7 @@
 
 <div class="viewcode-block" id="ClusterMapPlotter.z_score"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">z_score</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Standarize the mean and variance of the data axis</span>
 
 <span class="sd">        Parameters</span>
@@ -2108,7 +2133,7 @@
 
 <div class="viewcode-block" id="ClusterMapPlotter.standard_scale"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">standard_scale</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide the data by the difference between the max and min</span>
 
 <span class="sd">        Parameters</span>
@@ -2161,7 +2186,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ax_col_dendrogram</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_reorder_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reordering rows..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calculate_row_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="p">)</span>  <span class="c1"># xind=self.dendrogram_row.reordered_ind</span>
@@ -2204,7 +2229,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_reorder_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reordering cols..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calculate_col_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="p">)</span>
@@ -2310,13 +2335,13 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_col_dendrogram</span><span class="p">,</span> <span class="n">tree_kws</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ClusterMapPlotter.plot_matrix"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">plot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting matrix..&quot;</span><span class="p">)</span>
         <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span>
         <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_order</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">)</span>  <span class="c1"># 1mm=0.0394 inch</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">)</span>  <span class="c1"># 1mm=mm2inch inch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">ncols</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_gs</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hspace</span><span class="p">,</span>
                                                                       <span class="n">wspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wspace</span><span class="p">,</span>
@@ -2337,8 +2362,8 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">nrows</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">ncols</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+        <span class="c1"># if nrows &gt; 1 or ncols &gt; 1:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row_order</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">cols</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">col_order</span><span class="p">):</span>
                 <span class="c1"># print(i,j)</span>
@@ -2389,7 +2414,6 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_colnames</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_annotation</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_dendrogram</span> <span class="ow">and</span> \
                 <span class="p">((</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_names_side</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span><span class="p">)):</span>
-            <span class="c1"># print(&quot;here,test&quot;)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>  <span class="c1"># ticks</span>
@@ -2416,7 +2440,7 @@
         <span class="c1"># _draw_figure(self.ax.figure)</span>
 
 <div class="viewcode-block" id="ClusterMapPlotter.collect_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Collecting legends..&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_max_width</span> <span class="o">=</span> <span class="mi">0</span>
@@ -2444,7 +2468,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ClusterMapPlotter.plot_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">[docs]</a>    <span class="k">def</span> <span class="nf">plot_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting legends..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2455,12 +2479,12 @@
                 <span class="n">space</span><span class="o">=</span><span class="mi">0</span>
             <span class="c1"># if self.right_annotation:</span>
             <span class="c1">#     space+=sum(self.right_widths)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">legend_axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend_axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cbars</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span>
                                                               <span class="n">legend_side</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span><span class="p">,</span>
                                                               <span class="n">delta_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_delta_x</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ClusterMapPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -2473,11 +2497,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_define_bottom_axes</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_define_right_axes</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">row_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating row orders..&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating row orders..&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reorder_rows</span><span class="p">()</span>
             <span class="n">row_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span>
         <span class="k">if</span> <span class="n">col_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating col orders..&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating col orders..&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reorder_cols</span><span class="p">()</span>
             <span class="n">col_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_matrix</span><span class="p">(</span><span class="n">row_order</span><span class="o">=</span><span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="n">col_order</span><span class="p">)</span>
@@ -2520,9 +2546,9 @@
 <div class="viewcode-block" id="ClusterMapPlotter.set_width"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width">[docs]</a>    <span class="k">def</span> <span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
         <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>  <span class="c1"># convert mm to inches</span></div></div>
 
-<div class="viewcode-block" id="composite"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.composite">[docs]</a><span class="k">def</span> <span class="nf">composite</span><span class="p">(</span><span class="n">cmlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">col_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<div class="viewcode-block" id="composite"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.composite">[docs]</a><span class="k">def</span> <span class="nf">composite</span><span class="p">(</span><span class="n">cmlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">col_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
               <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">legend_y</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legendpad</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assemble multiple ClusterMapPlotter objects vertically or horizontally together.</span>
 
 <span class="sd">    Parameters</span>
@@ -2545,13 +2571,13 @@
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmlist</span><span class="p">)</span>
     <span class="n">wspace</span><span class="p">,</span> <span class="n">hspace</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># horizontally</span>
-        <span class="n">wspace</span> <span class="o">=</span> <span class="n">col_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="n">col_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
         <span class="n">nrows</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">ncols</span> <span class="o">=</span> <span class="n">n</span>
         <span class="n">width_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">cmlist</span><span class="p">]</span>
         <span class="n">height_ratios</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>  <span class="c1"># vertically</span>
-        <span class="n">hspace</span> <span class="o">=</span> <span class="n">row_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">hspace</span> <span class="o">=</span> <span class="n">row_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
         <span class="n">nrows</span> <span class="o">=</span> <span class="n">n</span>
         <span class="n">ncols</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">width_ratios</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2590,10 +2616,10 @@
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">legend_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">legendpad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">space</span> <span class="o">=</span> <span class="n">col_gap</span> <span class="o">*</span> <span class="mf">0.0394</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">+</span> <span class="n">label_max_width</span>
+        <span class="n">space</span> <span class="o">=</span> <span class="n">col_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">+</span> <span class="n">label_max_width</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">space</span> <span class="o">=</span> <span class="n">legendpad</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="mi">72</span>
-    <span class="n">legend_axes</span><span class="p">,</span> <span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span>
+    <span class="n">legend_axes</span><span class="p">,</span> <span class="n">cbars</span><span class="p">,</span><span class="n">boundry</span> <span class="o">=</span> <span class="n">plot_legend_list</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span>
                                             <span class="n">legend_side</span><span class="o">=</span><span class="n">legend_side</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="n">legend_gap</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="n">legend_y</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
     <span class="c1"># import pdb;</span>
