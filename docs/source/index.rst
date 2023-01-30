@@ -17,4 +17,4 @@ PyComplexHeatmap
 
 Credits and Thanks
 ========================
-The package was provided by Wubin Ding and Zhoulab.
+The package was provided by Wubin Ding.

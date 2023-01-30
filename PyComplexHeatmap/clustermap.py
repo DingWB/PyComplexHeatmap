@@ -1207,7 +1207,8 @@ class HeatmapAnnotation():
     legend_side : right or left
     legend_gap : the vertical gap between two legends, default is 2 [mm]
     legend_width: width of the legend, default is 4.5[mm]
-    legend_pad: the space between heatmap and legend, default is 2 [mm].
+    legend_hpad: Horizonal space between heatmap and legend, default is 2 [mm].
+    legend_vpad: Vertical space between top of ax and legend, default is 2 [mm].
     plot_legend : whether to plot legends.
     args : name-value pair, key is the annotation label (name), values can be a pandas dataframe,
         series, or annotation such as
@@ -1220,7 +1221,8 @@ class HeatmapAnnotation():
     """
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
-                 legend_gap=2, legend_width=4.5,legend_pad=2,plot_legend=True,rasterized=False,verbose=1,**args):
+                 legend_gap=2, legend_width=4.5,legend_hpad=2,legend_vpad=5,
+                 plot_legend=True,rasterized=False,verbose=1,**args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
         if not df is None and len(args) > 0:
@@ -1239,7 +1241,8 @@ class HeatmapAnnotation():
         self.legend_side = legend_side
         self.legend_gap = legend_gap
         self.legend_width = legend_width
-        self.legend_pad = legend_pad
+        self.legend_hpad = legend_hpad
+        self.legend_vpad = legend_vpad
         self.plot_legend = plot_legend
         self.rasterized=rasterized
         self.plot = plot
@@ -1603,11 +1606,11 @@ class HeatmapAnnotation():
         if len(self.legend_list) > 0:
             #if the legend is on the right side
             space = self.label_max_width if (self.legend_side=='right' and self.label_side=='right') else 0
-            legend_pad= self.legend_pad * mm2inch * self.ax.figure.dpi #mm to inch to pixel
+            legend_hpad= self.legend_hpad * mm2inch * self.ax.figure.dpi #mm to inch to pixel
             self.legend_axes, self.cbars,self.boundry = \
-                plot_legend_list(self.legend_list, ax=ax, space=space + legend_pad,
+                plot_legend_list(self.legend_list, ax=ax, space=space + legend_hpad,
                                  legend_side='right',gap=self.legend_gap,
-                                 legend_width=self.legend_width)
+                                 legend_width=self.legend_width,legend_vpad=self.legend_vpad)
 
 class DendrogramPlotter(object):
     def __init__(self, data, linkage, metric, method, axis, label, rotate, dendrogram_kws=None):
@@ -1820,7 +1823,8 @@ class ClusterMapPlotter():
     legend_anchor :str, ax_heatmap or ax, the ax to which legend anchor.
     legend_gap :the columns gap between different legends.
     legend_width: width of the legend, default is 4.5[mm]
-    legend_pad: space between the heatmap and legend, default is 2 [mm].
+    legend_hpad: Horizonal space between the heatmap and legend, default is 2 [mm].
+    legend_vpad: Vertical space between the top of legend_anchor and legend, default is 5 [mm].
     legend_side :right of left.
     cmap :default is 'jet', the colormap for heatmap colorbar.
     label :the title (label) that will be shown in heatmap colorbar legend.
@@ -1844,9 +1848,9 @@ class ClusterMapPlotter():
                  show_rownames=False, show_colnames=False, row_names_side='right', col_names_side='bottom',
                  row_dendrogram=False, col_dendrogram=False, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
-                 row_split_order=None,col_split_order=None,
-                 row_split_gap=0.5, col_split_gap=0.2, mask=None, subplot_gap=1, legend=True, legend_kws=None,
-                 plot=True, plot_legend=True, legend_anchor='auto', legend_gap=3,legend_width=4.5,legend_pad=2,
+                 row_split_order=None,col_split_order=None,row_split_gap=0.5, col_split_gap=0.2, mask=None,
+                 subplot_gap=1, legend=True, legend_kws=None,plot=True, plot_legend=True,
+                 legend_anchor='auto', legend_gap=4,legend_width=4.5,legend_hpad=2,legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False,legend_delta_x=None,verbose=1,**heatmap_kws):
         self.data2d = self.format_data(data, z_score, standard_scale)
@@ -1889,7 +1893,8 @@ class ClusterMapPlotter():
         self.label = label if not label is None else 'heatmap'
         self.legend_gap = legend_gap
         self.legend_width = legend_width
-        self.legend_pad = legend_pad
+        self.legend_hpad = legend_hpad
+        self.legend_vpad = legend_vpad
         self.legend_anchor = legend_anchor
         self.legend_delta_x=legend_delta_x
         if plot:
@@ -2139,8 +2144,9 @@ class ClusterMapPlotter():
             self.calculate_row_dendrograms(self.data2d)
             self.row_clusters = pd.Series(hierarchy.fcluster(self.dendrogram_row.linkage, t=self.row_split,
                                                              criterion='maxclust'),
-                                          index=self.dendrogram_row.dendrogram['ivl']).to_frame(name='cluster') \
+                                          index=self.data2d.index.tolist()).to_frame(name='cluster')\
                 .groupby('cluster').apply(lambda x: x.index.tolist()).to_dict()
+            #index=self.dendrogram_row.dendrogram['ivl']).to_frame(name='cluster')
 
         elif isinstance(self.row_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.row_split, pd.Series):
@@ -2182,8 +2188,9 @@ class ClusterMapPlotter():
             self.calculate_col_dendrograms(self.data2d)
             self.col_clusters = pd.Series(hierarchy.fcluster(self.dendrogram_col.linkage, t=self.col_split,
                                                              criterion='maxclust'),
-                                          index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster') \
+                                          index=self.data2d.columns.tolist()).to_frame(name='cluster')\
                 .groupby('cluster').apply(lambda x: x.index.tolist()).to_dict()
+            #index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster')
 
         elif isinstance(self.col_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.col_split, pd.Series):
@@ -2422,11 +2429,12 @@ class ClusterMapPlotter():
                 space=0
             # if self.right_annotation:
             #     space+=sum(self.right_widths)
-            legend_pad = self.legend_pad * mm2inch * self.ax.figure.dpi
+            legend_hpad = self.legend_hpad * mm2inch * self.ax.figure.dpi
             self.legend_axes, self.cbars,self.boundry = \
-                plot_legend_list(self.legend_list, ax=ax, space=space + legend_pad,
+                plot_legend_list(self.legend_list, ax=ax, space=space + legend_hpad,
                                   legend_side=self.legend_side, gap=self.legend_gap,
-                                  delta_x=self.legend_delta_x,legend_width=self.legend_width)
+                                  delta_x=self.legend_delta_x,legend_width=self.legend_width,
+                                 legend_vpad=self.legend_vpad)
 
     def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
         if self.verbose >= 1:
@@ -2492,7 +2500,7 @@ class ClusterMapPlotter():
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
 
 def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
-              legend_side='right', legend_gap=3, legend_y=0.8, legend_pad=None,
+              legend_side='right', legend_gap=3, legend_y=0.8, legend_hpad=None,
               legend_width=4.5):
     """
     Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
@@ -2561,10 +2569,10 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
     if len(legend_list) == 0:
         return None
     legend_list = sorted(legend_list, key=lambda x: x[3])
-    if legend_pad is None:
+    if legend_hpad is None:
         space = col_gap * mm2inch * ax.figure.dpi + label_max_width
     else:
-        space = legend_pad * ax.figure.dpi / 72
+        space = legend_hpad * ax.figure.dpi / 72
     legend_axes, cbars,boundry = \
         plot_legend_list(legend_list, ax=ax, space=space,
                         legend_side=legend_side, gap=legend_gap,

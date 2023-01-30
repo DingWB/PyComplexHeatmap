@@ -352,7 +352,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     return cbar
 
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None,legend_width=4.5):
+                     y0=None,gap=2,delta_x=None,legend_width=4.5,legend_vpad=5):
     """
     Plot all lengends for a given legend_list.
 
@@ -389,7 +389,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     legend_axes=[ax_legend]
     cbars=[]
     leg_pos = ax_legend.get_position()
-    y = leg_pos.y1 if y0 is None else y0
+    y = leg_pos.y1 - legend_vpad*mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
     max_width=0
     h_gap=round(gap*mm2inch*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm height gap between two legends
     i=0
@@ -401,7 +401,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(i,legend_list[i])
         color_text=legend_kws.pop("color_text",True)
         if type(color)==str: # a cmap, plot colorbar
-            f=15*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().height #15 mm
+            f = (15) * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height  # 15 mm
             if y-f < 0: #add a new column of axes to plot legends
                 left_pos=ax1.get_position()
                 pad=(max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
@@ -415,7 +415,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             y_cax_to_figure=y-f
             width=leg_pos.width
             cax=ax1.figure.add_axes(rect=[leg_pos.x0,y_cax_to_figure,width,f],
-                                   xmargin=0,ymargin=0)
+                                   xmargin=0,ymargin=0) #unit is fractions of figure width and height
             # [i.set_linewidth(0.5) for i in cax.spines.values()]
             cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0
             #https://matplotlib.org/stable/api/figure_api.html
@@ -428,7 +428,8 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             # print(cax.get_position(),cbar.ax.get_position())
         else:
             # print("color_dict",leg_pos.x0,y)
-            legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
+            legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #lower left position of the box.
+            #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
             # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
             # print("color_dict",ax1.get_position(),leg_pos)
             L = plot_color_dict_legend(D=color, ax=ax1, title=title, label_side=legend_side,
