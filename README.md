@@ -36,7 +36,7 @@ pip install PyComplexHeatmap (TODO)
 ```
 from PyComplexHeatmap import *
 
-# Generate fake dataset
+#Generate example dataset (random)
 df = pd.DataFrame(['AAAA1'] * 5 + ['BBBBB2'] * 5, columns=['AB'])
 df['CD'] = ['C'] * 3 + ['D'] * 3 + ['G'] * 4
 df['EF'] = ['E'] * 6 + ['F'] * 2 + ['H'] * 2
@@ -52,25 +52,29 @@ df_heatmap = pd.DataFrame(np.random.randn(50, 10), columns=['sample' + str(i) fo
 df_heatmap.index = ["Fea" + str(i) for i in range(1, df_heatmap.shape[0] + 1)]
 df_heatmap.iloc[1, 2] = np.nan
 
-# Define annotation and plot
-row_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True),
-                            AB=anno_simple(df.AB,add_text=True),axis=1,
-                            CD=anno_simple(df.CD, colors={'C': 'red', 'D': 'yellow', 'G': 'green'},add_text=True),
-                            Exp=anno_boxplot(df_box, cmap='turbo'),
-                            Scatter=anno_scatterplot(df_scatter), TMB_bar=anno_barplot(df_bar))
-plt.figure(figsize=(6, 12))                         
-cm = ClusterMapPlotter(data=df_heatmap, top_annotation=row_ha, col_split=2, 
-                       row_split=3, col_split_gap=0.5,row_split_gap=1,
-                      tree_kws={'col_cmap': 'Set1', 'row_cmap': 'Dark2'})
-plt.savefig("heatmap.pdf", bbox_inches='tight')
+plt.figure(figsize=(6, 12))
+col_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True,rotation=15),
+                           AB=anno_simple(df.AB,add_text=True),axis=1,
+                           CD=anno_simple(df.CD,add_text=True,colors={'C':'red','D':'green','G':'blue'},
+                                            legend_kws={'frameon':False}),
+                           Exp=anno_boxplot(df_box, cmap='turbo'),
+                           Gene1=anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={'vmin':0,'vmax':1}),
+                           Scatter=anno_scatterplot(df_scatter), 
+                           TMB_bar=anno_barplot(df_bar,legend_kws={'color_text':False,'labelcolor':'blue'}),
+                           )
+cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha, col_split=2, row_split=3, col_split_gap=0.5,
+                     row_split_gap=1,label='values',row_dendrogram=True,show_rownames=True,show_colnames=True,
+                     tree_kws={'row_cmap': 'Dark2'},legend_gap=8,legend_width=6)
+# cm.ax_heatmap.set_axis_off()
 plt.show()
 ```
 ### Example output
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_6_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_19_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_21_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_23_1.png)
-![image](https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/images/output_25_1.png)
+![image](docs/images/1.png)
+![image](docs/images/2.png)
+![image](docs/images/3.png)
+![image](docs/images/4.png)
+![image](docs/images/5.png)
+![image](docs/images/6.png)
 
 ## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
