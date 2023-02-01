@@ -317,7 +317,7 @@ class heatmapPlotter:
         # Set the axis limits
         ax.set(xlim=(0, self.data.shape[1]), ylim=(0, self.data.shape[0]))
         # Invert the y axis to show the plot in matrix form
-        ax.invert_yaxis()
+        ax.invert_yaxis() # from top to bottom
 
         # Possibly add a colorbar
         if self.cbar:
@@ -450,10 +450,10 @@ class AnnotationBase():
         self.nrows = self._n_rows()
         self.ncols = self._n_cols()
         self.height = self._height(height)
-        self._set_default_plot_kws(plot_kws)
         self._type_specific_params()
         self.legend = legend
         self.legend_kws = legend_kws if not legend_kws is None else {}
+        self._set_default_plot_kws(plot_kws)
 
         if colors is None:
             self._check_cmap(cmap)  # add self.dtype, self.cmap (a dict)
@@ -466,7 +466,7 @@ class AnnotationBase():
 
     def _check_df(self, df):
         if isinstance(df, pd.Series):
-            df = df.to_frame(name=df.name)
+            df = df.to_frame()
         if isinstance(df, pd.DataFrame):
             self.df = df
         else:
@@ -518,7 +518,7 @@ class AnnotationBase():
             # ax.yaxis.labelpad = self.labelpad
             subplot_ax.yaxis.set_visible(False)
             subplot_ax.xaxis.label.set_visible(False)
-            subplot_ax.invert_xaxis()
+            # subplot_ax.invert_xaxis()
 
     def _check_cmap(self, cmap):
         if cmap == 'auto':
@@ -538,6 +538,12 @@ class AnnotationBase():
             self.cmap = cmap
         else:
             raise TypeError("Unknow data type for cmap!")
+        if plt.get_cmap(self.cmap).N == 256:  # then heatmap will automatically calculate vmin and vmax
+            try:
+                self.plot_kws.setdefault('vmax', np.nanmax(self.df.values))
+                self.plot_kws.setdefault('vmin', np.nanmin(self.df.values))
+            except:
+                pass
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
@@ -570,6 +576,8 @@ class AnnotationBase():
         cc_list = list(self.color_dict.keys())  # column values
         self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmin', 0)
 
     def _type_specific_params(self):
         pass
@@ -582,7 +590,7 @@ class AnnotationBase():
         # if n_overlap == 0:
         #     raise ValueError("The input idx is not consistent with the df.index")
         # else:
-        self.plot_data = self.df.reindex(idx)
+        self.plot_data = self.df.reindex(idx[::-1]) #
         self.plot_data.fillna(np.nan, inplace=True)
         self.nrows = self.plot_data.shape[0]
         # self._set_default_plot_kws(self.plot_kws)
@@ -611,6 +619,8 @@ class anno_simple(AnnotationBase):
         self.add_text = add_text
         self.majority=majority
         self.text_kws = text_kws if not text_kws is None else {}
+        self.plot_kws = plot_kws
+        # print(self.plot_kws)
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
 
@@ -640,19 +650,13 @@ class anno_simple(AnnotationBase):
         cc_list = list(self.color_dict.keys())  # column values
         self.cc_list = cc_list
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmin', 0)
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
-        vmax = plt.get_cmap(self.cmap).N
-        vmin = 0
-        if vmax == 256:  # then heatmap will automatically calculate vmin and vmax
-            vmax = None
-            vmin = None
-        plot_kws=self.plot_kws.copy()
-        if 'vmax' not in plot_kws:
-            plot_kws['vmax']=vmax
-        if 'vmin' not in plot_kws:
-            plot_kws['vmin']=vmin
+        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmin', 0)
         if self.cc_list:
             mat = self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
         else:
@@ -661,8 +665,9 @@ class anno_simple(AnnotationBase):
         xlabel = None if axis == 1 else self.label
         ylabel = self.label if axis == 1 else None
 
+        # print(self.plot_kws)
         ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
-                      xticklabels=False, yticklabels=False, **plot_kws)
+                      xticklabels=False, yticklabels=False, **self.plot_kws)
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
@@ -678,17 +683,15 @@ class anno_simple(AnnotationBase):
                 y = ticks
                 x = [0.5] * n
             s = ax.get_window_extent().height if axis == 1 else ax.get_window_extent().width
-            fontsize = self.text_kws.pop('fontsize', 72 * s * 0.8 / ax.figure.dpi)
+            self.text_kws.setdefault('fontsize',72 * s * 0.8 / ax.figure.dpi)
+            # fontsize = self.text_kws.pop('fontsize', 72 * s * 0.8 / ax.figure.dpi)
             color = self.text_kws.pop('color', None)
             for x0, y0, t in zip(x, y, labels):
                 lum = _calculate_luminance(self.color_dict[t])
                 text_color = "black" if lum > 0.408 else "white"
                 # print(t,self.color_dict,text_color,color)
-                if color is None:
-                    c = text_color
-                else:
-                    c = color
-                ax.text(x0, y0, t, fontsize=fontsize, color=c, **self.text_kws)
+                self.text_kws.setdefault('color', text_color)
+                ax.text(x0, y0, t,**self.text_kws)
         self.ax = ax
         self.fig = self.ax.figure
         return self.ax
@@ -1024,11 +1027,13 @@ class anno_barplot(anno_boxplot):
         else:
             raise ValueError(
                 "the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!")
-
-    def _calculate_cmap(self):
         self.color_dict = {}
         for v, c in zip(self.df.columns.tolist(), self.colors):
             self.color_dict[v] = c
+
+    def _calculate_cmap(self):
+        cc_list = list(self.color_dict.keys())  # column values
+        self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 
     def _type_specific_params(self):
         if self.ncols > 1:
@@ -1826,12 +1831,12 @@ class ClusterMapPlotter():
     legend_hpad: Horizonal space between the heatmap and legend, default is 2 [mm].
     legend_vpad: Vertical space between the top of legend_anchor and legend, default is 5 [mm].
     legend_side :right of left.
-    cmap :default is 'jet', the colormap for heatmap colorbar.
+    cmap :default is 'jet', the colormap for heatmap colorbar, see plt.colormaps().
     label :the title (label) that will be shown in heatmap colorbar legend.
     xticklabels_kws :xticklabels or yticklabels kws, such as axis, which, direction, length, width,
         color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
         labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
-        For more information,see ?matplotlib.axes.Axes.tick_params
+        For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.
     yticklabels_kws :the same as xticklabels_kws.
     rasterized :default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
@@ -1853,6 +1858,7 @@ class ClusterMapPlotter():
                  legend_anchor='auto', legend_gap=4,legend_width=4.5,legend_hpad=2,legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False,legend_delta_x=None,verbose=1,**heatmap_kws):
+        self.heatmap_kws = heatmap_kws if not heatmap_kws is None else {}
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.verbose=verbose
         self.mask = _check_mask(self.data2d, mask)
@@ -1885,7 +1891,6 @@ class ClusterMapPlotter():
         self.row_split_order=row_split_order
         self.col_split_order = col_split_order
         self.rasterized = rasterized
-        self.heatmap_kws = heatmap_kws if not heatmap_kws is None else {}
         self.legend = legend
         self.legend_kws = legend_kws if not legend_kws is None else {}
         self.legend_side = legend_side
@@ -1918,6 +1923,8 @@ class ClusterMapPlotter():
 
     def format_data(self, data, z_score=None, standard_scale=None):
         data2d = data.copy()
+        self.heatmap_kws.setdefault('vmin', np.nanmin(data.values))
+        self.heatmap_kws.setdefault('vmax', np.nanmax(data.values))
         if z_score is not None and standard_scale is not None:
             raise ValueError('Cannot perform both z-scoring and standard-scaling on data')
         if z_score is not None:

@@ -257,8 +257,8 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     lgd_kws.setdefault('markerscale',1)
     lgd_kws.setdefault('handleheight',1)  # font size, units is points
     lgd_kws.setdefault('handlelength',1)  # font size, units is points
-    lgd_kws.setdefault('borderaxespad',0)
-    lgd_kws.setdefault('handletextpad',0.1)
+    lgd_kws.setdefault('borderaxespad',0.1) #The pad between the axes and legend border, in font-size units.
+    lgd_kws.setdefault('handletextpad',0.3) #The pad between the legend handle and text, in font-size units.
     lgd_kws.setdefault('labelspacing',0.1)  # gap height between two Patches,  0.05*mm2inch*72
     lgd_kws.setdefault('columnspacing', 1)
     if label_side=='left':

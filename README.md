@@ -74,7 +74,6 @@ plt.show()
 ![image](docs/images/3.png)
 ![image](docs/images/4.png)
 ![image](docs/images/5.png)
-![image](docs/images/6.png)
 
 ## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
