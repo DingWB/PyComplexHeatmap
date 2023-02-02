@@ -1588,7 +1588,7 @@ class HeatmapAnnotation():
                     self.ax.spines['bottom'].set_visible(False)
                     self.axes[i, j] = ax1
                 else:
-                    ax1.invert_yaxis() # fix bug for inversed row order
+                    ax1.invert_yaxis() # fix bug for inversed row order, invert yaxis for rows annotations.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)
