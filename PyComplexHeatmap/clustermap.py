@@ -518,7 +518,7 @@ class AnnotationBase():
             # ax.yaxis.labelpad = self.labelpad
             subplot_ax.yaxis.set_visible(False)
             subplot_ax.xaxis.label.set_visible(False)
-            # subplot_ax.invert_xaxis()
+            # subplot_ax.invert_yaxis()
 
     def _check_cmap(self, cmap):
         if cmap == 'auto':
@@ -590,7 +590,7 @@ class AnnotationBase():
         # if n_overlap == 0:
         #     raise ValueError("The input idx is not consistent with the df.index")
         # else:
-        self.plot_data = self.df.reindex(idx[::-1]) #
+        self.plot_data = self.df.reindex(idx) #
         self.plot_data.fillna(np.nan, inplace=True)
         self.nrows = self.plot_data.shape[0]
         # self._set_default_plot_kws(self.plot_kws)
@@ -662,12 +662,15 @@ class anno_simple(AnnotationBase):
         else:
             mat = self.plot_data.values
         matrix = mat.reshape(1, -1) if axis == 1 else mat.reshape(-1, 1)
+        # print(matrix)
         xlabel = None if axis == 1 else self.label
         ylabel = self.label if axis == 1 else None
 
         # print(self.plot_kws)
         ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
                       xticklabels=False, yticklabels=False, **self.plot_kws)
+        # if axis==0:
+        #     ax1.invert_yaxis()
         ax.tick_params(axis='both', which='both',
                        left=False, right=False, top=False, bottom=False,
                        labeltop=False, labelbottom=False, labelleft=False, labelright=False)
@@ -1565,6 +1568,8 @@ class HeatmapAnnotation():
         for j, idx in enumerate(idxs):
             for i, ann in enumerate(self.annotations):
                 # print(i,j,ann.label)
+                #axis=1: left -> right, axis=0: bottom -> top.
+                # idx=idx[::-1] if self.axis==0 else idx #1 for cols, 0 for rows.
                 ann.reorder(idx)
                 gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
                 sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
@@ -1583,6 +1588,7 @@ class HeatmapAnnotation():
                     self.ax.spines['bottom'].set_visible(False)
                     self.axes[i, j] = ax1
                 else:
+                    ax1.invert_yaxis() # fix bug for inversed row order
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)
