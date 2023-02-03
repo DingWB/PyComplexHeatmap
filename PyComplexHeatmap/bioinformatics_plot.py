@@ -7,6 +7,94 @@ import matplotlib.pylab as plt
 import seaborn as sns
 import numpy as np
 
+def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsize=(4,6),
+             outname='test.pdf',title=''):
+    """
+    Plot barplot with text on the top of bar.
+    :param df:dataframe
+    :type df:pandas.DataFrame
+    :param x: x
+    :type x: string
+    :param y: y
+    :type y: string
+    :param hue: hue
+    :type hue: string
+    :param hue_order: hu_order
+    :type hue_order:
+    :param palette:
+    :type palette:
+    :param figsize:
+    :type figsize:
+    :param outname: output pdf filename
+    :type outname:
+    :param title:
+    :type title:
+    :return:
+    :rtype:
+    """
+    plt.figure(figsize=figsize)
+    ax = sns.barplot(data=df, x=x, y=y, hue=hue,
+                     hue_order=hue_order, palette=palette, dodge=False)
+    yticklabels = ax.axes.yaxis.get_majorticklabels()
+    for tick in yticklabels: #add text on the top of bar
+        pos = tick.get_position()
+        t = tick.get_text()
+        ax.text(x=0.02, y=pos[1] + 0.125, s=t, fontdict={'color': 'black'},
+                verticalalignment="center", horizontalalignment='left',
+                transform=ax.get_yaxis_transform())
+    ax.set_yticklabels([])
+    ax.grid(axis='x', which='major')
+    plt.title(title)
+    ax.figure.tight_layout()
+    plt.savefig(outname, bbox_inches='tight')
+
+def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
+            size=10,alpha=50,base_size=20,color='blue',cmap='Set1',
+            title='',figsize=(3,3.5),outname='test.pdf'):
+    if not hue is None:
+        hue_order=df[hue].unique().tolist() if hue_order is None else hue_order
+        color_dict={h:plt.get_cmap(cmap)(hue_order.index(h)) for h in hue_order}
+    else:
+        color_dict=None
+        hue_order=None
+    N=list(range(1,df.shape[0]+1))
+    s_min = np.nanmin(df[size].values)
+    delta_s = np.nanmax(df[size].values) - s_min
+    fig, ax = plt.subplots(figsize=figsize)
+    if not hue_order is None:
+        for c in hue_order:
+            idx=np.where(df[hue].values==c)[0]
+            s=df.iloc[idx][size].apply(lambda x:(x-s_min) / delta_s) * alpha + base_size if type(size)==str else size
+            color1=color_dict[c] if not color_dict is None else color
+            ax.scatter(x=df.iloc[idx][x].tolist(),y=[N[i] for i in idx],
+                       s=s,color=color1,label=c)
+    else:
+        s = df[size].apply(lambda x:(x-s_min) / delta_s) * alpha + base_size if type(size) == str else size
+        ax.scatter(x=df[x].tolist(), y=N,
+                   s=s, color=color, label=None)
+
+    ax.set_ylim([0,len(N)+0.8])
+    ax.set_xlabel(x)
+    ax.yaxis.set_major_locator(plt.FixedLocator(N))
+    ax.yaxis.set_major_formatter(plt.FixedFormatter(df[y].tolist()))
+    ax.set_yticklabels(labels=df[y].tolist())
+    ax.set_title(title)
+    ax.grid(color='gray',linestyle='--',alpha=0.5)
+    ax.tick_params(left=False,bottom=True,which='both')
+    lgnd=ax.legend(loc='best',scatterpoints=1,numpoints=1,handletextpad=0.1,
+                   labelspacing=0.3,  # Vertical space between labels
+                   fontsize=10,markerscale=1,frameon=True) #scatteryoffsets=[0.5],
+    try:
+        # lgnd.legendHandles[0]._sizes = [10,10,10]
+        # lgnd.legendHandles[1]._sizes = [10,10,10]
+        for m in lgnd.legendHandles:
+            m._legmarker.set_markersize(15)
+            m._sizes = [10]
+    except:
+        pass
+    fig.tight_layout()
+    fig.savefig(outname)
+
 def volcano_plot(data=None,x='log2(Fold change)',y='-log10(adjp)',
                  outname='output',title=None,hue='DEG',label='gene_name',
                  size='Size',sizes=(10, 80),xlabel='log2(Fold change)',ylabel='-log10(adjusted pvalue)',
