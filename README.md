@@ -28,7 +28,7 @@ python setup.py install
 ```
 2. **Install with pip**:
 ```shell
-pip install PyComplexHeatmap (TODO)
+pip install --ignore-installed PyComplexHeatmap
 ```
 
 ## **Usage**
