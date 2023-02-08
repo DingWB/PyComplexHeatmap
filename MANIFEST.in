@@ -1,0 +1,5 @@
+include *.py
+recursive-include notebooks *.ipynb 
+prune data 
+prune docs
+prune notebooks

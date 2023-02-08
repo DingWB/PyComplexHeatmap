@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0","matplotlib>=3.5.1","numpy>=1.20.3","pandas>=1.4.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyComplexHeatmap"
+version = "1.2.4"
+authors = [
+  { name="Wubin Ding", email="ding.wu.bin.gm@gmail.com" },
+]
+description = "A python package to plot complex heatmap"
+readme = "README.md"
+requires-python = ">=3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/DingWB/PyComplexHeatmap"
+"Bug Tracker" = "https://github.com/DingWB/PyComplexHeatmap/issues"
+
