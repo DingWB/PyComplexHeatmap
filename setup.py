@@ -17,17 +17,22 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
    name='PyComplexHeatmap',
-   version='1.2.2',
+   version='1.2.3',
    description='A Python package to plot complex heatmap',
    # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
    # long_description_content_type='text/markdown',
    author='Wubin Ding',
    author_email='ding.wu.bin.gm@gmail.com',
    url="https://github.com/DingWB/PyComplexHeatmap",
-   # packages=['PyComplexHeatmap'],
-   package_dir={'':'PyComplexHeatmap'},
-   packages=find_packages('PyComplexHeatmap'),
+   packages=['PyComplexHeatmap'],
+   # package_dir={'':'PyComplexHeatmap'},
+   # packages=find_packages('PyComplexHeatmap'),
    # install_requires=['matplotlib>=3.3.1','pandas'],
    data_files=[('Lib/site-packages/PyComplexHeatmap/data',['data/mammal_array.pkl'])]
    #scripts=['scripts/PyComplexHeatmap'],
 )
+
+#release new version
+# rm -rf dist && rm -rf PyComplexHeatmap/PyComplexHeatmap.egg-info/
+# python setup.py sdist bdist_wheel
+# twine upload dist/*
