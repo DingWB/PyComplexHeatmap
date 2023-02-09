@@ -7,16 +7,28 @@ Dependencies
 * `pandas`
 * `numpy`
 
-pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 
-Installing the latest code from github (recommended)
-------------------------------------------------------
-You can download and compile the latest code from github as follows ::
+How to install?
+----------------------
+1. **Install using pip**  ::
+
+    pip install PyComplexHeatmap
+    #or
+    pip install --ignore-installed PyComplexHeatmap
+
+2. **Install the developmental version directly from github**  ::
 
     pip install git+https://github.com/DingWB/PyComplexHeatmap
 
-or ::
+if you have installed it previously and want to update it, please run  ::
+
+    pip uninstall PyComplexHeatmap
+
+and install from github again
+
+OR ::
 
     git clone https://github.com/DingWB/PyComplexHeatmap
     cd PyComplexHeatmap
     python setup.py install
+
