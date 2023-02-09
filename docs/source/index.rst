@@ -13,6 +13,7 @@ PyComplexHeatmap
 
    installation
    documentation
+   advanced_usage
    modules
 
 Credits and Thanks

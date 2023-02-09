@@ -99,5 +99,7 @@ plt.show()
 
 ## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
-Or
+<br><br>
+https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb
+<br><br>
 https://dingwb.github.io/PyComplexHeatmap/build/html/documentation.html
