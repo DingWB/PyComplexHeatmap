@@ -3,6 +3,8 @@ PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Pleas
 
 ## Documentation:
 [https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap)
+PYPI:
+[https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
 
 ## Dependencies:
 - matplotlib>=3.4.3
@@ -51,24 +53,41 @@ df_bar = pd.DataFrame(np.random.uniform(0, 10, (10, 2)), columns=['TMB1', 'TMB2'
 df_bar.index = ['sample' + str(i) for i in range(1, df_box.shape[0] + 1)]
 df_scatter = pd.DataFrame(np.random.uniform(0, 10, 10), columns=['Scatter'])
 df_scatter.index = ['sample' + str(i) for i in range(1, df_box.shape[0] + 1)]
-df_heatmap = pd.DataFrame(np.random.randn(50, 10), columns=['sample' + str(i) for i in range(1, 11)])
+df_heatmap = pd.DataFrame(np.random.randn(30, 10), columns=['sample' + str(i) for i in range(1, 11)])
 df_heatmap.index = ["Fea" + str(i) for i in range(1, df_heatmap.shape[0] + 1)]
 df_heatmap.iloc[1, 2] = np.nan
 
-plt.figure(figsize=(6, 12))
+#Annotate the rows with average > 0.3
+df_rows = df_heatmap.apply(lambda x:x.name if x.sample4 > 0.5 else None,axis=1)
+df_rows=df_rows.to_frame(name='Selected')
+df_rows['XY']=df_rows.index.to_series().apply(lambda x:'A' if int(x.replace('Fea',''))>=15 else 'B')
+
+row_ha = HeatmapAnnotation(S4=anno_simple(df_heatmap.sample4.apply(lambda x:round(x,2)),
+                                           add_text=True,height=10,
+                                           text_kws={'rotation':0,'fontsize':10,'color':'black'}),
+                           # Scatter=anno_scatterplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
+                           #                  height=10),
+                           Test=anno_barplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
+                                            height=18,cmap='rainbow'),
+                           selected=anno_label(df_rows,colors='red'),
+                           axis=0,verbose=0)
+
 col_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True,rotation=15),
                            AB=anno_simple(df.AB,add_text=True),axis=1,
-                           CD=anno_simple(df.CD,add_text=True,colors={'C':'red','D':'green','G':'blue'},
+                           CD=anno_simple(df.CD,add_text=True),
+                           EF=anno_simple(df.EF,add_text=True,
                                             legend_kws={'frameon':False}),
                            Exp=anno_boxplot(df_box, cmap='turbo'),
-                           Gene1=anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={'vmin':0,'vmax':1}),
-                           Scatter=anno_scatterplot(df_scatter), 
-                           TMB_bar=anno_barplot(df_bar,legend_kws={'color_text':False,'labelcolor':'blue'}),
-                           )
-cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha, col_split=2, row_split=3, col_split_gap=0.5,
-                     row_split_gap=1,label='values',row_dendrogram=True,show_rownames=True,show_colnames=True,
-                     tree_kws={'row_cmap': 'Dark2'},legend_gap=8,legend_width=6)
-# cm.ax_heatmap.set_axis_off()
+                           verbose=0) #verbose=0 will turn off the log.
+
+plt.figure(figsize=(6, 8))
+cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=row_ha,
+                       col_split=df.AB,row_split=df_rows.XY, col_split_gap=0.5,row_split_gap=1,
+                       col_cluster=False,row_cluster=False,
+                       label='values',row_dendrogram=False,show_rownames=True,show_colnames=True,
+                         tree_kws={'row_cmap': 'Set1'},verbose=0,legend_gap=7,
+                       annot=True,linewidths=0.05,linecolor='gold',cmap='turbo',
+                      xticklabels_kws={'labelrotation':-45,'labelcolor':'blue'})
 plt.show()
 ```
 ### Example output
@@ -76,7 +95,6 @@ plt.show()
 ![image](docs/images/2.png)
 ![image](docs/images/3.png)
 ![image](docs/images/4.png)
-![image](docs/images/5.png)
 
 ## **More Examples**
 https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb

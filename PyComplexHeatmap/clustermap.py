@@ -447,6 +447,7 @@ class AnnotationBase():
         self._check_df(df)
         self.label = None
         self.ylim = None
+        self.color_dict=None
         self.nrows = self._n_rows()
         self.ncols = self._n_cols()
         self.height = self._height(height)
@@ -458,7 +459,6 @@ class AnnotationBase():
         if colors is None:
             self._check_cmap(cmap)  # add self.dtype, self.cmap (a dict)
             self._calculate_colors()  # modify self.plot_data, self.color_dict (each col is a dict)
-            self.colors = None
         else:
             self._check_colors(colors)
             self._calculate_cmap()  # modify self.plot_data, self.color_dict (each col is a dict)
@@ -556,6 +556,7 @@ class AnnotationBase():
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
             self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+        self.colors = None
 
     def _check_colors(self, colors):
         if isinstance(colors,str):
@@ -643,6 +644,7 @@ class anno_simple(AnnotationBase):
             cc_list = None
             self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
         self.cc_list = cc_list
+        self.colors=None
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
@@ -771,6 +773,7 @@ class anno_label(AnnotationBase):
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
             self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+        self.colors = None
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
@@ -916,15 +919,7 @@ class anno_boxplot(AnnotationBase):
             raise TypeError("cmap for boxplot should be a string")
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
-        self.color_dict = {}
-        col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256:
-            cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
-            for v in cc_list:
-                color = plt.get_cmap(self.cmap)(cc_list.index(v))
-                self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
-        else:  # float
-            self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+        self.colors = None
 
     def _check_colors(self, colors):
         if type(colors) == str:
@@ -932,10 +927,10 @@ class anno_boxplot(AnnotationBase):
         else:
             raise TypeError(
                 "Boxplot only support one string as colors now, if more colors are wanted, cmap can be specified.")
-        self.color_dict = None
 
     def _calculate_cmap(self):
-        self.color_dict = None
+        self.set_legend(False)
+        self.cmap=None
 
     def _type_specific_params(self):
         gap = self.df.max().max() - self.df.min().min()
@@ -1009,14 +1004,12 @@ class anno_barplot(anno_boxplot):
             raise TypeError("cmap for boxplot should be a string")
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
-        self.color_dict = {}
-        cols = self.df.columns.tolist()
-        if plt.get_cmap(self.cmap).N < 256:
-            for v in cols:
-                color = plt.get_cmap(self.cmap)(cols.index(v))
-                self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
-        else:  # float
-            self.color_dict = {v: plt.get_cmap(self.cmap)(cols.index(v)) for v in cols}
+        col_list = self.df.columns.tolist()
+        if len(col_list) >= 2: #more than two columns, colored by columns names
+            self.colors = [plt.get_cmap(self.cmap)(col_list.index(v)) for v in self.df.columns]
+        else: #only one column, colored by cols[0] values (float)
+            self.colors={v:plt.get_cmap(self.cmap)(v) for v in self.df[col_list[0]].values}
+            #dict, key is values in the first column, values are colors
 
     def _check_colors(self, colors):
         if not isinstance(colors, (list, str)):
@@ -1030,13 +1023,12 @@ class anno_barplot(anno_boxplot):
         else:
             raise ValueError(
                 "the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!")
-        self.color_dict = {}
-        for v, c in zip(self.df.columns.tolist(), self.colors):
-            self.color_dict[v] = c
 
     def _calculate_cmap(self):
-        cc_list = list(self.color_dict.keys())  # column values
-        self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        # cc_list = list(self.color_dict.keys())  # column values
+        # self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
+        self.cmap=None
+        self.set_legend(False)
 
     def _type_specific_params(self):
         if self.ncols > 1:
@@ -1055,17 +1047,16 @@ class anno_barplot(anno_boxplot):
         if ax is None:
             ax = plt.gca()
         fig = ax.figure
-        if self.colors is None:
-            col_list = self.plot_data.columns.tolist()
-            colors = [plt.get_cmap(self.cmap)(col_list.index(v)) for v in self.plot_data.columns]
-        else:  # self.colors is a list, length equal to the plot_data.shape[1]
-            colors = self.colors
         plot_kws=self.plot_kws.copy()
         grid = plot_kws.pop('grid',False)
         if grid:
             ax.grid(linestyle='--', zorder=-10)
         # bar_ct = ax.bar(x=list(range(1, self.nrows + 1,1)),
         #                 height=self.plot_data.values,**self.plot_kws)
+        if type(self.colors) == list:
+            colors=self.colors
+        else:
+            colors=[[matplotlib.colors.rgb2hex(self.colors[v]) for v in self.plot_data.iloc[:,0].values]]
         for col, color in zip(self.plot_data.columns, colors):
             if axis == 1:
                 ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
@@ -1119,14 +1110,17 @@ class anno_scatterplot(anno_barplot):
         else:
             raise TypeError("cmap for boxplot should be a string")
 
+    def _calculate_colors(self):  # add self.color_dict (each col is a dict)
+        self.colors=None
+
     def _check_colors(self, colors):
         if not isinstance(colors, str):
             raise TypeError("colors must be string for scatterplot, if more colors are neded, please try cmap!")
         self.colors = colors
-        self.color_dict = None
 
     def _calculate_cmap(self):
-        self._check_cmap('auto')
+        self.cmap=None
+        self.set_legend(False)
 
     def _type_specific_params(self):
         Max = self.df.values.max()
@@ -1406,12 +1400,6 @@ class HeatmapAnnotation():
         map_dict = {'right': 'left', 'left': 'right', 'top': 'bottom', 'bottom': 'top'}
         self.ticklabels_side = map_dict[self.label_side]
 
-        # self.label_kws.setdefault('fontsize', self.height * mm2inch * 72)
-        if self.axis == 1:
-            self.label_kws.setdefault('rotation', 0)
-        else:
-            self.label_kws.setdefault('rotation', 90)
-            self.ticklabels_kws.setdefault('labelrotation', 90)
         # label_kws: alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,fontweight,label,rasterized,
         # rotation,rotation_mode(default,anchor),visible, zorder,verticalalignment,horizontalalignment
 
@@ -1433,6 +1421,7 @@ class HeatmapAnnotation():
                     self.axes[i, -1].yaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 1 and self.label_side == 'right':
             self.ax.yaxis.tick_left()
+            self.label_kws.setdefault('rotation', 0)
             for i in range(self.axes.shape[0]):
                 self.axes[i, -1].yaxis.set_visible(True)
                 self.axes[i, -1].yaxis.label.set_visible(True)
@@ -1448,6 +1437,8 @@ class HeatmapAnnotation():
                     self.axes[i, 0].yaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 0 and self.label_side == 'top':
             self.ax.xaxis.tick_bottom()
+            self.label_kws.setdefault('rotation', 90)
+            self.ticklabels_kws.setdefault('labelrotation', -90)
             for j in range(self.axes.shape[1]):
                 self.axes[0, j].xaxis.set_visible(True)
                 self.axes[0, j].xaxis.label.set_visible(True)
@@ -1463,6 +1454,8 @@ class HeatmapAnnotation():
                     self.axes[-1, j].xaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 0 and self.label_side == 'bottom':
             self.ax.xaxis.tick_top()
+            self.label_kws.setdefault('rotation', -90)
+            self.ticklabels_kws.setdefault('labelrotation', -90)
             for j in range(self.axes.shape[1]):
                 self.axes[-1, j].xaxis.set_visible(True)
                 self.axes[-1, j].xaxis.label.set_visible(True)
@@ -1488,24 +1481,25 @@ class HeatmapAnnotation():
             print("Collecting annotation legends..")
         self.legend_list = []  # handles(dict) / cmap, title, kws
         for annotation in self.annotations:
+            if not annotation.legend:
+                continue
             legend_kws = annotation.legend_kws.copy()
-            if annotation.legend:
-                if plt.get_cmap(annotation.cmap).N < 256:
-                    color_dict = annotation.color_dict
-                    if color_dict is None:
-                        continue
-                    self.legend_list.append(
-                        [annotation.color_dict, annotation.label, legend_kws, len(annotation.color_dict)])
+            if annotation.cmap is None or plt.get_cmap(annotation.cmap).N < 256:
+                color_dict = annotation.color_dict
+                if color_dict is None:
+                    continue
+                self.legend_list.append(
+                    [annotation.color_dict, annotation.label, legend_kws, len(annotation.color_dict)])
+            else:
+                if annotation.df.shape[1] == 1:
+                    array = annotation.df.iloc[:, 0].values
                 else:
-                    if annotation.df.shape[1] == 1:
-                        array = annotation.df.iloc[:, 0].values
-                    else:
-                        array = annotation.df.values
-                    vmax = np.nanmax(array[array != np.inf])
-                    vmin = np.nanmin(array[array != -np.inf])
-                    legend_kws.setdefault('vmin', round(vmin, 2))
-                    legend_kws.setdefault('vmax', round(vmax, 2))
-                    self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
+                    array = annotation.df.values
+                vmax = np.nanmax(array)
+                vmin = np.nanmin(array)
+                legend_kws.setdefault('vmin', round(vmin, 2))
+                legend_kws.setdefault('vmax', round(vmax, 2))
+                self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4])
         if len(self.legend_list) > 1:
             self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
         self.label_max_width = max([ann.get_max_label_width() for ann in self.annotations])
