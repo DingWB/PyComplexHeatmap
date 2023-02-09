@@ -2,8 +2,9 @@
 PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/PyComplexHeatmap) for documentation.
 
 ## Documentation:
-[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap)
+[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) <br>
 PYPI:
+<br>
 [https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
 
 ## Dependencies:
@@ -15,7 +16,7 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 ```
 
 ## **Installation**
-1. **Install with pip**:
+1. **Install using pip**:
 ```shell
 pip install PyComplexHeatmap
 #or
