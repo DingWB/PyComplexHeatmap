@@ -396,7 +396,7 @@ div.rendered_html tbody tr:hover {
 <section id="Test-the-row-/-col-orders">
 <h1>Test the row / col orders<a class="headerlink" href="#Test-the-row-/-col-orders" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -412,7 +412,7 @@ div.rendered_html tbody tr:hover {
                            <span class="n">Test</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
                                             <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">),</span>
                            <span class="n">selected</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_rows</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span>
-                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">30</span><span class="p">})</span>
 
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
                            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -444,41 +444,41 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD EF         F
-sample1   AAAA1   C  E -1.066194
-sample2   AAAA1   C  E  0.222563
-sample3   AAAA1   C  E -0.766655
-sample4   AAAA1   D  E  0.362692
-sample5   AAAA1   D  E  0.432128
-sample6   BBBBB2  D  E  0.355385
-sample7   BBBBB2  G  F -2.230765
-sample8   BBBBB2  G  F -0.042400
-sample9   BBBBB2  G  H  0.604917
-sample10  BBBBB2  G  H -0.375563
+sample1   AAAA1   C  E -0.435894
+sample2   AAAA1   C  E  0.401062
+sample3   AAAA1   C  E  0.025747
+sample4   AAAA1   D  E  0.042680
+sample5   AAAA1   D  E  0.116748
+sample6   BBBBB2  D  E  0.546759
+sample7   BBBBB2  G  F -0.172889
+sample8   BBBBB2  G  F -0.684011
+sample9   BBBBB2  G  H  1.218797
+sample10  BBBBB2  G  H -1.181558
         sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1   0.377524  1.042137  0.167594  0.112653  1.490810  0.576173  0.747417
-Fea2  -0.103009  0.736578 NaN        1.241315 -0.839314  1.105615  0.829619
-Fea3  -0.048516  1.562930  0.762946  0.770039  0.068610 -0.643166  1.418119
-Fea4  -0.224980  1.374812 -1.869852  0.397168  0.881417  2.862045  0.598246
-Fea5   2.027537 -0.477692  0.783850  0.456097 -2.030103  0.140035  0.115027
+Fea1   2.310509  1.163711  0.554770  0.704120  0.039607 -0.340140  1.225034
+Fea2   0.104553 -0.922897 NaN       -0.907159  1.886579 -0.506412  0.092423
+Fea3  -1.131449 -0.100377  0.194432 -0.480500  1.766692  0.162166 -1.114485
+Fea4   0.522682 -0.959591  1.429624 -1.913445  1.161106 -1.334468  0.624638
+Fea5   0.552129  0.635001 -1.436391 -0.529352 -0.165155  0.515961  1.589784
 ...         ...       ...       ...       ...       ...       ...       ...
-Fea26  1.036110  0.400987  0.197572  0.098580  0.446622 -0.609736 -0.249180
-Fea27 -0.836596 -0.804235 -0.736559  0.686374  1.018331  0.316031 -0.547399
-Fea28  0.575798 -1.126923 -0.107520  1.459623  1.275457 -1.571781 -0.818917
-Fea29 -0.585390 -1.689800  0.524035  0.413463 -0.349397  0.267456 -1.108392
-Fea30 -1.494056 -0.953036  1.163182  0.724921 -0.051792 -0.118519 -1.768368
+Fea26 -0.728329  0.920248  0.115839  1.167786 -0.048162 -0.411418 -0.499543
+Fea27 -0.044001  1.220391  2.189192 -0.195690  0.642799  0.945098  0.905234
+Fea28 -0.836463 -0.220146 -0.972166  0.775959 -1.612789 -0.747306  0.705502
+Fea29 -1.185042  0.613059 -1.321073  0.903606 -0.212800  1.131088 -1.123088
+Fea30 -1.007635  0.456914 -1.062730 -2.284108  0.388160 -0.773514  1.396820
 
         sample8   sample9  sample10
-Fea1  -1.801798 -0.010270  1.346002
-Fea2  -0.836722 -0.817144 -0.689791
-Fea3  -0.185202  1.616145  0.839623
-Fea4   0.207335 -1.490372 -2.100577
-Fea5  -0.250925 -1.216994  0.266432
+Fea1   0.764127 -1.054719 -0.347983
+Fea2  -3.096844  0.554771  0.806322
+Fea3   1.206961  0.175367 -0.057130
+Fea4  -1.116360 -1.659853  1.056091
+Fea5   1.214669 -0.588256  0.106962
 ...         ...       ...       ...
-Fea26  0.786887  0.178191  1.110048
-Fea27 -1.054186 -1.509021  1.624916
-Fea28 -1.751770 -1.713678 -0.248271
-Fea29  0.814736 -0.045055  0.899815
-Fea30  0.930758  1.143577  0.950218
+Fea26  0.348598 -1.851479  0.441941
+Fea27 -1.284252  0.693320 -1.899762
+Fea28  0.668705 -0.209556  1.290237
+Fea29  0.075679 -2.243249  0.572863
+Fea30 -1.874503  0.687415 -1.975118
 
 [30 rows x 10 columns]
 </pre></div></div>
