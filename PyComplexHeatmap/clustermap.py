@@ -457,7 +457,7 @@ class AnnotationBase():
         self._set_default_plot_kws(plot_kws)
 
         if colors is None:
-            self._check_cmap(cmap)  # add self.dtype, self.cmap (a dict)
+            self._check_cmap(cmap)
             self._calculate_colors()  # modify self.plot_data, self.color_dict (each col is a dict)
         else:
             self._check_colors(colors)
@@ -597,14 +597,15 @@ class AnnotationBase():
         # self._set_default_plot_kws(self.plot_kws)
 
     def get_label_width(self):
-        return self.ax.yaxis.label.get_window_extent().width
+        return self.ax.yaxis.label.get_window_extent(renderer=self.ax.figure.canvas.get_renderer()).width #
 
     def get_ticklabel_width(self):
         yticklabels = self.ax.yaxis.get_ticklabels()
         if len(yticklabels) == 0:
             return 0
         else:
-            return max([label.get_window_extent().width for label in self.ax.yaxis.get_ticklabels()])
+            return max([label.get_window_extent(renderer=self.ax.figure.canvas.get_renderer()).width
+                        for label in self.ax.yaxis.get_ticklabels()])
 
     def get_max_label_width(self):
         return max([self.get_label_width(),self.get_ticklabel_width()])
@@ -693,7 +694,10 @@ class anno_simple(AnnotationBase):
             color = self.text_kws.pop('color', None)
             for x0, y0, t in zip(x, y, labels):
                 lum = _calculate_luminance(self.color_dict[t])
-                text_color = "black" if lum > 0.408 else "white"
+                if color is None:
+                    text_color = "black" if lum > 0.408 else "white"
+                else:
+                    text_color=color
                 # print(t,self.color_dict,text_color,color)
                 self.text_kws.setdefault('color', text_color)
                 ax.text(x0, y0, t,**self.text_kws)
@@ -910,7 +914,6 @@ class anno_boxplot(AnnotationBase):
         self.plot_kws.setdefault('widths', 0.5)
 
     def _check_cmap(self, cmap):
-        self.cmap = 'jet'
         if cmap == 'auto':
             self.cmap = 'jet'
         elif type(cmap) == str:
@@ -995,21 +998,29 @@ class anno_barplot(anno_boxplot):
         self.plot_kws.setdefault('zorder', 10)
 
     def _check_cmap(self, cmap):
-        self.cmap = 'jet' if self.ncols == 1 else 'Set1'
         if cmap == 'auto':
-            pass
-        elif type(cmap) == str:
-            self.cmap = cmap
+            if self.ncols == 1:
+                self.cmap = 'jet'
+            else:
+                self.cmap='Set1'
+        # print(cmap,self.cmap)
         else:
-            raise TypeError("cmap for boxplot should be a string")
+            self.cmap = cmap
+        if self.ncols >= 2 and plt.get_cmap(self.cmap).N >= 256:
+            raise TypeError("cmap for stacked barplot should not be continuous, you should try: Set1, Dark2 and so on.")
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         col_list = self.df.columns.tolist()
+        self.color_dict = {}
         if len(col_list) >= 2: #more than two columns, colored by columns names
             self.colors = [plt.get_cmap(self.cmap)(col_list.index(v)) for v in self.df.columns]
+            for v,color in zip(col_list,self.colors):
+                self.color_dict[v] = color
         else: #only one column, colored by cols[0] values (float)
-            self.colors={v:plt.get_cmap(self.cmap)(v) for v in self.df[col_list[0]].values}
-            #dict, key is values in the first column, values are colors
+            vmax,vmin=np.nanmax(self.df[col_list[0]].values),np.nanmin(self.df[col_list[0]].values)
+            delta=vmax-vmin
+            self.colors={v:matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap)((v-vmin)/delta)) for v in self.df[col_list[0]].values}
+            self.color_dict=None
 
     def _check_colors(self, colors):
         if not isinstance(colors, (list, str)):
@@ -1056,14 +1067,18 @@ class anno_barplot(anno_boxplot):
         if type(self.colors) == list:
             colors=self.colors
         else:
-            colors=[[matplotlib.colors.rgb2hex(self.colors[v]) for v in self.plot_data.iloc[:,0].values]]
+            colors=[[self.colors[v] for v in self.plot_data.iloc[:,0].values]]
+        base_coordinates=[0]*self.plot_data.shape[0]
         for col, color in zip(self.plot_data.columns, colors):
             if axis == 1:
                 ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-                ax.bar(x=np.arange(0.5, self.nrows, 1), height=self.plot_data[col].values, color=color, **plot_kws)
+                ax.bar(x=np.arange(0.5, self.nrows, 1), height=self.plot_data[col].values,
+                       bottom=base_coordinates,color=color, **plot_kws)
             else:
                 ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
-                ax.barh(y=np.arange(0.5, self.nrows, 1), width=self.plot_data[col].values, color=color, **plot_kws)
+                ax.barh(y=np.arange(0.5, self.nrows, 1), width=self.plot_data[col].values,
+                        left=base_coordinates,color=color, **plot_kws)
+            base_coordinates=self.plot_data[col].values + base_coordinates
         # for patch in ax.patches:
         #     patch.set_edgecolor(edgecolor)
         if axis == 0:
@@ -1211,6 +1226,15 @@ class HeatmapAnnotation():
     legend_width: width of the legend, default is 4.5[mm]
     legend_hpad: Horizonal space between heatmap and legend, default is 2 [mm].
     legend_vpad: Vertical space between top of ax and legend, default is 2 [mm].
+    orientation: up or down, when axis=1
+                left or right, when axis=0;
+                When anno_label shows up in annotation, the orientation would be automatically be assigned according
+                to the position of anno_label.
+    wspace: float, optional. The amount of width reserved for space between subplots, expressed as a fraction of the
+            average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.
+    hspace: float, optional
+        The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
+        If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params
     plot_legend : whether to plot legends.
     args : name-value pair, key is the annotation label (name), values can be a pandas dataframe,
         series, or annotation such as
@@ -1223,7 +1247,8 @@ class HeatmapAnnotation():
     """
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
-                 legend_gap=2, legend_width=4.5,legend_hpad=2,legend_vpad=5,
+                 legend_gap=2, legend_width=4.5,legend_hpad=2,legend_vpad=5,orientation='auto',
+                 wspace=0, hspace=0,
                  plot_legend=True,rasterized=False,verbose=1,**args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
@@ -1236,11 +1261,11 @@ class HeatmapAnnotation():
         self.axis = axis
         self.verbose=verbose
         self.label_side = label_side
-        self._set_label_kws(label_kws, ticklabels_kws)
         self.plot_kws = plot_kws if not plot_kws is None else {}
         self.args = args
         self._check_legend(legend)
         self.legend_side = legend_side
+        self.orientation=self._set_orentation(orientation)
         self.legend_gap = legend_gap
         self.legend_width = legend_width
         self.legend_hpad = legend_hpad
@@ -1256,8 +1281,9 @@ class HeatmapAnnotation():
         self._process_data()
         self._heights()
         self._nrows()
+        self._set_label_kws(label_kws, ticklabels_kws)
         if self.plot:
-            self.plot_annotations()
+            self.plot_annotations(wspace=wspace, hspace=hspace)
 
     def _check_df(self, df):
         if type(df) == list or isinstance(df, np.ndarray):
@@ -1367,13 +1393,26 @@ class HeatmapAnnotation():
                     if type(ann) == anno_label:
                         if self.axis == 1 and len(self.labels) == 0:
                             ann.set_side('top')
+                            self.orientation='up'
                         elif self.axis == 1:
                             ann.set_side('bottom')
+                            self.orientation = 'down'
                         elif self.axis == 0 and len(self.labels) == 0:
                             ann.set_side('left')
+                            self.orientation = 'left'
                         elif self.axis == 0:
                             ann.set_side('right')
+                            self.orientation = 'right'
                 self.labels.append(arg)
+
+    def _set_orentation(self,orientation):
+        if orientation=='auto':
+            if self.axis==1:
+                return 'up'
+            else: #horizonal
+                return 'right'
+        else:
+            return orientation
 
     def _heights(self):
         self.heights = [ann.height for ann in self.annotations]
@@ -1390,6 +1429,8 @@ class HeatmapAnnotation():
         # ha = 'left' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
         # va = 'bottom' if self.label_side == 'top' else 'top' if self.label_side == 'bottom' else 'center'
         ha,va='left','center'
+        if self.orientation=='right':
+            ha='right'
         self.label_kws.setdefault('horizontalalignment', ha)
         self.label_kws.setdefault('verticalalignment', va)
         if self.label_side in ['left', 'right'] and self.axis != 1:
@@ -1404,6 +1445,20 @@ class HeatmapAnnotation():
         # rotation,rotation_mode(default,anchor),visible, zorder,verticalalignment,horizontalalignment
 
     def set_axes_kws(self):
+        if self.orientation == 'left':
+            self.label_kws.setdefault('rotation', 90)
+            self.ticklabels_kws.setdefault('labelrotation', 90)
+        elif self.orientation == 'right':
+            self.label_kws.setdefault('rotation', -90)
+            self.ticklabels_kws.setdefault('labelrotation', -90)
+        elif self.orientation=='up':
+            self.label_kws.setdefault('rotation', 0)
+            self.ticklabels_kws.setdefault('labelrotation', 0)
+        else:
+            self.label_kws.setdefault('rotation', 0)
+            self.ticklabels_kws.setdefault('labelrotation', 0)
+
+
         if self.axis == 1 and self.label_side == 'left':
             self.ax.yaxis.tick_right()
             for i in range(self.axes.shape[0]):
@@ -1421,7 +1476,6 @@ class HeatmapAnnotation():
                     self.axes[i, -1].yaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 1 and self.label_side == 'right':
             self.ax.yaxis.tick_left()
-            self.label_kws.setdefault('rotation', 0)
             for i in range(self.axes.shape[0]):
                 self.axes[i, -1].yaxis.set_visible(True)
                 self.axes[i, -1].yaxis.label.set_visible(True)
@@ -1437,8 +1491,6 @@ class HeatmapAnnotation():
                     self.axes[i, 0].yaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 0 and self.label_side == 'top':
             self.ax.xaxis.tick_bottom()
-            self.label_kws.setdefault('rotation', 90)
-            self.ticklabels_kws.setdefault('labelrotation', -90)
             for j in range(self.axes.shape[1]):
                 self.axes[0, j].xaxis.set_visible(True)
                 self.axes[0, j].xaxis.label.set_visible(True)
@@ -1454,8 +1506,6 @@ class HeatmapAnnotation():
                     self.axes[-1, j].xaxis.set_tick_params(**self.ticklabels_kws)
         elif self.axis == 0 and self.label_side == 'bottom':
             self.ax.xaxis.tick_top()
-            self.label_kws.setdefault('rotation', -90)
-            self.ticklabels_kws.setdefault('labelrotation', -90)
             for j in range(self.axes.shape[1]):
                 self.axes[-1, j].xaxis.set_visible(True)
                 self.axes[-1, j].xaxis.label.set_visible(True)
@@ -1537,7 +1587,7 @@ class HeatmapAnnotation():
             width_ratios = [len(idx) for idx in idxs]
             wspace = gap * mm2inch * self.ax.figure.dpi / (
                     self.ax.get_window_extent().width / nrows) if wspace is None else wspace  # 1mm=mm2inch inch
-            hspace = 0
+            hspace = 0 if hspace is None else hspace #fraction of height
         else:
             nrows = len(idxs)
             ncols = len(self.heights)
@@ -1545,7 +1595,7 @@ class HeatmapAnnotation():
             height_ratios = [len(idx) for idx in idxs]
             hspace = gap * mm2inch * self.ax.figure.dpi / (
                         self.ax.get_window_extent().height / ncols) if hspace is None else hspace
-            wspace = 0
+            wspace = 0 if wspace is None else wspace #The amount of width reserved for space between subplots, expressed as a fraction of the average axis width
         if subplot_spec is None:
             self.gs = self.ax.figure.add_gridspec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                   height_ratios=height_ratios,
@@ -1581,13 +1631,19 @@ class HeatmapAnnotation():
                     self.ax.spines['top'].set_visible(False)
                     self.ax.spines['bottom'].set_visible(False)
                     self.axes[i, j] = ax1
-                else:
+                    if self.orientation == 'down':
+                        ax1.invert_yaxis()
+
+                else: #horizonal
                     ax1.invert_yaxis() # fix bug for inversed row order, invert yaxis for rows annotations.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)
                     self.ax.spines['right'].set_visible(False)
                     self.axes[j, i] = ax1
+                    if self.orientation == 'right':
+                        ax1.invert_xaxis()
+
         self.set_axes_kws()
         self.legend_list = None
         if self.plot and self.plot_legend:
@@ -2469,16 +2525,20 @@ class ClusterMapPlotter():
         self.plot_matrix(row_order=row_order, col_order=col_order)
         if not self.top_annotation is None:
             gs = self.gs[0, 1] if not self.col_dendrogram else self.top_gs[1, 0]
+            self.top_annotation._set_orentation('up')
             self.top_annotation.plot_annotations(ax=self.ax_top_annotation, subplot_spec=gs,
                                                  idxs=col_order, wspace=self.wspace)
         if not self.bottom_annotation is None:
+            self.bottom_annotation._set_orentation('down')
             self.bottom_annotation.plot_annotations(ax=self.ax_bottom_annotation, subplot_spec=self.gs[2, 1],
                                                     idxs=col_order, wspace=self.wspace)
         if not self.left_annotation is None:
             gs = self.gs[1, 0] if not self.row_dendrogram else self.left_gs[0, 1]
+            self.left_annotation._set_orentation('left')
             self.left_annotation.plot_annotations(ax=self.ax_left_annotation, subplot_spec=gs,
                                                   idxs=row_order, hspace=self.hspace)
         if not self.right_annotation is None:
+            self.right_annotation._set_orentation('right')
             self.right_annotation.plot_annotations(ax=self.ax_right_annotation, subplot_spec=self.gs[1, 2],
                                                    idxs=row_order, hspace=self.hspace)
         if self.row_cluster or self.col_cluster:
