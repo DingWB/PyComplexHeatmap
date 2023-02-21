@@ -1442,7 +1442,6 @@ class HeatmapAnnotation():
 
         map_dict = {'right': 'left', 'left': 'right', 'top': 'bottom', 'bottom': 'top'}
         self.ticklabels_side = map_dict[self.label_side]
-
         # label_kws: alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,fontweight,label,rasterized,
         # rotation,rotation_mode(default,anchor),visible, zorder,verticalalignment,horizontalalignment
 
@@ -1459,7 +1458,6 @@ class HeatmapAnnotation():
         else:
             self.label_kws.setdefault('rotation', 0)
             self.ticklabels_kws.setdefault('labelrotation', 0)
-
 
         if self.axis == 1 and self.label_side == 'left':
             self.ax.yaxis.tick_right()
@@ -1652,6 +1650,40 @@ class HeatmapAnnotation():
             self.plot_legends(ax=self.ax)
         # _draw_figure(self.ax.figure)
         return self.ax
+
+    def show_ticklabels(self,labels,**kwargs):
+        ha,va='left','center'
+        if self.axis==1:
+            ax=self.axes[-1, 0] if self.orientation=='up' else self.axes[0, 0]
+            rotation=-45 if self.orientation=='up' else 45
+            ax.xaxis.set_visible(True)
+            ax.xaxis.label.set_visible(True)
+            if self.orientation=='up':
+                ax.xaxis.set_ticks_position('bottom')
+                ax.tick_params(axis='both', which='both', bottom=True, labelbottom=True)
+            else:
+                ax.xaxis.set_ticks_position('top')
+                ax.tick_params(axis='both', which='both', top=True, labeltop=True)
+        else:
+            ax=self.axes[0, -1] if self.orientation=='left' else self.axes[0, 0]
+            rotation = 0
+            ax.yaxis.set_visible(True)
+            ax.yaxis.label.set_visible(True)
+            if self.orientation=='left':
+                ax.yaxis.set_ticks_position('right')
+                ax.tick_params(axis='both', which='both', right=True, labelright=True)
+            else:
+                ha = 'right'
+                ax.yaxis.set_ticks_position('left')
+                ax.tick_params(axis='both', which='both', left=True, labelleft=True)
+        kwargs.setdefault('rotation',rotation)
+        kwargs.setdefault('ha', ha)
+        kwargs.setdefault('va', va)
+        kwargs.setdefault('rotation_mode', 'anchor')
+        if self.axis==1:
+            ax.set_xticklabels(labels,**kwargs)
+        else:
+            ax.set_yticklabels(labels, **kwargs)
 
     def plot_legends(self, ax=None):
         """

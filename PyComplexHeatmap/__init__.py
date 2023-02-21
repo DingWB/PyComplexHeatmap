@@ -7,6 +7,6 @@ from .example import *
 from .bioinformatics_plot import *
 
 #__all__=['*']
-__version__='1.2.8'
+__version__='1.2.9'
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))

@@ -48,7 +48,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Import packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#2.-Generate-dataset">2. Generate dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#3.-Test-the-row-/-col-orders">3. Test the row / col orders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-Test-the-row-/-col-orders-&amp;-add-selected-rows-labels">3. Test the row / col orders &amp; add selected rows labels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#4.-Annotations">4. Annotations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Change-orentation-up-to-down-and-add-extra-space">Change orentation up to down and add extra space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Change-orentation-to-the-left">Change orentation to the left</a></li>
@@ -368,7 +368,7 @@ div.rendered_html tbody tr:hover {
 <section id="1.-Import-packages">
 <h1>1. Import packages<a class="headerlink" href="#1.-Import-packages" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -387,7 +387,7 @@ div.rendered_html tbody tr:hover {
 <section id="2.-Generate-dataset">
 <h1>2. Generate dataset<a class="headerlink" href="#2.-Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -409,10 +409,10 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </section>
-<section id="3.-Test-the-row-/-col-orders">
-<h1>3. Test the row / col orders<a class="headerlink" href="#3.-Test-the-row-/-col-orders" title="Permalink to this heading">¶</a></h1>
+<section id="3.-Test-the-row-/-col-orders-&amp;-add-selected-rows-labels">
+<h1>3. Test the row / col orders &amp; add selected rows labels<a class="headerlink" href="#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -460,41 +460,41 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD EF         F
-sample1   AAAA1   C  E  0.789822
-sample2   AAAA1   C  E -0.063811
-sample3   AAAA1   C  E  0.592615
-sample4   AAAA1   D  E -0.679272
-sample5   AAAA1   D  E  1.403821
-sample6   BBBBB2  D  E -0.096133
-sample7   BBBBB2  G  F  1.831855
-sample8   BBBBB2  G  F -1.423797
-sample9   BBBBB2  G  H  1.615732
-sample10  BBBBB2  G  H  0.041674
+sample1   AAAA1   C  E  0.299367
+sample2   AAAA1   C  E -0.052473
+sample3   AAAA1   C  E  0.251179
+sample4   AAAA1   D  E -1.175215
+sample5   AAAA1   D  E  0.405932
+sample6   BBBBB2  D  E -1.341374
+sample7   BBBBB2  G  F -1.331531
+sample8   BBBBB2  G  F  0.735923
+sample9   BBBBB2  G  H -2.465146
+sample10  BBBBB2  G  H  0.507949
         sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1  -0.051749 -0.181459  0.428928  0.167069  0.095187 -0.568142 -0.427740
-Fea2  -0.352884  1.624472 NaN       -0.149647  0.062758  0.119744  0.535933
-Fea3   0.623066 -0.262778 -0.846886 -0.609403 -0.666626  0.085930  1.246012
-Fea4   0.554296  0.813476 -0.067636  0.001779  0.962403 -1.084942  1.112292
-Fea5  -1.752235 -0.466717 -0.568554 -0.090432  1.017929 -0.541207 -1.281126
+Fea1  -0.456760  1.580618 -0.489675  0.095369 -0.158437  1.103190  0.592154
+Fea2  -0.094979  0.138353 NaN        2.213531 -0.961420 -0.386626 -0.960878
+Fea3  -0.952226 -0.530208 -0.194840 -0.493026  0.211169 -0.026778  1.087161
+Fea4  -0.642209 -0.748136  0.129770  0.182437 -0.567871  0.508126  1.380902
+Fea5  -0.760488  0.742710  1.464890 -0.028909  0.373497  0.760429 -0.952305
 ...         ...       ...       ...       ...       ...       ...       ...
-Fea26 -2.122295  0.306212  0.453372 -0.298459 -0.196283 -0.331296  1.157015
-Fea27  1.408802 -0.146584 -1.721405  0.534622 -0.805450 -0.365778 -1.179158
-Fea28  0.550006  0.210916 -0.190429 -1.828238 -0.146193  0.600532  1.261772
-Fea29  0.249783  1.241222 -1.404708 -0.140426 -1.398396  0.318956  1.005826
-Fea30  2.070531  0.747421 -2.614515  0.509792 -0.359541 -1.011695 -0.406266
+Fea26  0.817457  2.207966 -0.180038  0.444098  2.028802 -0.949609 -0.456878
+Fea27  0.650234 -1.134548  0.375023 -0.056584  0.842457  0.476294  0.538580
+Fea28  1.461395 -1.821565  0.789871  0.877719  1.153275  0.574699  0.016418
+Fea29  1.091496  2.018114  1.191340  0.166850  1.496450  0.291614  0.646501
+Fea30  1.552100 -1.336559  0.226100 -0.092331  0.543022 -0.075431  0.886040
 
         sample8   sample9  sample10
-Fea1   0.919155  0.462636 -0.824912
-Fea2   0.064845  0.283623  0.348934
-Fea3  -0.052734 -0.428177 -1.413428
-Fea4  -1.375629 -0.050303 -1.664443
-Fea5   0.560435 -1.626801  0.206465
+Fea1   0.368212  0.231382  0.659326
+Fea2  -2.026009 -0.247689  0.309194
+Fea3  -0.916557  0.389199 -0.460438
+Fea4   0.565332  0.301815 -1.804070
+Fea5  -0.215641 -0.095578 -0.859947
 ...         ...       ...       ...
-Fea26 -0.979226  0.828975 -1.431854
-Fea27  0.389308  0.244652  0.924343
-Fea28  0.331267 -1.222962  0.406116
-Fea29  1.340667  2.151128  1.704875
-Fea30 -0.690614 -1.777628 -0.728749
+Fea26  0.219016 -0.349363  0.132106
+Fea27  2.264563  1.314533  0.695531
+Fea28 -0.387247 -0.237336  0.562956
+Fea29 -0.951950  0.072770 -0.427485
+Fea30 -0.274907 -0.265382 -0.628526
 
 [30 rows x 10 columns]
 </pre></div></div>
@@ -516,7 +516,7 @@ Fea30 -0.690614 -1.777628 -0.728749
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -524,24 +524,24 @@ Fea30 -0.690614 -1.777628 -0.728749
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 count    30.000000
-mean    -0.168667
-std      0.790005
-min     -1.990000
-25%     -0.547500
-50%     -0.085000
-75%      0.302500
-max      1.380000
+mean     0.095000
+std      0.871201
+min     -1.640000
+25%     -0.587500
+50%      0.085000
+75%      0.440000
+max      2.210000
 Name: sample4, dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rows</span>
@@ -549,7 +549,7 @@ Name: sample4, dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -583,7 +583,7 @@ Name: sample4, dtype: float64
     </tr>
     <tr>
       <th>Fea2</th>
-      <td>None</td>
+      <td>Fea2</td>
       <td>B</td>
     </tr>
     <tr>
@@ -613,12 +613,12 @@ Name: sample4, dtype: float64
     </tr>
     <tr>
       <th>Fea27</th>
-      <td>Fea27</td>
+      <td>None</td>
       <td>A</td>
     </tr>
     <tr>
       <th>Fea28</th>
-      <td>None</td>
+      <td>Fea28</td>
       <td>A</td>
     </tr>
     <tr>
@@ -628,7 +628,7 @@ Name: sample4, dtype: float64
     </tr>
     <tr>
       <th>Fea30</th>
-      <td>Fea30</td>
+      <td>None</td>
       <td>A</td>
     </tr>
   </tbody>
@@ -640,7 +640,7 @@ Name: sample4, dtype: float64
 <section id="4.-Annotations">
 <h1>4. Annotations<a class="headerlink" href="#4.-Annotations" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -680,97 +680,97 @@ Name: sample4, dtype: float64
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1   AAAA1   C -0.232123
-sample2   AAAA1   C -0.725290
-sample3   AAAA1   C -1.464326
-sample4   AAAA1   D -1.246578
-sample5   AAAA1   D -0.656049
-sample6   BBBBB2  D  1.262483
-sample7   BBBBB2  G  0.523230
-sample8   BBBBB2  G -1.703436
-sample9   BBBBB2  G  0.268474
-sample10  BBBBB2  G -0.508742
+sample1   AAAA1   C  0.381385
+sample2   AAAA1   C  1.021481
+sample3   AAAA1   C  0.961558
+sample4   AAAA1   D  1.689047
+sample5   AAAA1   D -0.131397
+sample6   BBBBB2  D  1.503608
+sample7   BBBBB2  G -0.976603
+sample8   BBBBB2  G  0.473886
+sample9   BBBBB2  G  2.806945
+sample10  BBBBB2  G -0.843349
              Gene1     Gene2     Gene3     Gene4
-sample1  -0.910478  0.782070  0.197466  1.209410
-sample2   0.701697 -1.713081  0.567395  1.573213
-sample3   0.826938 -1.030664  0.985109  1.740428
-sample4   1.152541 -0.170962 -0.472637 -0.528111
-sample5  -1.257527 -0.277871 -0.762226 -1.283438
-sample6   0.253551 -0.771150  1.707982  0.877380
-sample7  -0.901658 -0.341276  0.714214  1.066635
-sample8   1.720908 -0.973708  0.321057 -0.875418
-sample9   0.073808  0.103307  2.231106 -0.291701
-sample10 -0.722755 -0.183132  1.252898  0.794899
+sample1  -1.486999 -1.368126 -0.134294 -0.772700
+sample2   0.138914  0.701307  0.687732 -0.328347
+sample3  -0.395709  1.304607  0.626011 -0.005954
+sample4   0.862664 -1.073861  0.516769  0.404080
+sample5   0.796209 -0.071570 -0.799945 -0.030286
+sample6  -0.372741 -0.314468  0.562456  1.416955
+sample7   0.031781  1.695623  0.208037  1.466644
+sample8   0.091779 -0.801812 -0.245217 -0.516463
+sample9  -0.509927 -0.656868  0.556737 -0.893318
+sample10  1.222950 -1.055742  0.165139  1.330050
            Scatter
-sample1   1.434116
-sample2   6.299403
-sample3   9.488409
-sample4   5.378487
-sample5   5.413782
-sample6   2.066815
-sample7   3.161119
-sample8   5.268858
-sample9   7.607526
-sample10  9.159757
+sample1   0.517079
+sample2   5.213137
+sample3   8.653563
+sample4   7.960813
+sample5   3.934282
+sample6   5.623783
+sample7   3.512702
+sample8   7.078019
+sample9   3.638065
+sample10  4.350370
               TMB1      TMB2
-sample1   3.503708  1.301157
-sample2   3.130744  1.683021
-sample3   2.397644  5.051415
-sample4   5.702794  7.369454
-sample5   8.210540  4.517268
-sample6   8.256741  1.945684
-sample7   4.223839  4.876173
-sample8   8.392207  4.740023
-sample9   9.572569  7.882115
-sample10  6.875430  3.553811
+sample1   6.312932  9.644140
+sample2   7.041524  2.282783
+sample3   2.713151  8.692210
+sample4   8.496653  4.814396
+sample5   4.430226  8.502831
+sample6   5.498868  1.356566
+sample7   9.297762  4.531718
+sample8   2.131715  4.682035
+sample9   3.507667  5.653972
+sample10  0.519501  8.367066
               T1-A      T1-B
-sample1   7.092474  7.835273
-sample2   1.065317  4.539157
-sample3   0.518362  8.091679
-sample4   1.283831  0.276262
-sample5   3.363404  9.982690
-sample6   7.822690  0.582971
-sample7   3.786088  4.615722
-sample8   4.551813  4.814744
-sample9   3.466271  8.841944
-sample10  1.989867  0.948226
+sample1   1.751719  8.970106
+sample2   1.416421  6.444852
+sample3   6.559221  9.551992
+sample4   7.599833  9.861557
+sample5   2.107869  4.800863
+sample6   1.151285  0.638946
+sample7   4.797460  8.889223
+sample8   1.549167  8.684606
+sample9   1.502671  4.832631
+sample10  7.291665  6.057634
               T2-A      T2-B
-sample1   8.096810  3.171262
-sample2   8.715679  8.612637
-sample3   4.740732  3.959458
-sample4   6.466656  9.539448
-sample5   4.294824  4.374996
-sample6   4.521930  6.991315
-sample7   1.017120  3.762922
-sample8   1.480161  1.559038
-sample9   4.317231  1.215614
-sample10  1.649229  6.787209
+sample1   4.412108  3.795240
+sample2   9.532288  6.406372
+sample3   8.945168  5.290350
+sample4   4.886787  9.018135
+sample5   3.602216  9.660829
+sample6   7.937971  9.764168
+sample7   9.330662  2.651221
+sample8   4.205168  1.404924
+sample9   6.320215  3.730945
+sample10  6.253131  9.354102
               T3-A      T3-B
-sample1   3.396131  3.603998
-sample2   0.221003  4.850764
-sample3   9.074614  8.313654
-sample4   0.842341  1.989791
-sample5   6.242432  4.375408
-sample6  NaN        3.544733
-sample7   6.423668  0.668220
-sample8   4.703689  0.336774
-sample9   3.043159  5.295416
-sample10  5.851372  8.383305
+sample1   5.737873  2.845108
+sample2   5.985641  8.294189
+sample3   5.193931  5.782751
+sample4   0.655065  4.273939
+sample5   5.296778  7.702083
+sample6  NaN        6.076261
+sample7   5.420474  8.232974
+sample8   1.082470  3.793429
+sample9   8.338395  4.047187
+sample10  0.554020  3.098205
                 T4
-sample1   0.627658
-sample2   6.758487
-sample3   5.419808
-sample4   7.225845
-sample5   9.008437
-sample6   6.255853
-sample7   3.405169
+sample1   3.977350
+sample2   7.734549
+sample3   7.187650
+sample4   5.514321
+sample5   5.188409
+sample6   0.253446
+sample7   9.023671
 sample8  NaN
-sample9   8.915362
-sample10  5.417319
+sample9   0.414266
+sample10  0.593467
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -784,8 +784,8 @@ sample10  5.417319
                            <span class="n">Bar4</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
                            <span class="n">Bar2</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">),</span>
                            <span class="n">Bar3</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar3</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">),</span>
-                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span>
-                            <span class="p">)</span>
+                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">col_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=-</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -809,7 +809,7 @@ Collecting annotation legends..
 <section id="Change-orentation-up-to-down-and-add-extra-space">
 <h2>Change orentation up to down and add extra space<a class="headerlink" href="#Change-orentation-up-to-down-and-add-extra-space" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -827,6 +827,7 @@ Collecting annotation legends..
                             <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=-</span><span class="mi">15</span><span class="p">),</span>
                            <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">plot_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span>
                             <span class="p">)</span>
+<span class="n">row_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1"># Here, we can use hspace (when axis=1) or wspace (when axis=0) to control the widh of height space between different annotations.</span>
 </pre></div>
@@ -851,11 +852,11 @@ Starting plotting HeatmapAnnotations
 <section id="Change-orentation-to-the-left">
 <h2>Change orentation to the left<a class="headerlink" href="#Change-orentation-to-the-left" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
+<span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
                             <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                             <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                             <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -865,8 +866,10 @@ Starting plotting HeatmapAnnotations
                            <span class="n">Bar4</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
                            <span class="n">Bar2</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">),</span>
                            <span class="n">Bar3</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar3</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">),</span>
-                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span>
+                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">20</span>
                             <span class="p">)</span>
+<span class="n">row_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -880,6 +883,7 @@ Starting plotting HeatmapAnnotations
 Collecting annotation legends..
 Incresing ncol
 Incresing ncol
+Incresing ncol
 More than 3 cols is not supported
 Legend too long, generating a new column..
 </pre></div></div>
@@ -891,11 +895,28 @@ Legend too long, generating a new column..
 <img alt="../_images/notebooks_advanced_usage_14_1.png" src="../_images/notebooks_advanced_usage_14_1.png" />
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Text(0.0, 0, &#39;0&#39;), Text(10.0, 0, &#39;10&#39;), Text(20.0, 0, &#39;20&#39;)]
+</pre></div></div>
+</div>
 </section>
 <section id="Change-orentation-to-the-right">
 <h2>Change orentation to the right<a class="headerlink" href="#Change-orentation-to-the-right" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -911,8 +932,9 @@ Legend too long, generating a new column..
                                            <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">}),</span>
                             <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
                             <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
-                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
                             <span class="p">)</span>
+<span class="n">row_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -926,6 +948,7 @@ Starting plotting HeatmapAnnotations
 Collecting annotation legends..
 Incresing ncol
 Incresing ncol
+Incresing ncol
 More than 3 cols is not supported
 Legend too long, generating a new column..
 </pre></div></div>
@@ -934,7 +957,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_16_1.png" src="../_images/notebooks_advanced_usage_16_1.png" />
+<img alt="../_images/notebooks_advanced_usage_17_1.png" src="../_images/notebooks_advanced_usage_17_1.png" />
 </div>
 </div>
 </section>
@@ -942,7 +965,7 @@ Legend too long, generating a new column..
 <h2>Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code><a class="headerlink" href="#Changing-orientation-using-parameter-orientation" title="Permalink to this heading">¶</a></h2>
 <p>By Default, if there is no <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> in the annotation, the oriention would be <code class="docutils literal notranslate"><span class="pre">right</span></code> for <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> and <code class="docutils literal notranslate"><span class="pre">up</span></code> for <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -956,7 +979,8 @@ Legend too long, generating a new column..
                            <span class="n">Bar4</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
                            <span class="n">Bar2</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">),</span>
                            <span class="n">Bar3</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar3</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">),</span>
-                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                             <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -971,6 +995,7 @@ Starting plotting HeatmapAnnotations
 Collecting annotation legends..
 Incresing ncol
 Incresing ncol
+Incresing ncol
 More than 3 cols is not supported
 Legend too long, generating a new column..
 </pre></div></div>
@@ -979,7 +1004,15 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_18_1.png" src="../_images/notebooks_advanced_usage_18_1.png" />
+<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
