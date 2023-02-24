@@ -17,54 +17,37 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
                dot_legend_kws={},cmap_legend_kws={},**kwargs):
     """
     Plot dot heatmap using different columns of dataframe `data`.
-    :param data: a dataframe containing multiple columns.
-    :type data: padnas.DataFrame.
-    :param x: column name in data.columns, used to show on the xaxis of dot heatmap.
-    :type x: string.
-    :param y:column name in data.columns, used to show on the yaxis of dot heatmap.
-    :type y:string.
-    :param value: column name in data.columns, used to control the color and size of dot.
-    :type value: string.
-    :param hue: column name in data.columns, used to control the color and cmap of dot.
-    :type hue: string.
-    :param row_order:  row order should be the order of values in data[y].values
-    :type row_order: list.
-    :param col_order: col order should be the order of values in data[x].values
-    :type col_order: list.
-    :param colors: a string or dict do control the colors of dot, could be used with hue, default is None.
-    :type colors: string or dict.
-    :param cmap: string or dict, cmap to control the color of dot, could be used together with hue and colors.
-    :type cmap: string or dict.
-    :param ax: axes
-    :type ax:
-    :param show_rownames: whether to show row names, default is True.
-    :type show_rownames: bool
-    :param show_colnames: whether to show col names, default is True.
-    :type show_colnames: bool
-    :param plot_legend: whether to plot legend, default is True.
-    :type plot_legend: bool.
-    :param legend_side: legend side, default is right.
-    :type legend_side: string.
-    :param label_side: label side of y tick labels, default is left.
-    :type label_side: string.
-    :param legend_hpad: horizonal pad between legend and main figure.
-    :type legend_hpad: float [mm].
-    :param legend_width: width of legend.
-    :type legend_width: float [mm].
-    :param legend_vpad: vertical pad between legend and the top of main figure.
-    :type legend_vpad: float [mm]
-    :param legend_gap: ertical gap between two legends.
-    :type legend_gap: float [mm].
-    :param color_legend_kws: legend_kws passed to `plot_color_dict_legend`.
-    :type color_legend_kws: dict.
-    :param dot_legend_kws: legend_kws passed to `plot_marker_legend`.
-    :type dot_legend_kws: dict.
-    :param cmap_legend_kws: legend_kws passed to `plot_cmap_legend`.
-    :type cmap_legend_kws: dict.
-    :param kwargs: others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.
-    :type kwargs: key-value pairs.
-    :return: ax
-    :rtype:
+
+    Parameters
+    ----------
+    data : a dataframe containing multiple columns.
+    x : column name in data.columns, used to show on the xaxis of dot heatmap.
+    y : column name in data.columns, used to show on the yaxis of dot heatmap.
+    value : column name in data.columns, used to control the color and size of dot.
+    hue : column name in data.columns, used to control the color and cmap of dot.
+    row_order : list, row order should be the order of values in data[y].values
+    col_order : list, col order should be the order of values in data[x].values
+    colors : a string or dict do control the colors of dot, could be used with hue, default is None.
+    cmap : string or dict, cmap to control the color of dot, could be used together with hue and colors.
+    ax : ax
+    show_rownames : whether to show row names, default is True.
+    show_colnames : whether to show col names, default is True.
+    plot_legend : whether to plot legend, default is True.
+    legend_side : legend side, default is right.
+    label_side : label side of y tick labels, default is left.
+    legend_hpad : horizonal pad between legend and main figure.
+    legend_width : width of legend.
+    legend_vpad : vertical pad between legend and the top of main figure.
+    legend_gap : vertical gap between two legends.
+    color_legend_kws : legend_kws passed to `plot_color_dict_legend`.
+    dot_legend_kws : legend_kws passed to `plot_marker_legend`.
+    cmap_legend_kws : legend_kws passed to `plot_cmap_legend`.
+    kwargs : others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.
+
+    Returns
+    -------
+
+    ax
     """
     marker = kwargs.get('marker', 'o')  # https://matplotlib.org/stable/api/markers_api.html#module-matplotlib.markers
     color_dict=None

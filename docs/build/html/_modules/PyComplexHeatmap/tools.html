@@ -83,26 +83,22 @@
              <span class="n">outname</span><span class="o">=</span><span class="s1">&#39;test.pdf&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot barplot with text on the top of bar.</span>
-<span class="sd">    :param df:dataframe</span>
-<span class="sd">    :type df:pandas.DataFrame</span>
-<span class="sd">    :param x: x</span>
-<span class="sd">    :type x: string</span>
-<span class="sd">    :param y: y</span>
-<span class="sd">    :type y: string</span>
-<span class="sd">    :param hue: hue</span>
-<span class="sd">    :type hue: string</span>
-<span class="sd">    :param hue_order: hu_order</span>
-<span class="sd">    :type hue_order:</span>
-<span class="sd">    :param palette:</span>
-<span class="sd">    :type palette:</span>
-<span class="sd">    :param figsize:</span>
-<span class="sd">    :type figsize:</span>
-<span class="sd">    :param outname: output pdf filename</span>
-<span class="sd">    :type outname:</span>
-<span class="sd">    :param title:</span>
-<span class="sd">    :type title:</span>
-<span class="sd">    :return:</span>
-<span class="sd">    :rtype:</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : dataframe</span>
+<span class="sd">    x : x</span>
+<span class="sd">    y : y</span>
+<span class="sd">    hue : hue</span>
+<span class="sd">    hue_order : order for hue</span>
+<span class="sd">    palette : palette</span>
+<span class="sd">    figsize : figsize</span>
+<span class="sd">    outname : output pdf filename</span>
+<span class="sd">    title : title</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">hue</span><span class="p">,</span>
@@ -123,6 +119,27 @@
 <div class="viewcode-block" id="dotplot"><a class="viewcode-back" href="../../PyComplexHeatmap.html#PyComplexHeatmap.tools.dotplot">[docs]</a><span class="k">def</span> <span class="nf">dotplot</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">hue_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">3.5</span><span class="p">),</span><span class="n">outname</span><span class="o">=</span><span class="s1">&#39;test.pdf&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot dot plot for enrichment analysis and other kind of usage.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : dataframe</span>
+<span class="sd">    x : x</span>
+<span class="sd">    y : y</span>
+<span class="sd">    hue : hue</span>
+<span class="sd">    hue_order : order for hue.</span>
+<span class="sd">    size : column names used for size or float.</span>
+<span class="sd">    color : color</span>
+<span class="sd">    cmap : cmap</span>
+<span class="sd">    title : title</span>
+<span class="sd">    figsize : figsize</span>
+<span class="sd">    outname : output name</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">hue_order</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">hue</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="n">hue_order</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">hue_order</span>
         <span class="n">color_dict</span><span class="o">=</span><span class="p">{</span><span class="n">h</span><span class="p">:</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)(</span><span class="n">hue_order</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">h</span><span class="p">))</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hue_order</span><span class="p">}</span>
@@ -134,7 +151,7 @@
     <span class="n">delta_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">size</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="n">s_min</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_order</span><span class="p">),</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">hue_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">hue_order</span><span class="p">:</span>
             <span class="n">idx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">hue</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">==</span><span class="n">c</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -175,6 +192,34 @@
                  <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Upregulated&#39;</span><span class="p">,</span><span class="s1">&#39;Not.Sig&#39;</span><span class="p">,</span><span class="s1">&#39;Downregulated&#39;</span><span class="p">],</span>
                   <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span><span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">x_unit</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">y_unit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                   <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">xlabel_rotate</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot volcano plot</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data :</span>
+<span class="sd">    x :</span>
+<span class="sd">    y :</span>
+<span class="sd">    outname :</span>
+<span class="sd">    title :</span>
+<span class="sd">    hue :</span>
+<span class="sd">    label :</span>
+<span class="sd">    size :</span>
+<span class="sd">    sizes :</span>
+<span class="sd">    xlabel :</span>
+<span class="sd">    ylabel :</span>
+<span class="sd">    rasterized :</span>
+<span class="sd">    hue_order :</span>
+<span class="sd">    colors :</span>
+<span class="sd">    topn :</span>
+<span class="sd">    x_unit :</span>
+<span class="sd">    y_unit :</span>
+<span class="sd">    figsize :</span>
+<span class="sd">    xlabel_rotate :</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">AutoMinorLocator</span><span class="p">,</span> <span class="n">MultipleLocator</span><span class="p">,</span> <span class="n">FuncFormatter</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">hue</span><span class="p">,</span>

@@ -11,26 +11,22 @@ def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsiz
              outname='test.pdf',title=''):
     """
     Plot barplot with text on the top of bar.
-    :param df:dataframe
-    :type df:pandas.DataFrame
-    :param x: x
-    :type x: string
-    :param y: y
-    :type y: string
-    :param hue: hue
-    :type hue: string
-    :param hue_order: hu_order
-    :type hue_order:
-    :param palette:
-    :type palette:
-    :param figsize:
-    :type figsize:
-    :param outname: output pdf filename
-    :type outname:
-    :param title:
-    :type title:
-    :return:
-    :rtype:
+
+    Parameters
+    ----------
+    df : dataframe
+    x : x
+    y : y
+    hue : hue
+    hue_order : order for hue
+    palette : palette
+    figsize : figsize
+    outname : output pdf filename
+    title : title
+
+    Returns
+    -------
+
     """
     plt.figure(figsize=figsize)
     ax = sns.barplot(data=df, x=x, y=y, hue=hue,
@@ -51,6 +47,27 @@ def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsiz
 def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
             size=10,color='blue',cmap='Set1',
             title='',figsize=(3,3.5),outname='test.pdf'):
+    """
+    Plot dot plot for enrichment analysis and other kind of usage.
+
+    Parameters
+    ----------
+    df : dataframe
+    x : x
+    y : y
+    hue : hue
+    hue_order : order for hue.
+    size : column names used for size or float.
+    color : color
+    cmap : cmap
+    title : title
+    figsize : figsize
+    outname : output name
+
+    Returns
+    -------
+
+    """
     if not hue is None:
         hue_order=df[hue].unique().tolist() if hue_order is None else hue_order
         color_dict={h:plt.get_cmap(cmap)(hue_order.index(h)) for h in hue_order}
@@ -62,7 +79,7 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     delta_s = np.nanmax(df[size].values) - s_min
     fig, ax = plt.subplots(figsize=figsize)
     w, h = ax.get_window_extent().width / ax.figure.dpi, ax.get_window_extent().height / ax.figure.dpi
-    r = min(w * 72 / len(col_order), h * 72 / len(row_order))
+    r = min(w * 72 / len(df.shape[1]), h * 72 / len(df.shape[0]))
     if not hue_order is None:
         for c in hue_order:
             idx=np.where(df[hue].values==c)[0]
@@ -103,6 +120,34 @@ def volcano_plot(data=None,x='log2(Fold change)',y='-log10(adjp)',
                  rasterized=True,hue_order=['Upregulated','Not.Sig','Downregulated'],
                   colors=['red', 'grey', 'blue'],topn=10,x_unit=0.5,y_unit=5,
                   figsize=(5,7),xlabel_rotate=90):
+    """
+    Plot volcano plot
+    Parameters
+    ----------
+    data :
+    x :
+    y :
+    outname :
+    title :
+    hue :
+    label :
+    size :
+    sizes :
+    xlabel :
+    ylabel :
+    rasterized :
+    hue_order :
+    colors :
+    topn :
+    x_unit :
+    y_unit :
+    figsize :
+    xlabel_rotate :
+
+    Returns
+    -------
+
+    """
     from matplotlib.ticker import AutoMinorLocator, MultipleLocator, FuncFormatter
     plt.figure(figsize=figsize)
     ax = sns.scatterplot(data=data, x=x, y=y, hue=hue,
