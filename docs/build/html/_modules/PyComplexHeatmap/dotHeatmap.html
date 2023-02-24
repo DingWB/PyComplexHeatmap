@@ -87,6 +87,57 @@
                <span class="n">legend_hpad</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                <span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">color_legend_kws</span><span class="o">=</span><span class="p">{},</span>
                <span class="n">dot_legend_kws</span><span class="o">=</span><span class="p">{},</span><span class="n">cmap_legend_kws</span><span class="o">=</span><span class="p">{},</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot dot heatmap using different columns of dataframe `data`.</span>
+<span class="sd">    :param data: a dataframe containing multiple columns.</span>
+<span class="sd">    :type data: padnas.DataFrame.</span>
+<span class="sd">    :param x: column name in data.columns, used to show on the xaxis of dot heatmap.</span>
+<span class="sd">    :type x: string.</span>
+<span class="sd">    :param y:column name in data.columns, used to show on the yaxis of dot heatmap.</span>
+<span class="sd">    :type y:string.</span>
+<span class="sd">    :param value: column name in data.columns, used to control the color and size of dot.</span>
+<span class="sd">    :type value: string.</span>
+<span class="sd">    :param hue: column name in data.columns, used to control the color and cmap of dot.</span>
+<span class="sd">    :type hue: string.</span>
+<span class="sd">    :param row_order:  row order should be the order of values in data[y].values</span>
+<span class="sd">    :type row_order: list.</span>
+<span class="sd">    :param col_order: col order should be the order of values in data[x].values</span>
+<span class="sd">    :type col_order: list.</span>
+<span class="sd">    :param colors: a string or dict do control the colors of dot, could be used with hue, default is None.</span>
+<span class="sd">    :type colors: string or dict.</span>
+<span class="sd">    :param cmap: string or dict, cmap to control the color of dot, could be used together with hue and colors.</span>
+<span class="sd">    :type cmap: string or dict.</span>
+<span class="sd">    :param ax: axes</span>
+<span class="sd">    :type ax:</span>
+<span class="sd">    :param show_rownames: whether to show row names, default is True.</span>
+<span class="sd">    :type show_rownames: bool</span>
+<span class="sd">    :param show_colnames: whether to show col names, default is True.</span>
+<span class="sd">    :type show_colnames: bool</span>
+<span class="sd">    :param plot_legend: whether to plot legend, default is True.</span>
+<span class="sd">    :type plot_legend: bool.</span>
+<span class="sd">    :param legend_side: legend side, default is right.</span>
+<span class="sd">    :type legend_side: string.</span>
+<span class="sd">    :param label_side: label side of y tick labels, default is left.</span>
+<span class="sd">    :type label_side: string.</span>
+<span class="sd">    :param legend_hpad: horizonal pad between legend and main figure.</span>
+<span class="sd">    :type legend_hpad: float [mm].</span>
+<span class="sd">    :param legend_width: width of legend.</span>
+<span class="sd">    :type legend_width: float [mm].</span>
+<span class="sd">    :param legend_vpad: vertical pad between legend and the top of main figure.</span>
+<span class="sd">    :type legend_vpad: float [mm]</span>
+<span class="sd">    :param legend_gap: ertical gap between two legends.</span>
+<span class="sd">    :type legend_gap: float [mm].</span>
+<span class="sd">    :param color_legend_kws: legend_kws passed to `plot_color_dict_legend`.</span>
+<span class="sd">    :type color_legend_kws: dict.</span>
+<span class="sd">    :param dot_legend_kws: legend_kws passed to `plot_marker_legend`.</span>
+<span class="sd">    :type dot_legend_kws: dict.</span>
+<span class="sd">    :param cmap_legend_kws: legend_kws passed to `plot_cmap_legend`.</span>
+<span class="sd">    :type cmap_legend_kws: dict.</span>
+<span class="sd">    :param kwargs: others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.</span>
+<span class="sd">    :type kwargs: key-value pairs.</span>
+<span class="sd">    :return: ax</span>
+<span class="sd">    :rtype:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">marker</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>  <span class="c1"># https://matplotlib.org/stable/api/markers_api.html#module-matplotlib.markers</span>
     <span class="n">color_dict</span><span class="o">=</span><span class="kc">None</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>

@@ -702,7 +702,56 @@ specified axis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="PyComplexHeatmap.dotHeatmap.dotHeatmap">
 <span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">dotHeatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_rownames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_colnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#dotHeatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.dotHeatmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Plot dot heatmap using different columns of dataframe <cite>data</cite>.
+:param data: a dataframe containing multiple columns.
+:type data: padnas.DataFrame.
+:param x: column name in data.columns, used to show on the xaxis of dot heatmap.
+:type x: string.
+:param y:column name in data.columns, used to show on the yaxis of dot heatmap.
+:type y:string.
+:param value: column name in data.columns, used to control the color and size of dot.
+:type value: string.
+:param hue: column name in data.columns, used to control the color and cmap of dot.
+:type hue: string.
+:param row_order:  row order should be the order of values in data[y].values
+:type row_order: list.
+:param col_order: col order should be the order of values in data[x].values
+:type col_order: list.
+:param colors: a string or dict do control the colors of dot, could be used with hue, default is None.
+:type colors: string or dict.
+:param cmap: string or dict, cmap to control the color of dot, could be used together with hue and colors.
+:type cmap: string or dict.
+:param ax: axes
+:type ax:
+:param show_rownames: whether to show row names, default is True.
+:type show_rownames: bool
+:param show_colnames: whether to show col names, default is True.
+:type show_colnames: bool
+:param plot_legend: whether to plot legend, default is True.
+:type plot_legend: bool.
+:param legend_side: legend side, default is right.
+:type legend_side: string.
+:param label_side: label side of y tick labels, default is left.
+:type label_side: string.
+:param legend_hpad: horizonal pad between legend and main figure.
+:type legend_hpad: float [mm].
+:param legend_width: width of legend.
+:type legend_width: float [mm].
+:param legend_vpad: vertical pad between legend and the top of main figure.
+:type legend_vpad: float [mm]
+:param legend_gap: ertical gap between two legends.
+:type legend_gap: float [mm].
+:param color_legend_kws: legend_kws passed to <cite>plot_color_dict_legend</cite>.
+:type color_legend_kws: dict.
+:param dot_legend_kws: legend_kws passed to <cite>plot_marker_legend</cite>.
+:type dot_legend_kws: dict.
+:param cmap_legend_kws: legend_kws passed to <cite>plot_cmap_legend</cite>.
+:type cmap_legend_kws: dict.
+:param kwargs: others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.
+:type kwargs: key-value pairs.
+:return: ax
+:rtype:</p>
+</dd></dl>
 
 </section>
 <section id="module-PyComplexHeatmap.example">
