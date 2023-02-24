@@ -7,9 +7,10 @@ import collections
 import matplotlib
 import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap
+import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 mm2inch=1/25.4
-
+# =============================================================================
 def _check_mask(data, mask):
     """
 
@@ -32,7 +33,7 @@ def _check_mask(data, mask):
     # Add any cells with missing values or infinite values to the mask
     mask = mask | pd.isnull(data) | np.logical_not(np.isfinite(data))
     return mask
-
+# =============================================================================
 def _calculate_luminance(color):
     """
     Calculate the relative luminance of a color according to W3C standards
@@ -53,7 +54,7 @@ def _calculate_luminance(color):
         return lum.item()
     except ValueError:
         return lum
-
+# =============================================================================
 def despine(fig=None, ax=None, top=True, right=True, left=False,
             bottom=False):
     """
@@ -101,7 +102,7 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
                 t.tick2line.set_visible(maj_on)
             for t in ax_i.xaxis.minorTicks:
                 t.tick2line.set_visible(min_on)
-
+# =============================================================================
 def _draw_figure(fig):
     """
     Force draw of a matplotlib figure, accounting for back-compat.
@@ -114,7 +115,7 @@ def _draw_figure(fig):
             fig.draw(fig.canvas.get_renderer())
         except AttributeError:
             pass
-
+# =============================================================================
 def axis_ticklabels_overlap(labels):
     """
     Return a boolean for whether the list of ticklabels have overlaps.
@@ -137,7 +138,7 @@ def axis_ticklabels_overlap(labels):
     except RuntimeError:
         # Issue on macos backend raises an error in the above code
         return False
-
+# =============================================================================
 def to_utf8(obj):
     """
     Return a string representing a Python object.
@@ -162,7 +163,7 @@ def to_utf8(obj):
         return obj.decode(encoding="utf-8")
     except AttributeError:  # obj is not bytes-like
         return str(obj)
-
+# =============================================================================
 def _index_to_label(index):
     """
     Convert a pandas index or multiindex to an axis label.
@@ -172,7 +173,7 @@ def _index_to_label(index):
         return "-".join(map(to_utf8, index.names))
     else:
         return index.name
-
+# =============================================================================
 def _index_to_ticklabels(index):
     """
     Convert a pandas index or multiindex into ticklabels.
@@ -182,7 +183,7 @@ def _index_to_ticklabels(index):
         return ["-".join(map(to_utf8, i)) for i in index.values]
     else:
         return index.values
-
+# =============================================================================
 def cluster_labels(labels=None,xticks=None,majority=True):
     """
     Merge the adjacent labels into one.
@@ -228,7 +229,7 @@ def cluster_labels(labels=None,xticks=None,majority=True):
     labels = [clusters_labels[i] for i in clusters_x]
     x = [np.mean(clusters_x[i]) for i in clusters_x]
     return labels, x
-
+# =============================================================================
 def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
                            label_side='right',kws=None):
     """
@@ -248,6 +249,8 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     ax.legend
 
     """
+    if ax is None:
+        ax=plt.gca()
     lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
     lgd_kws.setdefault("frameon",True)
     lgd_kws.setdefault("ncol", 1)
@@ -261,6 +264,7 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     lgd_kws.setdefault('handletextpad',0.3) #The pad between the legend handle and text, in font-size units.
     lgd_kws.setdefault('labelspacing',0.1)  # gap height between two Patches,  0.05*mm2inch*72
     lgd_kws.setdefault('columnspacing', 1)
+    lgd_kws.setdefault('bbox_to_anchor',(0,1))
     if label_side=='left':
         lgd_kws.setdefault("markerfirst", False)
         align = 'right'
@@ -269,16 +273,9 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
         align='left'
 
     availabel_height=ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
-    if ax is None:
-        ax=plt.gca()
     l = [mpatches.Patch(color=c, label=l) for l, c in D.items()] #kws:?mpatches.Patch; rasterized=True
     L = ax.legend(handles=l, title=title,**lgd_kws)
     ax.figure.canvas.draw()
-    # pred_h=ax.figure.dpi*len(D)*1.1/72
-    # print(len(D),L.get_window_extent().height,pred_h)
-    # print(L.legendHandles[0]._sizes)
-    # import pdb;
-    # pdb.set_trace()
     while L.get_window_extent().height > availabel_height:
         # ax.cla()
         print("Incresing ncol")
@@ -302,7 +299,7 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     ax.grid(False)
     # print(availabel_height,L.get_window_extent().height)
     return L
-
+# =============================================================================
 def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_side='right'):
     """
     Plot legend for cmap.
@@ -350,7 +347,103 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     # cax.spines['bottom'].set_visible(False)
     # f = cbar.ax.get_window_extent().height / cax.get_window_extent().height
     return cbar
+# =============================================================================
+def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
+                       label_side='right',kws=None):
+    """
+    plot legned for different marker
 
+    Parameters
+    ----------
+    D: a dict, key is categorical variable, values are marker.
+    ax: axes to plot the legend.
+    title: title of legend.
+    color_text: whether to change the color of text based on the color in D.
+    label_side: right of left.
+    kws: kws passed to plt.legend.
+
+    Returns
+    -------
+    ax.legend
+
+    """
+    if ax is None:
+        ax=plt.gca()
+    markers,colors,ms = obj
+    # markers = {'A': 'o', 'B': 's', 'C': 'D'}
+    # color_dict = {'A': 'red', 'B': 'blue', 'C': 'green'}
+    if colors is None:
+        colors='black'
+    elif type(colors)==dict:
+        color_dict=colors
+    if type(colors)==str:
+        color_dict = {}
+        for k in markers:
+            color_dict[k]=colors
+
+    lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
+    lgd_kws.setdefault("frameon", True)
+    lgd_kws.setdefault("ncol", 1)
+    lgd_kws['loc'] = 'upper left'
+    lgd_kws['bbox_transform'] = ax.figure.transFigure
+    lgd_kws.setdefault('borderpad', 0.1 * mm2inch * 72)  # 0.1mm
+    if ms is None:
+        s=lgd_kws.pop('markersize',10)
+        ms_dict={} #key is label (markers.keys), values is markersize.
+        for k in markers:
+            ms_dict[k]=s
+    elif type(ms) != dict:
+        ms_dict = {}
+        for k in markers:
+            ms_dict[k] = ms
+    else:
+        ms_dict=ms
+
+    lgd_kws.setdefault('markerscale', 1)
+    lgd_kws.setdefault('handleheight', 1)  # font size, units is points
+    lgd_kws.setdefault('handlelength', 1)  # font size, units is points
+    lgd_kws.setdefault('borderaxespad', 0.1)  # The pad between the axes and legend border, in font-size units.
+    lgd_kws.setdefault('handletextpad', 0.3)  # The pad between the legend handle and text, in font-size units.
+    lgd_kws.setdefault('labelspacing', 0.5)  # gap height between two Patches,  0.05*mm2inch*72
+    lgd_kws.setdefault('columnspacing', 1)
+    lgd_kws.setdefault('bbox_to_anchor', (0, 1))
+    if label_side=='left':
+        lgd_kws.setdefault("markerfirst", False)
+        align = 'right'
+    else:
+        lgd_kws.setdefault("markerfirst", True)
+        align='left'
+
+    availabel_height = ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
+    l = [mlines.Line2D([], [], color=color_dict.get(l,'black'), marker=m, linestyle='None',
+                          markersize=ms_dict.get(l,10), label=l)
+         for l, m in markers.items()] #kws:?mpatches.Patch; rasterized=True
+    ms=lgd_kws.pop('markersize',10)
+    L = ax.legend(handles=l, title=title,**lgd_kws)
+    ax.figure.canvas.draw()
+    while L.get_window_extent().height > availabel_height:
+        print("Incresing ncol")
+        lgd_kws['ncol']+=1
+        if lgd_kws['ncol']>=3:
+            print("More than 3 cols is not supported")
+            L.remove()
+            return None
+        L = ax.legend(handles=l, title=title, **lgd_kws)
+        ax.figure.canvas.draw()
+    L._legend_box.align = align
+    if color_text:
+        for text in L.get_texts():
+            try:
+                lum = _calculate_luminance(D[text.get_text()])
+                text_color = 'black' if lum > 0.408 else D[text.get_text()]
+                text.set_color(text_color)
+            except:
+                pass
+    ax.add_artist(L)
+    ax.grid(False)
+    # print(availabel_height,L.get_window_extent().height)
+    return L
+# =============================================================================
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                      y0=None,gap=2,delta_x=None,legend_width=4.5,legend_vpad=5):
     """
@@ -358,7 +451,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
 
     Parameters
     ----------
-    legend_list : a list including [handles(dict) / cmap, title, legend_kws]
+    legend_list : a list including [handles(dict) / cmap / markers dict, title, legend_kws, height, legend_type]
     ax :axes to plot.
     space : unit is pixels.
     legend_side :right, or left
@@ -395,12 +488,12 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     i=0
     while i <= len(legend_list)-1:
     # for i,legend in enumerate(legend_list):
-        color, title, legend_kws, n = legend_list[i]
+        obj, title, legend_kws, n, lgd_t = legend_list[i]
         ax1 = legend_axes[-1]
         ax1.set_axis_off()
         # print(i,legend_list[i])
         color_text=legend_kws.pop("color_text",True)
-        if type(color)==str: # a cmap, plot colorbar
+        if lgd_t=='cmap': #type(obj)==str: # a cmap, plot colorbar
             f = (15) * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height  # 15 mm
             if y-f < 0: #add a new column of axes to plot legends
                 left_pos=ax1.get_position()
@@ -420,19 +513,19 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0
             #https://matplotlib.org/stable/api/figure_api.html
             #[left, bottom, width, height],sharex=True,anchor=(0,0),frame_on=False.
-            cbar=plot_cmap_legend(ax=ax1,cax=cax,cmap=color,label=title,label_side=legend_side,kws=legend_kws)
+            cbar=plot_cmap_legend(ax=ax1,cax=cax,cmap=obj,label=title,label_side=legend_side,kws=legend_kws)
             cbar_width=cbar.ax.get_window_extent().width
             cbars.append(cbar)
             if cbar_width > max_width:
                 max_width=cbar_width
             # print(cax.get_position(),cbar.ax.get_position())
-        else:
+        elif lgd_t == 'color_dict':
             # print("color_dict",leg_pos.x0,y)
             legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #lower left position of the box.
             #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
             # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
             # print("color_dict",ax1.get_position(),leg_pos)
-            L = plot_color_dict_legend(D=color, ax=ax1, title=title, label_side=legend_side,
+            L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
                                        color_text=color_text, kws=legend_kws)
             if L is None:
                 print("Legend too long, generating a new column..")
@@ -444,6 +537,30 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
                 y=leg_pos.y1 if y0 is None else y0
+                legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
+                L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
+                                           color_text=color_text, kws=legend_kws)
+                max_width = 0
+            L_width = L.get_window_extent().width
+            if L_width > max_width:
+                max_width = L_width
+            f = L.get_window_extent().height / ax.figure.get_window_extent().height
+            cbars.append(L)
+        elif lgd_t == 'markers':
+            legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)  # lower left position of the box.
+            L = plot_marker_legend(obj=obj, ax=ax1, title=title, label_side=legend_side,
+                                   color_text=color_text, kws=legend_kws) #obj is a tuple: markers and colors
+            if L is None:
+                print("Legend too long, generating a new column..")
+                pad = (max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
+                left_pos = ax1.get_position()
+                ax2 = ax.figure.add_axes(
+                    [left_pos.x1 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+                legend_axes.append(ax2)
+                ax1 = legend_axes[-1]
+                ax1.set_axis_off()
+                leg_pos = ax1.get_position()
+                y = leg_pos.y1 if y0 is None else y0
                 legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
                 L = plot_color_dict_legend(D=color, ax=ax1, title=title, label_side=legend_side,
                                            color_text=color_text, kws=legend_kws)
@@ -460,3 +577,4 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     else:
         boundry = ax1.get_position().y0 - max_width / ax.figure.get_window_extent().width
     return legend_axes,cbars,boundry
+# =============================================================================

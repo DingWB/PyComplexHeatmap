@@ -49,7 +49,7 @@ def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsiz
     plt.savefig(outname, bbox_inches='tight')
 
 def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
-            size=10,alpha=50,base_size=20,color='blue',cmap='Set1',
+            size=10,color='blue',cmap='Set1',
             title='',figsize=(3,3.5),outname='test.pdf'):
     if not hue is None:
         hue_order=df[hue].unique().tolist() if hue_order is None else hue_order
@@ -61,15 +61,17 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     s_min = np.nanmin(df[size].values)
     delta_s = np.nanmax(df[size].values) - s_min
     fig, ax = plt.subplots(figsize=figsize)
+    w, h = ax.get_window_extent().width / ax.figure.dpi, ax.get_window_extent().height / ax.figure.dpi
+    r = min(w * 72 / len(col_order), h * 72 / len(row_order))
     if not hue_order is None:
         for c in hue_order:
             idx=np.where(df[hue].values==c)[0]
-            s=df.iloc[idx][size].apply(lambda x:(x-s_min) / delta_s) * alpha + base_size if type(size)==str else size
+            s=df.iloc[idx][size].apply(lambda x:(x-s_min) / delta_s) * (r**2) if type(size)==str else size
             color1=color_dict[c] if not color_dict is None else color
             ax.scatter(x=df.iloc[idx][x].tolist(),y=[N[i] for i in idx],
                        s=s,color=color1,label=c)
     else:
-        s = df[size].apply(lambda x:(x-s_min) / delta_s) * alpha + base_size if type(size) == str else size
+        s = df[size].apply(lambda x:(x-s_min) / delta_s) * (r**2) if type(size) == str else size
         ax.scatter(x=df[x].tolist(), y=N,
                    s=s, color=color, label=None)
 

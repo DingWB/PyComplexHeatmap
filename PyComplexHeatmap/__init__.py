@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-from .clustermap import *
+from .clustermap import heatmap,ClusterMapPlotter,composite
+from .annotations import *
+from .dotHeatmap import *
 from .colors import *
-from .example import *
-from .bioinformatics_plot import *
+from .tools import *
+# from .example import *
 
 #__all__=['*']
-__version__='1.2.9'
+__version__='1.3.0'
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))

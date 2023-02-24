@@ -12,7 +12,8 @@ PyComplexHeatmap
    :caption: Contents:
 
    installation
-   documentation
+   clustermap
+   dotHeatmap
    advanced_usage
    modules
 

@@ -4,10 +4,10 @@ PyComplexHeatmap package
 Submodules
 ----------
 
-PyComplexHeatmap.bioinformatics\_plot module
---------------------------------------------
+PyComplexHeatmap.annotations module
+-----------------------------------
 
-.. automodule:: PyComplexHeatmap.bioinformatics_plot
+.. automodule:: PyComplexHeatmap.annotations
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,10 +28,26 @@ PyComplexHeatmap.colors module
    :undoc-members:
    :show-inheritance:
 
+PyComplexHeatmap.dotHeatmap module
+----------------------------------
+
+.. automodule:: PyComplexHeatmap.dotHeatmap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 PyComplexHeatmap.example module
 -------------------------------
 
 .. automodule:: PyComplexHeatmap.example
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+PyComplexHeatmap.tools module
+-----------------------------
+
+.. automodule:: PyComplexHeatmap.tools
    :members:
    :undoc-members:
    :show-inheritance:

@@ -15,18 +15,17 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 # print(long_description)
 
-
 #release new version
 setup(
    name='PyComplexHeatmap',
-   version='1.2.9',
+   version='1.3.0',
    description='A Python package to plot complex heatmap',
    # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
    # long_description_content_type='text/markdown',
    author='Wubin Ding',
    author_email='ding.wu.bin.gm@gmail.com',
    url="https://github.com/DingWB/PyComplexHeatmap",
-   packages=['PyComplexHeatmap'],
+   packages=['PyComplexHeatmap'], #src
    # install_requires=['matplotlib>=3.3.1','pandas'],
    include_package_data=True,
 )

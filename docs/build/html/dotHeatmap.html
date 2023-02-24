@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documentation &mdash; PyComplexHeatmap 0.1 documentation</title>
+  <title>dotHeatmap &mdash; PyComplexHeatmap 0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Import packages" href="notebooks/examples.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="1. Import packages" href="notebooks/dotHeatmap.html" />
+    <link rel="prev" title="1. Import packages" href="notebooks/clustermap.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,12 +42,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html">1. Import packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#2.-A-quick-example">2. A quick example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#3.-Plotting-annotations">3. Plotting annotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#4.-Plotting-clustermap-and-annotation">4. Plotting clustermap and annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#5.-Composite-multiple-heatmap-horizontally-or-vertically">5. Composite multiple heatmap horizontally or vertically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustermap.html">Clustermap</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#2.-Load-an-example-brain-networks-dataset-from-seaborn">2. Load an example brain networks dataset from seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#3.-Dot-Heatmap">3. Dot Heatmap</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
@@ -68,9 +67,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Documentation</li>
+      <li>dotHeatmap</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/documentation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/dotHeatmap.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,24 +101,21 @@
     text-align: unset;
 }
 </style>
-<section id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h1>
+<section id="dotheatmap">
+<h1>dotHeatmap<a class="headerlink" href="#dotheatmap" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/examples.html">1. Import packages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/examples.html#2.-A-quick-example">2. A quick example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/examples.html#3.-Plotting-annotations">3. Plotting annotations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#3.1-Only-plot-the-row/column-annotation">3.1 Only plot the row/column annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#3.2-Plot-the-figure-and-legend-separately">3.2 Plot the figure and legend separately</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#3.3-Top,-bottom,-left-,right-annotations">3.3 Top, bottom, left ,right annotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/dotHeatmap.html">1. Import packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/dotHeatmap.html#2.-Load-an-example-brain-networks-dataset-from-seaborn">2. Load an example brain networks dataset from seaborn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/dotHeatmap.html#3.-Dot-Heatmap">3. Dot Heatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/examples.html#4.-Plotting-clustermap-and-annotation">4. Plotting clustermap and annotation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/examples.html#Key-features:">Key features:</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/examples.html#5.-Composite-multiple-heatmap-horizontally-or-vertically">5. Composite multiple heatmap horizontally or vertically</a></li>
 </ul>
 </div>
 </section>
@@ -128,8 +124,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="notebooks/examples.html" class="btn btn-neutral float-right" title="1. Import packages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="notebooks/clustermap.html" class="btn btn-neutral float-left" title="1. Import packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/dotHeatmap.html" class="btn btn-neutral float-right" title="1. Import packages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

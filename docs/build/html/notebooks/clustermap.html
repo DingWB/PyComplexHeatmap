@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Advanced Usage" href="../advanced_usage.html" />
-    <link rel="prev" title="Documentation" href="../documentation.html" /> 
+    <link rel="next" title="dotHeatmap" href="../dotHeatmap.html" />
+    <link rel="prev" title="Clustermap" href="../clustermap.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,7 +44,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../documentation.html">Documentation</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../clustermap.html">Clustermap</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Import packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#2.-A-quick-example">2. A quick example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#3.-Plotting-annotations">3. Plotting annotations</a><ul>
@@ -65,6 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#5.-Composite-multiple-heatmap-horizontally-or-vertically">5. Composite multiple heatmap horizontally or vertically</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a></li>
 </ul>
@@ -83,10 +84,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../clustermap.html">Clustermap</a> &raquo;</li>
       <li>1. Import packages</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/notebooks/examples.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notebooks/clustermap.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -376,7 +377,7 @@ div.rendered_html tbody tr:hover {
 <section id="1.-Import-packages">
 <h1>1. Import packages<a class="headerlink" href="#1.-Import-packages" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -385,7 +386,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -455,7 +456,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_3_1.png" src="../_images/notebooks_examples_3_1.png" />
+<img alt="../_images/notebooks_clustermap_3_1.png" src="../_images/notebooks_clustermap_3_1.png" />
 </div>
 </div>
 </section>
@@ -494,7 +495,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_6_1.png" src="../_images/notebooks_examples_6_1.png" />
+<img alt="../_images/notebooks_clustermap_6_1.png" src="../_images/notebooks_clustermap_6_1.png" />
 </div>
 </div>
 <section id="anno_label:">
@@ -534,7 +535,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_8_0.png" src="../_images/notebooks_examples_8_0.png" />
+<img alt="../_images/notebooks_clustermap_8_0.png" src="../_images/notebooks_clustermap_8_0.png" />
 </div>
 </div>
 </section>
@@ -571,7 +572,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_10_1.png" src="../_images/notebooks_examples_10_1.png" />
+<img alt="../_images/notebooks_clustermap_10_1.png" src="../_images/notebooks_clustermap_10_1.png" />
 </div>
 </div>
 </section>
@@ -601,7 +602,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_12_1.png" src="../_images/notebooks_examples_12_1.png" />
+<img alt="../_images/notebooks_clustermap_12_1.png" src="../_images/notebooks_clustermap_12_1.png" />
 </div>
 </div>
 </section>
@@ -643,7 +644,7 @@ Starting plotting HeatmapAnnotations
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_14_1.png" src="../_images/notebooks_examples_14_1.png" />
+<img alt="../_images/notebooks_clustermap_14_1.png" src="../_images/notebooks_clustermap_14_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -659,7 +660,7 @@ No ax was provided, using plt.gca()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_14_3.png" src="../_images/notebooks_examples_14_3.png" />
+<img alt="../_images/notebooks_clustermap_14_3.png" src="../_images/notebooks_clustermap_14_3.png" />
 </div>
 </div>
 </section>
@@ -1273,7 +1274,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_21_1.png" src="../_images/notebooks_examples_21_1.png" />
+<img alt="../_images/notebooks_clustermap_21_1.png" src="../_images/notebooks_clustermap_21_1.png" />
 </div>
 </div>
 <p>If you have a very long list of legends, the function will automatically increace another column of legend, for example, in the above plot, there are two columns of legends.</p>
@@ -1316,7 +1317,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_23_1.png" src="../_images/notebooks_examples_23_1.png" />
+<img alt="../_images/notebooks_clustermap_23_1.png" src="../_images/notebooks_clustermap_23_1.png" />
 </div>
 </div>
 <p>If you want to put the columns annotations on the bottom, then you need to <strong>change the order of HeatmapAnnotation</strong>, <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> should be the <strong>last one</strong> and <code class="docutils literal notranslate"><span class="pre">anno_label(df_cols.Family)</span></code> should be the second last one. When the columns annotation is on the top, the <code class="docutils literal notranslate"><span class="pre">rotation</span></code> of the <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> is 45, but when it is on the bottom, rotation should be -45 (rotate to the other direction). In addition, you can change the row labels to the right by setting <code class="docutils literal notranslate"><span class="pre">row_names_side='right'</span></code>. It’s
@@ -1363,7 +1364,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_25_1.png" src="../_images/notebooks_examples_25_1.png" />
+<img alt="../_images/notebooks_clustermap_25_1.png" src="../_images/notebooks_clustermap_25_1.png" />
 </div>
 </div>
 <p>To put annotation on the left in this example, we tranpose the dataframe by useing df.T and use left_annotation. We can put the columns labels on the top by set <code class="docutils literal notranslate"><span class="pre">col_names_side='top'</span></code> and use <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> to change the rotation and color of the columsn labels. We can also change the rotation and color for the annotation labels (for example, <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Tissue</span></code> in this plot) by set <code class="docutils literal notranslate"><span class="pre">label_kws={'rotation':45,'rotation_mode':'anchor','color':'red'}</span></code>.</p>
@@ -1410,7 +1411,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_27_1.png" src="../_images/notebooks_examples_27_1.png" />
+<img alt="../_images/notebooks_clustermap_27_1.png" src="../_images/notebooks_clustermap_27_1.png" />
 </div>
 </div>
 </section>
@@ -1540,7 +1541,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_31_1.png" src="../_images/notebooks_examples_31_1.png" />
+<img alt="../_images/notebooks_clustermap_31_1.png" src="../_images/notebooks_clustermap_31_1.png" />
 </div>
 </div>
 <section id="Key-features:">
@@ -1614,15 +1615,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_examples_34_1.png" src="../_images/notebooks_examples_34_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<img alt="../_images/notebooks_clustermap_34_1.png" src="../_images/notebooks_clustermap_34_1.png" />
 </div>
 </div>
 </section>
@@ -1631,8 +1624,8 @@ Collecting annotation legends..
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../documentation.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../advanced_usage.html" class="btn btn-neutral float-right" title="Advanced Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../clustermap.html" class="btn btn-neutral float-left" title="Clustermap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../dotHeatmap.html" class="btn btn-neutral float-right" title="dotHeatmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
