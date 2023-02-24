@@ -2,10 +2,14 @@
 PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/PyComplexHeatmap) for documentation.
 
 ## Documentation:
-[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) <br>
+[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) <br><br>
 PYPI:
 <br>
 [https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
+<br><br>
+Libraries.io:
+<br>
+[https://libraries.io/pypi/PyComplexHeatmap](https://libraries.io/pypi/PyComplexHeatmap)
 
 ## Dependencies:
 - matplotlib>=3.4.3
@@ -99,8 +103,8 @@ plt.show()
 ![image](docs/images/5.png)
 
 ## **More Examples**
-https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/examples.ipynb
+[https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/clustermap.ipynb](https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/clustermap.ipynb)
 <br><br>
-https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb
+[https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb](https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb)
 <br><br>
-https://dingwb.github.io/PyComplexHeatmap/build/html/documentation.html
+[https://dingwb.github.io/PyComplexHeatmap/build/html/dotHeatmap.html](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups)
