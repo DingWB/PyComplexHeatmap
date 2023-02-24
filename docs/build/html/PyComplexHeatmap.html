@@ -127,23 +127,28 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>a pandas series</em><em> or </em><em>dataframe</em><em> (</em><em>only one column</em><em>)</em><em>.</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>colormap</em><em>, </em><em>such as Set1</em><em>, </em><em>Dark2</em><em>, </em><em>bwr</em><em>, </em><em>Reds</em><em>, </em><em>jet</em><em>, </em><em>hsv</em><em>, </em><em>rainbow and so on. Please see</em>) – <a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+<li><p><strong>df</strong> (<em>dataframe</em>) – a pandas series or dataframe (only one column).</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
 matplotlib.pyplot.colormaps() to see all availabel cmap.
 default cmap is ‘auto’, it would be determined based on the dtype for each columns of df.</p></li>
-<li><p><strong>colors</strong> (<em>a dict</em><em> or </em><em>list</em><em> (</em><em>for boxplot</em><em>, </em><em>barplot</em><em>) or </em><em>str.</em>) – If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
+<li><p><strong>colors</strong> (<em>dict</em><em>, </em><em>list</em><em> or </em><em>str</em>) – a dict or list (for boxplot, barplot) or str.
+If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
 values for the dict should be colors (color names or HEX color).
 If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()
 If colors is a string, means all values in df.iloc[:,0].unique() share the same color.</p></li>
-<li><p><strong>height</strong> (<em>height</em><em> (</em><em>if axis=1</em><em>) </em><em>/ width</em><em> (</em><em>if axis=0</em><em>) </em><em>for the annotation size.</em>) – </p></li>
-<li><p><strong>legend</strong> (<em>whether to plot legend for this annotation when legends are plotted or</em>) – plot legend with HeatmapAnnotation.plot_legends().</p></li>
-<li><p><strong>legend_kws</strong> (<em>vmax</em><em>, </em><em>vmin and other kws passed to plt.legend</em><em>, </em><em>such as title</em><em>, </em><em>prop</em><em>, </em><em>fontsize</em><em>, </em><em>labelcolor</em><em>,</em>) – markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
+<li><p><strong>height</strong> (<em>float</em>) – height (if axis=1) / width (if axis=0) for the annotation size.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em>) – whether to plot legend for this annotation when legends are plotted or
+plot legend with HeatmapAnnotation.plot_legends().</p></li>
+<li><p><strong>legend_kws</strong> (<em>dict</em>) – vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
+markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
 arguments, pleast type ?plt.legend. There is an additional parameter <cite>color_text</cite> (default is True),
 which would set the color of the text to the same color as legend marker. if one set
 <cite>legend_kws={‘color_text’:False}</cite>, then, black would be the default color for the text.
 If the user want to use a custom color instead of black (such as blue), please set
 legend_kws={‘color_text’:False,’labelcolor’:’blue’}.</p></li>
-<li><p><strong>plot_kws</strong> (<em>other plot kws passed to annotation.plot</em><em>, </em><em>such as rotation</em><em>, </em><em>rotation_mode</em><em>, </em><em>ha</em><em>, </em><em>va</em><em>,</em>) – annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
+<li><p><strong>plot_kws</strong> (<em>dict</em>) – other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
+annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
 there is also kws: vmin and vmax, if one want to change the range, please try:
 anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).</p></li>
 </ul>
@@ -203,44 +208,54 @@ anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<em>Class HeatmapAnnotation</em>) – </p></li>
-<li><p><strong>df</strong> (<em>a pandas dataframe</em><em>, </em><em>each column will be converted to one anno_simple class.</em>) – </p></li>
-<li><p><strong>axis</strong> (<em>1 for columns annotation</em><em>, </em><em>0 for rows annotations.</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>colormap</em><em>, </em><em>such as Set1</em><em>, </em><em>Dark2</em><em>, </em><em>bwr</em><em>, </em><em>Reds</em><em>, </em><em>jet</em><em>, </em><em>hsv</em><em>, </em><em>rainbow and so on. Please see</em>) – <a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+<li><p><strong>self</strong> (<em>Class</em>) – HeatmapAnnotation</p></li>
+<li><p><strong>df</strong> (<em>dataframe</em>) – a pandas dataframe, each column will be converted to one anno_simple class.</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – 1 for columns annotation, 0 for rows annotations.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
 matplotlib.pyplot.colormaps() to see all availabel cmap.
 default cmap is ‘auto’, it would be determined based on the dtype for each columns in df.
 If df is None, then there is no need to specify cmap, cmap and colors will only be used when
 df is provided.
 If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
 a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).</p></li>
-<li><p><strong>colors</strong> (<em>a dict</em><em>, </em><em>keys are the column names of df</em><em>, </em><em>values are list</em><em>, </em><em>dict</em><em> or </em><em>string passed to</em>) – AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
+<li><p><strong>colors</strong> (<em>dict</em>) – a dict, keys are the column names of df, values are list, dict or string passed to
+AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
 colors must have the same length as the df.columns, if colors is not provided (default), else,
 colors would be calculated based on the given cmap.
 If colors is given, then the cmap would be invalid.</p></li>
-<li><p><strong>label_side</strong> (<em>top</em><em> or </em><em>bottom when axis=1</em><em> (</em><em>columns annotation</em><em>)</em><em>, </em><em>left</em><em> or </em><em>right when axis=0</em><em> (</em><em>rows annotations</em><em>)</em><em>.</em>) – </p></li>
-<li><p><strong>label_kws</strong> (<em>kws passed to the labels of the annotation labels</em><em> (</em><em>would be df.columns if df is given</em><em>)</em><em>.</em>) – such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
+<li><p><strong>label_side</strong> (<em>str</em>) – top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</p></li>
+<li><p><strong>label_kws</strong> (<em>dict</em>) – kws passed to the labels of the annotation labels (would be df.columns if df is given).
+such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
 va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.
 For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()</p></li>
-<li><p><strong>ticklabels_kws</strong> (<em>label_kws is for the label of annotation</em><em>, </em><em>ticklabels_kws is for the label</em><em> (</em><em>text</em><em>) </em><em>in anno_label</em><em>,</em>) – such as axis, which, direction, length, width,
+<li><p><strong>ticklabels_kws</strong> (<em>dict</em>) – label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
+such as axis, which, direction, length, width,
 color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
 labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
 For more information,see ?matplotlib.axes.Axes.tick_params</p></li>
-<li><p><strong>plot_kws</strong> (<em>kws passed to annotation functions</em><em>, </em><em>such as anno_simple</em><em>, </em><em>anno_label et.al.</em>) – </p></li>
-<li><p><strong>plot</strong> (<em>whether to plot</em><em>, </em><em>when the annotation are included in clustermap</em><em>, </em><em>plot would be</em>) – set to False automotially.</p></li>
-<li><p><strong>legend</strong> (<em>True</em><em> or </em><em>False</em><em>, or </em><em>dict</em><em> (</em><em>when df is no None</em><em>)</em><em>, </em><em>when legend is dict</em><em>, </em><em>keys are the</em>) – columns of df.</p></li>
-<li><p><strong>legend_side</strong> (<em>right</em><em> or </em><em>left</em>) – </p></li>
-<li><p><strong>legend_gap</strong> (<em>the vertical gap between two legends</em><em>, </em><em>default is 2</em><em> [</em><em>mm</em><em>]</em>) – </p></li>
-<li><p><strong>legend_width</strong> (<em>width of the legend</em><em>, </em><em>default is 4.5</em><em>[</em><em>mm</em><em>]</em>) – </p></li>
-<li><p><strong>legend_hpad</strong> (<em>Horizonal space between heatmap and legend</em><em>, </em><em>default is 2</em><em> [</em><em>mm</em><em>]</em><em>.</em>) – </p></li>
-<li><p><strong>legend_vpad</strong> (<em>Vertical space between top of ax and legend</em><em>, </em><em>default is 2</em><em> [</em><em>mm</em><em>]</em><em>.</em>) – </p></li>
-<li><p><strong>orientation</strong> (<em>up</em><em> or </em><em>down</em><em>, </em><em>when axis=1</em>) – left or right, when axis=0;
+<li><p><strong>plot_kws</strong> (<em>dict</em>) – kws passed to annotation functions, such as anno_simple, anno_label et.al.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em>) – whether to plot, when the annotation are included in clustermap, plot would be
+set to False automotially.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em>) – True or False, or dict (when df is no None), when legend is dict, keys are the
+columns of df.</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – right or left</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – the vertical gap between two legends, default is 2 [mm]</p></li>
+<li><p><strong>legend_width</strong> (<em>float</em>) – width of the legend, default is 4.5[mm]</p></li>
+<li><p><strong>legend_hpad</strong> (<em>float</em>) – Horizonal space between heatmap and legend, default is 2 [mm].</p></li>
+<li><p><strong>legend_vpad</strong> (<em>float</em>) – Vertical space between top of ax and legend, default is 2 [mm].</p></li>
+<li><p><strong>orientation</strong> (<em>str</em>) – up or down, when axis=1
+left or right, when axis=0;
 When anno_label shows up in annotation, the orientation would be automatically be assigned according
 to the position of anno_label.</p></li>
-<li><p><strong>wspace</strong> (<em>float</em><em>, </em><em>optional. The amount of width reserved for space between subplots</em><em>, </em><em>expressed as a fraction of the</em>) – average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.</p></li>
-<li><p><strong>hspace</strong> (<em>float</em><em>, </em><em>optional</em>) – The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
+<li><p><strong>wspace</strong> (<em>float</em>) – optional. The amount of width reserved for space between subplots, expressed as a fraction of the
+average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.</p></li>
+<li><p><strong>hspace</strong> (<em>float</em>) – optional
+The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
 If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params</p></li>
-<li><p><strong>plot_legend</strong> (<em>whether to plot legends.</em>) – </p></li>
-<li><p><strong>args</strong> (<em>name-value pair</em><em>, </em><em>key is the annotation label</em><em> (</em><em>name</em><em>)</em><em>, </em><em>values can be a pandas dataframe</em><em>,</em>) – series, or annotation such as
+<li><p><strong>plot_legend</strong> (<em>bool</em>) – whether to plot legends.</p></li>
+<li><p><strong>args</strong> (<em>name-value pair</em>) – key is the annotation label (name), values can be a pandas dataframe,
+series, or annotation such as
 anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 </ul>
 </dd>
@@ -258,15 +273,16 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations">
 <span class="sig-name descname"><span class="pre">plot_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.plot_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Plot annotations</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> (<em>axes to plot the annotations.</em>) – </p></li>
-<li><p><strong>subplot_spec</strong> (<em>object from ax.figure.add_gridspec</em><em> or </em><em>matplotlib.gridspec.GridSpecFromSubplotSpec.</em>) – </p></li>
-<li><p><strong>idxs</strong> (<em>index to reorder df and df of annotation class.</em>) – </p></li>
-<li><p><strong>gap</strong> (<em>gap to calculate wspace and hspace for gridspec.</em>) – </p></li>
-<li><p><strong>wspace</strong> (<em>if wspace not is None</em><em>, </em><em>use wspace</em><em>, </em><em>else wspace would be calculated based on gap.</em>) – </p></li>
-<li><p><strong>hspace</strong> (<em>if hspace not is None</em><em>, </em><em>use hspace</em><em>, </em><em>else hspace would be calculated based on gap.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em>ax</em>) – axes to plot the annotations.</p></li>
+<li><p><strong>subplot_spec</strong> (<em>ax.figure.add_gridspec</em>) – object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</p></li>
+<li><p><strong>idxs</strong> (<em>list</em>) – index to reorder df and df of annotation class.</p></li>
+<li><p><strong>gap</strong> (<em>float</em>) – gap to calculate wspace and hspace for gridspec.</p></li>
+<li><p><strong>wspace</strong> (<em>float</em>) – if wspace not is None, use wspace, else wspace would be calculated based on gap.</p></li>
+<li><p><strong>hspace</strong> (<em>float</em>) – if hspace not is None, use hspace, else hspace would be calculated based on gap.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -340,25 +356,16 @@ plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>merge</strong> (<em>whether to merge the same clusters into one and label only once.</em>) – </p></li>
-<li><p><strong>extend</strong> (<em>whether to distribute all the labels extend to the all axis</em><em>, </em><em>figure</em><em> or </em><em>ax</em><em> or </em><em>False.</em>) – </p></li>
-<li><p><strong>frac</strong> (<em>fraction of the armA and armB.</em>) – </p></li>
-<li><p><strong>plt.annotate</strong> (<em>plot_kws is passed to</em>) – more information about arrowprops could be found in
-matplotlib.patches.FancyArrowPatch</p></li>
-<li><p><strong>annotation_clip</strong> (<em>including</em>) – more information about arrowprops could be found in
-matplotlib.patches.FancyArrowPatch</p></li>
-<li><p><strong>matplotlib.text.Text</strong> (<em>arrowprops and</em>) – more information about arrowprops could be found in
+<li><p><strong>merge</strong> (<em>bool</em>) – whether to merge the same clusters into one and label only once.</p></li>
+<li><p><strong>extend</strong> (<em>bool</em>) – whether to distribute all the labels extend to the all axis, figure or ax or False.</p></li>
+<li><p><strong>frac</strong> (<em>float</em>) – fraction of the armA and armB.</p></li>
+<li><p><strong>plot_kws</strong> (<em>dict</em>) – passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
+more information about arrowprops could be found in
 matplotlib.patches.FancyArrowPatch</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>:param<span class="classifier">more information about arrowprops could be found in</span></dt><dd><p>matplotlib.patches.FancyArrowPatch</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Class AnnotationBase.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Class AnnotationBase.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -423,66 +430,74 @@ Plot heatmap / clustermap with annotation and legends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pandas dataframe</em><em> or </em><em>numpy array.</em>) – </p></li>
-<li><p><strong>z_score</strong> (<em>whether to perform z score scale</em><em>, </em><em>either 0 for rows</em><em> or </em><em>1 for columns</em><em>, </em><em>after scale</em><em>,</em>) – value range would be from -1 to 1.</p></li>
-<li><p><strong>standard_scale</strong> (<em>either 0 for rows</em><em> or </em><em>1 for columns</em><em>, </em><em>after scale</em><em>,</em><em>value range would be from 0 to 1.</em>) – </p></li>
+<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe or numpy array.</p></li>
+<li><p><strong>z_score</strong> (<em>int</em>) – whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
+value range would be from -1 to 1.</p></li>
+<li><p><strong>standard_scale</strong> (<em>int</em>) – either 0 for rows or 1 for columns, after scale,value range would be from 0 to 1.</p></li>
 <li><p><strong>top_annotation</strong> (<em>annotation: class of HeatmapAnnotation.</em>) – </p></li>
-<li><p><strong>bottom_annotation</strong> (<em>the same as top_annotation.</em>) – </p></li>
-<li><p><strong>left_annotation</strong> (<em>the same as top_annotation.</em>) – </p></li>
-<li><p><strong>right_annotation</strong> (<em>the same as top_annotation.</em>) – </p></li>
-<li><p><strong>row_cluster</strong> (<em>whether to perform cluster on rows/columns.</em>) – </p></li>
-<li><p><strong>col_cluster</strong> (<em>whether to perform cluster on rows/columns.</em>) – </p></li>
-<li><p><strong>row_cluster_method</strong> (<em>cluster method for row/columns linkage</em><em>, </em><em>such single</em><em>, </em><em>complete</em><em>, </em><em>average</em><em>,</em><em>weighted</em><em>,</em>) – centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+<li><p><strong>bottom_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>left_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>right_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>row_cluster</strong> (<em>bool</em>) – whether to perform cluster on rows/columns.</p></li>
+<li><p><strong>col_cluster</strong> (<em>bool</em>) – whether to perform cluster on rows/columns.</p></li>
+<li><p><strong>row_cluster_method</strong> (<em>str</em>) – cluster method for row/columns linkage, such single, complete, average,weighted,
+centroid, median, ward. see scipy.cluster.hierarchy.linkage or
 (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html</a>) for detail.</p></li>
-<li><p><strong>row_cluster_metric</strong> (<em>Pairwise distances between observations in n-dimensional space for row/columns</em><em>,</em>) – such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
+<li><p><strong>row_cluster_metric</strong> (<em>str</em>) – Pairwise distances between observations in n-dimensional space for row/columns,
+such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
 chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
 centroid, median, ward. see scipy.cluster.hierarchy.linkage or
 <a class="reference external" href="https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html">https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html</a></p></li>
-<li><p><strong>col_cluster_method</strong> (<em>same as row_cluster_method</em>) – </p></li>
-<li><p><strong>col_cluster_metric</strong> (<em>same as row_cluster_metric</em>) – </p></li>
-<li><p><strong>show_rownames</strong> (<em>True</em><em> (</em><em>default</em><em>) or </em><em>False</em><em>, </em><em>whether to show row ticklabels.</em>) – </p></li>
-<li><p><strong>show_colnames</strong> (<em>True of False</em><em>, </em><em>same as show_rownames.</em>) – </p></li>
-<li><p><strong>row_names_side</strong> (<em>right</em><em> or </em><em>left.</em>) – </p></li>
-<li><p><strong>col_names_side</strong> (<em>top</em><em> or </em><em>bottom.</em>) – </p></li>
-<li><p><strong>row_dendrogram</strong> (<em>True</em><em> or </em><em>False</em><em>, </em><em>whether to show dendrogram.</em>) – </p></li>
-<li><p><strong>col_dendrogram</strong> (<em>True</em><em> or </em><em>False</em><em>, </em><em>whether to show dendrogram.</em>) – </p></li>
-<li><p><strong>row_dendrogram_size</strong> (<em>int</em><em>, </em><em>default is 10mm.</em>) – </p></li>
-<li><p><strong>col_dendrogram_size</strong> (<em>int</em><em>, </em><em>default is 10mm.</em>) – </p></li>
-<li><p><strong>row_split</strong> (<em>int</em><em> (</em><em>number of cluster for hierarchical clustering</em><em>) or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em><em>,</em>) – used to split rows or rows into subplots.</p></li>
-<li><p><strong>col_split</strong> (<em>int</em><em> or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em><em>, </em><em>used to split rows</em><em> or </em><em>columns into subplots.</em>) – </p></li>
-<li><p><strong>dendrogram_kws</strong> (<em>kws passed to hierarchy.dendrogram.</em>) – </p></li>
-<li><p><strong>tree_kws</strong> (<em>kws passed to DendrogramPlotter.plot</em><em>(</em><em>)</em>) – </p></li>
-<li><p><strong>row_split_gap</strong> (<em>default are 0.5 and 0.2 mm for row and col.</em>) – </p></li>
-<li><p><strong>col_split_gap</strong> (<em>default are 0.5 and 0.2 mm for row and col.</em>) – </p></li>
-<li><p><strong>mask</strong> (<em>mask the data in heatmap</em><em>, </em><em>the cell with missing values of infinite values will be masked automatically.</em>) – </p></li>
-<li><p><strong>subplot_gap</strong> (<em>the gap between subplots</em><em>, </em><em>default is 1mm.</em>) – </p></li>
-<li><p><strong>legend</strong> (<em>True</em><em> or </em><em>False</em><em>, </em><em>whether to plot heatmap legend</em><em>, </em><em>determined by cmap.</em>) – </p></li>
-<li><p><strong>legend_kws</strong> (<em>kws passed to plot legend. If one want to change the outline color and linewidth of cbar:</em>) – <dl class="simple">
-<dt>for cbar in cm.cbars:</dt><dd><dl class="simple">
+<li><p><strong>col_cluster_method</strong> (<em>str</em>) – same as row_cluster_method</p></li>
+<li><p><strong>col_cluster_metric</strong> (<em>str</em>) – same as row_cluster_metric</p></li>
+<li><p><strong>show_rownames</strong> (<em>bool</em>) – True (default) or False, whether to show row ticklabels.</p></li>
+<li><p><strong>show_colnames</strong> (<em>bool</em>) – True of False, same as show_rownames.</p></li>
+<li><p><strong>row_names_side</strong> (<em>str</em>) – right or left.</p></li>
+<li><p><strong>col_names_side</strong> (<em>str</em>) – top or bottom.</p></li>
+<li><p><strong>row_dendrogram</strong> (<em>bool</em>) – True or False, whether to show dendrogram.</p></li>
+<li><p><strong>col_dendrogram</strong> (<em>bool</em>) – True or False, whether to show dendrogram.</p></li>
+<li><p><strong>row_dendrogram_size</strong> (<em>int</em>) – default is 10mm.</p></li>
+<li><p><strong>col_dendrogram_size</strong> (<em>int</em>) – default is 10mm.</p></li>
+<li><p><strong>row_split</strong> (<em>int</em><em> or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em>) – number of cluster for hierarchical clustering or pd.Series or pd.DataFrame,
+used to split rows or rows into subplots.</p></li>
+<li><p><strong>col_split</strong> (<em>int</em><em> or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em>) – int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.</p></li>
+<li><p><strong>dendrogram_kws</strong> (<em>dict</em>) – kws passed to hierarchy.dendrogram.</p></li>
+<li><p><strong>tree_kws</strong> (<em>dict</em>) – kws passed to DendrogramPlotter.plot()</p></li>
+<li><p><strong>row_split_gap</strong> (<em>float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
+<li><p><strong>col_split_gap</strong> (<em>float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
+<li><p><strong>mask</strong> (<em>dataframe</em><em> or </em><em>array</em>) – mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</p></li>
+<li><p><strong>subplot_gap</strong> (<em>float</em>) – the gap between subplots, default is 1mm.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em>) – True or False, whether to plot heatmap legend, determined by cmap.</p></li>
+<li><p><strong>legend_kws</strong> (<em>dict</em>) – <p>kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
+for cbar in cm.cbars:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>if isinstance(cbar,matplotlib.colorbar.Colorbar):</dt><dd><p>cbar.outline.set_color(‘white’)
 cbar.outline.set_linewidth(2)
 cbar.dividers.set_color(‘red’)
 cbar.dividers.set_linewidth(2)</p>
 </dd>
 </dl>
-</dd>
-</dl>
+</div></blockquote>
 </p></li>
-<li><p><strong>plot</strong> (<em>whether to plot</em><em> or </em><em>not.</em>) – </p></li>
-<li><p><strong>plot_legend</strong> (<em>True</em><em> or </em><em>False</em><em>, </em><em>whether to plot legend</em><em>, </em><em>if False</em><em>, </em><em>legends can be plot with</em>) – ClusterMapPlotter.plot_legends()</p></li>
-<li><p><strong>legend_anchor</strong> (<em>str</em><em>, </em><em>ax_heatmap</em><em> or </em><em>ax</em><em>, </em><em>the ax to which legend anchor.</em>) – </p></li>
-<li><p><strong>legend_gap</strong> (<em>the columns gap between different legends.</em>) – </p></li>
-<li><p><strong>legend_width</strong> (<em>width of the legend</em><em>, </em><em>default is 4.5</em><em>[</em><em>mm</em><em>]</em>) – </p></li>
-<li><p><strong>legend_hpad</strong> (<em>Horizonal space between the heatmap and legend</em><em>, </em><em>default is 2</em><em> [</em><em>mm</em><em>]</em><em>.</em>) – </p></li>
-<li><p><strong>legend_vpad</strong> (<em>Vertical space between the top of legend_anchor and legend</em><em>, </em><em>default is 5</em><em> [</em><em>mm</em><em>]</em><em>.</em>) – </p></li>
-<li><p><strong>legend_side</strong> (<em>right of left.</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>default is 'jet'</em><em>, </em><em>the colormap for heatmap colorbar</em><em>, </em><em>see plt.colormaps</em><em>(</em><em>)</em><em>.</em>) – </p></li>
-<li><p><strong>label</strong> (<em>the title</em><em> (</em><em>label</em><em>) </em><em>that will be shown in heatmap colorbar legend.</em>) – </p></li>
-<li><p><strong>xticklabels_kws</strong> (<em>xticklabels</em><em> or </em><em>yticklabels kws</em><em>, </em><em>such as axis</em><em>, </em><em>which</em><em>, </em><em>direction</em><em>, </em><em>length</em><em>, </em><em>width</em><em>,</em>) – color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
+<li><p><strong>plot</strong> (<em>bool</em>) – whether to plot or not.</p></li>
+<li><p><strong>plot_legend</strong> (<em>bool</em>) – True or False, whether to plot legend, if False, legends can be plot with
+ClusterMapPlotter.plot_legends()</p></li>
+<li><p><strong>legend_anchor</strong> (<em>str</em>) – ax_heatmap or ax, the ax to which legend anchor.</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – the columns gap between different legends.</p></li>
+<li><p><strong>legend_width</strong> (<em>float</em>) – width of the legend, default is 4.5[mm]</p></li>
+<li><p><strong>legend_hpad</strong> (<em>float</em>) – Horizonal space between the heatmap and legend, default is 2 [mm].</p></li>
+<li><p><strong>legend_vpad</strong> (<em>float</em>) – Vertical space between the top of legend_anchor and legend, default is 5 [mm].</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – right of left.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – default is ‘jet’, the colormap for heatmap colorbar, see plt.colormaps().</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – the title (label) that will be shown in heatmap colorbar legend.</p></li>
+<li><p><strong>xticklabels_kws</strong> (<em>dict</em>) – xticklabels or yticklabels kws, such as axis, which, direction, length, width,
+color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
 labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
 For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</p></li>
-<li><p><strong>yticklabels_kws</strong> (<em>the same as xticklabels_kws.</em>) – </p></li>
-<li><p><strong>rasterized</strong> (<em>default is False</em><em>, </em><em>when the number of rows * number of cols &gt; 100000</em><em>, </em><em>rasterized would be suggested</em>) – to be True, otherwise the plot would be very slow.</p></li>
+<li><p><strong>yticklabels_kws</strong> (<em>dict</em>) – the same as xticklabels_kws.</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested
+to be True, otherwise the plot would be very slow.</p></li>
 <li><p><strong>heatmap_kws</strong> (<em>kws passed to heatmap.</em>) – </p></li>
 </ul>
 </dd>
@@ -638,16 +653,13 @@ specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cmlist</strong> (<em>a list of ClusterMapPlotter</em><em> (</em><em>with plot=False</em><em>)</em><em>.</em>) – </p></li>
-<li><p><strong>axis</strong> (<em>1 for columns</em><em> (</em><em>align the cmlist horizontally</em><em>)</em><em>, </em><em>0 for rows</em><em> (</em><em>vertically</em><em>)</em><em>.</em>) – </p></li>
-<li><p><strong>main</strong> (<em>use which as main ClusterMapPlotter</em><em>, </em><em>will influence row/col order. main is the index</em>) – of cmlist.</p></li>
-<li><p><strong>row/col_gap</strong> – </p></li>
-<li><p><strong>subplots</strong> (<em>the row</em><em> or </em><em>columns gap between</em>) – </p></li>
-<li><p><strong>[</strong><strong>15</strong><strong>]</strong><strong>.</strong> (<em>unit is mm</em>) – </p></li>
-<li><p><strong>legend_side</strong> (<em>right</em><em>,</em><em>left</em><em> [</em><em>right</em><em>]</em><em>.</em>) – </p></li>
-<li><p><strong>legend_gap</strong> – </p></li>
-<li><p><strong>legends</strong> (<em>row gap between two</em>) – </p></li>
-<li><p><strong>mm.</strong> (<em>unit is</em>) – </p></li>
+<li><p><strong>cmlist</strong> (<em>list</em>) – a list of ClusterMapPlotter (with plot=False).</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – 1 for columns (align the cmlist horizontally), 0 for rows (vertically).</p></li>
+<li><p><strong>main</strong> (<em>int</em>) – use which as main ClusterMapPlotter, will influence row/col order. main is the index
+of cmlist.</p></li>
+<li><p><strong>row/col_gap</strong> (<em>float</em>) – the row or columns gap between subplots, unit is mm [15].</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – right,left [right].</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – row gap between two legends, unit is mm.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -663,14 +675,14 @@ specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pandas dataframe</em>) – </p></li>
-<li><p><strong>ylabel</strong> (<em>xlabel /</em>) – </p></li>
-<li><p><strong>ylabel_side</strong> (<em>xlabel_side /</em>) – </p></li>
-<li><p><strong>vmax</strong> (<em>the maximal and minimal values for cmap colorbar.</em>) – </p></li>
-<li><p><strong>vmin</strong> (<em>the maximal and minimal values for cmap colorbar.</em>) – </p></li>
-<li><p><strong>center</strong> (<em>the same as seaborn.heatmap</em>) – </p></li>
-<li><p><strong>robust</strong> (<em>the same as seaborn.heatmap</em>) – </p></li>
-<li><p><strong>ylabel_kws</strong> (<em>xlabel_kws /</em>) – </p></li>
+<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe</p></li>
+<li><p><strong>ylabel</strong> (<em>xlabel /</em>) – True, False, or list of xlabels</p></li>
+<li><p><strong>ylabel_side</strong> (<em>xlabel_side /</em>) – bottom or top</p></li>
+<li><p><strong>vmax</strong> (<em>float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>center</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>robust</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>ylabel_kws</strong> (<em>xlabel_kws /</em>) – parameter from matplotlib.axis.XAxis.label.properties()</p></li>
 </ul>
 </dd>
 </dl>
@@ -706,29 +718,29 @@ specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>a dataframe containing multiple columns.</em>) – </p></li>
-<li><p><strong>x</strong> (<em>column name in data.columns</em><em>, </em><em>used to show on the xaxis of dot heatmap.</em>) – </p></li>
-<li><p><strong>y</strong> (<em>column name in data.columns</em><em>, </em><em>used to show on the yaxis of dot heatmap.</em>) – </p></li>
-<li><p><strong>value</strong> (<em>column name in data.columns</em><em>, </em><em>used to control the color and size of dot.</em>) – </p></li>
-<li><p><strong>hue</strong> (<em>column name in data.columns</em><em>, </em><em>used to control the color and cmap of dot.</em>) – </p></li>
-<li><p><strong>row_order</strong> (<em>list</em><em>, </em><em>row order should be the order of values in data</em><em>[</em><em>y</em><em>]</em><em>.values</em>) – </p></li>
-<li><p><strong>col_order</strong> (<em>list</em><em>, </em><em>col order should be the order of values in data</em><em>[</em><em>x</em><em>]</em><em>.values</em>) – </p></li>
-<li><p><strong>colors</strong> (<em>a string</em><em> or </em><em>dict do control the colors of dot</em><em>, </em><em>could be used with hue</em><em>, </em><em>default is None.</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>string</em><em> or </em><em>dict</em><em>, </em><em>cmap to control the color of dot</em><em>, </em><em>could be used together with hue and colors.</em>) – </p></li>
-<li><p><strong>ax</strong> (<em>ax</em>) – </p></li>
-<li><p><strong>show_rownames</strong> (<em>whether to show row names</em><em>, </em><em>default is True.</em>) – </p></li>
-<li><p><strong>show_colnames</strong> (<em>whether to show col names</em><em>, </em><em>default is True.</em>) – </p></li>
-<li><p><strong>plot_legend</strong> (<em>whether to plot legend</em><em>, </em><em>default is True.</em>) – </p></li>
-<li><p><strong>legend_side</strong> (<em>legend side</em><em>, </em><em>default is right.</em>) – </p></li>
-<li><p><strong>label_side</strong> (<em>label side of y tick labels</em><em>, </em><em>default is left.</em>) – </p></li>
-<li><p><strong>legend_hpad</strong> (<em>horizonal pad between legend and main figure.</em>) – </p></li>
-<li><p><strong>legend_width</strong> (<em>width of legend.</em>) – </p></li>
-<li><p><strong>legend_vpad</strong> (<em>vertical pad between legend and the top of main figure.</em>) – </p></li>
-<li><p><strong>legend_gap</strong> (<em>vertical gap between two legends.</em>) – </p></li>
-<li><p><strong>color_legend_kws</strong> (legend_kws passed to <cite>plot_color_dict_legend</cite>.) – </p></li>
-<li><p><strong>dot_legend_kws</strong> (legend_kws passed to <cite>plot_marker_legend</cite>.) – </p></li>
-<li><p><strong>cmap_legend_kws</strong> (legend_kws passed to <cite>plot_cmap_legend</cite>.) – </p></li>
-<li><p><strong>kwargs</strong> (<em>others kwargs passed to plt.scatter</em><em>, </em><em>such as linewidths</em><em>, </em><em>edgecolor</em><em>, </em><em>alphia and so on.</em>) – </p></li>
+<li><p><strong>data</strong> (<em>DataFrame</em>) – a dataframe containing multiple columns.</p></li>
+<li><p><strong>x</strong> (<em>str</em>) – column name in data.columns, used to show on the xaxis of dot heatmap.</p></li>
+<li><p><strong>y</strong> (<em>str</em>) – column name in data.columns, used to show on the yaxis of dot heatmap.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – column name in data.columns, used to control the color and size of dot.</p></li>
+<li><p><strong>hue</strong> (<em>str</em>) – column name in data.columns, used to control the color and cmap of dot.</p></li>
+<li><p><strong>row_order</strong> (<em>list</em>) – row order should be the order of values in data[y].values</p></li>
+<li><p><strong>col_order</strong> (<em>list</em>) – col order should be the order of values in data[x].values</p></li>
+<li><p><strong>colors</strong> (<em>str</em><em> or </em><em>dict</em>) – a string or dict do control the colors of dot, could be used with hue, default is None.</p></li>
+<li><p><strong>cmap</strong> (<em>string</em><em> or </em><em>dict</em>) – cmap to control the color of dot, could be used together with hue and colors.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes</em>) – ax</p></li>
+<li><p><strong>show_rownames</strong> (<em>bool</em>) – whether to show row names, default is True.</p></li>
+<li><p><strong>show_colnames</strong> (<em>bool</em>) – whether to show col names, default is True.</p></li>
+<li><p><strong>plot_legend</strong> (<em>bool</em>) – whether to plot legend, default is True.</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – legend side, default is right.</p></li>
+<li><p><strong>label_side</strong> (<em>str</em>) – label side of y tick labels, default is left.</p></li>
+<li><p><strong>legend_hpad</strong> (<em>float</em>) – horizonal pad between legend and main figure.</p></li>
+<li><p><strong>legend_width</strong> (<em>float</em>) – width of legend.</p></li>
+<li><p><strong>legend_vpad</strong> (<em>float</em>) – vertical pad between legend and the top of main figure.</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – vertical gap between two legends.</p></li>
+<li><p><strong>color_legend_kws</strong> (<em>dict</em>) – legend_kws passed to <cite>plot_color_dict_legend</cite>.</p></li>
+<li><p><strong>dot_legend_kws</strong> (<em>dict</em>) – legend_kws passed to <cite>plot_marker_legend</cite>.</p></li>
+<li><p><strong>cmap_legend_kws</strong> (<em>dict</em>) – legend_kws passed to <cite>plot_cmap_legend</cite>.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -761,16 +773,16 @@ specified axis.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>dataframe</em>) – </p></li>
-<li><p><strong>x</strong> (<em>x</em>) – </p></li>
-<li><p><strong>y</strong> (<em>y</em>) – </p></li>
-<li><p><strong>hue</strong> (<em>hue</em>) – </p></li>
-<li><p><strong>hue_order</strong> (<em>order for hue.</em>) – </p></li>
-<li><p><strong>size</strong> (<em>column names used for size</em><em> or </em><em>float.</em>) – </p></li>
-<li><p><strong>color</strong> (<em>color</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>cmap</em>) – </p></li>
-<li><p><strong>title</strong> (<em>title</em>) – </p></li>
-<li><p><strong>figsize</strong> (<em>figsize</em>) – </p></li>
-<li><p><strong>outname</strong> (<em>output name</em>) – </p></li>
+<li><p><strong>x</strong> (<em>str</em>) – </p></li>
+<li><p><strong>y</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue</strong> (<em>str</em>) – hue</p></li>
+<li><p><strong>hue_order</strong> (<em>list</em>) – order for hue.</p></li>
+<li><p><strong>size</strong> (<em>str</em><em> or </em><em>float</em>) – column names used for size or float.</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – color</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – cmap</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figsize</p></li>
+<li><p><strong>outname</strong> (<em>path</em>) – output name</p></li>
 </ul>
 </dd>
 </dl>
@@ -784,14 +796,14 @@ specified axis.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>dataframe</em>) – </p></li>
-<li><p><strong>x</strong> (<em>x</em>) – </p></li>
-<li><p><strong>y</strong> (<em>y</em>) – </p></li>
-<li><p><strong>hue</strong> (<em>hue</em>) – </p></li>
-<li><p><strong>hue_order</strong> (<em>order for hue</em>) – </p></li>
-<li><p><strong>palette</strong> (<em>palette</em>) – </p></li>
-<li><p><strong>figsize</strong> (<em>figsize</em>) – </p></li>
-<li><p><strong>outname</strong> (<em>output pdf filename</em>) – </p></li>
-<li><p><strong>title</strong> (<em>title</em>) – </p></li>
+<li><p><strong>x</strong> (<em>str</em>) – </p></li>
+<li><p><strong>y</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue_order</strong> (<em>list</em>) – order for hue</p></li>
+<li><p><strong>palette</strong> (<em>str</em>) – palette</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figsize</p></li>
+<li><p><strong>outname</strong> (<em>path</em>) – output pdf filename</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title</p></li>
 </ul>
 </dd>
 </dl>
@@ -800,26 +812,32 @@ specified axis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="PyComplexHeatmap.tools.volcano_plot">
 <span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.tools.</span></span><span class="sig-name descname"><span class="pre">volcano_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log2(Fold</span> <span class="pre">change)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-log10(adjp)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DEG'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gene_name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Size'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">80)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log2(Fold</span> <span class="pre">change)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-log10(adjusted</span> <span class="pre">pvalue)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Upregulated',</span> <span class="pre">'Not.Sig',</span> <span class="pre">'Downregulated']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['red',</span> <span class="pre">'grey',</span> <span class="pre">'blue']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(5,</span> <span class="pre">7)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">90</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/tools.html#volcano_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.tools.volcano_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot volcano plot
-:param data:
-:param x:
-:param y:
-:param outname:
-:param title:
-:param hue:
-:param label:
-:param size:
-:param sizes:
-:param xlabel:
-:param ylabel:
-:param rasterized:
-:param hue_order:
-:param colors:
-:param topn:
-:param x_unit:
-:param y_unit:
-:param figsize:
-:param xlabel_rotate:</p>
+<dd><p>Plot volcano plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – </p></li>
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>y</strong> – </p></li>
+<li><p><strong>outname</strong> – </p></li>
+<li><p><strong>title</strong> – </p></li>
+<li><p><strong>hue</strong> – </p></li>
+<li><p><strong>label</strong> – </p></li>
+<li><p><strong>size</strong> – </p></li>
+<li><p><strong>sizes</strong> – </p></li>
+<li><p><strong>xlabel</strong> – </p></li>
+<li><p><strong>ylabel</strong> – </p></li>
+<li><p><strong>rasterized</strong> – </p></li>
+<li><p><strong>hue_order</strong> – </p></li>
+<li><p><strong>colors</strong> – </p></li>
+<li><p><strong>topn</strong> – </p></li>
+<li><p><strong>x_unit</strong> – </p></li>
+<li><p><strong>y_unit</strong> – </p></li>
+<li><p><strong>figsize</strong> – </p></li>
+<li><p><strong>xlabel_rotate</strong> – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

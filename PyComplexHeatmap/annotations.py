@@ -19,27 +19,34 @@ class AnnotationBase():
 
     Parameters
     ----------
-    df: a pandas series or dataframe (only one column).
-    cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+    df: dataframe
+        a pandas series or dataframe (only one column).
+    cmap: str
+        colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
         https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
         matplotlib.pyplot.colormaps() to see all availabel cmap.
         default cmap is 'auto', it would be determined based on the dtype for each columns of df.
-    colors: a dict or list (for boxplot, barplot) or str.
+    colors: dict, list or str
+        a dict or list (for boxplot, barplot) or str.
         If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
         values for the dict should be colors (color names or HEX color).
         If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()
         If colors is a string, means all values in df.iloc[:,0].unique() share the same color.
-    height: height (if axis=1) / width (if axis=0) for the annotation size.
-    legend: whether to plot legend for this annotation when legends are plotted or
+    height: float
+        height (if axis=1) / width (if axis=0) for the annotation size.
+    legend: bool
+        whether to plot legend for this annotation when legends are plotted or
         plot legend with HeatmapAnnotation.plot_legends().
-    legend_kws: vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
+    legend_kws: dict
+        vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
         markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
         arguments, pleast type ?plt.legend. There is an additional parameter `color_text` (default is True),
         which would set the color of the text to the same color as legend marker. if one set
         `legend_kws={'color_text':False}`, then, black would be the default color for the text.
         If the user want to use a custom color instead of black (such as blue), please set
         legend_kws={'color_text':False,'labelcolor':'blue'}.
-    plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
+    plot_kws: dict
+        other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
         annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
         there is also kws: vmin and vmax, if one want to change the range, please try:
         anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={'vmin':0,'vmax':1}).
@@ -319,10 +326,14 @@ class anno_label(AnnotationBase):
 
     Parameters
     ----------
-    merge: whether to merge the same clusters into one and label only once.
-    extend: whether to distribute all the labels extend to the all axis, figure or ax or False.
-    frac: fraction of the armA and armB.
-    plot_kws is passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
+    merge: bool
+        whether to merge the same clusters into one and label only once.
+    extend: bool
+        whether to distribute all the labels extend to the all axis, figure or ax or False.
+    frac: float
+        fraction of the armA and armB.
+    plot_kws: dict
+        passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
         more information about arrowprops could be found in
         matplotlib.patches.FancyArrowPatch
 
@@ -805,10 +816,14 @@ class HeatmapAnnotation():
 
     Parameters
     ----------
-    self : Class HeatmapAnnotation
-    df :  a pandas dataframe, each column will be converted to one anno_simple class.
-    axis : 1 for columns annotation, 0 for rows annotations.
-    cmap : colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+    self : Class
+        HeatmapAnnotation
+    df :  dataframe
+        a pandas dataframe, each column will be converted to one anno_simple class.
+    axis : int
+        1 for columns annotation, 0 for rows annotations.
+    cmap : str
+        colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
         https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run
         matplotlib.pyplot.colormaps() to see all availabel cmap.
         default cmap is 'auto', it would be determined based on the dtype for each columns in df.
@@ -816,42 +831,59 @@ class HeatmapAnnotation():
         df is provided.
         If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
         a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).
-    colors : a dict, keys are the column names of df, values are list, dict or string passed to
+    colors : dict
+        a dict, keys are the column names of df, values are list, dict or string passed to
         AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
         colors must have the same length as the df.columns, if colors is not provided (default), else,
         colors would be calculated based on the given cmap.
         If colors is given, then the cmap would be invalid.
-    label_side : top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).
-    label_kws :kws passed to the labels of the annotation labels (would be df.columns if df is given).
+    label_side : str
+        top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).
+    label_kws : dict
+        kws passed to the labels of the annotation labels (would be df.columns if df is given).
         such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
         va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.
         For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()
-    ticklabels_kws : label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
+    ticklabels_kws : dict
+        label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
         such as axis, which, direction, length, width,
         color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
         labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
         For more information,see ?matplotlib.axes.Axes.tick_params
-    plot_kws : kws passed to annotation functions, such as anno_simple, anno_label et.al.
-    plot : whether to plot, when the annotation are included in clustermap, plot would be
+    plot_kws : dict
+        kws passed to annotation functions, such as anno_simple, anno_label et.al.
+    plot : bool
+        whether to plot, when the annotation are included in clustermap, plot would be
         set to False automotially.
-    legend : True or False, or dict (when df is no None), when legend is dict, keys are the
+    legend : bool
+        True or False, or dict (when df is no None), when legend is dict, keys are the
         columns of df.
-    legend_side : right or left
-    legend_gap : the vertical gap between two legends, default is 2 [mm]
-    legend_width: width of the legend, default is 4.5[mm]
-    legend_hpad: Horizonal space between heatmap and legend, default is 2 [mm].
-    legend_vpad: Vertical space between top of ax and legend, default is 2 [mm].
-    orientation: up or down, when axis=1
-                left or right, when axis=0;
-                When anno_label shows up in annotation, the orientation would be automatically be assigned according
-                to the position of anno_label.
-    wspace: float, optional. The amount of width reserved for space between subplots, expressed as a fraction of the
-            average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.
-    hspace: float, optional
+    legend_side : str
+        right or left
+    legend_gap : float
+        the vertical gap between two legends, default is 2 [mm]
+    legend_width: float
+        width of the legend, default is 4.5[mm]
+    legend_hpad: float
+        Horizonal space between heatmap and legend, default is 2 [mm].
+    legend_vpad: float
+        Vertical space between top of ax and legend, default is 2 [mm].
+    orientation: str
+        up or down, when axis=1
+        left or right, when axis=0;
+        When anno_label shows up in annotation, the orientation would be automatically be assigned according
+        to the position of anno_label.
+    wspace: float
+        optional. The amount of width reserved for space between subplots, expressed as a fraction of the
+        average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.
+    hspace: float
+        optional
         The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
         If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params
-    plot_legend : whether to plot legends.
-    args : name-value pair, key is the annotation label (name), values can be a pandas dataframe,
+    plot_legend : bool
+        whether to plot legends.
+    args : name-value pair
+        key is the annotation label (name), values can be a pandas dataframe,
         series, or annotation such as
         anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.
 
@@ -1172,14 +1204,22 @@ class HeatmapAnnotation():
     def plot_annotations(self, ax=None, subplot_spec=None, idxs=None, gap=0.5,
                          wspace=None, hspace=None):
         """
+        Plot annotations
+
         Parameters
         ----------
-        ax : axes to plot the annotations.
-        subplot_spec : object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.
-        idxs : index to reorder df and df of annotation class.
-        gap : gap to calculate wspace and hspace for gridspec.
-        wspace : if wspace not is None, use wspace, else wspace would be calculated based on gap.
-        hspace : if hspace not is None, use hspace, else hspace would be calculated based on gap.
+        ax : ax
+            axes to plot the annotations.
+        subplot_spec : ax.figure.add_gridspec
+            object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.
+        idxs : list
+            index to reorder df and df of annotation class.
+        gap : float
+            gap to calculate wspace and hspace for gridspec.
+        wspace : float
+            if wspace not is None, use wspace, else wspace would be calculated based on gap.
+        hspace : float
+            if hspace not is None, use hspace, else hspace would be calculated based on gap.
 
         Returns
         -------

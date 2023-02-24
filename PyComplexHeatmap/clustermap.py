@@ -376,12 +376,18 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
 
     Parameters
     ----------
-    data: pandas dataframe
-    xlabel / ylabel: True, False, or list of xlabels
-    xlabel_side / ylabel_side: bottom or top
-    vmax, vmin: the maximal and minimal values for cmap colorbar.
-    center, robust: the same as seaborn.heatmap
-    xlabel_kws / ylabel_kws: parameter from matplotlib.axis.XAxis.label.properties()
+    data: dataframe
+        pandas dataframe
+    xlabel / ylabel: bool
+        True, False, or list of xlabels
+    xlabel_side / ylabel_side: str
+        bottom or top
+    vmax, vmin: float
+        the maximal and minimal values for cmap colorbar.
+    center, robust:
+        the same as seaborn.heatmap
+    xlabel_kws / ylabel_kws:
+        parameter from matplotlib.axis.XAxis.label.properties()
 
     """
     plotter = heatmapPlotter(data=data, vmin=vmin, vmax=vmax, cmap=cmap, center=center, robust=robust,
@@ -565,68 +571,111 @@ class ClusterMapPlotter():
 
     Parameters
     ----------
-    data : pandas dataframe or numpy array.
-    z_score : whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
+    data : dataframe
+        pandas dataframe or numpy array.
+    z_score : int
+        whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
         value range would be from -1 to 1.
-    standard_scale : either 0 for rows or 1 for columns, after scale,value range would be from 0 to 1.
+    standard_scale : int
+        either 0 for rows or 1 for columns, after scale,value range would be from 0 to 1.
     top_annotation : annotation: class of HeatmapAnnotation.
-    bottom_annotation : the same as top_annotation.
-    left_annotation :the same as top_annotation.
-    right_annotation :the same as top_annotation.
-    row_cluster :whether to perform cluster on rows/columns.
-    col_cluster :whether to perform cluster on rows/columns.
-    row_cluster_method :cluster method for row/columns linkage, such single, complete, average,weighted,
+    bottom_annotation : class AnnotationBase
+        the same as top_annotation.
+    left_annotation :class AnnotationBase
+        the same as top_annotation.
+    right_annotation :class AnnotationBase
+        the same as top_annotation.
+    row_cluster :bool
+        whether to perform cluster on rows/columns.
+    col_cluster :bool
+        whether to perform cluster on rows/columns.
+    row_cluster_method :str
+        cluster method for row/columns linkage, such single, complete, average,weighted,
         centroid, median, ward. see scipy.cluster.hierarchy.linkage or
         (https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for detail.
-    row_cluster_metric : Pairwise distances between observations in n-dimensional space for row/columns,
+    row_cluster_metric : str
+        Pairwise distances between observations in n-dimensional space for row/columns,
         such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
         chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
         centroid, median, ward. see scipy.cluster.hierarchy.linkage or
         https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html
-    col_cluster_method :same as row_cluster_method
-    col_cluster_metric :same as row_cluster_metric
-    show_rownames :True (default) or False, whether to show row ticklabels.
-    show_colnames : True of False, same as show_rownames.
-    row_names_side :right or left.
-    col_names_side :top or bottom.
-    row_dendrogram :True or False, whether to show dendrogram.
-    col_dendrogram :True or False, whether to show dendrogram.
-    row_dendrogram_size :int, default is 10mm.
-    col_dendrogram_size :int, default is 10mm.
-    row_split :int (number of cluster for hierarchical clustering) or pd.Series or pd.DataFrame,
+    col_cluster_method :str
+        same as row_cluster_method
+    col_cluster_metric :str
+        same as row_cluster_metric
+    show_rownames :bool
+        True (default) or False, whether to show row ticklabels.
+    show_colnames : bool
+        True of False, same as show_rownames.
+    row_names_side :str
+        right or left.
+    col_names_side :str
+        top or bottom.
+    row_dendrogram :bool
+        True or False, whether to show dendrogram.
+    col_dendrogram :bool
+        True or False, whether to show dendrogram.
+    row_dendrogram_size :int
+        default is 10mm.
+    col_dendrogram_size :int
+        default is 10mm.
+    row_split :int or pd.Series or pd.DataFrame
+        number of cluster for hierarchical clustering or pd.Series or pd.DataFrame,
         used to split rows or rows into subplots.
-    col_split :int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
-    dendrogram_kws :kws passed to hierarchy.dendrogram.
-    tree_kws :kws passed to DendrogramPlotter.plot()
-    row_split_gap :default are 0.5 and 0.2 mm for row and col.
-    col_split_gap :default are 0.5 and 0.2 mm for row and col.
-    mask :mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.
-    subplot_gap :the gap between subplots, default is 1mm.
-    legend :True or False, whether to plot heatmap legend, determined by cmap.
-    legend_kws :kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
+    col_split :int or pd.Series or pd.DataFrame
+        int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
+    dendrogram_kws :dict
+        kws passed to hierarchy.dendrogram.
+    tree_kws :dict
+        kws passed to DendrogramPlotter.plot()
+    row_split_gap :float
+        default are 0.5 and 0.2 mm for row and col.
+    col_split_gap :float
+        default are 0.5 and 0.2 mm for row and col.
+    mask :dataframe or array
+        mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.
+    subplot_gap :float
+        the gap between subplots, default is 1mm.
+    legend :bool
+        True or False, whether to plot heatmap legend, determined by cmap.
+    legend_kws :dict
+        kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
         for cbar in cm.cbars:
             if isinstance(cbar,matplotlib.colorbar.Colorbar):
                 cbar.outline.set_color('white')
                 cbar.outline.set_linewidth(2)
                 cbar.dividers.set_color('red')
                 cbar.dividers.set_linewidth(2)
-    plot :whether to plot or not.
-    plot_legend :True or False, whether to plot legend, if False, legends can be plot with
+    plot :bool
+        whether to plot or not.
+    plot_legend :bool
+        True or False, whether to plot legend, if False, legends can be plot with
         ClusterMapPlotter.plot_legends()
-    legend_anchor :str, ax_heatmap or ax, the ax to which legend anchor.
-    legend_gap :the columns gap between different legends.
-    legend_width: width of the legend, default is 4.5[mm]
-    legend_hpad: Horizonal space between the heatmap and legend, default is 2 [mm].
-    legend_vpad: Vertical space between the top of legend_anchor and legend, default is 5 [mm].
-    legend_side :right of left.
-    cmap :default is 'jet', the colormap for heatmap colorbar, see plt.colormaps().
-    label :the title (label) that will be shown in heatmap colorbar legend.
-    xticklabels_kws :xticklabels or yticklabels kws, such as axis, which, direction, length, width,
+    legend_anchor :str
+        ax_heatmap or ax, the ax to which legend anchor.
+    legend_gap :float
+        the columns gap between different legends.
+    legend_width: float
+        width of the legend, default is 4.5[mm]
+    legend_hpad: float
+        Horizonal space between the heatmap and legend, default is 2 [mm].
+    legend_vpad: float
+        Vertical space between the top of legend_anchor and legend, default is 5 [mm].
+    legend_side :str
+        right of left.
+    cmap :str
+        default is 'jet', the colormap for heatmap colorbar, see plt.colormaps().
+    label :str
+        the title (label) that will be shown in heatmap colorbar legend.
+    xticklabels_kws :dict
+        xticklabels or yticklabels kws, such as axis, which, direction, length, width,
         color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
         labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
         For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.
-    yticklabels_kws :the same as xticklabels_kws.
-    rasterized :default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
+    yticklabels_kws :dict
+        the same as xticklabels_kws.
+    rasterized :bool
+        default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
     heatmap_kws :kws passed to heatmap.
 
@@ -1306,13 +1355,19 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
 
     Parameters
     ----------
-    cmlist: a list of ClusterMapPlotter (with plot=False).
-    axis: 1 for columns (align the cmlist horizontally), 0 for rows (vertically).
-    main: use which as main ClusterMapPlotter, will influence row/col order. main is the index
+    cmlist: list
+        a list of ClusterMapPlotter (with plot=False).
+    axis: int
+        1 for columns (align the cmlist horizontally), 0 for rows (vertically).
+    main: int
+        use which as main ClusterMapPlotter, will influence row/col order. main is the index
         of cmlist.
-    row/col_gap, the row or columns gap between subplots, unit is mm [15].
-    legend_side: right,left [right].
-    legend_gap, row gap between two legends, unit is mm.
+    row/col_gap: float
+        the row or columns gap between subplots, unit is mm [15].
+    legend_side: str
+        right,left [right].
+    legend_gap: float
+        row gap between two legends, unit is mm.
 
     Returns
     -------

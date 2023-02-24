@@ -20,29 +20,52 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
 
     Parameters
     ----------
-    data : a dataframe containing multiple columns.
-    x : column name in data.columns, used to show on the xaxis of dot heatmap.
-    y : column name in data.columns, used to show on the yaxis of dot heatmap.
-    value : column name in data.columns, used to control the color and size of dot.
-    hue : column name in data.columns, used to control the color and cmap of dot.
-    row_order : list, row order should be the order of values in data[y].values
-    col_order : list, col order should be the order of values in data[x].values
-    colors : a string or dict do control the colors of dot, could be used with hue, default is None.
-    cmap : string or dict, cmap to control the color of dot, could be used together with hue and colors.
-    ax : ax
-    show_rownames : whether to show row names, default is True.
-    show_colnames : whether to show col names, default is True.
-    plot_legend : whether to plot legend, default is True.
-    legend_side : legend side, default is right.
-    label_side : label side of y tick labels, default is left.
-    legend_hpad : horizonal pad between legend and main figure.
-    legend_width : width of legend.
-    legend_vpad : vertical pad between legend and the top of main figure.
-    legend_gap : vertical gap between two legends.
-    color_legend_kws : legend_kws passed to `plot_color_dict_legend`.
-    dot_legend_kws : legend_kws passed to `plot_marker_legend`.
-    cmap_legend_kws : legend_kws passed to `plot_cmap_legend`.
-    kwargs : others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.
+    data : DataFrame
+        a dataframe containing multiple columns.
+    x : str
+        column name in data.columns, used to show on the xaxis of dot heatmap.
+    y : str
+        column name in data.columns, used to show on the yaxis of dot heatmap.
+    value : str
+        column name in data.columns, used to control the color and size of dot.
+    hue : str
+        column name in data.columns, used to control the color and cmap of dot.
+    row_order : list
+        row order should be the order of values in data[y].values
+    col_order : list
+        col order should be the order of values in data[x].values
+    colors : str or dict
+        a string or dict do control the colors of dot, could be used with hue, default is None.
+    cmap : string or dict
+        cmap to control the color of dot, could be used together with hue and colors.
+    ax : matplotlib.axes
+        ax
+    show_rownames : bool
+        whether to show row names, default is True.
+    show_colnames : bool
+        whether to show col names, default is True.
+    plot_legend : bool
+        whether to plot legend, default is True.
+    legend_side : str
+        legend side, default is right.
+    label_side : str
+        label side of y tick labels, default is left.
+    legend_hpad : float
+        horizonal pad between legend and main figure.
+    legend_width : float
+        width of legend.
+    legend_vpad : float
+        vertical pad between legend and the top of main figure.
+    legend_gap : float
+        vertical gap between two legends.
+    color_legend_kws : dict
+        legend_kws passed to `plot_color_dict_legend`.
+    dot_legend_kws : dict
+        legend_kws passed to `plot_marker_legend`.
+    cmap_legend_kws : dict
+        legend_kws passed to `plot_cmap_legend`.
+    kwargs : dict
+        others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.
 
     Returns
     -------

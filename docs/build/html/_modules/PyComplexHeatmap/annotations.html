@@ -91,27 +91,34 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    df: a pandas series or dataframe (only one column).</span>
-<span class="sd">    cmap: colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</span>
+<span class="sd">    df: dataframe</span>
+<span class="sd">        a pandas series or dataframe (only one column).</span>
+<span class="sd">    cmap: str</span>
+<span class="sd">        colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</span>
 <span class="sd">        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run</span>
 <span class="sd">        matplotlib.pyplot.colormaps() to see all availabel cmap.</span>
 <span class="sd">        default cmap is &#39;auto&#39;, it would be determined based on the dtype for each columns of df.</span>
-<span class="sd">    colors: a dict or list (for boxplot, barplot) or str.</span>
+<span class="sd">    colors: dict, list or str</span>
+<span class="sd">        a dict or list (for boxplot, barplot) or str.</span>
 <span class="sd">        If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),</span>
 <span class="sd">        values for the dict should be colors (color names or HEX color).</span>
 <span class="sd">        If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()</span>
 <span class="sd">        If colors is a string, means all values in df.iloc[:,0].unique() share the same color.</span>
-<span class="sd">    height: height (if axis=1) / width (if axis=0) for the annotation size.</span>
-<span class="sd">    legend: whether to plot legend for this annotation when legends are plotted or</span>
+<span class="sd">    height: float</span>
+<span class="sd">        height (if axis=1) / width (if axis=0) for the annotation size.</span>
+<span class="sd">    legend: bool</span>
+<span class="sd">        whether to plot legend for this annotation when legends are plotted or</span>
 <span class="sd">        plot legend with HeatmapAnnotation.plot_legends().</span>
-<span class="sd">    legend_kws: vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,</span>
+<span class="sd">    legend_kws: dict</span>
+<span class="sd">        vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,</span>
 <span class="sd">        markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more</span>
 <span class="sd">        arguments, pleast type ?plt.legend. There is an additional parameter `color_text` (default is True),</span>
 <span class="sd">        which would set the color of the text to the same color as legend marker. if one set</span>
 <span class="sd">        `legend_kws={&#39;color_text&#39;:False}`, then, black would be the default color for the text.</span>
 <span class="sd">        If the user want to use a custom color instead of black (such as blue), please set</span>
 <span class="sd">        legend_kws={&#39;color_text&#39;:False,&#39;labelcolor&#39;:&#39;blue&#39;}.</span>
-<span class="sd">    plot_kws: other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,</span>
+<span class="sd">    plot_kws: dict</span>
+<span class="sd">        other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,</span>
 <span class="sd">        annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,</span>
 <span class="sd">        there is also kws: vmin and vmax, if one want to change the range, please try:</span>
 <span class="sd">        anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={&#39;vmin&#39;:0,&#39;vmax&#39;:1}).</span>
@@ -391,10 +398,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    merge: whether to merge the same clusters into one and label only once.</span>
-<span class="sd">    extend: whether to distribute all the labels extend to the all axis, figure or ax or False.</span>
-<span class="sd">    frac: fraction of the armA and armB.</span>
-<span class="sd">    plot_kws is passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,</span>
+<span class="sd">    merge: bool</span>
+<span class="sd">        whether to merge the same clusters into one and label only once.</span>
+<span class="sd">    extend: bool</span>
+<span class="sd">        whether to distribute all the labels extend to the all axis, figure or ax or False.</span>
+<span class="sd">    frac: float</span>
+<span class="sd">        fraction of the armA and armB.</span>
+<span class="sd">    plot_kws: dict</span>
+<span class="sd">        passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,</span>
 <span class="sd">        more information about arrowprops could be found in</span>
 <span class="sd">        matplotlib.patches.FancyArrowPatch</span>
 
@@ -877,10 +888,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    self : Class HeatmapAnnotation</span>
-<span class="sd">    df :  a pandas dataframe, each column will be converted to one anno_simple class.</span>
-<span class="sd">    axis : 1 for columns annotation, 0 for rows annotations.</span>
-<span class="sd">    cmap : colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</span>
+<span class="sd">    self : Class</span>
+<span class="sd">        HeatmapAnnotation</span>
+<span class="sd">    df :  dataframe</span>
+<span class="sd">        a pandas dataframe, each column will be converted to one anno_simple class.</span>
+<span class="sd">    axis : int</span>
+<span class="sd">        1 for columns annotation, 0 for rows annotations.</span>
+<span class="sd">    cmap : str</span>
+<span class="sd">        colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see</span>
 <span class="sd">        https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html for more information, or run</span>
 <span class="sd">        matplotlib.pyplot.colormaps() to see all availabel cmap.</span>
 <span class="sd">        default cmap is &#39;auto&#39;, it would be determined based on the dtype for each columns in df.</span>
@@ -888,42 +903,59 @@
 <span class="sd">        df is provided.</span>
 <span class="sd">        If cmap is a string, then all columns in the df would have the same cmap, cmap can also be</span>
 <span class="sd">        a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).</span>
-<span class="sd">    colors : a dict, keys are the column names of df, values are list, dict or string passed to</span>
+<span class="sd">    colors : dict</span>
+<span class="sd">        a dict, keys are the column names of df, values are list, dict or string passed to</span>
 <span class="sd">        AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.</span>
 <span class="sd">        colors must have the same length as the df.columns, if colors is not provided (default), else,</span>
 <span class="sd">        colors would be calculated based on the given cmap.</span>
 <span class="sd">        If colors is given, then the cmap would be invalid.</span>
-<span class="sd">    label_side : top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</span>
-<span class="sd">    label_kws :kws passed to the labels of the annotation labels (would be df.columns if df is given).</span>
+<span class="sd">    label_side : str</span>
+<span class="sd">        top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</span>
+<span class="sd">    label_kws : dict</span>
+<span class="sd">        kws passed to the labels of the annotation labels (would be df.columns if df is given).</span>
 <span class="sd">        such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),</span>
 <span class="sd">        va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.</span>
 <span class="sd">        For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()</span>
-<span class="sd">    ticklabels_kws : label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,</span>
+<span class="sd">    ticklabels_kws : dict</span>
+<span class="sd">        label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,</span>
 <span class="sd">        such as axis, which, direction, length, width,</span>
 <span class="sd">        color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,</span>
 <span class="sd">        labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.</span>
 <span class="sd">        For more information,see ?matplotlib.axes.Axes.tick_params</span>
-<span class="sd">    plot_kws : kws passed to annotation functions, such as anno_simple, anno_label et.al.</span>
-<span class="sd">    plot : whether to plot, when the annotation are included in clustermap, plot would be</span>
+<span class="sd">    plot_kws : dict</span>
+<span class="sd">        kws passed to annotation functions, such as anno_simple, anno_label et.al.</span>
+<span class="sd">    plot : bool</span>
+<span class="sd">        whether to plot, when the annotation are included in clustermap, plot would be</span>
 <span class="sd">        set to False automotially.</span>
-<span class="sd">    legend : True or False, or dict (when df is no None), when legend is dict, keys are the</span>
+<span class="sd">    legend : bool</span>
+<span class="sd">        True or False, or dict (when df is no None), when legend is dict, keys are the</span>
 <span class="sd">        columns of df.</span>
-<span class="sd">    legend_side : right or left</span>
-<span class="sd">    legend_gap : the vertical gap between two legends, default is 2 [mm]</span>
-<span class="sd">    legend_width: width of the legend, default is 4.5[mm]</span>
-<span class="sd">    legend_hpad: Horizonal space between heatmap and legend, default is 2 [mm].</span>
-<span class="sd">    legend_vpad: Vertical space between top of ax and legend, default is 2 [mm].</span>
-<span class="sd">    orientation: up or down, when axis=1</span>
-<span class="sd">                left or right, when axis=0;</span>
-<span class="sd">                When anno_label shows up in annotation, the orientation would be automatically be assigned according</span>
-<span class="sd">                to the position of anno_label.</span>
-<span class="sd">    wspace: float, optional. The amount of width reserved for space between subplots, expressed as a fraction of the</span>
-<span class="sd">            average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.</span>
-<span class="sd">    hspace: float, optional</span>
+<span class="sd">    legend_side : str</span>
+<span class="sd">        right or left</span>
+<span class="sd">    legend_gap : float</span>
+<span class="sd">        the vertical gap between two legends, default is 2 [mm]</span>
+<span class="sd">    legend_width: float</span>
+<span class="sd">        width of the legend, default is 4.5[mm]</span>
+<span class="sd">    legend_hpad: float</span>
+<span class="sd">        Horizonal space between heatmap and legend, default is 2 [mm].</span>
+<span class="sd">    legend_vpad: float</span>
+<span class="sd">        Vertical space between top of ax and legend, default is 2 [mm].</span>
+<span class="sd">    orientation: str</span>
+<span class="sd">        up or down, when axis=1</span>
+<span class="sd">        left or right, when axis=0;</span>
+<span class="sd">        When anno_label shows up in annotation, the orientation would be automatically be assigned according</span>
+<span class="sd">        to the position of anno_label.</span>
+<span class="sd">    wspace: float</span>
+<span class="sd">        optional. The amount of width reserved for space between subplots, expressed as a fraction of the</span>
+<span class="sd">        average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.</span>
+<span class="sd">    hspace: float</span>
+<span class="sd">        optional</span>
 <span class="sd">        The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.</span>
 <span class="sd">        If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params</span>
-<span class="sd">    plot_legend : whether to plot legends.</span>
-<span class="sd">    args : name-value pair, key is the annotation label (name), values can be a pandas dataframe,</span>
+<span class="sd">    plot_legend : bool</span>
+<span class="sd">        whether to plot legends.</span>
+<span class="sd">    args : name-value pair</span>
+<span class="sd">        key is the annotation label (name), values can be a pandas dataframe,</span>
 <span class="sd">        series, or annotation such as</span>
 <span class="sd">        anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</span>
 
@@ -1244,14 +1276,22 @@
 <div class="viewcode-block" id="HeatmapAnnotation.plot_annotations"><a class="viewcode-back" href="../../PyComplexHeatmap.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">plot_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">idxs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                          <span class="n">wspace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot annotations</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        ax : axes to plot the annotations.</span>
-<span class="sd">        subplot_spec : object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</span>
-<span class="sd">        idxs : index to reorder df and df of annotation class.</span>
-<span class="sd">        gap : gap to calculate wspace and hspace for gridspec.</span>
-<span class="sd">        wspace : if wspace not is None, use wspace, else wspace would be calculated based on gap.</span>
-<span class="sd">        hspace : if hspace not is None, use hspace, else hspace would be calculated based on gap.</span>
+<span class="sd">        ax : ax</span>
+<span class="sd">            axes to plot the annotations.</span>
+<span class="sd">        subplot_spec : ax.figure.add_gridspec</span>
+<span class="sd">            object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</span>
+<span class="sd">        idxs : list</span>
+<span class="sd">            index to reorder df and df of annotation class.</span>
+<span class="sd">        gap : float</span>
+<span class="sd">            gap to calculate wspace and hspace for gridspec.</span>
+<span class="sd">        wspace : float</span>
+<span class="sd">            if wspace not is None, use wspace, else wspace would be calculated based on gap.</span>
+<span class="sd">        hspace : float</span>
+<span class="sd">            if hspace not is None, use hspace, else hspace would be calculated based on gap.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

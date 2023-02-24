@@ -15,14 +15,19 @@ def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsiz
     Parameters
     ----------
     df : dataframe
-    x : x
-    y : y
-    hue : hue
-    hue_order : order for hue
-    palette : palette
-    figsize : figsize
-    outname : output pdf filename
-    title : title
+    x : str
+    y : str
+    hue : str
+    hue_order : list
+        order for hue
+    palette : str
+        palette
+    figsize : tuple
+        figsize
+    outname : path
+        output pdf filename
+    title : str
+        title
 
     Returns
     -------
@@ -53,16 +58,24 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     Parameters
     ----------
     df : dataframe
-    x : x
-    y : y
-    hue : hue
-    hue_order : order for hue.
-    size : column names used for size or float.
-    color : color
-    cmap : cmap
-    title : title
-    figsize : figsize
-    outname : output name
+    x : str
+    y : str
+    hue : str
+        hue
+    hue_order : list
+        order for hue.
+    size : str or float
+        column names used for size or float.
+    color : str
+        color
+    cmap : str
+        cmap
+    title : str
+        title
+    figsize : tuple
+        figsize
+    outname : path
+        output name
 
     Returns
     -------
@@ -122,6 +135,7 @@ def volcano_plot(data=None,x='log2(Fold change)',y='-log10(adjp)',
                   figsize=(5,7),xlabel_rotate=90):
     """
     Plot volcano plot
+
     Parameters
     ----------
     data :

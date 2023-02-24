@@ -87,14 +87,19 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df : dataframe</span>
-<span class="sd">    x : x</span>
-<span class="sd">    y : y</span>
-<span class="sd">    hue : hue</span>
-<span class="sd">    hue_order : order for hue</span>
-<span class="sd">    palette : palette</span>
-<span class="sd">    figsize : figsize</span>
-<span class="sd">    outname : output pdf filename</span>
-<span class="sd">    title : title</span>
+<span class="sd">    x : str</span>
+<span class="sd">    y : str</span>
+<span class="sd">    hue : str</span>
+<span class="sd">    hue_order : list</span>
+<span class="sd">        order for hue</span>
+<span class="sd">    palette : str</span>
+<span class="sd">        palette</span>
+<span class="sd">    figsize : tuple</span>
+<span class="sd">        figsize</span>
+<span class="sd">    outname : path</span>
+<span class="sd">        output pdf filename</span>
+<span class="sd">    title : str</span>
+<span class="sd">        title</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -125,16 +130,24 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df : dataframe</span>
-<span class="sd">    x : x</span>
-<span class="sd">    y : y</span>
-<span class="sd">    hue : hue</span>
-<span class="sd">    hue_order : order for hue.</span>
-<span class="sd">    size : column names used for size or float.</span>
-<span class="sd">    color : color</span>
-<span class="sd">    cmap : cmap</span>
-<span class="sd">    title : title</span>
-<span class="sd">    figsize : figsize</span>
-<span class="sd">    outname : output name</span>
+<span class="sd">    x : str</span>
+<span class="sd">    y : str</span>
+<span class="sd">    hue : str</span>
+<span class="sd">        hue</span>
+<span class="sd">    hue_order : list</span>
+<span class="sd">        order for hue.</span>
+<span class="sd">    size : str or float</span>
+<span class="sd">        column names used for size or float.</span>
+<span class="sd">    color : str</span>
+<span class="sd">        color</span>
+<span class="sd">    cmap : str</span>
+<span class="sd">        cmap</span>
+<span class="sd">    title : str</span>
+<span class="sd">        title</span>
+<span class="sd">    figsize : tuple</span>
+<span class="sd">        figsize</span>
+<span class="sd">    outname : path</span>
+<span class="sd">        output name</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -194,6 +207,7 @@
                   <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">xlabel_rotate</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot volcano plot</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data :</span>
