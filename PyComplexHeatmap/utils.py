@@ -434,8 +434,8 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
     if color_text:
         for text in L.get_texts():
             try:
-                lum = _calculate_luminance(D[text.get_text()])
-                text_color = 'black' if lum > 0.408 else D[text.get_text()]
+                lum = _calculate_luminance(color_dict[text.get_text()])
+                text_color = 'black' if lum > 0.408 else color_dict[text.get_text()]
                 text.set_color(text_color)
             except:
                 pass
@@ -562,7 +562,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                 leg_pos = ax1.get_position()
                 y = leg_pos.y1 if y0 is None else y0
                 legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
-                L = plot_color_dict_legend(D=color, ax=ax1, title=title, label_side=legend_side,
+                L = plot_marker_legend(obj=obj, ax=ax1, title=title, label_side=legend_side,
                                            color_text=color_text, kws=legend_kws)
                 max_width = 0
             L_width = L.get_window_extent().width

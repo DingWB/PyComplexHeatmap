@@ -92,3 +92,36 @@ def clustermap_example1():
     # plt.tight_layout()
     plt.savefig("/Users/dingw1/Desktop/20220428_test.pdf", bbox_inches='tight')
     plt.show()
+
+def get_kycg_example_data():
+    import pandas as pd
+    filelist = ['Clark2018_Argelaguet2019_neg.kycg', 'Clark2018_Argelaguet2019_pos.kycg',
+                'GSE140493_Luo2022_hg38_neg.kycg', 'GSE140493_Luo2022_hg38_pos.kycg']
+    ds = ['Clark2018_Argelaguet2019', 'Clark2018_Argelaguet2019', 'Luo2022', 'Luo2022']
+    cg = ['Negative', 'Positive', 'Negative', 'Positive']
+    data = ''
+    for file, d, c in zip(filelist, ds, cg):
+        df = pd.read_csv(file, sep='\t')
+        df['Category'] = df['V5'].apply(
+            lambda x: x.split('/')[-1].replace('.cg.gz', '').replace('.cg', '').split('~')[0])
+        df['Term'] = df['V5'].apply(lambda x: x.split('/')[-1].replace('.cg.gz', '').replace('.cg', ''))
+        df['Term'] = df.Term.apply(lambda x: x.split('~')[1] if '~' in x else x)
+        df = df.loc[df.Term != 'NA', ['Term', 'p_val_enr', 'p_val_dep', 'odds_ratio', 'Category']]
+        df['SampleID'] = d
+        df['CpGType'] = c
+        df1 = df.loc[(df['p_val_enr'] <= 0.05) & (df['odds_ratio'].apply(lambda x: np.log2(float(x))).abs() >= 1)]
+        df2 = df.loc[(df['p_val_dep'] <= 0.05) & (df['odds_ratio'].apply(lambda x: np.log2(float(x))).abs() >= 1)]
+        df1['pvalue'] = df1.p_val_enr
+        df1['EnrichType'] = 'Enrich'
+        df2['pvalue'] = df2.p_val_dep
+        df2['EnrichType'] = 'Depletion'
+        df1.drop(['p_val_enr', 'p_val_dep'], axis=1, inplace=True)
+        df2.drop(['p_val_enr', 'p_val_dep'], axis=1, inplace=True)
+        df = pd.concat([df1, df2])
+        if type(data) == str:
+            data = df.copy()
+        else:
+            data = pd.concat([data, df])
+
+    data['-log10(Pval)'] = df['pvalue'].apply(lambda x: -np.log10(x + 1e-26))
+    return data

@@ -536,6 +536,8 @@ class DendrogramPlotter(object):
             ax.plot(x, y, color=color, **tree_kws)
         number_of_leaves = len(self.reordered_ind)
         max_dependent_coord = max(map(max, self.dependent_coord))  # max y
+        # if self.axis==0: #TODO
+        #     ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
 
         if self.rotate:  # horizontal
             ax.yaxis.set_ticks_position('right')
@@ -677,7 +679,7 @@ class ClusterMapPlotter():
     rasterized :bool
         default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
-    heatmap_kws :kws passed to heatmap.
+    kwargs :kws passed to heatmap.
 
     Returns
     -------
@@ -690,12 +692,12 @@ class ClusterMapPlotter():
                  show_rownames=False, show_colnames=False, row_names_side='right', col_names_side='bottom',
                  row_dendrogram=False, col_dendrogram=False, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
-                 row_split_order=None,col_split_order=None,row_split_gap=0.5, col_split_gap=0.2, mask=None,
-                 subplot_gap=1, legend=True, legend_kws=None,plot=True, plot_legend=True,
-                 legend_anchor='auto', legend_gap=5,legend_width=4.5,legend_hpad=2,legend_vpad=5,
+                 row_split_order=None, col_split_order=None, row_split_gap=0.5, col_split_gap=0.2, mask=None,
+                 subplot_gap=1, legend=True, legend_kws=None, plot=True, plot_legend=True,
+                 legend_anchor='auto', legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
-                 rasterized=False,legend_delta_x=None,verbose=1,**heatmap_kws):
-        self.heatmap_kws = heatmap_kws if not heatmap_kws is None else {}
+                 rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
+        self.kwargs = kwargs if not kwargs is None else {}
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.verbose=verbose
         self.mask = _check_mask(self.data2d, mask)
@@ -760,8 +762,8 @@ class ClusterMapPlotter():
 
     def format_data(self, data, z_score=None, standard_scale=None):
         data2d = data.copy()
-        self.heatmap_kws.setdefault('vmin', np.nanmin(data.values))
-        self.heatmap_kws.setdefault('vmax', np.nanmax(data.values))
+        self.kwargs.setdefault('vmin', np.nanmin(data.values))
+        self.kwargs.setdefault('vmax', np.nanmax(data.values))
         if z_score is not None and standard_scale is not None:
             raise ValueError('Cannot perform both z-scoring and standard-scaling on data')
         if z_score is not None:
@@ -1143,7 +1145,7 @@ class ClusterMapPlotter():
                                                                       height_ratios=[len(rows) for rows in row_order],
                                                                       width_ratios=[len(cols) for cols in col_order])
 
-        annot = self.heatmap_kws.pop("annot", None)
+        annot = self.kwargs.pop("annot", None)
         if annot is None or annot is False:
             pass
         else:
@@ -1169,7 +1171,7 @@ class ClusterMapPlotter():
                 annot1 = None if annot is None else annot_data.loc[rows, cols]
                 heatmap(self.data2d.loc[rows, cols], ax=ax1, cbar=False, cmap=self.cmap,
                         cbar_kws=None, mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
-                        xticklabels='auto', yticklabels='auto', annot=annot1, **self.heatmap_kws)
+                        xticklabels='auto', yticklabels='auto', annot=annot1, **self.kwargs)
                 self.heatmap_axes[i, j] = ax1
                 ax1.yaxis.label.set_visible(False)
                 ax1.xaxis.label.set_visible(False)
@@ -1247,8 +1249,8 @@ class ClusterMapPlotter():
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
-            vmax = self.heatmap_kws.get('vmax',np.nanmax(self.data2d[self.data2d != np.inf]))
-            vmin = self.heatmap_kws.get('vmin',np.nanmin(self.data2d[self.data2d != -np.inf]))
+            vmax = self.kwargs.get('vmax', np.nanmax(self.data2d[self.data2d != np.inf]))
+            vmin = self.kwargs.get('vmin', np.nanmin(self.data2d[self.data2d != -np.inf]))
             self.legend_kws.setdefault('vmin', round(vmin, 2))
             self.legend_kws.setdefault('vmax', round(vmax, 2))
             self.legend_list.append([self.cmap, self.label, self.legend_kws, 4,'cmap'])

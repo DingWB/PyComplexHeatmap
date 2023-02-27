@@ -308,6 +308,7 @@ class anno_simple(AnnotationBase):
             # fontsize = self.text_kws.pop('fontsize', 72 * s * 0.8 / ax.figure.dpi)
             color = self.text_kws.pop('color', None)
             for x0, y0, t in zip(x, y, labels):
+                # print(t,self.color_dict)
                 lum = _calculate_luminance(self.color_dict[t])
                 if color is None:
                     text_color = "black" if lum > 0.408 else "white"
@@ -1289,7 +1290,7 @@ class HeatmapAnnotation():
                         ax1.invert_yaxis()
 
                 else:  # horizonal
-                    ax1.invert_yaxis()  # fix bug for inversed row order, invert yaxis for rows annotations.
+                    # ax1.invert_yaxis()  # 20230227 fix bug for inversed row order in DotClustermapPlotter.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)

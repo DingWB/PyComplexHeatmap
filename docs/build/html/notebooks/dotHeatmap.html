@@ -56,6 +56,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-Dot-Clustermap">4. Dot Clustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">4.1 Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">4.2 Visualize up to five dimension data using DotClustermapPlotter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a></li>
@@ -378,7 +383,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -748,6 +753,696 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_dotHeatmap_16_0.png" src="../_images/notebooks_dotHeatmap_16_0.png" />
 </div>
+</div>
+</section>
+</section>
+<section id="4.-Dot-Clustermap">
+<h1>4. Dot Clustermap<a class="headerlink" href="#4.-Dot-Clustermap" title="Permalink to this heading">¶</a></h1>
+<section id="4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
+<h2>4.1 Plot clustermap using seaborn brain networks dataset<a class="headerlink" href="#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset" title="Permalink to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>level_0</th>
+      <th>level_1</th>
+      <th>correlation</th>
+      <th>Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1-1-lh</td>
+      <td>1-1-lh</td>
+      <td>1.000000</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1-1-lh</td>
+      <td>1-1-rh</td>
+      <td>0.881516</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1-1-lh</td>
+      <td>5-1-lh</td>
+      <td>0.431619</td>
+      <td>Middle</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1-1-lh</td>
+      <td>5-1-rh</td>
+      <td>0.418708</td>
+      <td>Middle</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1-1-lh</td>
+      <td>6-1-lh</td>
+      <td>-0.084634</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span><span class="o">=</span><span class="n">corr_mat</span><span class="p">[</span><span class="s1">&#39;level_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">df_row</span><span class="p">[</span><span class="s1">&#39;RowGroup&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">level_0</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_row</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;level_0&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_col</span><span class="o">=</span><span class="n">corr_mat</span><span class="p">[</span><span class="s1">&#39;level_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;ColGroup&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">level_1</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_col</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;level_1&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+        RowGroup
+level_0
+1-1-lh   1
+1-1-rh   1
+5-1-lh   5
+5-1-rh   5
+6-1-lh   6
+        ColGroup
+level_1
+1-1-lh   1
+1-1-rh   1
+5-1-lh   5
+5-1-rh   5
+6-1-lh   6
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Row</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">RowGroup</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
+                                           <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">},</span>
+                                          <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">ColGroup</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">),</span>
+                           <span class="n">Col</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">ColGroup</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">corr_mat</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;level_0&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;level_1&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Level&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;Purples&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;Greens&#39;</span><span class="p">},</span>
+                          <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">},</span>
+                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;D&#39;</span><span class="p">},</span>
+                          <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                          <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dotHeatmap_21_0.png" src="../_images/notebooks_dotHeatmap_21_0.png" />
+</div>
+</div>
+</section>
+<section id="4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">
+<h2>4.2 Visualize up to five dimension data using DotClustermapPlotter<a class="headerlink" href="#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter" title="Permalink to this heading">¶</a></h2>
+<p>Plot enrichment analysis result using example dataset with samples annotations</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_atac2meth_kycg_result.txt&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;rmsk1&#39;</span><span class="p">,</span><span class="s1">&#39;ChromHMM&#39;</span><span class="p">,</span><span class="s1">&#39;EnsRegBuild&#39;</span><span class="p">])]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Clark2018_Argelaguet2019&#39;</span><span class="p">:</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;Luo2022&#39;</span><span class="p">:</span><span class="s1">&#39;L&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">max_p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">max_p</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">SampleID</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">CpGType</span>
+<span class="n">df_col</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Dataset&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Correlation&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">df_col</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_row</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="s1">&#39;Category&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">df_row</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Term</th>
+      <th>odds_ratio</th>
+      <th>Category</th>
+      <th>SampleID</th>
+      <th>CpGType</th>
+      <th>pvalue</th>
+      <th>EnrichType</th>
+      <th>-log10(Pval)</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>PromoterFlankingRegion</td>
+      <td>1.042</td>
+      <td>EnsRegBuild</td>
+      <td>C</td>
+      <td>Negative</td>
+      <td>1.280000e-22</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>C-Negative</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CTCFBindingSite</td>
+      <td>1.055</td>
+      <td>EnsRegBuild</td>
+      <td>C</td>
+      <td>Negative</td>
+      <td>1.240000e-14</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>C-Negative</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>QuiesG</td>
+      <td>1.028</td>
+      <td>ChromHMM</td>
+      <td>C</td>
+      <td>Negative</td>
+      <td>1.270000e-13</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>C-Negative</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Het</td>
+      <td>1.061</td>
+      <td>ChromHMM</td>
+      <td>C</td>
+      <td>Negative</td>
+      <td>2.020000e-07</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>C-Negative</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Tx</td>
+      <td>1.029</td>
+      <td>ChromHMM</td>
+      <td>C</td>
+      <td>Negative</td>
+      <td>4.580000e-07</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>C-Negative</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">CpGType</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">EnrichType</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;Negative&#39; &#39;Positive&#39;]
+[&#39;Enrich&#39; &#39;Depletion&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dataset</th>
+      <th>Correlation</th>
+    </tr>
+    <tr>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C-Negative</th>
+      <td>C</td>
+      <td>Negative</td>
+    </tr>
+    <tr>
+      <th>C-Positive</th>
+      <td>C</td>
+      <td>Positive</td>
+    </tr>
+    <tr>
+      <th>L-Negative</th>
+      <td>L</td>
+      <td>Negative</td>
+    </tr>
+    <tr>
+      <th>L-Positive</th>
+      <td>L</td>
+      <td>Positive</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Category</th>
+    </tr>
+    <tr>
+      <th>Term</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>PromoterFlankingRegion</th>
+      <td>EnsRegBuild</td>
+    </tr>
+    <tr>
+      <th>CTCFBindingSite</th>
+      <td>EnsRegBuild</td>
+    </tr>
+    <tr>
+      <th>QuiesG</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>Het</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>Tx</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>TssA</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>SINE?</th>
+      <td>rmsk1</td>
+    </tr>
+    <tr>
+      <th>RC</th>
+      <td>rmsk1</td>
+    </tr>
+    <tr>
+      <th>scRNA</th>
+      <td>rmsk1</td>
+    </tr>
+    <tr>
+      <th>rRNA</th>
+      <td>rmsk1</td>
+    </tr>
+  </tbody>
+</table>
+<p>51 rows × 1 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                           <span class="n">Category</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
+                                           <span class="n">add_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                           <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">})</span>
+
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                           <span class="n">Dataset</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                           <span class="n">Correlation</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Correlation</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;right&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="c1">#cmap=&#39;jet&#39;,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;Greens_r&#39;</span><span class="p">},</span>
+                          <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+                          <span class="c1">#marker={&#39;Enrich&#39;:&#39;^&#39;,&#39;Depletion&#39;:&#39;v&#39;},value_na=25,c_na=25,</span>
+                          <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                          <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#xticklabels_kws={&#39;labelrotation&#39;:-45,&#39;labelcolor&#39;:&#39;blue&#39;}</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_kycg.pdf&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dotHeatmap_28_0.png" src="../_images/notebooks_dotHeatmap_28_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+                          <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;_&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                          <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                          <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dotHeatmap_29_0.png" src="../_images/notebooks_dotHeatmap_29_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="c1">#s=&#39;odds_ratio&#39;,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+                          <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;_&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                          <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                          <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dotHeatmap_30_0.png" src="../_images/notebooks_dotHeatmap_30_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(115, 3)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">data2d</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ID</th>
+      <th>C-Negative</th>
+      <th>C-Positive</th>
+      <th>L-Negative</th>
+      <th>L-Positive</th>
+    </tr>
+    <tr>
+      <th>Term</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>CTCFBindingSite</th>
+      <td>26.0</td>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>25.000000</td>
+    </tr>
+    <tr>
+      <th>DNA</th>
+      <td>26.0</td>
+      <td>26.0</td>
+      <td>26.0</td>
+      <td>26.000000</td>
+    </tr>
+    <tr>
+      <th>DNA?</th>
+      <td>26.0</td>
+      <td>25.0</td>
+      <td>26.0</td>
+      <td>25.000000</td>
+    </tr>
+    <tr>
+      <th>Enh</th>
+      <td>26.0</td>
+      <td>26.0</td>
+      <td>25.0</td>
+      <td>25.000000</td>
+    </tr>
+    <tr>
+      <th>EnhA1</th>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>26.0</td>
+      <td>26.000000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>rRNA</th>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>4.129596</td>
+    </tr>
+    <tr>
+      <th>scRNA</th>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>2.671620</td>
+    </tr>
+    <tr>
+      <th>snRNA</th>
+      <td>25.0</td>
+      <td>26.0</td>
+      <td>26.0</td>
+      <td>7.723538</td>
+    </tr>
+    <tr>
+      <th>srpRNA</th>
+      <td>26.0</td>
+      <td>25.0</td>
+      <td>26.0</td>
+      <td>3.119186</td>
+    </tr>
+    <tr>
+      <th>tRNA</th>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>26.0</td>
+      <td>14.812479</td>
+    </tr>
+  </tbody>
+</table>
+<p>51 rows × 4 columns</p>
+</div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
