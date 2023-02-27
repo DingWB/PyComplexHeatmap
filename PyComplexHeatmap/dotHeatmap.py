@@ -68,10 +68,6 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
     df = data['Col'].apply(lambda j: col_labels.index(j) + 1).to_frame(name='X')
     df['Y'] = data['Row'].apply(lambda j: row_labels.index(j) + 1)
     df['Value']=data.Value.values
-    # print(data.shape, df.shape)
-    # print(data.sort_values(['Row','Col']).head())
-    # print(df.head())
-    # print(data.drop_duplicates().shape)
     del data
 
     if ratio is None:
@@ -130,7 +126,6 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
         c_ready = True
     elif hue is None:
         df['C'] = df.S.tolist() #scale(data['Value'].values,vmin=vmin, vmax=vmax)
-        # kwargs.setdefault('norm',matplotlib.colors.Normalize(vmin=vmin, vmax=vmax))
         kwargs.setdefault('cmap', cmap)
         c_ready = True
     elif not hue is None and isinstance(cmap,str):
@@ -151,6 +146,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
         df['C'] = df['Hue'].map(color_dict)
         c_ready = True
 
+    kwargs.setdefault('norm', matplotlib.colors.Normalize(vmin=vmin, vmax=vmax, clip=True))
     if c_ready and type(cmap) ==str:
         kwargs['cmap'] = cmap
         for mk in df.Markers.unique():
@@ -159,7 +155,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
                 continue
             kwargs['marker']=mk
             ax.scatter(x=df1.X.values, y=df1.Y.values, s=df1.S * ratio,
-                       c=df1.C.values, vmax=vmax,vmin=vmin,**kwargs)  #
+                       c=df1.C.values, **kwargs)  #vmax=vmax,vmin=vmin,
     elif type(cmap) == dict and not hue is None:
         for h in cmap:  # key are hue, values are cmap
             df1 = df.query("Hue==@h").copy()
@@ -179,7 +175,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
                 df2 = df1.query("Markers==@mk").copy()
                 kwargs['marker'] = mk
                 ax.scatter(x=df2.X.values, y=df2.Y.values, s=df2.S * ratio,
-                           c=df2.C.values, vmax=vmax,vmin=vmin,**kwargs)  #
+                           c=df2.C.values,**kwargs)  #
     else:
         raise ValueError('cmap must be string or dict')
 
@@ -583,6 +579,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
             cmap_legend_kws['vmax'] = self.v_vmax
             cmap_legend_kws['vmin'] = self.v_vmin
             if not cmap is None and type(cmap) == str and not c is None and type(c)!=str:
+                # print(cmap_legend_kws)
                 self.legend_list.append([cmap, self.value, cmap_legend_kws, 4, 'cmap'])
             if type(cmap) == dict:
                 for k in cmap:
