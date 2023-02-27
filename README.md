@@ -15,6 +15,7 @@ Libraries.io:
 - matplotlib>=3.4.3
 - numpy
 - pandas
+- seaborn
 ```
 pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 ```
