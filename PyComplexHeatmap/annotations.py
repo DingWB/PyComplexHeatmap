@@ -9,7 +9,8 @@ from .utils import mm2inch
 from .utils import (
     _calculate_luminance,
     cluster_labels,
-    plot_legend_list
+    plot_legend_list,
+    define_cmap
 )
 from .clustermap import heatmap
 # -----------------------------------------------------------------------------
@@ -642,10 +643,13 @@ class anno_barplot(anno_boxplot):
             for v, color in zip(col_list, self.colors):
                 self.color_dict[v] = color
         else:  # only one column, colored by cols[0] values (float)
-            vmax, vmin = np.nanmax(self.df[col_list[0]].values), np.nanmin(self.df[col_list[0]].values)
-            delta = vmax - vmin
-            values = self.df[col_list[0]].fillna(np.nan).unique()
-            self.colors = {v: matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap)((v - vmin) / delta)) for v in values}
+            # vmax, vmin = np.nanmax(self.df[col_list[0]].values), np.nanmin(self.df[col_list[0]].values)
+            # delta = vmax - vmin
+            # values = self.df[col_list[0]].fillna(np.nan).unique()
+            self.cmap,normalize=define_cmap(self.df[col_list[0]].fillna(np.nan).values, vmin=None, vmax=None, cmap=self.cmap, center=None, robust=False,
+                          na_col='white')
+            # self.colors = {v: matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap)((v - vmin) / delta)) for v in values}
+            self.colors = lambda v:matplotlib.colors.rgb2hex(self.cmap(normalize(v))) #a function
             self.color_dict = None
 
     def _check_colors(self, colors):
@@ -692,9 +696,10 @@ class anno_barplot(anno_boxplot):
         #                 height=self.plot_data.values,**self.plot_kws)
         if type(self.colors) == list:
             colors = self.colors
-        else:
+        else: #dict
             bad_value_color = matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap).get_bad())
-            colors = [[self.colors.get(v, bad_value_color) for v in self.plot_data.iloc[:, 0].values]]
+            # colors = [[self.colors.get(v, bad_value_color) for v in self.plot_data.iloc[:, 0].values]]
+            colors = [[self.colors(v) for v in self.plot_data.iloc[:, 0].values]]
         base_coordinates = [0] * self.plot_data.shape[0]
         for col, color in zip(self.plot_data.columns, colors):
             if axis == 1:

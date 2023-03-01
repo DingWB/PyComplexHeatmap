@@ -55,6 +55,59 @@ def _calculate_luminance(color):
     except ValueError:
         return lum
 # =============================================================================
+def define_cmap(plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=True,
+                          na_col='white'):
+    """Use some heuristics to set good defaults for colorbar and range."""
+    # plot_data is a np.ma.array instance
+    # plot_data=np.ma.masked_where(np.asarray(plot_data), plot_data)
+    # calc_data = plot_data.astype(float).filled(np.nan)
+    if vmin is None:
+        if robust:
+            vmin = np.nanpercentile(plot_data, 2)
+        else:
+            vmin = np.nanmin(plot_data)
+    if vmax is None:
+        if robust:
+            vmax = np.nanpercentile(plot_data, 98)
+        else:
+            vmax = np.nanmax(plot_data)
+
+    # Choose default colormaps if not provided
+    if cmap is None:
+        if center is None:
+            cmap = 'jet'
+        else:
+            cmap = 'exp1'
+    if isinstance(cmap, str):
+        cmap1 = matplotlib.cm.get_cmap(cmap)
+    elif isinstance(cmap, list):
+        cmap1 = matplotlib.colors.ListedColormap(cmap)
+    else:
+        cmap1 = cmap
+
+    cmap1.set_bad(color=na_col)  # set the color for NaN values
+    # Recenter a divergent colormap
+    if center is not None:
+        # bad = cmap1(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color
+        under = cmap1(-np.inf)
+        over = cmap1(np.inf)
+        under_set = under != cmap1(0)
+        over_set = over != cmap1(cmap1.N - 1)
+
+        vrange = max(vmax - center, center - vmin)
+        normalize = matplotlib.colors.Normalize(center - vrange, center + vrange)
+        cmin, cmax = normalize([vmin, vmax])
+        cc = np.linspace(cmin, cmax, 256)
+        cmap1 = matplotlib.colors.ListedColormap(cmap1(cc))
+        # cmap1.set_bad(bad)
+        if under_set:
+            cmap1.set_under(under)  # set the color of -np.inf as the color for low out-of-range values.
+        if over_set:
+            cmap1.set_over(over)
+    else:
+        normalize = matplotlib.colors.Normalize(vmin, vmax)
+    return cmap1,normalize
+# =============================================================================
 def despine(fig=None, ax=None, top=True, right=True, left=False,
             bottom=False):
     """
