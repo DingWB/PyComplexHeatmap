@@ -9,6 +9,6 @@ from .tools import *
 # from .example import *
 
 #__all__=['*']
-__version__='1.3.2'
+__version__='1.3.3'
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
