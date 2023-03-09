@@ -5,6 +5,8 @@ import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap,ListedColormap,CSS4_COLORS
 import random
 from .utils import _calculate_luminance
+plt.rcParams['figure.dpi'] = 100
+plt.rcParams['savefig.dpi']=300
 
 def define_cmap():
     all_cmaps=matplotlib.pyplot.colormaps()

@@ -468,37 +468,39 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
         align='left'
 
     availabel_height = ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
-    l = [mlines.Line2D([], [], color=color_dict.get(l,'black'), marker=m, linestyle='None',
+    print(ms_dict,markers)
+    L = [mlines.Line2D([], [], color=color_dict.get(l,'black'), marker=m, linestyle='None',
                           markersize=ms_dict.get(l,10), label=l)
          for l, m in markers.items()] #kws:?mpatches.Patch; rasterized=True
     ms=lgd_kws.pop('markersize',10)
-    L = ax.legend(handles=l, title=title,**lgd_kws)
+    Lgd = ax.legend(handles=L, title=title,**lgd_kws)
     ax.figure.canvas.draw()
-    while L.get_window_extent().height > availabel_height:
+    while Lgd.get_window_extent().height > availabel_height:
         print("Incresing ncol")
         lgd_kws['ncol']+=1
         if lgd_kws['ncol']>=3:
             print("More than 3 cols is not supported")
-            L.remove()
+            Lgd.remove()
             return None
-        L = ax.legend(handles=l, title=title, **lgd_kws)
+        Lgd = ax.legend(handles=L, title=title, **lgd_kws)
         ax.figure.canvas.draw()
-    L._legend_box.align = align
+    Lgd._legend_box.align = align
     if color_text:
-        for text in L.get_texts():
+        for text in Lgd.get_texts():
             try:
                 lum = _calculate_luminance(color_dict[text.get_text()])
                 text_color = 'black' if lum > 0.408 else color_dict[text.get_text()]
                 text.set_color(text_color)
             except:
                 pass
-    ax.add_artist(L)
+    ax.add_artist(Lgd)
     ax.grid(False)
     # print(availabel_height,L.get_window_extent().height)
-    return L
+    return Lgd
 # =============================================================================
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None,legend_width=4.5,legend_vpad=5):
+                     y0=None,gap=2,delta_x=None,legend_width=4.5,legend_vpad=5,
+                     cmap_width=4.5):
     """
     Plot all lengends for a given legend_list.
 
@@ -528,9 +530,10 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(space,pad)
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
-    width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width
+    legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px
+    cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px
     if legend_side=='right':
-        ax_legend=ax.figure.add_axes([left,ax.get_position().y0,width,ax.get_position().height]) #left, bottom, width, height
+        ax_legend=ax.figure.add_axes([left,ax.get_position().y0,legend_width,ax.get_position().height]) #left, bottom, width, height
     # print(ax.get_position(),ax_legend.get_position())
     legend_axes=[ax_legend]
     cbars=[]
@@ -551,7 +554,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             if y-f < 0: #add a new column of axes to plot legends
                 left_pos=ax1.get_position()
                 pad=(max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
-                ax2=ax.figure.add_axes([left_pos.x1+pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+                ax2=ax.figure.add_axes([left_pos.x1+pad, ax.get_position().y0, cmap_width, ax.get_position().height]) #left_pos.width
                 legend_axes.append(ax2)
                 ax1=legend_axes[-1]
                 ax1.set_axis_off()
@@ -559,8 +562,8 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                 y=leg_pos.y1 if y0 is None else y0
                 max_width = 0
             y_cax_to_figure=y-f
-            width=leg_pos.width
-            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y_cax_to_figure,width,f],
+            # width=leg_pos.width
+            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y_cax_to_figure,cmap_width,f],
                                    xmargin=0,ymargin=0) #unit is fractions of figure width and height
             # [i.set_linewidth(0.5) for i in cax.spines.values()]
             cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0

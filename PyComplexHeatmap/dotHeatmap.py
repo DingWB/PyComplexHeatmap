@@ -196,7 +196,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
 def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
                row_order=None,col_order=None,
                colors=None, cmap=None, ax=None,
-               show_rownames=True, show_colnames=True,
+               show_rownames=True, show_colnames=True,alpha=1,
                plot_legend=True,legend_side='right',label_side='left',
                legend_hpad=3,legend_width=4.5,legend_vpad=5,
                legend_gap=5,color_legend_kws={},
@@ -230,6 +230,8 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
         whether to show row names, default is True.
     show_colnames : bool
         whether to show col names, default is True.
+    alpha: float [0,1]
+        coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.
     plot_legend : bool
         whether to plot legend, default is True.
     legend_side : str
@@ -345,7 +347,7 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
             for k in cmap:
                 legend_list.append([cmap[k], k, cmap_legend_kws, 4, 'cmap'])
         if type(marker)==dict and not hue is None:
-            legend_list.append([(marker,colors,r*0.8), hue, dot_legend_kws, len(marker), 'markers']) #markersize is r*0.8
+            legend_list.append([(marker,colors,r*alpha), hue, dot_legend_kws, len(marker), 'markers']) #markersize is r*0.8
         # dot size legend:
         if 's' not in kwargs:
             max_s=np.nanmax(data[value].values)
@@ -354,7 +356,7 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
             for f in [1,0.8,0.6,0.4,0.2]:
                 k=str(round(f*max_s,2))
                 markers1[k]='o'
-                ms[k]=f * r
+                ms[k]=f * r * alpha
             legend_list.append([(markers1, colors, ms), value, dot_legend_kws, len(markers1), 'markers'])
         label_width=ax.yaxis.label.get_window_extent(renderer=ax.figure.canvas.get_renderer()).width
         yticklabels = ax.yaxis.get_ticklabels()
@@ -402,6 +404,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
         If marker is a string, it should be a marker to control the markers of scatter (dot).
         marker could also be a name of the column from data.columns.tolist()
         If marker is a dict, the keys should be the values from data[hue].values, and values should be marker.
+    alpha: float [0,1]
+        coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.
     colors :dict.
         Keys should be the values from data[hue].values, and values should be color.
         It will be only used to control the colors of markers in figure legend.
@@ -435,7 +439,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
     Class DotClustermapPlotter.
     """
     def __init__(self, data=None, x=None, y=None, value=None, hue=None,
-                 s=None,c=None,marker='o',
+                 s=None,c=None,marker='o',alpha=0.8,
                  color_legend_kws={},cmap_legend_kws={},
                  dot_legend_kws={},aggfunc=np.mean,
                  value_na=0,hue_na='NA',s_na=0,c_na=0,
@@ -448,6 +452,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
         self.s=s
         self.c=c
         self.marker=marker
+        self.alpha=alpha
         self.aggfunc=aggfunc
         self.value_na = value_na
         self.hue_na=hue_na
@@ -590,7 +595,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
             r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))
             if type(marker) == dict and not self.hue is None:
                 self.legend_list.append(
-                    [(marker, self.kwargs.get('colors',None), r * 0.8), self.hue, self.dot_legend_kws,
+                    [(marker, self.kwargs.get('colors',None), r * self.alpha), self.hue, self.dot_legend_kws,
                      len(marker), 'markers'])  # markersize is r*0.8
             # dot size legend:
             s=self.kwargs.get('s',None)
@@ -601,7 +606,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
             for f in [1, 0.8, 0.6, 0.4, 0.2]:
                 k = str(round(f * vmax, 2))
                 markers1[k] = 'o'
-                ms[k] = f * r
+                ms[k] = f * r * self.alpha
             title=self.s if not self.s is None else self.value
             self.legend_list.append([(markers1, None, ms), title, self.dot_legend_kws, len(markers1), 'markers'])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
