@@ -1295,7 +1295,7 @@ class HeatmapAnnotation():
                         ax1.invert_yaxis()
 
                 else:  # horizonal
-                    ax1.invert_yaxis()  # 20230227 fix bug for inversed row order in DotClustermapPlotter.
+                    ax1.invert_yaxis()  # 20230312 fix bug for inversed row order in anno_label.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)
