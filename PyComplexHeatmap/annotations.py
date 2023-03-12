@@ -927,6 +927,7 @@ class HeatmapAnnotation():
         self.plot_legend = plot_legend
         self.rasterized = rasterized
         self.plot = plot
+        self.mapping_dict={'up':'top','down':'bottom','left':'left','right':'right'}
         if colors is None:
             self._check_cmap(cmap)
             self.colors = None
@@ -1044,29 +1045,28 @@ class HeatmapAnnotation():
                     self.annotations.append(ann)
                     ann.set_label(arg)
                     ann.set_legend(self.legend.get(arg, False))
-                    if type(ann) == anno_label:
+                    if type(ann) == anno_label and self.orientation=='auto':
                         if self.axis == 1 and len(self.labels) == 0:
-                            ann.set_side('top')
                             self.orientation = 'up'
                         elif self.axis == 1:
-                            ann.set_side('bottom')
                             self.orientation = 'down'
                         elif self.axis == 0 and len(self.labels) == 0:
-                            ann.set_side('left')
                             self.orientation = 'left'
                         elif self.axis == 0:
-                            ann.set_side('right')
                             self.orientation = 'right'
+                    if type(ann) == anno_label:
+                        ann.set_side(self.mapping_dict[self.orientation])
                 self.labels.append(arg)
 
     def _set_orentation(self, orientation):
-        if orientation == 'auto':
-            if self.axis == 1:
-                return 'up'
-            else:  # horizonal
-                return 'right'
-        else:
-            return orientation
+        return orientation
+        # if orientation == 'auto':
+        #     if self.axis == 1:
+        #         return 'up'
+        #     else:  # horizonal
+        #         return 'right'
+        # else:
+        #     return orientation
 
     def _heights(self):
         self.heights = [ann.height for ann in self.annotations]
@@ -1295,7 +1295,7 @@ class HeatmapAnnotation():
                         ax1.invert_yaxis()
 
                 else:  # horizonal
-                    # ax1.invert_yaxis()  # 20230227 fix bug for inversed row order in DotClustermapPlotter.
+                    ax1.invert_yaxis()  # 20230227 fix bug for inversed row order in DotClustermapPlotter.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)

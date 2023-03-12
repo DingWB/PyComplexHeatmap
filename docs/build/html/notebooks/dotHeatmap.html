@@ -374,7 +374,7 @@ div.rendered_html tbody tr:hover {
 <section id="1.-Import-packages">
 <h1>1. Import packages<a class="headerlink" href="#1.-Import-packages" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -383,7 +383,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -393,7 +393,7 @@ div.rendered_html tbody tr:hover {
 <section id="2.-Load-an-example-brain-networks-dataset-from-seaborn">
 <h1>2. Load an example brain networks dataset from seaborn<a class="headerlink" href="#2.-Load-an-example-brain-networks-dataset-from-seaborn" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -417,7 +417,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -425,7 +425,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -621,7 +621,7 @@ div.rendered_html tbody tr:hover {
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">Level</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -629,7 +629,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -643,22 +643,30 @@ div.rendered_html tbody tr:hover {
 <section id="Plot-traditional-heatmap-using-square-marker-marker='s'">
 <h2>Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code><a class="headerlink" href="#Plot-traditional-heatmap-using-square-marker-marker='s'" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">=</span><span class="n">dotHeatmap</span><span class="p">(</span><span class="n">corr_mat</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;level_0&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;level_1&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
-              <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+              <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;1.0&#39;: 8.010947368421052, &#39;0.8&#39;: 6.408757894736842, &#39;0.6&#39;: 4.8065684210526305, &#39;0.4&#39;: 3.204378947368421, &#39;0.2&#39;: 1.6021894736842106} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_8_0.png" src="../_images/notebooks_dotHeatmap_8_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_8_1.png" src="../_images/notebooks_dotHeatmap_8_1.png" />
 </div>
 </div>
 </section>
@@ -666,7 +674,7 @@ div.rendered_html tbody tr:hover {
 <h2>Simple dot heatmap using fixed dot size<a class="headerlink" href="#Simple-dot-heatmap-using-fixed-dot-size" title="Permalink to this heading">¶</a></h2>
 <p>In default, using circle marker: <code class="docutils literal notranslate"><span class="pre">marker='o'</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -678,11 +686,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;1.0&#39;: 11.44421052631579, &#39;0.8&#39;: 9.155368421052632, &#39;0.6&#39;: 6.866526315789473, &#39;0.4&#39;: 4.577684210526316, &#39;0.2&#39;: 2.288842105263158} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_10_0.png" src="../_images/notebooks_dotHeatmap_10_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_10_1.png" src="../_images/notebooks_dotHeatmap_10_1.png" />
 </div>
 </div>
 </section>
@@ -690,7 +706,7 @@ div.rendered_html tbody tr:hover {
 <h2>Changing the size of point<a class="headerlink" href="#Changing-the-size-of-point" title="Permalink to this heading">¶</a></h2>
 <p>In default, we determined the size of the points based on the <code class="docutils literal notranslate"><span class="pre">value</span></code> col if parameter <code class="docutils literal notranslate"><span class="pre">s</span></code> was not given</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -702,18 +718,26 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;1.0&#39;: 11.44421052631579, &#39;0.8&#39;: 9.155368421052632, &#39;0.6&#39;: 6.866526315789473, &#39;0.4&#39;: 4.577684210526316, &#39;0.2&#39;: 2.288842105263158} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_12_0.png" src="../_images/notebooks_dotHeatmap_12_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_12_1.png" src="../_images/notebooks_dotHeatmap_12_1.png" />
 </div>
 </div>
 </section>
 <section id="Add-parameter-hue-and-use-different-colors-for-different-groups">
 <h2>Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups<a class="headerlink" href="#Add-parameter-hue-and-use-different-colors-for-different-groups" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -723,18 +747,26 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;1.0&#39;: 11.44421052631579, &#39;0.8&#39;: 9.155368421052632, &#39;0.6&#39;: 6.866526315789473, &#39;0.4&#39;: 4.577684210526316, &#39;0.2&#39;: 2.288842105263158} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_14_0.png" src="../_images/notebooks_dotHeatmap_14_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_14_1.png" src="../_images/notebooks_dotHeatmap_14_1.png" />
 </div>
 </div>
 </section>
 <section id="Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">
 <h2>Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups<a class="headerlink" href="#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -742,16 +774,25 @@ div.rendered_html tbody tr:hover {
               <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;Purples&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;Greens&#39;</span><span class="p">},</span>
               <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">},</span>
               <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;High&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Middle&#39;</span><span class="p">:</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span><span class="s1">&#39;D&#39;</span><span class="p">},</span>
-              <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+              <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;High&#39;: 10.29978947368421, &#39;Middle&#39;: 10.29978947368421, &#39;Low&#39;: 10.29978947368421} {&#39;High&#39;: &#39;P&#39;, &#39;Middle&#39;: &#39;*&#39;, &#39;Low&#39;: &#39;D&#39;}
+{&#39;1.0&#39;: 10.29978947368421, &#39;0.8&#39;: 8.239831578947369, &#39;0.6&#39;: 6.179873684210526, &#39;0.4&#39;: 4.119915789473684, &#39;0.2&#39;: 2.059957894736842} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_16_0.png" src="../_images/notebooks_dotHeatmap_16_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_16_1.png" src="../_images/notebooks_dotHeatmap_16_1.png" />
 </div>
 </div>
 </section>
@@ -761,7 +802,7 @@ div.rendered_html tbody tr:hover {
 <section id="4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
 <h2>4.1 Plot clustermap using seaborn brain networks dataset<a class="headerlink" href="#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -769,7 +810,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -838,7 +879,7 @@ div.rendered_html tbody tr:hover {
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span><span class="o">=</span><span class="n">corr_mat</span><span class="p">[</span><span class="s1">&#39;level_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
@@ -876,7 +917,7 @@ level_1
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Row</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">RowGroup</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
@@ -901,11 +942,20 @@ level_1
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;High&#39;: 8.507016635845146, &#39;Middle&#39;: 8.507016635845146, &#39;Low&#39;: 8.507016635845146} {&#39;High&#39;: &#39;P&#39;, &#39;Middle&#39;: &#39;*&#39;, &#39;Low&#39;: &#39;D&#39;}
+{&#39;1.0&#39;: 8.507016635845146, &#39;0.8&#39;: 6.805613308676117, &#39;0.6&#39;: 5.104209981507088, &#39;0.4&#39;: 3.4028066543380584, &#39;0.2&#39;: 1.7014033271690292} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_21_0.png" src="../_images/notebooks_dotHeatmap_21_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_21_1.png" src="../_images/notebooks_dotHeatmap_21_1.png" />
 </div>
 </div>
 </section>
@@ -913,7 +963,7 @@ level_1
 <h2>4.2 Visualize up to five dimension data using DotClustermapPlotter<a class="headerlink" href="#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter" title="Permalink to this heading">¶</a></h2>
 <p>Plot enrichment analysis result using example dataset with samples annotations</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_atac2meth_kycg_result.txt&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -932,7 +982,7 @@ level_1
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -940,7 +990,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1039,7 +1089,7 @@ level_1
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">CpGType</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -1057,7 +1107,7 @@ level_1
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
@@ -1065,7 +1115,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1122,7 +1172,7 @@ level_1
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
@@ -1130,7 +1180,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1210,7 +1260,7 @@ level_1
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1226,51 +1276,92 @@ level_1
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
-                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="c1">#cmap=&#39;jet&#39;,</span>
-                          <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;Greens_r&#39;</span><span class="p">},</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
                           <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
                           <span class="c1">#marker={&#39;Enrich&#39;:&#39;^&#39;,&#39;Depletion&#39;:&#39;v&#39;},value_na=25,c_na=25,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#xticklabels_kws={&#39;labelrotation&#39;:-45,&#39;labelcolor&#39;:&#39;blue&#39;}</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_kycg.pdf&quot;</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;15.85&#39;: 6.411756052747385, &#39;12.68&#39;: 5.129404842197908, &#39;9.51&#39;: 3.8470536316484307, &#39;6.34&#39;: 2.564702421098954, &#39;3.17&#39;: 1.282351210549477} {&#39;15.85&#39;: &#39;o&#39;, &#39;12.68&#39;: &#39;o&#39;, &#39;9.51&#39;: &#39;o&#39;, &#39;6.34&#39;: &#39;o&#39;, &#39;3.17&#39;: &#39;o&#39;}
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_28_0.png" src="../_images/notebooks_dotHeatmap_28_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_28_1.png" src="../_images/notebooks_dotHeatmap_28_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span>
                           <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
                           <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
-                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;_&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;D&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_kycg.pdf&quot;</span><span class="p">),</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Enrich&#39;: 6.411756052747385, &#39;Depletion&#39;: 6.411756052747385} {&#39;Enrich&#39;: &#39;P&#39;, &#39;Depletion&#39;: &#39;D&#39;}
+{&#39;26.0&#39;: 6.411756052747385, &#39;20.8&#39;: 5.129404842197908, &#39;15.6&#39;: 3.8470536316484307, &#39;10.4&#39;: 2.564702421098954, &#39;5.2&#39;: 1.282351210549477} {&#39;26.0&#39;: &#39;o&#39;, &#39;20.8&#39;: &#39;o&#39;, &#39;15.6&#39;: &#39;o&#39;, &#39;10.4&#39;: &#39;o&#39;, &#39;5.2&#39;: &#39;o&#39;}
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_29_0.png" src="../_images/notebooks_dotHeatmap_29_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_29_1.png" src="../_images/notebooks_dotHeatmap_29_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+count    115.000000
+mean     23.883228
+std      6.359254
+min      1.571865
+25%      26.000000
+50%      26.000000
+75%      26.000000
+max      26.000000
+Name: -log10(Pval), dtype: float64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -1285,171 +1376,20 @@ level_1
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Enrich&#39;: 6.411756052747385, &#39;Depletion&#39;: 6.411756052747385} {&#39;Enrich&#39;: &#39;P&#39;, &#39;Depletion&#39;: &#39;_&#39;}
+{&#39;26.0&#39;: 6.411756052747385, &#39;20.8&#39;: 5.129404842197908, &#39;15.6&#39;: 3.8470536316484307, &#39;10.4&#39;: 2.564702421098954, &#39;5.2&#39;: 1.282351210549477} {&#39;26.0&#39;: &#39;o&#39;, &#39;20.8&#39;: &#39;o&#39;, &#39;15.6&#39;: &#39;o&#39;, &#39;10.4&#39;: &#39;o&#39;, &#39;5.2&#39;: &#39;o&#39;}
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_30_0.png" src="../_images/notebooks_dotHeatmap_30_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(115, 3)
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">data2d</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>ID</th>
-      <th>C-Negative</th>
-      <th>C-Positive</th>
-      <th>L-Negative</th>
-      <th>L-Positive</th>
-    </tr>
-    <tr>
-      <th>Term</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>CTCFBindingSite</th>
-      <td>26.0</td>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>25.000000</td>
-    </tr>
-    <tr>
-      <th>DNA</th>
-      <td>26.0</td>
-      <td>26.0</td>
-      <td>26.0</td>
-      <td>26.000000</td>
-    </tr>
-    <tr>
-      <th>DNA?</th>
-      <td>26.0</td>
-      <td>25.0</td>
-      <td>26.0</td>
-      <td>25.000000</td>
-    </tr>
-    <tr>
-      <th>Enh</th>
-      <td>26.0</td>
-      <td>26.0</td>
-      <td>25.0</td>
-      <td>25.000000</td>
-    </tr>
-    <tr>
-      <th>EnhA1</th>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>26.0</td>
-      <td>26.000000</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>rRNA</th>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>4.129596</td>
-    </tr>
-    <tr>
-      <th>scRNA</th>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>2.671620</td>
-    </tr>
-    <tr>
-      <th>snRNA</th>
-      <td>25.0</td>
-      <td>26.0</td>
-      <td>26.0</td>
-      <td>7.723538</td>
-    </tr>
-    <tr>
-      <th>srpRNA</th>
-      <td>26.0</td>
-      <td>25.0</td>
-      <td>26.0</td>
-      <td>3.119186</td>
-    </tr>
-    <tr>
-      <th>tRNA</th>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>26.0</td>
-      <td>14.812479</td>
-    </tr>
-  </tbody>
-</table>
-<p>51 rows × 4 columns</p>
-</div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<img alt="../_images/notebooks_dotHeatmap_31_1.png" src="../_images/notebooks_dotHeatmap_31_1.png" />
 </div>
 </div>
 </section>
