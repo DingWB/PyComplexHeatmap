@@ -383,7 +383,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -1314,7 +1314,7 @@ level_1
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_kycg.pdf&quot;</span><span class="p">),</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="c1"># plt.savefig(os.path.expanduser(&quot;~/Gallery/20230227_kycg.pdf&quot;),bbox_inches=&#39;tight&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>

@@ -352,25 +352,24 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/Downloads/Prostate_Carcinoma_Hodgkin</span><span class="se">\&#39;</span><span class="s1">s_Lymphoma_scaled.csv&#39;</span><span class="p">),</span>
-                   <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/test_expression_datasets.csv&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">selected_rows</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ADAM7&#39;</span><span class="p">,</span> <span class="s1">&#39;HLA-DOA&#39;</span><span class="p">,</span>  <span class="s1">&#39;PTGIR&#39;</span><span class="p">,</span> <span class="s1">&#39;OPCML-IT1&#39;</span><span class="p">,</span>  <span class="s1">&#39;MAGEB1&#39;</span><span class="p">]</span>
 
@@ -402,7 +401,7 @@ Length: 89, dtype: object
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -410,7 +409,7 @@ Length: 89, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -551,7 +550,7 @@ Length: 89, dtype: object
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -562,7 +561,7 @@ Length: 89, dtype: object
                             <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span>
                             <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">expr</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                         <span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                         <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -574,11 +573,6 @@ Length: 89, dtype: object
                         <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
                         <span class="n">yticklabels_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;labelsize&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">}</span>
                        <span class="p">)</span>
-
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">cm</span><span class="o">.</span><span class="n">plot_legends</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -614,21 +608,271 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span><span class="o">.</span><span class="n">labels</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">expr</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Up&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">20</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;Down&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">69</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">])</span> <span class="c1">#top20 genes upregulated</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rank2</span><span class="p">)</span>
+
+<span class="n">goi</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ADAM7&#39;</span><span class="p">,</span> <span class="s1">&#39;HLA-DOA&#39;</span><span class="p">,</span>  <span class="s1">&#39;PTGIR&#39;</span><span class="p">,</span> <span class="s1">&#39;OPCML-IT1&#39;</span><span class="p">,</span>  <span class="s1">&#39;MAGEB1&#39;</span><span class="p">]</span>
+<span class="n">colors_dict</span><span class="o">=</span><span class="p">{}</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">goi</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">g</span><span class="o">==</span><span class="s1">&#39;ADAM7&#39;</span><span class="p">:</span>
+        <span class="n">colors_dict</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;red&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors_dict</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;green&#39;</span>
+
+<span class="n">label_rows</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">goi</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">label_rows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="n">row_ha_left</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                            <span class="n">Change</span> <span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">rank2</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Up&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;Down&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">},</span>
+                                                <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                                <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;fontweight&#39;</span><span class="p">:</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+                                                          <span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">}),</span>
+                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">},</span>
+                            <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span>
+                            <span class="p">)</span>
+
+<span class="n">row_ha_right</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                            <span class="n">selected</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">label_rows</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors_dict</span><span class="p">),</span>  <span class="c1">#label_side=&#39;top&#39;,</span>
+                            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="s1">&#39;verticalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="p">},</span>
+                            <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span>
+                            <span class="p">)</span>
+<span class="c1">#plt.show()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">expr</span><span class="p">,</span>  <span class="n">z_score</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha_right</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha_left</span><span class="p">,</span><span class="c1">#</span>
+                        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">plot_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
+                        <span class="n">row_split</span><span class="o">=</span><span class="n">rank2</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">],</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span> <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">}</span>
+                       <span class="p">)</span>
+<span class="c1"># you can add row_split if you want: uncomment it.</span>
+
+
+<span class="c1"># print(cm.row_order)</span>
+<span class="c1"># print(cm.col_order)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;heatmap.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">cm</span><span class="o">.</span><span class="n">plot_legends</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+            Regulation
+ADAM7        Up
+C8orf34-AS1  Up
+SMIM28       Up
+LINC01114    Up
+KLK3         Up
+...          ..
+TRAJ45       Down
+TPMTP1       Down
+OPCML-IT1    Down
+HNRNPCP4     Down
+MAGEB1       Down
+
+[89 rows x 1 columns]
+ADAM7          ADAM7
+C8orf34-AS1    None
+SMIM28         None
+LINC01114      None
+KLK3           None
+               ...
+TRAJ45         None
+TPMTP1         None
+OPCML-IT1      OPCML-IT1
+HNRNPCP4       None
+MAGEB1         MAGEB1
+Length: 89, dtype: object
+(89, 16)
+Starting plotting..
+Starting calculating row orders..
+Reordering rows..
+Starting calculating col orders..
+Reordering cols..
+Plotting matrix..
+Collecting legends..
+Plotting legends..
+No ax was provided, using plt.gca()
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Issue18_4_1.png" src="../_images/notebooks_Issue18_4_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Issue18_4_2.png" src="../_images/notebooks_Issue18_4_2.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;selected&#39;]
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NCI-H660</th>
+      <th>PC-3</th>
+      <th>VCaP</th>
+      <th>DU-145</th>
+      <th>MDA-PCa-2b</th>
+      <th>22RV1</th>
+      <th>LNCaP-Clone-FGC</th>
+      <th>SUP-HD1</th>
+      <th>L-540</th>
+      <th>L-1236</th>
+      <th>KM-H2</th>
+      <th>HDLM-2</th>
+      <th>Hs-616-T</th>
+      <th>L-428</th>
+      <th>Hs-611-T</th>
+      <th>TO-175-T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ADAM7</th>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-0.044425</td>
+      <td>-1.0</td>
+      <td>-0.303654</td>
+      <td>-0.604782</td>
+      <td>-0.123861</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>C8orf34-AS1</th>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-0.015847</td>
+      <td>-1.0</td>
+      <td>-0.848602</td>
+      <td>-0.215875</td>
+      <td>-0.251406</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>SMIM28</th>
+      <td>-0.795724</td>
+      <td>-1.0</td>
+      <td>-0.092080</td>
+      <td>-1.0</td>
+      <td>-1.000000</td>
+      <td>0.070939</td>
+      <td>-0.705117</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>LINC01114</th>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-0.241584</td>
+      <td>-1.0</td>
+      <td>-1.000000</td>
+      <td>-0.766805</td>
+      <td>-0.132841</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>KLK3</th>
+      <td>-1.000000</td>
+      <td>-1.0</td>
+      <td>0.531804</td>
+      <td>-1.0</td>
+      <td>1.000000</td>
+      <td>0.564560</td>
+      <td>1.000000</td>
+      <td>-0.832337</td>
+      <td>-0.442301</td>
+      <td>-0.472336</td>
+      <td>-0.359856</td>
+      <td>-0.911472</td>
+      <td>-0.795981</td>
+      <td>-0.391838</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

@@ -1295,14 +1295,15 @@ class HeatmapAnnotation():
                         ax1.invert_yaxis()
 
                 else:  # horizonal
-                    ax1.invert_yaxis()  # 20230312 fix bug for inversed row order in anno_label.
+                    if type(ann) != anno_simple:
+                        ax1.invert_yaxis()  # 20230312 fix bug for inversed row order in anno_label.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(top=False, bottom=False, labeltop=False, labelbottom=False)
                     self.ax.spines['left'].set_visible(False)
                     self.ax.spines['right'].set_visible(False)
                     self.axes[j, i] = ax1
-                    if self.orientation == 'right':
-                        ax1.invert_xaxis()
+                    # if self.orientation == 'right':
+                    #     ax1.invert_xaxis()
 
         self.set_axes_kws()
         self.legend_list = None
