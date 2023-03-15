@@ -42,9 +42,9 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "data=pd.read_csv(\"../data/Loyfer2023.meth.csv\",sep='\\t',index_col=0)\n",
-    "df_row=pd.read_csv(\"../data/Loyfer2023.meth.rows.csv\",sep='\\t',index_col=0)\n",
-    "df_col=pd.read_csv(\"../data/Loyfer2023.meth.cols.csv\",sep='\\t',index_col=0)"
+    "data=pd.read_csv(\"https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/data/Loyfer2023.meth.csv\",sep='\\t',index_col=0)\n",
+    "df_row=pd.read_csv(\"https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/data/Loyfer2023.meth.rows.csv\",sep='\\t',index_col=0)\n",
+    "df_col=pd.read_csv(\"https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/data/Loyfer2023.meth.cols.csv\",sep='\\t',index_col=0)"
    ]
   },
   {
@@ -479,7 +479,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 7,
    "id": "f8090f25-00a7-42f7-93eb-5e5fff75da10",
    "metadata": {},
    "outputs": [
@@ -530,8 +530,7 @@
     "row_ha = HeatmapAnnotation(\n",
     "                           Group=anno_simple(df_row['Group'],legend=True,\n",
     "                                             colors=col_ha.annotations[1].color_dict),\n",
-    "                           verbose=0,axis=0,plot_legend=False,\n",
-    "                            label_kws={'rotation':90,'rotation_mode':'anchor','color':'black'})\n",
+    "                           verbose=0,axis=0,plot_legend=False) #label_kws={'rotation':90,'rotation_mode':'anchor','color':'black'}\n",
     "\n",
     "plt.figure(figsize=(6.5, 8))\n",
     "cm = ClusterMapPlotter(data=data.loc[df_row.index.tolist(),df_col.index.tolist()],\n",
@@ -542,22 +541,6 @@
     "plt.savefig(\"Loyfer2023_heatmap.pdf\",bbox_inches='tight')\n",
     "plt.show()"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "7dd2476c-9d53-4bd1-b5e3-ebe2559ea6cf",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "267690c3-6579-4900-aa4b-cefbd6aa2172",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

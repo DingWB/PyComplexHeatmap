@@ -370,7 +370,7 @@ div.rendered_html tbody tr:hover {
 <section id="1.-Import-packages">
 <h1>1. Import packages<a class="headerlink" href="#1.-Import-packages" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -389,7 +389,7 @@ div.rendered_html tbody tr:hover {
 <section id="2.-Generate-dataset">
 <h1>2. Generate dataset<a class="headerlink" href="#2.-Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -414,7 +414,7 @@ div.rendered_html tbody tr:hover {
 <section id="3.-Test-the-row-/-col-orders-&amp;-add-selected-rows-labels">
 <h1>3. Test the row / col orders &amp; add selected rows labels<a class="headerlink" href="#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -463,52 +463,52 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD EF         F
-sample1   AAAA1   C  E  2.058294
-sample2   AAAA1   C  E  0.333341
-sample3   AAAA1   C  E  0.645607
-sample4   AAAA1   D  E -0.026192
-sample5   AAAA1   D  E -0.589426
-sample6   BBBBB2  D  E -0.179312
-sample7   BBBBB2  G  F -0.179511
-sample8   BBBBB2  G  F -1.962410
-sample9   BBBBB2  G  H -0.173446
-sample10  BBBBB2  G  H  0.121790
-sample1     0.778069
-sample2    -0.319952
-sample3     0.093095
-sample4    -0.637144
-sample5    -0.584627
-sample6    -0.566707
-sample7    -0.305681
-sample8    -0.389677
-sample9    -0.167622
-sample10    0.526257
+sample1   AAAA1   C  E -1.208314
+sample2   AAAA1   C  E  0.633043
+sample3   AAAA1   C  E  0.804704
+sample4   AAAA1   D  E -1.146157
+sample5   AAAA1   D  E -0.688984
+sample6   BBBBB2  D  E -0.829770
+sample7   BBBBB2  G  F -0.738019
+sample8   BBBBB2  G  F  0.210690
+sample9   BBBBB2  G  H -0.897514
+sample10  BBBBB2  G  H  0.754306
+sample1     0.904804
+sample2     0.661782
+sample3     0.021068
+sample4    -0.462118
+sample5    -0.396668
+sample6    -0.552095
+sample7     0.722644
+sample8    -1.022929
+sample9     0.553827
+sample10    0.136821
 dtype: float64
         sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1   0.644587  0.269858  0.696516  0.283748  0.084232  0.347654 -0.847884
-Fea2  -1.057460  0.611977 NaN        0.540677  1.316084  0.875821  0.512969
-Fea3  -0.260088  1.362392 -0.072674  0.859452  1.872800 -0.445997 -0.665362
-Fea4  -0.620538 -1.902085  2.033415  0.071528  0.254085  0.742648  0.314689
-Fea5  -0.274872  0.936496 -1.198061 -0.424923 -2.052549 -0.033462 -0.061440
+Fea1  -0.006867  0.603004  0.856638  1.054181 -0.914627 -1.540902  0.306475
+Fea2   1.374092  0.299720 NaN       -0.465842 -2.179901 -0.977955 -1.192198
+Fea3   2.283031 -0.563026  0.211062  0.983941 -0.544480  0.254531 -0.325646
+Fea4   0.283950  1.363954 -1.688058  1.191726 -1.650133 -0.644411 -0.440959
+Fea5   0.772102 -0.564828 -0.851294 -1.725767 -0.118193  1.685842  0.066250
 ...         ...       ...       ...       ...       ...       ...       ...
-Fea26  0.193325  0.177682  0.204548 -0.190246  2.058132  0.434699  0.288592
-Fea27  0.874608  0.273474  2.068396 -0.662719  0.942142 -0.305520 -0.970326
-Fea28  0.083907  1.850640  0.111982 -0.778763 -0.546716 -0.849595 -0.226357
-Fea29  2.337935 -0.938480  1.922144 -2.005960  0.314206  0.558190 -1.623987
-Fea30  2.117503 -1.619796  1.946178  0.950967 -0.518854  0.768340 -0.039243
+Fea26  0.170716 -0.687814  1.399621 -0.599524 -0.691770  0.121094 -0.842552
+Fea27 -0.645953 -0.168283  0.920709 -1.402420  0.453986 -1.457411 -0.535704
+Fea28  0.383047 -0.667610 -0.986278 -0.166960 -0.929737  0.390259 -0.138231
+Fea29  0.030073 -1.101539 -0.252716  0.246886 -0.796459 -1.765720  0.851770
+Fea30  1.403238  0.400064  0.468694 -1.602639  0.691345  1.181872 -0.361525
 
         sample8   sample9  sample10
-Fea1   0.193505 -0.655733 -0.698298
-Fea2   0.738960  0.382632  2.938105
-Fea3   0.090859 -0.107215 -1.764792
-Fea4  -1.070309 -0.928958  0.217586
-Fea5   0.073040  1.155511 -0.817669
+Fea1   0.151677 -0.130058  0.719712
+Fea2  -0.357418  1.155138 -0.153754
+Fea3   0.933937  1.420439 -2.122108
+Fea4   0.901368 -0.544917 -0.867931
+Fea5  -0.232303  2.137094  0.476238
 ...         ...       ...       ...
-Fea26 -0.752455 -0.189118  0.812219
-Fea27 -0.949409  1.140752 -0.760181
-Fea28  0.161919 -0.443403 -0.642488
-Fea29 -0.148611  0.250066 -0.494666
-Fea30 -0.024277  0.165171 -0.960323
+Fea26  1.119417  0.918593 -1.406610
+Fea27  0.865149 -0.083711 -0.916289
+Fea28  0.148715 -0.324395 -0.374708
+Fea29  0.474185 -0.171502  0.054494
+Fea30  0.418072  1.084169  0.701737
 
 [30 rows x 10 columns]
 </pre></div></div>
@@ -573,93 +573,93 @@ Fea30 -0.024277  0.165171 -0.960323
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1   AAAA1   C -1.459985
-sample2   AAAA1   C  0.349113
-sample3   AAAA1   C  1.161290
-sample4   AAAA1   D  0.400124
-sample5   AAAA1   D -0.428321
-sample6   BBBBB2  D -1.411330
-sample7   BBBBB2  G -2.415794
-sample8   BBBBB2  G  1.190714
-sample9   BBBBB2  G  0.593335
-sample10  BBBBB2  G  0.173602
+sample1   AAAA1   C  2.574780
+sample2   AAAA1   C  0.296738
+sample3   AAAA1   C  1.177101
+sample4   AAAA1   D  0.351442
+sample5   AAAA1   D  1.170409
+sample6   BBBBB2  D -0.089411
+sample7   BBBBB2  G -0.626600
+sample8   BBBBB2  G -0.339178
+sample9   BBBBB2  G  0.015335
+sample10  BBBBB2  G  0.788370
              Gene1     Gene2     Gene3     Gene4
-sample1  -0.204977  1.016440 -0.628080 -2.211862
-sample2   0.747232  2.146944  0.738421  0.168395
-sample3  -2.746506  0.906448  0.453053 -0.666956
-sample4   0.880344  0.257895  0.893583 -0.886445
-sample5   0.688460  1.048730 -0.881179 -0.305112
-sample6  -0.309583 -1.319410 -0.552918  0.318188
-sample7  -0.458852 -0.006478 -1.377848  1.203014
-sample8   0.482619  1.055221  0.573701  2.274773
-sample9   0.776610  0.557776  1.577671  1.455755
-sample10  0.004756  0.141102 -0.430315 -1.484685
+sample1   0.029340  0.464718  0.964828  0.155345
+sample2  -0.990583  1.359966 -0.591791 -0.452567
+sample3   0.003078 -0.053595 -0.015677  0.080594
+sample4  -0.513506  1.329905 -2.132695  1.440032
+sample5   0.225535 -1.878961  1.177849  0.994493
+sample6   0.036411 -1.025437  0.265195  0.961293
+sample7  -2.413522  0.946591  0.180641  0.672328
+sample8   1.256319 -0.191262  0.841623  0.626862
+sample9   1.098811 -0.868062 -0.721845 -0.687502
+sample10  0.352567  0.233178 -1.489911 -1.099984
            Scatter
-sample1   8.830013
-sample2   5.868189
-sample3   4.102994
-sample4   1.917630
-sample5   9.175410
-sample6   2.885803
-sample7   2.168233
-sample8   1.229114
-sample9   0.010299
-sample10  7.876558
+sample1   5.241719
+sample2   7.724436
+sample3   3.421996
+sample4   8.063885
+sample5   7.132877
+sample6   6.280668
+sample7   5.106173
+sample8   0.539858
+sample9   0.483195
+sample10  1.538853
               TMB1      TMB2
-sample1   5.554950  6.994743
-sample2   5.914750  3.928088
-sample3   8.269551  2.409899
-sample4   2.560877  8.403053
-sample5   4.210069  6.985985
-sample6   3.933053  0.271860
-sample7   9.062455  2.609769
-sample8   9.319725  4.375270
-sample9   0.344109  7.761049
-sample10  0.045296  2.164924
+sample1   9.980598  1.434622
+sample2   4.918148  0.980057
+sample3   3.840119  4.702127
+sample4   3.691522  3.621570
+sample5   8.626729  6.639145
+sample6   9.812375  0.813378
+sample7   6.017084  7.051373
+sample8   4.727776  4.084171
+sample9   5.418738  5.140362
+sample10  9.441820  2.930232
               T1-A      T1-B
-sample1   4.404765  9.854794
-sample2   4.263017  2.931666
-sample3   2.653338  7.821517
-sample4   1.446657  3.989329
-sample5   6.212612  1.716706
-sample6   7.589627  1.037892
-sample7   0.853566  7.353654
-sample8   7.119480  3.565361
-sample9   5.075698  1.180125
-sample10  7.955689  7.776751
+sample1   8.217983  7.362969
+sample2   9.516092  0.466336
+sample3   4.419452  2.860146
+sample4   7.780284  0.962339
+sample5   5.061257  5.611586
+sample6   4.635318  9.565942
+sample7   4.199628  1.878443
+sample8   5.187358  5.121253
+sample9   2.444457  7.904328
+sample10  7.596195  2.414832
               T2-A      T2-B
-sample1   7.543019  5.188668
-sample2   7.341191  9.668268
-sample3   2.965915  6.826285
-sample4   2.933138  6.732027
-sample5   9.314677  0.188369
-sample6   2.437355  2.677918
-sample7   4.221434  3.824309
-sample8   9.047429  1.280883
-sample9   1.470804  4.112545
-sample10  5.074371  7.046939
+sample1   5.880153  8.150686
+sample2   5.532822  1.782635
+sample3   7.573185  9.361495
+sample4   6.895000  5.183585
+sample5   4.180858  4.003062
+sample6   9.437438  3.530172
+sample7   3.975062  3.144305
+sample8   8.828882  1.818732
+sample9   6.607137  3.996111
+sample10  7.764807  0.812108
               T3-A      T3-B
-sample1   7.929475  3.474390
-sample2   2.687724  3.885854
-sample3   6.143918  6.105221
-sample4   0.973807  0.532010
-sample5   3.065669  0.366996
-sample6  NaN        3.879296
-sample7   3.099223  8.831886
-sample8   4.603741  5.302785
-sample9   8.878052  1.738728
-sample10  9.429520  9.378511
+sample1   2.751745  2.934000
+sample2   5.942422  5.888761
+sample3   7.451122  1.498339
+sample4   6.938222  8.820217
+sample5   9.252547  4.217066
+sample6  NaN        9.995351
+sample7   2.920734  7.203950
+sample8   9.086494  7.442811
+sample9   3.873478  8.038846
+sample10  5.472663  6.705807
                 T4
-sample1   6.852408
-sample2   0.215365
-sample3   2.638023
-sample4   1.930624
-sample5   6.697025
-sample6   6.826969
-sample7   6.555782
+sample1   1.969472
+sample2   0.976080
+sample3   7.678407
+sample4   9.963567
+sample5   4.788895
+sample6   8.205078
+sample7   8.005539
 sample8  NaN
-sample9   6.562304
-sample10  4.057598
+sample9   1.166473
+sample10  8.588188
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">

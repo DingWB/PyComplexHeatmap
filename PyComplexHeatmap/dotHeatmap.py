@@ -598,17 +598,18 @@ class DotClustermapPlotter(ClusterMapPlotter):
                     [(marker, self.kwargs.get('colors',None), r * self.alpha), self.hue, self.dot_legend_kws,
                      len(marker), 'markers'])  # markersize is r*0.8
             # dot size legend:
-            s=self.kwargs.get('s',None)
-            colors=self.kwargs.get('colors',None)
-            vmax = self.kwargs.get('vmax',1)
-            markers1 = {}
-            ms = {}
-            for f in [1, 0.8, 0.6, 0.4, 0.2]:
-                k = str(round(f * vmax, 2))
-                markers1[k] = 'o'
-                ms[k] = f * r * self.alpha
-            title=self.s if not self.s is None else self.value
-            self.legend_list.append([(markers1, None, ms), title, self.dot_legend_kws, len(markers1), 'markers'])
+            if type(self.s) == str:
+                # s=self.kwargs.get('s',None)
+                # colors=self.kwargs.get('colors',None)
+                vmax = self.kwargs.get('vmax',1)
+                markers1 = {}
+                ms = {}
+                for f in [1, 0.8, 0.6, 0.4, 0.2]:
+                    k = str(round(f * vmax, 2))
+                    markers1[k] = 'o'
+                    ms[k] = f * r * self.alpha
+                title=self.s if not self.s is None else self.value
+                self.legend_list.append([(markers1, None, ms), title, self.dot_legend_kws, len(markers1), 'markers'])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
                 self.yticklabels) > 0 else 0
             if heatmap_label_max_width >= self.label_max_width or self.legend_anchor == 'ax_heatmap':

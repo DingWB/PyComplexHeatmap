@@ -918,7 +918,7 @@ class HeatmapAnnotation():
 
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
-                 legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5, orientation='auto',
+                 legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5, orientation=None,
                  wspace=0, hspace=0,
                  plot_legend=True, rasterized=False, verbose=1, **args):
         if df is None and len(args) == 0:
@@ -936,13 +936,13 @@ class HeatmapAnnotation():
         self.args = args
         self._check_legend(legend)
         self.legend_side = legend_side
-        self.orientation = self._set_orentation(orientation)
         self.legend_gap = legend_gap
         self.legend_width = legend_width
         self.legend_hpad = legend_hpad
         self.legend_vpad = legend_vpad
         self.plot_legend = plot_legend
         self.rasterized = rasterized
+        self.orientation = orientation
         self.plot = plot
         self.mapping_dict={'up':'top','down':'bottom','left':'left','right':'right'}
         if colors is None:
@@ -953,7 +953,7 @@ class HeatmapAnnotation():
         self._process_data()
         self._heights()
         self._nrows()
-        self._set_label_kws(label_kws, ticklabels_kws)
+        self.label_kws,self.ticklabels_kws = label_kws, ticklabels_kws
         if self.plot:
             self.plot_annotations(wspace=wspace, hspace=hspace)
 
@@ -1062,7 +1062,7 @@ class HeatmapAnnotation():
                     self.annotations.append(ann)
                     ann.set_label(arg)
                     ann.set_legend(self.legend.get(arg, False))
-                    if type(ann) == anno_label and self.orientation=='auto':
+                    if type(ann) == anno_label and self.orientation is None:
                         if self.axis == 1 and len(self.labels) == 0:
                             self.orientation = 'up'
                         elif self.axis == 1:
@@ -1075,15 +1075,9 @@ class HeatmapAnnotation():
                         ann.set_side(self.mapping_dict[self.orientation])
                 self.labels.append(arg)
 
-    def _set_orentation(self, orientation):
-        return orientation
-        # if orientation == 'auto':
-        #     if self.axis == 1:
-        #         return 'up'
-        #     else:  # horizonal
-        #         return 'right'
-        # else:
-        #     return orientation
+    def _set_orentation(self,orientation):
+        if self.orientation is None:
+            self.orientation = orientation
 
     def _heights(self):
         self.heights = [ann.height for ann in self.annotations]
@@ -1092,22 +1086,34 @@ class HeatmapAnnotation():
         self.nrows = [ann.nrows for ann in self.annotations]
 
     def _set_label_kws(self, label_kws, ticklabels_kws):
+        if self.label_side in ['left', 'right'] and self.axis != 1:
+            raise ValueError("For columns annotation, label_side must be left or right!")
+        if self.label_side in ['top', 'bottom'] and self.axis != 0:
+            raise ValueError("For row annotation, label_side must be top or bottom!")
+        if self.orientation is None:
+            if self.axis == 1:
+                self.orientation = 'up'
+            else:  # horizonal
+                self.orientation = 'left'
         self.label_kws = {} if label_kws is None else label_kws
         self.ticklabels_kws = {} if ticklabels_kws is None else ticklabels_kws
         self.label_kws.setdefault("rotation_mode", 'anchor')
         if self.label_side is None:
             self.label_side = 'right' if self.axis == 1 else 'top'  # columns annotation, default ylabel is on the right
-        # ha = 'left' if self.label_side == 'left' else 'left' if self.label_side == 'right' else 'center'
-        # va = 'bottom' if self.label_side == 'top' else 'top' if self.label_side == 'bottom' else 'center'
         ha, va = 'left', 'center'
-        if self.orientation == 'right':
-            ha = 'right'
+        if self.orientation == 'left':
+            rotation, labelrotation = 90, 90
+            ha='right' if self.label_side=='bottom' else 'left'
+        elif self.orientation == 'right':
+            ha = 'right' if self.label_side=='top' else 'left'
+            rotation, labelrotation = -90, -90
+        else: #self.orientation == 'up':
+            rotation, labelrotation = 0, 0
+            ha = 'left' if self.label_side == 'right' else 'right'
+        self.label_kws.setdefault('rotation', rotation)
+        self.ticklabels_kws.setdefault('labelrotation', labelrotation)
         self.label_kws.setdefault('horizontalalignment', ha)
         self.label_kws.setdefault('verticalalignment', va)
-        if self.label_side in ['left', 'right'] and self.axis != 1:
-            raise ValueError("For columns annotation, label_side must be left or right!")
-        if self.label_side in ['top', 'bottom'] and self.axis != 0:
-            raise ValueError("For row annotation, label_side must be top or bottom!")
 
         map_dict = {'right': 'left', 'left': 'right', 'top': 'bottom', 'bottom': 'top'}
         self.ticklabels_side = map_dict[self.label_side]
@@ -1115,19 +1121,6 @@ class HeatmapAnnotation():
         # rotation,rotation_mode(default,anchor),visible, zorder,verticalalignment,horizontalalignment
 
     def set_axes_kws(self):
-        if self.orientation == 'left':
-            self.label_kws.setdefault('rotation', 90)
-            self.ticklabels_kws.setdefault('labelrotation', 90)
-        elif self.orientation == 'right':
-            self.label_kws.setdefault('rotation', -90)
-            self.ticklabels_kws.setdefault('labelrotation', -90)
-        elif self.orientation == 'up':
-            self.label_kws.setdefault('rotation', 0)
-            self.ticklabels_kws.setdefault('labelrotation', 0)
-        else:
-            self.label_kws.setdefault('rotation', 0)
-            self.ticklabels_kws.setdefault('labelrotation', 0)
-
         if self.axis == 1 and self.label_side == 'left':
             self.ax.yaxis.tick_right()
             for i in range(self.axes.shape[0]):
@@ -1249,6 +1242,7 @@ class HeatmapAnnotation():
         self.ax
         """
         # print(ax.figure.get_size_inches())
+        self._set_label_kws(self.label_kws, self.ticklabels_kws)
         if self.verbose >= 1:
             print("Starting plotting HeatmapAnnotations")
         if ax is None:

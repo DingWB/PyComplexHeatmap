@@ -468,7 +468,7 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
         align='left'
 
     availabel_height = ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
-    print(ms_dict,markers)
+    # print(ms_dict,markers)
     L = [mlines.Line2D([], [], color=color_dict.get(l,'black'), marker=m, linestyle='None',
                           markersize=ms_dict.get(l,10), label=l)
          for l, m in markers.items()] #kws:?mpatches.Patch; rasterized=True
