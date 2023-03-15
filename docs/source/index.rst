@@ -15,6 +15,7 @@ PyComplexHeatmap
    clustermap
    dotHeatmap
    advanced_usage
+   more_examples
    modules
 
 Credits and Thanks

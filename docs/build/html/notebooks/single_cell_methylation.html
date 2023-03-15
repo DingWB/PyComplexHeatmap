@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualizing Single Cell DNA Methylation Data (Loyfer2023) &mdash; PyComplexHeatmap 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PyComplexHeatmap" href="../modules.html" />
+    <link rel="prev" title="Visualizing Differential Expression Genes" href="differential_expression_genes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../more_examples.html">More Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../more_examples.html">More Examples</a> &raquo;</li>
+      <li>Visualizing Single Cell DNA Methylation Data (Loyfer2023)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/single_cell_methylation.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Visualizing-Single-Cell-DNA-Methylation-Data-(Loyfer2023)">
+<h1>Visualizing Single Cell DNA Methylation Data (Loyfer2023)<a class="headerlink" href="#Visualizing-Single-Cell-DNA-Methylation-Data-(Loyfer2023)" title="Permalink to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<p>Read Loyfer2023 DNA methylation dataset (cell types level for cell type methylation signatures) Loyfer2023 DNA methylation dataset comes from PMID: 36599988</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/Loyfer2023.meth.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df_row</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/Loyfer2023.meth.rows.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df_col</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/Loyfer2023.meth.cols.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Adipocytes</th>
+      <th>Bladder-Epithelium</th>
+      <th>Blood-B-Mem</th>
+      <th>Blood-B</th>
+      <th>Blood-Granulocytes</th>
+      <th>Colon-Macrophages</th>
+      <th>Liver-Macrophages</th>
+      <th>Blood-Monocytes</th>
+      <th>Lung-Interstitial-Macrophages</th>
+      <th>Lung-Alveolar-Macrophages</th>
+      <th>...</th>
+      <th>Pancreas-Duct</th>
+      <th>Skeletal-Muscle</th>
+      <th>Small-int-Epithelium</th>
+      <th>Small-int-Endocrine</th>
+      <th>Lung-Bronchus-Smooth-Muscle</th>
+      <th>Prostate-Smooth-Muscle</th>
+      <th>Bladder-Smooth-Muscle</th>
+      <th>Coronary-Artery-Smooth-Muscle</th>
+      <th>Aorta-Smooth-Muscle</th>
+      <th>Thyroid-Epithelium</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>chr1-110426397</th>
+      <td>0.120667</td>
+      <td>0.9102</td>
+      <td>0.8285</td>
+      <td>0.918667</td>
+      <td>0.750667</td>
+      <td>0.8705</td>
+      <td>0.896</td>
+      <td>0.916333</td>
+      <td>0.953333</td>
+      <td>0.9450</td>
+      <td>...</td>
+      <td>0.61225</td>
+      <td>0.5485</td>
+      <td>0.94175</td>
+      <td>0.952</td>
+      <td>0.417</td>
+      <td>0.150</td>
+      <td>0.229</td>
+      <td>0.294</td>
+      <td>0.214</td>
+      <td>0.938333</td>
+    </tr>
+    <tr>
+      <th>chr1-110426639</th>
+      <td>0.420000</td>
+      <td>0.9304</td>
+      <td>0.8920</td>
+      <td>0.955667</td>
+      <td>0.964667</td>
+      <td>0.9285</td>
+      <td>0.903</td>
+      <td>0.924667</td>
+      <td>0.975333</td>
+      <td>0.9720</td>
+      <td>...</td>
+      <td>0.94575</td>
+      <td>0.8990</td>
+      <td>0.96225</td>
+      <td>0.963</td>
+      <td>0.606</td>
+      <td>0.185</td>
+      <td>0.348</td>
+      <td>0.917</td>
+      <td>0.484</td>
+      <td>0.972333</td>
+    </tr>
+    <tr>
+      <th>chr1-110426659</th>
+      <td>0.425667</td>
+      <td>0.9328</td>
+      <td>0.7635</td>
+      <td>0.933000</td>
+      <td>0.942333</td>
+      <td>0.8945</td>
+      <td>0.931</td>
+      <td>0.963667</td>
+      <td>0.899333</td>
+      <td>0.8895</td>
+      <td>...</td>
+      <td>0.93875</td>
+      <td>0.8390</td>
+      <td>0.92225</td>
+      <td>0.903</td>
+      <td>0.559</td>
+      <td>0.129</td>
+      <td>0.292</td>
+      <td>0.875</td>
+      <td>0.395</td>
+      <td>0.989667</td>
+    </tr>
+    <tr>
+      <th>chr1-110427109</th>
+      <td>0.203667</td>
+      <td>0.9724</td>
+      <td>0.9610</td>
+      <td>0.963667</td>
+      <td>0.968667</td>
+      <td>0.9240</td>
+      <td>0.939</td>
+      <td>0.985000</td>
+      <td>0.968667</td>
+      <td>0.9620</td>
+      <td>...</td>
+      <td>0.73300</td>
+      <td>0.7570</td>
+      <td>0.96525</td>
+      <td>0.939</td>
+      <td>0.929</td>
+      <td>0.225</td>
+      <td>0.806</td>
+      <td>0.951</td>
+      <td>0.905</td>
+      <td>0.974333</td>
+    </tr>
+    <tr>
+      <th>chr1-110427116</th>
+      <td>0.217333</td>
+      <td>0.9478</td>
+      <td>1.0000</td>
+      <td>0.976000</td>
+      <td>0.970667</td>
+      <td>0.9730</td>
+      <td>0.913</td>
+      <td>0.975000</td>
+      <td>0.970333</td>
+      <td>0.9800</td>
+      <td>...</td>
+      <td>0.65125</td>
+      <td>0.7955</td>
+      <td>0.96150</td>
+      <td>1.000</td>
+      <td>0.952</td>
+      <td>0.605</td>
+      <td>0.857</td>
+      <td>1.000</td>
+      <td>0.868</td>
+      <td>0.981000</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 69 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Group</th>
+    </tr>
+    <tr>
+      <th>ID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>chr1-110426397</th>
+      <td>Adipocytes</td>
+    </tr>
+    <tr>
+      <th>chr1-110426639</th>
+      <td>Adipocytes</td>
+    </tr>
+    <tr>
+      <th>chr1-110426659</th>
+      <td>Adipocytes</td>
+    </tr>
+    <tr>
+      <th>chr1-110427109</th>
+      <td>Adipocytes</td>
+    </tr>
+    <tr>
+      <th>chr1-110427116</th>
+      <td>Adipocytes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Group</th>
+    </tr>
+    <tr>
+      <th>ClusterID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Adipocytes</th>
+      <td>Adipocytes</td>
+    </tr>
+    <tr>
+      <th>Bladder-Epithelium</th>
+      <td>Bladder-Ep</td>
+    </tr>
+    <tr>
+      <th>Blood-B-Mem</th>
+      <td>Blood-B</td>
+    </tr>
+    <tr>
+      <th>Blood-B</th>
+      <td>Blood-B</td>
+    </tr>
+    <tr>
+      <th>Blood-Granulocytes</th>
+      <td>Blood-Granul</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span><span class="o">.</span><span class="n">Group</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Adipocytes&#39;, &#39;Bladder-Ep&#39;, &#39;Blood-B&#39;, &#39;Blood-Granul&#39;,
+       &#39;Blood-Mono+Macro&#39;, &#39;Blood-NK&#39;, &#39;Blood-T&#39;, &#39;Bone-Osteob&#39;,
+       &#39;Breast-Basal-Ep&#39;, &#39;Breast-Luminal-Ep&#39;, &#39;Colon-Ep&#39;, &#39;Dermal-Fibro&#39;,
+       &#39;Epid-Kerat&#39;, &#39;Eryth-prog&#39;, &#39;Fallopian-Ep&#39;, &#39;Gallbladder&#39;,
+       &#39;Gastric-Ep&#39;, &#39;Head-Neck-Ep&#39;, &#39;Heart-Cardio&#39;, &#39;Heart-Fibro&#39;,
+       &#39;Kidney-Ep&#39;, &#39;Liver-Hep&#39;, &#39;Lung-Ep-Alveo&#39;, &#39;Lung-Ep-Bron&#39;,
+       &#39;Neuron&#39;, &#39;Oligodend&#39;, &#39;Pancreas-Acinar&#39;, &#39;Pancreas-Beta&#39;,
+       &#39;Pancreas-Delta&#39;, &#39;Pancreas-Duct&#39;, &#39;Skeletal-Musc&#39;, &#39;Small-Int-Ep&#39;,
+       &#39;Smooth-Musc&#39;, &#39;Thyroid-Ep&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_colors_dict</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;Adipocytes&#39;</span><span class="p">:</span><span class="s1">&#39;#1E93AE&#39;</span><span class="p">,</span><span class="s1">&#39;Bladder-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#FF9C00&#39;</span><span class="p">,</span><span class="s1">&#39;Blood-B&#39;</span><span class="p">:</span><span class="s1">&#39;#A40043&#39;</span><span class="p">,</span><span class="s1">&#39;Blood-Granul&#39;</span><span class="p">:</span><span class="s1">&#39;#FF9F7F&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Blood-Mono+Macro&#39;</span><span class="p">:</span><span class="s1">&#39;#FF7F00&#39;</span><span class="p">,</span><span class="s1">&#39;Blood-NK&#39;</span><span class="p">:</span><span class="s1">&#39;#FF2E8D&#39;</span><span class="p">,</span><span class="s1">&#39;Blood-T&#39;</span><span class="p">:</span><span class="s1">&#39;#CC0043&#39;</span><span class="p">,</span><span class="s1">&#39;Bone-Osteob&#39;</span><span class="p">:</span><span class="s1">&#39;#E5E5E5&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Breast-Basal-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#CC4407&#39;</span><span class="p">,</span><span class="s1">&#39;Breast-Luminal-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#CC843D&#39;</span><span class="p">,</span><span class="s1">&#39;Colon-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#663D28&#39;</span><span class="p">,</span><span class="s1">&#39;Dermal-Fibro&#39;</span><span class="p">:</span><span class="s1">&#39;#1E937C&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Epid-Kerat&#39;</span><span class="p">:</span><span class="s1">&#39;#1E93AE&#39;</span><span class="p">,</span><span class="s1">&#39;Eryth-prog&#39;</span><span class="p">:</span><span class="s1">&#39;#40705F&#39;</span><span class="p">,</span><span class="s1">&#39;Fallopian-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#009351&#39;</span><span class="p">,</span><span class="s1">&#39;Gallbladder&#39;</span><span class="p">:</span><span class="s1">&#39;#E7E4BF&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Gastric-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#CCA300&#39;</span><span class="p">,</span><span class="s1">&#39;Head-Neck-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#002929&#39;</span><span class="p">,</span><span class="s1">&#39;Heart-Cardio&#39;</span><span class="p">:</span><span class="s1">&#39;#FF99AA&#39;</span><span class="p">,</span><span class="s1">&#39;Heart-Fibro&#39;</span><span class="p">:</span><span class="s1">&#39;#FF99FF&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Kidney-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#F6FF99&#39;</span><span class="p">,</span><span class="s1">&#39;Liver-Hep&#39;</span><span class="p">:</span><span class="s1">&#39;#6CBF00&#39;</span><span class="p">,</span><span class="s1">&#39;Lung-Ep-Alveo&#39;</span><span class="p">:</span><span class="s1">&#39;#BA99FF&#39;</span><span class="p">,</span><span class="s1">&#39;Lung-Ep-Bron&#39;</span><span class="p">:</span><span class="s1">&#39;#CCCCFF&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Neuron&#39;</span><span class="p">:</span><span class="s1">&#39;#9e542e&#39;</span><span class="p">,</span><span class="s1">&#39;Oligodend&#39;</span><span class="p">:</span><span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span><span class="s1">&#39;Pancreas-Acinar&#39;</span><span class="p">:</span><span class="s1">&#39;#DF7F00&#39;</span><span class="p">,</span><span class="s1">&#39;Pancreas-Beta&#39;</span><span class="p">:</span><span class="s1">&#39;#FFD866&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Pancreas-Delta&#39;</span><span class="p">:</span><span class="s1">&#39;#FFCC32&#39;</span><span class="p">,</span><span class="s1">&#39;Pancreas-Duct&#39;</span><span class="p">:</span><span class="s1">&#39;#7F4C33&#39;</span><span class="p">,</span><span class="s1">&#39;Skeletal-Musc&#39;</span><span class="p">:</span><span class="s1">&#39;#FFCCEE&#39;</span><span class="p">,</span><span class="s1">&#39;Small-Int-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#CC9951&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Smooth-Musc&#39;</span><span class="p">:</span><span class="s1">&#39;#1E93AE&#39;</span><span class="p">,</span><span class="s1">&#39;Thyroid-Ep&#39;</span><span class="p">:</span><span class="s1">&#39;#B2BFFF&#39;</span><span class="p">}</span>
+
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">,</span><span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">luminance</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+                                            <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                           <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">),</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                           <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">colors</span><span class="o">=</span><span class="n">col_ha</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">color_dict</span><span class="p">),</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">plot_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;rotation_mode&#39;</span><span class="p">:</span><span class="s1">&#39;anchor&#39;</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_row</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">df_col</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span>
+                       <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                       <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                       <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;parula&#39;</span><span class="p">,</span><span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;Loyfer2023_heatmap.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting plotting..
+Starting calculating row orders..
+Reordering rows..
+Starting calculating col orders..
+Reordering cols..
+Plotting matrix..
+Collecting legends..
+Plotting legends..
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_single_cell_methylation_8_1.png" src="../_images/notebooks_single_cell_methylation_8_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="differential_expression_genes.html" class="btn btn-neutral float-left" title="Visualizing Differential Expression Genes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="PyComplexHeatmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

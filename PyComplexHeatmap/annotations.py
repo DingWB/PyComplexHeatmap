@@ -334,6 +334,17 @@ class anno_label(AnnotationBase):
         whether to distribute all the labels extend to the all axis, figure or ax or False.
     frac: float
         fraction of the armA and armB.
+    majority: bool
+        If there are multiple group for one label, whether to annotate the label in the largest group. [True]
+    adjust_color: bool
+        When the luminance of the color is too high, use black color replace the original color. [True]
+    luminance: float
+        luminance values [0-1], used together with adjust_color, when the calculated luminance > luminance,
+        the color will be replaced with black. [0.5]
+    relpos: tuple
+        relpos passed to arrowprops in plt.annotate, tuple (x,y) means the arrow start point position relative to the
+         label. default is (0, 0) if self.side == 'top' else (0, 1) for columns labels, (1, 1) if self.side == 'left'
+         else (0, 0) for rows labels.
     plot_kws: dict
         passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
         more information about arrowprops could be found in
@@ -346,13 +357,17 @@ class anno_label(AnnotationBase):
     """
 
     def __init__(self, df=None, cmap='auto', colors=None, merge=False, extend=False, frac=0.2,
-                 majority=True, height=None, legend=False, legend_kws=None, **plot_kws):
+                 majority=True, adjust_color=True, luminance=0.5,height=None, legend=False, legend_kws=None,
+                 relpos=None, **plot_kws):
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
         self.merge = merge
         self.majority = majority
+        self.adjust_color=adjust_color
+        self.luminance = luminance
         self.extend = extend
         self.frac = frac
+        self.relpos = relpos
         self.annotated_texts = []
 
     def _height(self, height):
@@ -380,8 +395,9 @@ class anno_label(AnnotationBase):
         self.plot_kws.setdefault('rotation', rotation)
         self.plot_kws.setdefault('ha', ha)
         self.plot_kws.setdefault('va', va)
+        rp=relpos if self.relpos is None else self.relpos
         arrowprops = dict(arrowstyle="-", color="black",
-                          shrinkA=shrink, shrinkB=shrink, relpos=relpos,
+                          shrinkA=shrink, shrinkB=shrink, relpos=rp,
                           patchA=None, patchB=None, connectionstyle=None)
         # arrow: ->, from text to point.
         # self.plot_kws.setdefault('transform_rotates_text', False)
@@ -494,9 +510,10 @@ class anno_label(AnnotationBase):
             if pd.isna(t):
                 continue
             color = self.color_dict[t]
-            lum = _calculate_luminance(color)
-            if lum > 0.408:
-                color = 'black'
+            if self.adjust_color:
+                lum = _calculate_luminance(color)
+                if lum > self.luminance:
+                    color = 'black'
             self.plot_kws['arrowprops']['color'] = color
             annotated_text = ax.annotate(text=t, xy=(x_0, y_0), xytext=(x_1, y_1), xycoords=xycoords,
                                          textcoords=text_xycoords,

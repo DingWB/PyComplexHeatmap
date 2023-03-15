@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; PyComplexHeatmap 0.1 documentation</title>
+  <title>Visualizing Differential Expression Genes &mdash; PyComplexHeatmap 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,9 @@
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Visualizing Single Cell DNA Methylation Data (Loyfer2023)" href="single_cell_methylation.html" />
+    <link rel="prev" title="More Examples" href="../more_examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,11 +42,16 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../more_examples.html">More Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a></li>
 </ul>
 
@@ -62,9 +69,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>&lt;no title&gt;</li>
+          <li><a href="../more_examples.html">More Examples</a> &raquo;</li>
+      <li>Visualizing Differential Expression Genes</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/notebooks/Issue18.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notebooks/differential_expression_genes.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -351,8 +359,10 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
+<section id="Visualizing-Differential-Expression-Genes">
+<h1>Visualizing Differential Expression Genes<a class="headerlink" href="#Visualizing-Differential-Expression-Genes" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -366,13 +376,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/test_expression_datasets.csv&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
 <span class="n">selected_rows</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ADAM7&#39;</span><span class="p">,</span> <span class="s1">&#39;HLA-DOA&#39;</span><span class="p">,</span>  <span class="s1">&#39;PTGIR&#39;</span><span class="p">,</span> <span class="s1">&#39;OPCML-IT1&#39;</span><span class="p">,</span>  <span class="s1">&#39;MAGEB1&#39;</span><span class="p">]</span>
-
 
 <span class="n">label_rows</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">selected_rows</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">label_rows</span><span class="p">)</span>
@@ -401,7 +409,7 @@ Length: 89, dtype: object
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -409,7 +417,7 @@ Length: 89, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -550,7 +558,7 @@ Length: 89, dtype: object
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -568,7 +576,7 @@ Length: 89, dtype: object
                         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="c1">#plot_legend=False,</span>
-                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
+                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;exp1&#39;</span><span class="p">,</span>
                         <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span>
                         <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
                         <span class="n">yticklabels_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;labelsize&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">}</span>
@@ -589,26 +597,17 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-Plotting legends..
-No ax was provided, using plt.gca()
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_Issue18_3_1.png" src="../_images/notebooks_Issue18_3_1.png" />
-</div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Issue18_3_2.png" src="../_images/notebooks_Issue18_3_2.png" />
+<img alt="../_images/notebooks_differential_expression_genes_4_1.png" src="../_images/notebooks_differential_expression_genes_4_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">expr</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Up&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">20</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;Down&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">69</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">])</span> <span class="c1">#top20 genes upregulated</span>
@@ -644,16 +643,16 @@ No ax was provided, using plt.gca()
                             <span class="p">)</span>
 <span class="c1">#plt.show()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">expr</span><span class="p">,</span>  <span class="n">z_score</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                         <span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha_right</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha_left</span><span class="p">,</span><span class="c1">#</span>
                         <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                         <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">plot_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
-                        <span class="n">row_split</span><span class="o">=</span><span class="n">rank2</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">],</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span> <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">}</span>
+                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span>
+                        <span class="n">row_split</span><span class="o">=</span><span class="n">rank2</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">],</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                        <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span> <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">}</span>
                        <span class="p">)</span>
 <span class="c1"># you can add row_split if you want: uncomment it.</span>
 
@@ -661,9 +660,6 @@ No ax was provided, using plt.gca()
 <span class="c1"># print(cm.row_order)</span>
 <span class="c1"># print(cm.col_order)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;heatmap.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">cm</span><span class="o">.</span><span class="n">plot_legends</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -708,185 +704,24 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-No ax was provided, using plt.gca()
 </pre></div></div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_Issue18_4_1.png" src="../_images/notebooks_Issue18_4_1.png" />
-</div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Issue18_4_2.png" src="../_images/notebooks_Issue18_4_2.png" />
+<img alt="../_images/notebooks_differential_expression_genes_5_1.png" src="../_images/notebooks_differential_expression_genes_5_1.png" />
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>NCI-H660</th>
-      <th>PC-3</th>
-      <th>VCaP</th>
-      <th>DU-145</th>
-      <th>MDA-PCa-2b</th>
-      <th>22RV1</th>
-      <th>LNCaP-Clone-FGC</th>
-      <th>SUP-HD1</th>
-      <th>L-540</th>
-      <th>L-1236</th>
-      <th>KM-H2</th>
-      <th>HDLM-2</th>
-      <th>Hs-616-T</th>
-      <th>L-428</th>
-      <th>Hs-611-T</th>
-      <th>TO-175-T</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>ADAM7</th>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-0.044425</td>
-      <td>-1.0</td>
-      <td>-0.303654</td>
-      <td>-0.604782</td>
-      <td>-0.123861</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-1.0</td>
-    </tr>
-    <tr>
-      <th>C8orf34-AS1</th>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-0.015847</td>
-      <td>-1.0</td>
-      <td>-0.848602</td>
-      <td>-0.215875</td>
-      <td>-0.251406</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-1.0</td>
-    </tr>
-    <tr>
-      <th>SMIM28</th>
-      <td>-0.795724</td>
-      <td>-1.0</td>
-      <td>-0.092080</td>
-      <td>-1.0</td>
-      <td>-1.000000</td>
-      <td>0.070939</td>
-      <td>-0.705117</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-1.0</td>
-    </tr>
-    <tr>
-      <th>LINC01114</th>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-0.241584</td>
-      <td>-1.0</td>
-      <td>-1.000000</td>
-      <td>-0.766805</td>
-      <td>-0.132841</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>-1.0</td>
-    </tr>
-    <tr>
-      <th>KLK3</th>
-      <td>-1.000000</td>
-      <td>-1.0</td>
-      <td>0.531804</td>
-      <td>-1.0</td>
-      <td>1.000000</td>
-      <td>0.564560</td>
-      <td>1.000000</td>
-      <td>-0.832337</td>
-      <td>-0.442301</td>
-      <td>-0.472336</td>
-      <td>-0.359856</td>
-      <td>-0.911472</td>
-      <td>-0.795981</td>
-      <td>-0.391838</td>
-      <td>-1.0</td>
-      <td>-1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../more_examples.html" class="btn btn-neutral float-left" title="More Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="single_cell_methylation.html" class="btn btn-neutral float-right" title="Visualizing Single Cell DNA Methylation Data (Loyfer2023)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

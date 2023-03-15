@@ -42,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../clustermap.html">Clustermap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dotHeatmap.html">dotHeatmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../more_examples.html">More Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComplexHeatmap</a></li>
 </ul>
 
@@ -406,6 +407,17 @@
 <span class="sd">        whether to distribute all the labels extend to the all axis, figure or ax or False.</span>
 <span class="sd">    frac: float</span>
 <span class="sd">        fraction of the armA and armB.</span>
+<span class="sd">    majority: bool</span>
+<span class="sd">        If there are multiple group for one label, whether to annotate the label in the largest group. [True]</span>
+<span class="sd">    adjust_color: bool</span>
+<span class="sd">        When the luminance of the color is too high, use black color replace the original color. [True]</span>
+<span class="sd">    luminance: float</span>
+<span class="sd">        luminance values [0-1], used together with adjust_color, when the calculated luminance &gt; luminance,</span>
+<span class="sd">        the color will be replaced with black. [0.5]</span>
+<span class="sd">    relpos: tuple</span>
+<span class="sd">        relpos passed to arrowprops in plt.annotate, tuple (x,y) means the arrow start point position relative to the</span>
+<span class="sd">         label. default is (0, 0) if self.side == &#39;top&#39; else (0, 1) for columns labels, (1, 1) if self.side == &#39;left&#39;</span>
+<span class="sd">         else (0, 0) for rows labels.</span>
 <span class="sd">    plot_kws: dict</span>
 <span class="sd">        passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,</span>
 <span class="sd">        more information about arrowprops could be found in</span>
@@ -418,13 +430,17 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                 <span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kws</span><span class="p">):</span>
+                 <span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">luminance</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">relpos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kws</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
                          <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span> <span class="n">legend_kws</span><span class="o">=</span><span class="n">legend_kws</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kws</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">majority</span> <span class="o">=</span> <span class="n">majority</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjust_color</span><span class="o">=</span><span class="n">adjust_color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">luminance</span> <span class="o">=</span> <span class="n">luminance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extend</span> <span class="o">=</span> <span class="n">extend</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frac</span> <span class="o">=</span> <span class="n">frac</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relpos</span> <span class="o">=</span> <span class="n">relpos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotated_texts</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
@@ -452,8 +468,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;rotation&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;ha&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;va&#39;</span><span class="p">,</span> <span class="n">va</span><span class="p">)</span>
+        <span class="n">rp</span><span class="o">=</span><span class="n">relpos</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relpos</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">relpos</span>
         <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
-                          <span class="n">shrinkA</span><span class="o">=</span><span class="n">shrink</span><span class="p">,</span> <span class="n">shrinkB</span><span class="o">=</span><span class="n">shrink</span><span class="p">,</span> <span class="n">relpos</span><span class="o">=</span><span class="n">relpos</span><span class="p">,</span>
+                          <span class="n">shrinkA</span><span class="o">=</span><span class="n">shrink</span><span class="p">,</span> <span class="n">shrinkB</span><span class="o">=</span><span class="n">shrink</span><span class="p">,</span> <span class="n">relpos</span><span class="o">=</span><span class="n">rp</span><span class="p">,</span>
                           <span class="n">patchA</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patchB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="c1"># arrow: -&gt;, from text to point.</span>
         <span class="c1"># self.plot_kws.setdefault(&#39;transform_rotates_text&#39;, False)</span>
@@ -566,9 +583,10 @@
             <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
-            <span class="n">lum</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">lum</span> <span class="o">&gt;</span> <span class="mf">0.408</span><span class="p">:</span>
-                <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjust_color</span><span class="p">:</span>
+                <span class="n">lum</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">lum</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">luminance</span><span class="p">:</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s1">&#39;arrowprops&#39;</span><span class="p">][</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
             <span class="n">annotated_text</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="n">xycoords</span><span class="p">,</span>
                                          <span class="n">textcoords</span><span class="o">=</span><span class="n">text_xycoords</span><span class="p">,</span>
