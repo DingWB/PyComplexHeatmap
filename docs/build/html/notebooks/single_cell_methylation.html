@@ -720,7 +720,7 @@ array([&#39;Adipocytes&#39;, &#39;Bladder-Ep&#39;, &#39;Blood-B&#39;, &#39;Blood
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_colors_dict</span><span class="o">=</span><span class="p">{</span>
@@ -736,7 +736,7 @@ array([&#39;Adipocytes&#39;, &#39;Bladder-Ep&#39;, &#39;Blood-B&#39;, &#39;Blood
 
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                             <span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">,</span><span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">luminance</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
-                                            <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                                            <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="c1">#fontsize=10</span>
                            <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">),</span>
                            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -744,7 +744,7 @@ array([&#39;Adipocytes&#39;, &#39;Bladder-Ep&#39;, &#39;Blood-B&#39;, &#39;Blood
                                              <span class="n">colors</span><span class="o">=</span><span class="n">col_ha</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">color_dict</span><span class="p">),</span>
                            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">plot_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#label_kws={&#39;rotation&#39;:90,&#39;rotation_mode&#39;:&#39;anchor&#39;,&#39;color&#39;:&#39;black&#39;}</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_row</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">df_col</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span>
                        <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -775,6 +775,14 @@ Plotting legends..
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_single_cell_methylation_8_1.png" src="../_images/notebooks_single_cell_methylation_8_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
