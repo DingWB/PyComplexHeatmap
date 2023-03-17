@@ -6,3 +6,4 @@ More Examples
 
    notebooks/differential_expression_genes.ipynb
    notebooks/single_cell_methylation.ipynb
+   notebooks/composite_heatmaps.ipynb
