@@ -13,7 +13,7 @@ PYPI:
 [wiki/layout](../../wiki/Layout/)
 
 ### Parameters
-[wiki/layout](../../wiki/Parameters/)
+[wiki/Parameters](../../wiki/Parameters/)
 
 ## Dependencies:
 - matplotlib>=3.4.3
