@@ -9,10 +9,9 @@ PYPI:
 [https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
 <br>
 
-### Layout
+### Wiki
 [wiki/layout](../../wiki/Layout/)
-
-### Parameters
+<br>
 [wiki/Parameters](../../wiki/Parameters/)
 
 ## Dependencies:
