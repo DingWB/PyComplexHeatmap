@@ -2,14 +2,18 @@
 PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/PyComplexHeatmap) for documentation.
 
 ## Documentation:
-[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) <br><br>
+[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) 
+<br><br>
 PYPI:
 <br>
 [https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
 <br><br>
-Libraries.io:
-<br>
-[https://libraries.io/pypi/PyComplexHeatmap](https://libraries.io/pypi/PyComplexHeatmap)
+
+### Layout
+[wiki/layout](wiki/Layout/)
+
+### Parameters
+[wiki/layout](wiki/Parameters/)
 
 ## Dependencies:
 - matplotlib>=3.4.3
@@ -25,8 +29,9 @@ pip install seaborn #only needed when call functions in tools.py
 1. **Install using pip**:
 ```shell
 pip install PyComplexHeatmap
-#or
-pip install --ignore-installed PyComplexHeatmap
+
+#upgrade from older version
+pip install --upgrade PyComplexHeatmap
 ```
 
 2. **Install the developmental version directly from github**:
@@ -105,8 +110,4 @@ plt.show()
 ![image](docs/images/5.png)
 
 ## **More Examples**
-[https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/clustermap.ipynb](https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/clustermap.ipynb)
-<br><br>
-[https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb](https://github.com/DingWB/PyComplexHeatmap/blob/main/notebooks/advanced_usage.ipynb)
-<br><br>
-[https://dingwb.github.io/PyComplexHeatmap/build/html/dotHeatmap.html](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups)
+[https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
