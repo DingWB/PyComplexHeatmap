@@ -1386,8 +1386,8 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax1</span>
-                    <span class="c1"># if self.orientation == &#39;right&#39;:</span>
-                    <span class="c1">#     ax1.invert_xaxis()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
+                        <span class="n">ax1</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_axes_kws</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="kc">None</span>

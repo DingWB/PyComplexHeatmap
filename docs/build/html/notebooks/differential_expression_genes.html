@@ -622,7 +622,7 @@ Plotting legends..
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">expr</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Up&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">20</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;Down&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">69</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Regulation&#39;</span><span class="p">])</span> <span class="c1">#top20 genes upregulated</span>
@@ -646,14 +646,15 @@ Plotting legends..
                                                 <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                                 <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;fontweight&#39;</span><span class="p">:</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
                                                           <span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">}),</span>
-                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">},</span>
+                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">},</span>
                             <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span>
                             <span class="p">)</span>
 
 <span class="n">row_ha_right</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
-                            <span class="n">selected</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">label_rows</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors_dict</span><span class="p">),</span>  <span class="c1">#label_side=&#39;top&#39;,</span>
+                            <span class="n">selected</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">label_rows</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors_dict</span><span class="p">,</span>
+                                               <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)),</span>  <span class="c1">#label_side=&#39;top&#39;,</span>
                             <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="s1">&#39;verticalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="p">},</span>
+                            <span class="c1">#label_kws={&#39;rotation&#39;:0,&#39;horizontalalignment&#39;:&#39;right&#39;,&#39;verticalalignment&#39;:&#39;top&#39;, },</span>
                             <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span>
                             <span class="p">)</span>
 <span class="c1">#plt.show()</span>
@@ -727,6 +728,23 @@ Plotting legends..
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_differential_expression_genes_6_1.png" src="../_images/notebooks_differential_expression_genes_6_1.png" />
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha_left</span><span class="o">.</span><span class="n">orientation</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;left&#39;
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

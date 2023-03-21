@@ -1313,8 +1313,8 @@ class HeatmapAnnotation():
                     self.ax.spines['left'].set_visible(False)
                     self.ax.spines['right'].set_visible(False)
                     self.axes[j, i] = ax1
-                    # if self.orientation == 'right':
-                    #     ax1.invert_xaxis()
+                    if self.orientation == 'right':
+                        ax1.invert_xaxis()
 
         self.set_axes_kws()
         self.legend_list = None
