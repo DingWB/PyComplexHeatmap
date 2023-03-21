@@ -2,6 +2,7 @@
 PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Please click [here](https://dingwb.github.io/PyComplexHeatmap) for documentation.
 
 ## Documentation:
+----------------------
 [https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) 
 <br><br>
 PYPI:
@@ -15,16 +16,18 @@ PYPI:
 [wiki/Parameters](../../wiki/Parameters/)
 
 ## Dependencies:
+----------------------
 - matplotlib>=3.4.3
 - numpy
 - pandas
-- seaborn
+- scipy
 ```
 pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 pip install seaborn #only needed when call functions in tools.py
 ```
 
 ## **Installation**
+----------------------
 1. **Install using pip**:
 ```shell
 pip install PyComplexHeatmap
@@ -48,6 +51,7 @@ python setup.py install
 ```
 
 ## **Usage**
+----------------------
 ### **1. Simple Guide To Get started.**
 ```
 from PyComplexHeatmap import *
@@ -110,3 +114,22 @@ plt.show()
 
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
+
+
+## Call for Contributions
+----------------------
+
+The PyComplexHeatmap project welcomes your expertise and enthusiasm!
+
+Small improvements or fixes are always appreciated. If you are considering larger contributions
+to the source code, please contact us (ding.wu.bin.gm@gmail.com).
+
+Writing code isn’t the only way to contribute to NumPy. You can also:
+- review pull requests
+- help us stay on top of new and old issues
+- develop tutorials, presentations, and other educational materials
+- maintain and improve [our website](https://dingwb.github.io/PyComplexHeatmap)
+- develop graphic design for our brand assets and promotional materials
+- translate website content
+- help with outreach and onboard new contributors
+- put forward some new ideas about update.
