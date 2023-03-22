@@ -57,7 +57,7 @@ python setup.py install
 from PyComplexHeatmap import *
 
 #Generate example dataset (random)
-df = pd.DataFrame(['AAAA1'] * 5 + ['BBBBB2'] * 5, columns=['AB'])
+df = pd.DataFrame(['GroupA'] * 5 + ['GroupB'] * 5, columns=['AB'])
 df['CD'] = ['C'] * 3 + ['D'] * 3 + ['G'] * 4
 df['EF'] = ['E'] * 6 + ['F'] * 2 + ['H'] * 2
 df['F'] = np.random.normal(0, 1, 10)
@@ -77,40 +77,41 @@ df_rows = df_heatmap.apply(lambda x:x.name if x.sample4 > 0.5 else None,axis=1)
 df_rows=df_rows.to_frame(name='Selected')
 df_rows['XY']=df_rows.index.to_series().apply(lambda x:'A' if int(x.replace('Fea',''))>=15 else 'B')
 
-row_ha = HeatmapAnnotation(S4=anno_simple(df_heatmap.sample4.apply(lambda x:round(x,2)),
-                                           add_text=True,height=10,
-                                           text_kws={'rotation':0,'fontsize':10,'color':'black'}),
-                           # Scatter=anno_scatterplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
-                           #                  height=10),
-                           Test=anno_barplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
-                                            height=18,cmap='rainbow'),
-                           selected=anno_label(df_rows,colors='red'),
-                           axis=0,verbose=0)
+row_ha = HeatmapAnnotation(
+                           Scatter=anno_scatterplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
+                                            height=12,cmap='jet',legend=False),
+                           Bar=anno_barplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
+                                            height=16,cmap='rainbow',legend=False),
+                           selected=anno_label(df_rows,colors='red',relpos=(-0.05,0.4)),
+                           label_kws={'rotation':30,'horizontalalignment':'left','verticalalignment':'bottom'},
+                            axis=0,verbose=0)
 
-col_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True,rotation=15),
+col_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True,rotation=10),
                            AB=anno_simple(df.AB,add_text=True),axis=1,
                            CD=anno_simple(df.CD,add_text=True),
                            EF=anno_simple(df.EF,add_text=True,
-                                            legend_kws={'frameon':False}),
-                           Exp=anno_boxplot(df_box, cmap='turbo'),
-                           verbose=0) #verbose=0 will turn off the log.
+                                            legend_kws={'frameon':True}),
+                           G=anno_boxplot(df_box, cmap='jet',legend=False),
+                           verbose=0)
 
-plt.figure(figsize=(6, 8))
+plt.figure(figsize=(5.5, 6.5))
 cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=row_ha,
-                       col_split=df.AB,row_split=df_rows.XY, col_split_gap=0.5,row_split_gap=1,
-                       col_cluster=False,row_cluster=False,
-                       label='values',row_dendrogram=False,show_rownames=True,show_colnames=True,
-                         tree_kws={'row_cmap': 'Set1'},verbose=0,legend_gap=7,
-                       annot=True,linewidths=0.05,linecolor='gold',cmap='turbo',
-                      xticklabels_kws={'labelrotation':-45,'labelcolor':'blue'})
+                       col_cluster=True,row_cluster=True,
+                       col_split=df.AB,row_split=2, 
+                       col_split_gap=0.5,row_split_gap=0.8,
+                       label='values',row_dendrogram=True,
+                       show_rownames=False,show_colnames=True,
+                       tree_kws={'row_cmap': 'Set1'},verbose=0,legend_gap=5,
+                       cmap='RdYlBu_r',xticklabels_kws={'labelrotation':-45,'labelcolor':'blue'})
+#plt.savefig("example0.pdf", bbox_inches='tight')
 plt.show()
 ```
 ### Example output
-![image](docs/images/1.png)
+![image](docs/images/1.jpg)
 ![image](docs/images/2.png)
 ![image](docs/images/3.png)
 ![image](docs/images/4.png)
-![image](docs/images/5.png)
+![image](docs/images/5.jpg)
 
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
