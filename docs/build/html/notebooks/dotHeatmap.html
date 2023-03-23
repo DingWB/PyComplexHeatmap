@@ -384,7 +384,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -745,7 +745,6 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-{&#39;1&#39;: 7.907856986884776, &#39;0.8&#39;: 6.326285589507822, &#39;0.6&#39;: 4.744714192130865, &#39;0.4&#39;: 3.163142794753911, &#39;0.2&#39;: 1.5815713973769554} {&#39;1&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -783,7 +782,6 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-{&#39;1&#39;: 9.037550842154031, &#39;0.8&#39;: 7.2300406737232255, &#39;0.6&#39;: 5.422530505292418, &#39;0.4&#39;: 3.6150203368616127, &#39;0.2&#39;: 1.8075101684308064} {&#39;1&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -822,7 +820,6 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-{&#39;1&#39;: 9.037550842154031, &#39;0.8&#39;: 7.2300406737232255, &#39;0.6&#39;: 5.422530505292418, &#39;0.4&#39;: 3.6150203368616127, &#39;0.2&#39;: 1.8075101684308064} {&#39;1&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -868,7 +865,6 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-{&#39;1&#39;: 9.037550842154031, &#39;0.8&#39;: 7.2300406737232255, &#39;0.6&#39;: 5.422530505292418, &#39;0.4&#39;: 3.6150203368616127, &#39;0.2&#39;: 1.8075101684308064} {&#39;1&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -919,8 +915,6 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
-{&#39;High&#39;: 10.167244697423284, &#39;Middle&#39;: 10.167244697423284, &#39;Low&#39;: 10.167244697423284} {&#39;High&#39;: &#39;P&#39;, &#39;Middle&#39;: &#39;*&#39;, &#39;Low&#39;: &#39;D&#39;}
-{&#39;1&#39;: 10.167244697423284, &#39;0.8&#39;: 8.133795757938628, &#39;0.6&#39;: 6.10034681845397, &#39;0.4&#39;: 4.066897878969314, &#39;0.2&#39;: 2.033448939484657} {&#39;1&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1086,20 +1080,11 @@ level_1
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;High&#39;: 8.507016635845146, &#39;Middle&#39;: 8.507016635845146, &#39;Low&#39;: 8.507016635845146} {&#39;High&#39;: &#39;P&#39;, &#39;Middle&#39;: &#39;*&#39;, &#39;Low&#39;: &#39;D&#39;}
-{&#39;1.0&#39;: 8.507016635845146, &#39;0.8&#39;: 6.805613308676117, &#39;0.6&#39;: 5.104209981507088, &#39;0.4&#39;: 3.4028066543380584, &#39;0.2&#39;: 1.7014033271690292} {&#39;1.0&#39;: &#39;o&#39;, &#39;0.8&#39;: &#39;o&#39;, &#39;0.6&#39;: &#39;o&#39;, &#39;0.4&#39;: &#39;o&#39;, &#39;0.2&#39;: &#39;o&#39;}
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_22_1.png" src="../_images/notebooks_dotHeatmap_22_1.png" />
+<img alt="../_images/notebooks_dotHeatmap_22_0.png" src="../_images/notebooks_dotHeatmap_22_0.png" />
 </div>
 </div>
 </section>
@@ -1107,15 +1092,21 @@ level_1
 <h2>4.2 Visualize up to five dimension data using DotClustermapPlotter<a class="headerlink" href="#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter" title="Permalink to this heading">¶</a></h2>
 <p>Plot enrichment analysis result using example dataset with samples annotations</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Gallery/20230227_atac2meth_kycg_result.txt&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/kycg_result.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;rmsk1&#39;</span><span class="p">,</span><span class="s1">&#39;ChromHMM&#39;</span><span class="p">,</span><span class="s1">&#39;EnsRegBuild&#39;</span><span class="p">])]</span>
-<span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Clark2018_Argelaguet2019&#39;</span><span class="p">:</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;Luo2022&#39;</span><span class="p">:</span><span class="s1">&#39;L&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Clark2018_Argelaguet2019&#39;</span><span class="p">:</span><span class="s1">&#39;Dataset1&#39;</span><span class="p">,</span><span class="s1">&#39;Luo2022&#39;</span><span class="p">:</span><span class="s1">&#39;Dataset2&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">max_p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">max_p</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">SampleID</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">CpGType</span>
+<span class="n">vc</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Term&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+
+<span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">Term</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">vc</span><span class="p">[</span><span class="n">vc</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+<span class="c1"># p_max=data[&#39;-log10(Pval)&#39;].max()</span>
+<span class="c1"># p_min=data[&#39;-log10(Pval)&#39;].min()</span>
+<span class="c1"># data[&#39;-log10(Pval)&#39;]=data[&#39;-log10(Pval)&#39;].apply(lambda x:(x-p_min)/(p_max-p_min))</span>
 <span class="n">df_col</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 <span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Dataset&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Correlation&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">ID</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
@@ -1126,7 +1117,7 @@ level_1
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1134,7 +1125,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1169,71 +1160,96 @@ level_1
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
-      <td>PromoterFlankingRegion</td>
-      <td>1.042</td>
-      <td>EnsRegBuild</td>
-      <td>C</td>
-      <td>Negative</td>
-      <td>1.280000e-22</td>
-      <td>Enrich</td>
-      <td>26.0</td>
-      <td>C-Negative</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>CTCFBindingSite</td>
-      <td>1.055</td>
-      <td>EnsRegBuild</td>
-      <td>C</td>
-      <td>Negative</td>
-      <td>1.240000e-14</td>
-      <td>Enrich</td>
-      <td>26.0</td>
-      <td>C-Negative</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>QuiesG</td>
-      <td>1.028</td>
-      <td>ChromHMM</td>
-      <td>C</td>
-      <td>Negative</td>
-      <td>1.270000e-13</td>
-      <td>Enrich</td>
-      <td>26.0</td>
-      <td>C-Negative</td>
-    </tr>
-    <tr>
       <th>49</th>
       <td>Het</td>
       <td>1.061</td>
       <td>ChromHMM</td>
-      <td>C</td>
+      <td>Dataset1</td>
       <td>Negative</td>
       <td>2.020000e-07</td>
       <td>Enrich</td>
       <td>26.0</td>
-      <td>C-Negative</td>
+      <td>Dataset1-Negative</td>
     </tr>
     <tr>
       <th>55</th>
       <td>Tx</td>
       <td>1.029</td>
       <td>ChromHMM</td>
-      <td>C</td>
+      <td>Dataset1</td>
       <td>Negative</td>
       <td>4.580000e-07</td>
       <td>Enrich</td>
       <td>26.0</td>
-      <td>C-Negative</td>
+      <td>Dataset1-Negative</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>TssFlnk</td>
+      <td>1.056</td>
+      <td>ChromHMM</td>
+      <td>Dataset1</td>
+      <td>Negative</td>
+      <td>2.370000e-06</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>Dataset1-Negative</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>TxWk</td>
+      <td>1.022</td>
+      <td>ChromHMM</td>
+      <td>Dataset1</td>
+      <td>Negative</td>
+      <td>8.660000e-05</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>Dataset1-Negative</td>
+    </tr>
+    <tr>
+      <th>346</th>
+      <td>DNA?</td>
+      <td>1.350</td>
+      <td>rmsk1</td>
+      <td>Dataset1</td>
+      <td>Negative</td>
+      <td>2.760000e-02</td>
+      <td>Enrich</td>
+      <td>26.0</td>
+      <td>Dataset1-Negative</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+count    64.000000
+mean     25.356918
+std      3.632073
+min      3.119186
+25%      26.000000
+50%      26.000000
+75%      26.000000
+max      26.000000
+Name: -log10(Pval), dtype: float64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">CpGType</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -1251,7 +1267,7 @@ level_1
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
@@ -1259,7 +1275,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1292,23 +1308,23 @@ level_1
   </thead>
   <tbody>
     <tr>
-      <th>C-Negative</th>
-      <td>C</td>
+      <th>Dataset1-Negative</th>
+      <td>Dataset1</td>
       <td>Negative</td>
     </tr>
     <tr>
-      <th>C-Positive</th>
-      <td>C</td>
+      <th>Dataset1-Positive</th>
+      <td>Dataset1</td>
       <td>Positive</td>
     </tr>
     <tr>
-      <th>L-Negative</th>
-      <td>L</td>
+      <th>Dataset2-Negative</th>
+      <td>Dataset2</td>
       <td>Negative</td>
     </tr>
     <tr>
-      <th>L-Positive</th>
-      <td>L</td>
+      <th>Dataset2-Positive</th>
+      <td>Dataset2</td>
       <td>Positive</td>
     </tr>
   </tbody>
@@ -1316,7 +1332,7 @@ level_1
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
@@ -1324,7 +1340,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1355,18 +1371,6 @@ level_1
   </thead>
   <tbody>
     <tr>
-      <th>PromoterFlankingRegion</th>
-      <td>EnsRegBuild</td>
-    </tr>
-    <tr>
-      <th>CTCFBindingSite</th>
-      <td>EnsRegBuild</td>
-    </tr>
-    <tr>
-      <th>QuiesG</th>
-      <td>ChromHMM</td>
-    </tr>
-    <tr>
       <th>Het</th>
       <td>ChromHMM</td>
     </tr>
@@ -1375,36 +1379,48 @@ level_1
       <td>ChromHMM</td>
     </tr>
     <tr>
+      <th>TssFlnk</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>TxWk</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>DNA?</th>
+      <td>rmsk1</td>
+    </tr>
+    <tr>
       <th>...</th>
       <td>...</td>
     </tr>
     <tr>
-      <th>TssA</th>
+      <th>TssBiv</th>
       <td>ChromHMM</td>
     </tr>
     <tr>
-      <th>SINE?</th>
+      <th>ReprPC</th>
+      <td>ChromHMM</td>
+    </tr>
+    <tr>
+      <th>LTR</th>
       <td>rmsk1</td>
     </tr>
     <tr>
-      <th>RC</th>
+      <th>snRNA</th>
       <td>rmsk1</td>
     </tr>
     <tr>
-      <th>scRNA</th>
-      <td>rmsk1</td>
-    </tr>
-    <tr>
-      <th>rRNA</th>
+      <th>SINE</th>
       <td>rmsk1</td>
     </tr>
   </tbody>
 </table>
-<p>51 rows × 1 columns</p>
+<p>19 rows × 1 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1418,65 +1434,50 @@ level_1
                            <span class="n">Correlation</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Correlation</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;right&#39;</span><span class="p">})</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
-                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;RdYlGn_r&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;coolwarm_r&#39;</span><span class="p">},</span>
                           <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
-                          <span class="c1">#marker={&#39;Enrich&#39;:&#39;^&#39;,&#39;Depletion&#39;:&#39;v&#39;},value_na=25,c_na=25,</span>
+                          <span class="c1">#marker={&#39;Enrich&#39;:&#39;^&#39;,&#39;Depletion&#39;:&#39;v&#39;},</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#xticklabels_kws={&#39;labelrotation&#39;:-45,&#39;labelcolor&#39;:&#39;blue&#39;}</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;dotHeatmap1.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;15.85&#39;: 6.411756052747385, &#39;12.68&#39;: 5.129404842197908, &#39;9.51&#39;: 3.8470536316484307, &#39;6.34&#39;: 2.564702421098954, &#39;3.17&#39;: 1.282351210549477} {&#39;15.85&#39;: &#39;o&#39;, &#39;12.68&#39;: &#39;o&#39;, &#39;9.51&#39;: &#39;o&#39;, &#39;6.34&#39;: &#39;o&#39;, &#39;3.17&#39;: &#39;o&#39;}
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_29_1.png" src="../_images/notebooks_dotHeatmap_29_1.png" />
+<img alt="../_images/notebooks_dotHeatmap_30_0.png" src="../_images/notebooks_dotHeatmap_30_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span>
                           <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
                           <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
                           <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;D&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="c1"># plt.savefig(os.path.expanduser(&quot;~/Gallery/20230227_kycg.pdf&quot;),bbox_inches=&#39;tight&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;Enrich&#39;: 6.411756052747385, &#39;Depletion&#39;: 6.411756052747385} {&#39;Enrich&#39;: &#39;P&#39;, &#39;Depletion&#39;: &#39;D&#39;}
-{&#39;26.0&#39;: 6.411756052747385, &#39;20.8&#39;: 5.129404842197908, &#39;15.6&#39;: 3.8470536316484307, &#39;10.4&#39;: 2.564702421098954, &#39;5.2&#39;: 1.282351210549477} {&#39;26.0&#39;: &#39;o&#39;, &#39;20.8&#39;: &#39;o&#39;, &#39;15.6&#39;: &#39;o&#39;, &#39;10.4&#39;: &#39;o&#39;, &#39;5.2&#39;: &#39;o&#39;}
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_30_1.png" src="../_images/notebooks_dotHeatmap_30_1.png" />
+<img alt="../_images/notebooks_dotHeatmap_31_0.png" src="../_images/notebooks_dotHeatmap_31_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1493,10 +1494,10 @@ level_1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-count    115.000000
-mean     23.883228
-std      6.359254
-min      1.571865
+count    64.000000
+mean     25.356918
+std      3.632073
+min      3.119186
 25%      26.000000
 50%      26.000000
 75%      26.000000
@@ -1505,12 +1506,12 @@ Name: -log10(Pval), dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="c1">#s=&#39;odds_ratio&#39;,</span>
-                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Term&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
+                          <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;EnrichType&#39;</span><span class="p">,</span> <span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
                           <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
                           <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;_&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
@@ -1520,20 +1521,19 @@ Name: -log10(Pval), dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;Enrich&#39;: 6.411756052747385, &#39;Depletion&#39;: 6.411756052747385} {&#39;Enrich&#39;: &#39;P&#39;, &#39;Depletion&#39;: &#39;_&#39;}
-{&#39;26.0&#39;: 6.411756052747385, &#39;20.8&#39;: 5.129404842197908, &#39;15.6&#39;: 3.8470536316484307, &#39;10.4&#39;: 2.564702421098954, &#39;5.2&#39;: 1.282351210549477} {&#39;26.0&#39;: &#39;o&#39;, &#39;20.8&#39;: &#39;o&#39;, &#39;15.6&#39;: &#39;o&#39;, &#39;10.4&#39;: &#39;o&#39;, &#39;5.2&#39;: &#39;o&#39;}
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_32_1.png" src="../_images/notebooks_dotHeatmap_32_1.png" />
+<img alt="../_images/notebooks_dotHeatmap_33_0.png" src="../_images/notebooks_dotHeatmap_33_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
