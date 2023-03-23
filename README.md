@@ -125,7 +125,7 @@ The PyComplexHeatmap project welcomes your expertise and enthusiasm!
 Small improvements or fixes are always appreciated. If you are considering larger contributions
 to the source code, please contact us (ding.wu.bin.gm@gmail.com).
 
-Writing code isn’t the only way to contribute to NumPy. You can also:
+Writing code isn’t the only way to contribute to PyComplexHeatmap. You can also:
 - review pull requests
 - help us stay on top of new and old issues
 - develop tutorials, presentations, and other educational materials
