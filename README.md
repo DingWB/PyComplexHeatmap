@@ -116,7 +116,7 @@ plt.show()
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
 <img src="docs/images/2.png" width=600 align="middle">
-</a>a>
+</a>
 </p>
 
 <p align="center">
