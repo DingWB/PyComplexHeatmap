@@ -107,7 +107,7 @@ cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=r
 plt.show()
 ```
 ### Example output
-[<img src="docs/images/1.jpg" width=700 align="middle">](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels)
+[<img src="docs/images/1.jpg" width=700 text-align="middle">](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels)
 [<img src="docs/images/2.png" width=600 align="middle">](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations)
 [<img src="docs/images/3.png" width=700 align="middle">](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Change-orentation-to-the-right)
 <!-- ![image](docs/images/4.png) -->
