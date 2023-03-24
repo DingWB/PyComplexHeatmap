@@ -109,32 +109,32 @@ plt.show()
 ### Example output
 <p align="center"> 
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
-[<img src="docs/images/1.jpg" width=700 align="center">]
+<img src="docs/images/1.jpg" width=700 align="center">
 </a>
 </p>
 
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
-[<img src="docs/images/2.png" width=600 align="middle">]
+<img src="docs/images/2.png" width=600 align="middle">
 </a>a>
 </p>
 
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Change-orentation-to-the-right">
-[<img src="docs/images/3.png" width=700 align="middle">]
+<img src="docs/images/3.png" width=700 align="middle">
 </a>
 </p>
 <!-- ![image](docs/images/4.png) -->
 
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
-[<img src="docs/images/4.png" width=500 align="middle">]
+<img src="docs/images/4.png" width=500 align="middle">
 </a>
 </p>
 
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/composite_heatmaps.html#Composite-two-heatmaps-horizontally-for-mouse-DNA-methylation-array-dataset">
-[<img src="docs/images/5.jpg" width=500 align="middle">]
+<img src="docs/images/5.jpg" width=500 align="middle">
 </a>
 </p>
 
