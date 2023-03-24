@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyComplexHeatmap.tools module &mdash; PyComplexHeatmap 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PyComplexHeatmap.utils module" href="PyComplexHeatmap.utils.html" />
+    <link rel="prev" title="PyComplexHeatmap.example module" href="PyComplexHeatmap.example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustermap.html">Clustermap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dotHeatmap.html">dotHeatmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PyComplexHeatmap.html">PyComplexHeatmap package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PyComplexHeatmap.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.example.html">PyComplexHeatmap.example module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PyComplexHeatmap.tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">PyComplexHeatmap</a> &raquo;</li>
+          <li><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a> &raquo;</li>
+      <li>PyComplexHeatmap.tools module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PyComplexHeatmap.tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-PyComplexHeatmap.tools">
+<span id="pycomplexheatmap-tools-module"></span><h1>PyComplexHeatmap.tools module<a class="headerlink" href="#module-PyComplexHeatmap.tools" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.tools.dotplot">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.tools.</span></span><span class="sig-name descname"><span class="pre">dotplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(3,</span> <span class="pre">3.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test.pdf'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/tools.html#dotplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.tools.dotplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot dot plot for enrichment analysis and other kind of usage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>dataframe</em>) – </p></li>
+<li><p><strong>x</strong> (<em>str</em>) – </p></li>
+<li><p><strong>y</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue</strong> (<em>str</em>) – hue</p></li>
+<li><p><strong>hue_order</strong> (<em>list</em>) – order for hue.</p></li>
+<li><p><strong>size</strong> (<em>str</em><em> or </em><em>float</em>) – column names used for size or float.</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – color</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – cmap</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figsize</p></li>
+<li><p><strong>outname</strong> (<em>path</em>) – output name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.tools.tbarplot">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.tools.</span></span><span class="sig-name descname"><span class="pre">tbarplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">palette</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test.pdf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/tools.html#tbarplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.tools.tbarplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot barplot with text on the top of bar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>dataframe</em>) – </p></li>
+<li><p><strong>x</strong> (<em>str</em>) – </p></li>
+<li><p><strong>y</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hue_order</strong> (<em>list</em>) – order for hue</p></li>
+<li><p><strong>palette</strong> (<em>str</em>) – palette</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figsize</p></li>
+<li><p><strong>outname</strong> (<em>path</em>) – output pdf filename</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.tools.volcano_plot">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.tools.</span></span><span class="sig-name descname"><span class="pre">volcano_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log2(Fold</span> <span class="pre">change)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-log10(adjp)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DEG'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gene_name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Size'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">80)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log2(Fold</span> <span class="pre">change)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-log10(adjusted</span> <span class="pre">pvalue)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Upregulated',</span> <span class="pre">'Not.Sig',</span> <span class="pre">'Downregulated']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['red',</span> <span class="pre">'grey',</span> <span class="pre">'blue']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(5,</span> <span class="pre">7)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">90</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/tools.html#volcano_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.tools.volcano_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot volcano plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – </p></li>
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>y</strong> – </p></li>
+<li><p><strong>outname</strong> – </p></li>
+<li><p><strong>title</strong> – </p></li>
+<li><p><strong>hue</strong> – </p></li>
+<li><p><strong>label</strong> – </p></li>
+<li><p><strong>size</strong> – </p></li>
+<li><p><strong>sizes</strong> – </p></li>
+<li><p><strong>xlabel</strong> – </p></li>
+<li><p><strong>ylabel</strong> – </p></li>
+<li><p><strong>rasterized</strong> – </p></li>
+<li><p><strong>hue_order</strong> – </p></li>
+<li><p><strong>colors</strong> – </p></li>
+<li><p><strong>topn</strong> – </p></li>
+<li><p><strong>x_unit</strong> – </p></li>
+<li><p><strong>y_unit</strong> – </p></li>
+<li><p><strong>figsize</strong> – </p></li>
+<li><p><strong>xlabel_rotate</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PyComplexHeatmap.example.html" class="btn btn-neutral float-left" title="PyComplexHeatmap.example module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PyComplexHeatmap.utils.html" class="btn btn-neutral float-right" title="PyComplexHeatmap.utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

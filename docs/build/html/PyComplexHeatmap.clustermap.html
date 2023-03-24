@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PyComplexHeatmap.colors module" href="PyComplexHeatmap.colors.html" />
+    <link rel="prev" title="PyComplexHeatmap.annotations module" href="PyComplexHeatmap.annotations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustermap.html">Clustermap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dotHeatmap.html">dotHeatmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PyComplexHeatmap.html">PyComplexHeatmap package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PyComplexHeatmap.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PyComplexHeatmap.clustermap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.example.html">PyComplexHeatmap.example module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.tools.html">PyComplexHeatmap.tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">PyComplexHeatmap</a> &raquo;</li>
+          <li><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a> &raquo;</li>
+      <li>PyComplexHeatmap.clustermap module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PyComplexHeatmap.clustermap.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-PyComplexHeatmap.clustermap">
+<span id="pycomplexheatmap-clustermap-module"></span><h1>PyComplexHeatmap.clustermap module<a class="headerlink" href="#module-PyComplexHeatmap.clustermap" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">ClusterMapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_cluster_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_cluster_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_rownames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_colnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_names_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_names_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bottom'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_dendrogram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_dendrogram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_dendrogram_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_dendrogram_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dendrogram_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_split_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_split_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_split_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_split_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_delta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Clustermap (Heatmap) plotter.
+Plot heatmap / clustermap with annotation and legends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe or numpy array.</p></li>
+<li><p><strong>z_score</strong> (<em>int</em>) – whether to perform z score scale, either 0 for rows or 1 for columns, after scale,
+value range would be from -1 to 1.</p></li>
+<li><p><strong>standard_scale</strong> (<em>int</em>) – either 0 for rows or 1 for columns, after scale,value range would be from 0 to 1.</p></li>
+<li><p><strong>top_annotation</strong> (<em>annotation: class of HeatmapAnnotation.</em>) – </p></li>
+<li><p><strong>bottom_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>left_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>right_annotation</strong> (<em>class AnnotationBase</em>) – the same as top_annotation.</p></li>
+<li><p><strong>row_cluster</strong> (<em>bool</em>) – whether to perform cluster on rows/columns.</p></li>
+<li><p><strong>col_cluster</strong> (<em>bool</em>) – whether to perform cluster on rows/columns.</p></li>
+<li><p><strong>row_cluster_method</strong> (<em>str</em>) – cluster method for row/columns linkage, such single, complete, average,weighted,
+centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+(<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html</a>) for detail.</p></li>
+<li><p><strong>row_cluster_metric</strong> (<em>str</em>) – Pairwise distances between observations in n-dimensional space for row/columns,
+such euclidean, minkowski, cityblock, seuclidean, cosine, correlation, hamming, jaccard,
+chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
+centroid, median, ward. see scipy.cluster.hierarchy.linkage or
+<a class="reference external" href="https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html">https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html</a></p></li>
+<li><p><strong>col_cluster_method</strong> (<em>str</em>) – same as row_cluster_method</p></li>
+<li><p><strong>col_cluster_metric</strong> (<em>str</em>) – same as row_cluster_metric</p></li>
+<li><p><strong>show_rownames</strong> (<em>bool</em>) – True (default) or False, whether to show row ticklabels.</p></li>
+<li><p><strong>show_colnames</strong> (<em>bool</em>) – True of False, same as show_rownames.</p></li>
+<li><p><strong>row_names_side</strong> (<em>str</em>) – right or left.</p></li>
+<li><p><strong>col_names_side</strong> (<em>str</em>) – top or bottom.</p></li>
+<li><p><strong>row_dendrogram</strong> (<em>bool</em>) – True or False, whether to show dendrogram.</p></li>
+<li><p><strong>col_dendrogram</strong> (<em>bool</em>) – True or False, whether to show dendrogram.</p></li>
+<li><p><strong>row_dendrogram_size</strong> (<em>int</em>) – default is 10mm.</p></li>
+<li><p><strong>col_dendrogram_size</strong> (<em>int</em>) – default is 10mm.</p></li>
+<li><p><strong>row_split</strong> (<em>int</em><em> or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em>) – number of cluster for hierarchical clustering or pd.Series or pd.DataFrame,
+used to split rows or rows into subplots.</p></li>
+<li><p><strong>col_split</strong> (<em>int</em><em> or </em><em>pd.Series</em><em> or </em><em>pd.DataFrame</em>) – int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.</p></li>
+<li><p><strong>dendrogram_kws</strong> (<em>dict</em>) – kws passed to hierarchy.dendrogram.</p></li>
+<li><p><strong>tree_kws</strong> (<em>dict</em>) – kws passed to DendrogramPlotter.plot()</p></li>
+<li><p><strong>row_split_gap</strong> (<em>float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
+<li><p><strong>col_split_gap</strong> (<em>float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
+<li><p><strong>mask</strong> (<em>dataframe</em><em> or </em><em>array</em>) – mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</p></li>
+<li><p><strong>subplot_gap</strong> (<em>float</em>) – the gap between subplots, default is 1mm.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em>) – True or False, whether to plot heatmap legend, determined by cmap.</p></li>
+<li><p><strong>legend_kws</strong> (<em>dict</em>) – <p>kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
+for cbar in cm.cbars:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if isinstance(cbar,matplotlib.colorbar.Colorbar):</dt><dd><p>cbar.outline.set_color(‘white’)
+cbar.outline.set_linewidth(2)
+cbar.dividers.set_color(‘red’)
+cbar.dividers.set_linewidth(2)</p>
+</dd>
+</dl>
+</div></blockquote>
+</p></li>
+<li><p><strong>plot</strong> (<em>bool</em>) – whether to plot or not.</p></li>
+<li><p><strong>plot_legend</strong> (<em>bool</em>) – True or False, whether to plot legend, if False, legends can be plot with
+ClusterMapPlotter.plot_legends()</p></li>
+<li><p><strong>legend_anchor</strong> (<em>str</em>) – ax_heatmap or ax, the ax to which legend anchor.</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – the columns gap between different legends.</p></li>
+<li><p><strong>legend_width</strong> (<em>float</em>) – width of the legend, default is 4.5[mm]</p></li>
+<li><p><strong>legend_hpad</strong> (<em>float</em>) – Horizonal space between the heatmap and legend, default is 2 [mm].</p></li>
+<li><p><strong>legend_vpad</strong> (<em>float</em>) – Vertical space between the top of legend_anchor and legend, default is 5 [mm].</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – right of left.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – default is ‘jet’, the colormap for heatmap colorbar, see plt.colormaps().</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – the title (label) that will be shown in heatmap colorbar legend.</p></li>
+<li><p><strong>xticklabels_kws</strong> (<em>dict</em>) – xticklabels or yticklabels kws, such as axis, which, direction, length, width,
+color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
+labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
+For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</p></li>
+<li><p><strong>yticklabels_kws</strong> (<em>dict</em>) – the same as xticklabels_kws.</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested
+to be True, otherwise the plot would be very slow.</p></li>
+<li><p><strong>kwargs</strong> (<em>kws passed to heatmap.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Class ClusterMapPlotter.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms">
+<span class="sig-name descname"><span class="pre">calculate_col_dendrograms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.calculate_col_dendrograms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms">
+<span class="sig-name descname"><span class="pre">calculate_row_dendrograms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.calculate_row_dendrograms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends">
+<span class="sig-name descname"><span class="pre">collect_legends</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.collect_legends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data">
+<span class="sig-name descname"><span class="pre">format_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.format_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms">
+<span class="sig-name descname"><span class="pre">plot_dendrograms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.plot_dendrograms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">
+<span class="sig-name descname"><span class="pre">plot_legends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.plot_legends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix">
+<span class="sig-name descname"><span class="pre">plot_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.plot_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws">
+<span class="sig-name descname"><span class="pre">set_axes_labels_kws</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.set_axes_labels_kws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height">
+<span class="sig-name descname"><span class="pre">set_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.set_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width">
+<span class="sig-name descname"><span class="pre">set_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.set_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">standard_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.standard_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide the data by the difference between the max and min</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data2d</strong> (<em>pandas.DataFrame</em>) – Data to normalize</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – Which axis to normalize across. If 0, normalize across rows, if 1,
+normalize across columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>standardized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
+specified axis.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout">
+<span class="sig-name descname"><span class="pre">tight_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">tight_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.tight_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#ClusterMapPlotter.z_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standarize the mean and variance of the data axis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data2d</strong> (<em>pandas.DataFrame</em>) – Data to normalize</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – Which axis to normalize across. If 0, normalize across rows, if 1,
+normalize across columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>normalized</strong> – Noramlized data with a mean of 0 and variance of 1 across the
+specified axis.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">DendrogramPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dendrogram_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#DendrogramPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram">
+<span class="sig-name descname"><span class="pre">calculate_dendrogram</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#DendrogramPlotter.calculate_dendrogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculated_linkage</span></span><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.check_array">
+<span class="sig-name descname"><span class="pre">check_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#DendrogramPlotter.check_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#DendrogramPlotter.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a dendrogram of the similarities between data on the axes
+:param ax: Axes object upon which the dendrogram is plotted
+:type ax: matplotlib.axes.Axes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reordered_ind</span></span><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indices of the matrix, reordered by the dendrogram</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.composite">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">composite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#composite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.composite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assemble multiple ClusterMapPlotter objects vertically or horizontally together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmlist</strong> (<em>list</em>) – a list of ClusterMapPlotter (with plot=False).</p></li>
+<li><p><strong>axis</strong> (<em>int</em>) – 1 for columns (align the cmlist horizontally), 0 for rows (vertically).</p></li>
+<li><p><strong>main</strong> (<em>int</em>) – use which as main ClusterMapPlotter, will influence row/col order. main is the index
+of cmlist.</p></li>
+<li><p><strong>row/col_gap</strong> (<em>float</em>) – the row or columns gap between subplots, unit is mm [15].</p></li>
+<li><p><strong>legend_side</strong> (<em>str</em>) – right,left [right].</p></li>
+<li><p><strong>legend_gap</strong> (<em>float</em>) – row gap between two legends, unit is mm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>legend_axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.heatmap">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bottom'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">square</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_bbox_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_bbox_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bottom'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.2g'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe</p></li>
+<li><p><strong>ylabel</strong> (<em>xlabel /</em>) – True, False, or list of xlabels</p></li>
+<li><p><strong>ylabel_side</strong> (<em>xlabel_side /</em>) – bottom or top</p></li>
+<li><p><strong>vmax</strong> (<em>float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>center</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>robust</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>ylabel_kws</strong> (<em>xlabel_kws /</em>) – parameter from matplotlib.axis.XAxis.label.properties()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.heatmapPlotter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">heatmapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bwr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.2g'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#heatmapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.heatmapPlotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.heatmapPlotter.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_bbox_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_bbox_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_pad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_pad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#heatmapPlotter.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.heatmapPlotter.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the heatmap on the provided Axes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PyComplexHeatmap.annotations.html" class="btn btn-neutral float-left" title="PyComplexHeatmap.annotations module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PyComplexHeatmap.colors.html" class="btn btn-neutral float-right" title="PyComplexHeatmap.colors module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

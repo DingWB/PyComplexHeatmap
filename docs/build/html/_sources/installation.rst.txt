@@ -6,6 +6,7 @@ Dependencies
 * `matplotlib >=3.3.1`
 * `pandas`
 * `numpy`
+* `scipy`
 
 
 How to install?
@@ -14,7 +15,7 @@ How to install?
 
     pip install PyComplexHeatmap
     #or
-    pip install --ignore-installed PyComplexHeatmap
+    pip install --upgrade PyComplexHeatmap
 
 2. **Install the developmental version directly from github**  ::
 

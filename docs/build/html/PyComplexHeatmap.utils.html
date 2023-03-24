@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyComplexHeatmap.utils module &mdash; PyComplexHeatmap 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="setup module" href="setup.html" />
+    <link rel="prev" title="PyComplexHeatmap.tools module" href="PyComplexHeatmap.tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustermap.html">Clustermap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dotHeatmap.html">dotHeatmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PyComplexHeatmap.html">PyComplexHeatmap package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PyComplexHeatmap.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.example.html">PyComplexHeatmap.example module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.tools.html">PyComplexHeatmap.tools module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PyComplexHeatmap.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">PyComplexHeatmap</a> &raquo;</li>
+          <li><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a> &raquo;</li>
+      <li>PyComplexHeatmap.utils module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PyComplexHeatmap.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-PyComplexHeatmap.utils">
+<span id="pycomplexheatmap-utils-module"></span><h1>PyComplexHeatmap.utils module<a class="headerlink" href="#module-PyComplexHeatmap.utils" title="Permalink to this heading">¶</a></h1>
+<p>Utility functions, for internal use.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.axis_ticklabels_overlap">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">axis_ticklabels_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#axis_ticklabels_overlap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.axis_ticklabels_overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean for whether the list of ticklabels have overlaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>list of matplotlib ticklabels</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>overlap</strong> – True if any of the labels overlap.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.cluster_labels">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">cluster_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">majority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#cluster_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.cluster_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the adjacent labels into one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>a list of labels.</em>) – </p></li>
+<li><p><strong>xticks</strong> (<em>a list of x</em><em> or </em><em>y ticks coordinates.</em>) – </p></li>
+<li><p><strong>majority</strong> (<em>if majority=True</em><em>, </em><em>keep the labels with the largest clusters.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>labels,ticks</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>merged labels and ticks coordinates.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>labels=[‘A’,’A’,’B’,’B’,’A’,’C’,’C’,’B’,’B’,’B’,’C’]
+xticks=list(range(len(labels)))
+new_labels,x=cluster_labels(labels,xticks)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.define_cmap">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">define_cmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#define_cmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.define_cmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some heuristics to set good defaults for colorbar and range.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.despine">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">despine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#despine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.despine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the top and right spines from plot(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib figure</em><em>, </em><em>optional</em>) – Figure to despine all axes of, defaults to the current figure.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib axes</em><em>, </em><em>optional</em>) – Specific axes object to despine. Ignored if fig is provided.</p></li>
+<li><p><strong>top</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>right</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>left</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>bottom</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.plot_cmap_legend">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_cmap_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'turbo'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#plot_cmap_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.plot_cmap_legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot legend for cmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cax</strong> (<em>Axes into which the colorbar will be drawn.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em>axes to anchor.</em>) – </p></li>
+<li><p><strong>cmap</strong> (<em>turbo</em><em>, </em><em>hsv</em><em>, </em><em>Set1</em><em>, </em><em>Dark2</em><em>, </em><em>Paired</em><em>, </em><em>Accent</em><em>,</em><em>tab20</em><em>,</em><em>exp1</em><em>,</em><em>exp2</em><em>,</em><em>meth1</em><em>,</em><em>meth2</em>) – </p></li>
+<li><p><strong>label</strong> (<em>title for legend.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em>kws passed to plt.colorbar.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em>right</em><em> or </em><em>left.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>cbar</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>axes of legend</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.plot_color_dict_legend">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_color_dict_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#plot_color_dict_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.plot_color_dict_legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot legned for color dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>D</strong> (<em>a dict</em><em>, </em><em>key is categorical variable</em><em>, </em><em>values are colors.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em>axes to plot the legend.</em>) – </p></li>
+<li><p><strong>title</strong> (<em>title of legend.</em>) – </p></li>
+<li><p><strong>color_text</strong> (<em>whether to change the color of text based on the color in D.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em>right of left.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em>kws passed to plt.legend.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ax.legend</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.plot_legend_list">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_legend_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#plot_legend_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.plot_legend_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot all lengends for a given legend_list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>legend_list</strong> (<em>a list including</em><em> [</em><em>handles</em><em>(</em><em>dict</em><em>) </em><em>/ cmap / markers dict</em><em>, </em><em>title</em><em>, </em><em>legend_kws</em><em>, </em><em>height</em><em>, </em><em>legend_type</em><em>]</em>) – </p></li>
+<li><p><strong>ax</strong> (<em>axes to plot.</em>) – </p></li>
+<li><p><strong>space</strong> (<em>unit is pixels.</em>) – </p></li>
+<li><p><strong>legend_side</strong> (<em>right</em><em>, or </em><em>left</em>) – </p></li>
+<li><p><strong>y0</strong> (<em>the initate coordinate of y for the legend.</em>) – </p></li>
+<li><p><strong>gap</strong> (<em>gap between legends</em><em>, </em><em>default is 2mm.</em>) – </p></li>
+<li><p><strong>legend_width</strong> (<em>width of the legend</em><em>, </em><em>default is 4.5mm.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>legend_axes,boundry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.plot_marker_legend">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">plot_marker_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#plot_marker_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.plot_marker_legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot legned for different marker</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>D</strong> (<em>a dict</em><em>, </em><em>key is categorical variable</em><em>, </em><em>values are marker.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em>axes to plot the legend.</em>) – </p></li>
+<li><p><strong>title</strong> (<em>title of legend.</em>) – </p></li>
+<li><p><strong>color_text</strong> (<em>whether to change the color of text based on the color in D.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em>right of left.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em>kws passed to plt.legend.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ax.legend</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.utils.to_utf8">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.utils.</span></span><span class="sig-name descname"><span class="pre">to_utf8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/utils.html#to_utf8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.utils.to_utf8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representing a Python object.
+Strings (i.e. type <code class="docutils literal notranslate"><span class="pre">str</span></code>) are returned unchanged.
+Byte strings (i.e. type <code class="docutils literal notranslate"><span class="pre">bytes</span></code>) are returned as UTF-8-decoded strings.
+For other objects, the method <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> is called, and the result is
+returned as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>object</em>) – Any Python object</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>s</strong> – UTF-8-decoded string representation of <code class="docutils literal notranslate"><span class="pre">obj</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PyComplexHeatmap.tools.html" class="btn btn-neutral float-left" title="PyComplexHeatmap.tools module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="setup module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
