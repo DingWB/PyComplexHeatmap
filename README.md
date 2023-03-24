@@ -107,11 +107,11 @@ cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=r
 plt.show()
 ```
 ### Example output
-![image](docs/images/1.jpg)
-![image](docs/images/2.png)
-![image](docs/images/3.png)
-![image](docs/images/4.png)
-![image](docs/images/5.jpg)
+![image](docs/images/1.jpg)(https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels)
+![image](docs/images/2.png)(https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations)
+![image](docs/images/3.png)(https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Change-orentation-to-the-right)
+![image](docs/images/4.png)(https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset)
+![image](docs/images/5.jpg)(https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/composite_heatmaps.html#Composite-two-heatmaps-horizontally-for-mouse-DNA-methylation-array-dataset)
 
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
