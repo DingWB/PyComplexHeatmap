@@ -370,7 +370,7 @@ div.rendered_html tbody tr:hover {
 <section id="Processing-the-data">
 <h2>Processing the data<a class="headerlink" href="#Processing-the-data" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_corr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/kycg_modles_correlations.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -380,7 +380,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -388,7 +388,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -407,7 +407,7 @@ Name: Module, dtype: int64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ann</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">37</span><span class="p">])]</span><span class="o">.</span><span class="n">HM</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -415,7 +415,7 @@ Name: Module, dtype: int64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -455,7 +455,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_corr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -463,7 +463,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -635,7 +635,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ann</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -643,7 +643,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -733,10 +733,10 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ann</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">37</span><span class="p">])]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ann</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">39</span><span class="p">])]</span>
 <span class="n">keep_cpgs</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">df_corr</span><span class="o">=</span><span class="n">df_corr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep_cpgs</span><span class="p">,</span><span class="n">keep_cpgs</span><span class="p">]</span>
 <span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
@@ -752,7 +752,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -765,11 +765,11 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(170, 10)
+(154, 10)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -887,7 +887,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -900,11 +900,11 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(28900, 9)
+(23716, 9)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1006,7 +1006,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 <section id="Plotting-the-Dot-clustermap">
 <h2>Plotting the Dot clustermap<a class="headerlink" href="#Plotting-the-Dot-clustermap" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -1018,7 +1018,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Module</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -1033,7 +1033,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="c1">#label=anno_label(df_col.ColGroup, merge=True,rotation=45),</span>
                            <span class="n">Module</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                               <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">12</span><span class="p">}),</span>
-                           <span class="n">ChromHMM</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">ChromHMM</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">),</span>
+                           <span class="n">ChromHMM</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">ChromHMM</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">),</span>
                            <span class="n">H3K4me1</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">H3K4me1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binarize&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
                            <span class="n">H3K4me3</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">H3K4me3</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binarize&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
                            <span class="n">H3K27me1</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">H3K27me1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binarize&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
@@ -1062,7 +1062,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
@@ -1074,7 +1074,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-170
+154
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
