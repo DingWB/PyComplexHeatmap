@@ -127,7 +127,7 @@ plt.show()
 <!-- ![image](docs/images/4.png) -->
 
 <p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
+<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
 <img src="docs/images/4.png" width=600 align="middle">
 </a>
 </p>
