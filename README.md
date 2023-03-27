@@ -72,7 +72,7 @@ df_heatmap = pd.DataFrame(np.random.randn(30, 10), columns=['sample' + str(i) fo
 df_heatmap.index = ["Fea" + str(i) for i in range(1, df_heatmap.shape[0] + 1)]
 df_heatmap.iloc[1, 2] = np.nan
 
-#Annotate the rows with average > 0.3
+#Annotate the rows with sample4 > 0.5
 df_rows = df_heatmap.apply(lambda x:x.name if x.sample4 > 0.5 else None,axis=1)
 df_rows=df_rows.to_frame(name='Selected')
 df_rows['XY']=df_rows.index.to_series().apply(lambda x:'A' if int(x.replace('Fea',''))>=15 else 'B')

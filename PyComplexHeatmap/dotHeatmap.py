@@ -20,7 +20,7 @@ def scale(values,vmin=None,vmax=None):
     return [(j - vmin) / delta for j in values]
 # =============================================================================
 def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
-                 colors=None, cmap=None, ratio=None, **kwargs):
+                 colors=None, cmap=None, ratio=None,spines=False, **kwargs):
     """
     Plot dot heatmap using a dataframe matrix as input.
     Parameters
@@ -190,7 +190,10 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
     ax.invert_yaxis()  # axis=1: left -> right, axis=0: bottom -> top.
     ax.set_yticklabels(row_labels)
     ax.set_xticklabels(col_labels)
-    # despine(ax=ax, left=True, bottom=True,right=True,top=True)
+    if not spines:
+        despine(ax=ax, left=True, bottom=True, right=True, top=True)
+        # for side in ["top", "right", "left", "bottom"]:
+        #     ax.spines[side].set_visible(False)
     return ax
 # =============================================================================
 def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
@@ -443,7 +446,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
                  color_legend_kws={},cmap_legend_kws={},
                  dot_legend_kws={},aggfunc=np.mean,
                  value_na=0,hue_na='NA',s_na=0,c_na=0,
-                 **kwargs):
+                 spines=False,**kwargs):
         kwargs['data']=data
         self.x=x
         self.y=y
@@ -460,7 +463,9 @@ class DotClustermapPlotter(ClusterMapPlotter):
         self.c_na=c_na
         self.color_legend_kws=color_legend_kws
         self.cmap_legend_kws=cmap_legend_kws
+        self.spines=spines
         self.dot_legend_kws=dot_legend_kws
+
         super().__init__(**kwargs)
 
     def format_data(self, data, z_score=None, standard_scale=None):
@@ -550,7 +555,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 kwargs=self.kwargs.copy()
                 # print(kwargs)
                 dotHeatmap2d(self.data2d.loc[rows, cols],
-                             cmap=kwargs.pop('cmap',self.cmap),ax=ax1,**kwargs)
+                             cmap=kwargs.pop('cmap',self.cmap),ax=ax1,
+                             spines=self.spines,**kwargs)
                 self.heatmap_axes[i, j] = ax1
                 ax1.yaxis.label.set_visible(False)
                 ax1.xaxis.label.set_visible(False)
@@ -634,6 +640,11 @@ class DotClustermapPlotter(ClusterMapPlotter):
                                   legend_side=self.legend_side, gap=self.legend_gap,
                                   delta_x=self.legend_delta_x,legend_width=self.legend_width,
                                  legend_vpad=self.legend_vpad)
+
+    def post_processing(self):
+        if not self.spines:
+            for ax in self.heatmap_axes.ravel():
+                despine(ax=ax, left=True, bottom=True, right=True, top=True)
 
 if __name__ == "__main__":
     pass

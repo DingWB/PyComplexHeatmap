@@ -754,6 +754,8 @@ class ClusterMapPlotter():
                 else:
                     self.plot_legends(ax=self.ax)
 
+        self.post_processing()
+
     def _define_kws(self, xticklabels_kws, yticklabels_kws):
         self.yticklabels_kws = {} if yticklabels_kws is None else yticklabels_kws
         # self.yticklabels_kws.setdefault('labelrotation', 0)
@@ -1348,6 +1350,9 @@ class ClusterMapPlotter():
 
     def set_width(self, fig, width):
         matplotlib.figure.Figure.set_figwidth(fig, width)  # convert mm to inches
+
+    def post_processing(self):
+        pass
 # =============================================================================
 def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
               legend_side='right', legend_gap=5, legend_y=0.8, legend_hpad=None,

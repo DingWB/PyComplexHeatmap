@@ -365,7 +365,7 @@ div.rendered_html tbody tr:hover {
 <h1>Composite two heatmaps horizontally for mouse DNA methylation array dataset<a class="headerlink" href="#Composite-two-heatmaps-horizontally-for-mouse-DNA-methylation-array-dataset" title="Permalink to this heading">¶</a></h1>
 <p>The dataset used in the following example was obtained from PMID: 36617464</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -382,7 +382,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
@@ -395,7 +395,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># beta is DNA methylation beta values matrix, df_row and df_col are row and columns annotation respectively, col_colors_dict and row_colors_dict are color for annotation</span>
@@ -455,7 +455,7 @@ cg42738582_BC21  0-0-0-AA-AA-II-C-16-AG-chr5-122031379
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Target</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Target</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">row_colors_dict</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">],</span><span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -509,8 +509,50 @@ Legend too long, generating a new column..
 <img alt="../_images/notebooks_composite_heatmaps_4_1.png" src="../_images/notebooks_composite_heatmaps_4_1.png" />
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Target</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Target</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">row_colors_dict</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">],</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                   <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Group</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">row_colors_dict</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                   <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">col_ha1</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="c1">#label=anno_label(df_col.Strain, merge=True, rotation=15),,</span>
+                           <span class="n">Strain</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Strain</span><span class="p">,</span> <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontweight&#39;</span><span class="p">:</span><span class="s1">&#39;bold&#39;</span><span class="p">}),</span>
+                           <span class="n">Tissue</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Tissue</span><span class="p">,</span> <span class="n">Sex</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Sex</span><span class="p">,</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># df=df_col.loc[:,[&#39;Strain&#39;,&#39;Tissue&#39;,&#39;Sex&#39;]],</span>
+
+<span class="n">cm1</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">beta</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha1</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Group&#39;</span><span class="p">]],</span>
+                       <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Strain&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;parula&#39;</span><span class="p">,</span> <span class="c1">#turbo, parula, viridis,</span>
+                       <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                        <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+
+<span class="n">col_ha2</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="c1">#label=anno_label(df_col.Strain, merge=True, rotation=15),,</span>
+                           <span class="n">Strain</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Strain</span><span class="p">,</span> <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontweight&#39;</span><span class="p">:</span><span class="s1">&#39;bold&#39;</span><span class="p">}),</span>
+                           <span class="n">Tissue</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Tissue</span><span class="p">,</span> <span class="n">Sex</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Sex</span><span class="p">,</span>
+                           <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">},</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">my_cmap</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;my_cmap&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;lightgray&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)])</span>
+<span class="n">cm2</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snp</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha2</span><span class="p">,</span> <span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+                        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">col_cluster_method</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span><span class="n">row_cluster_method</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span>
+                        <span class="n">col_cluster_metric</span><span class="o">=</span><span class="s1">&#39;jaccard&#39;</span><span class="p">,</span><span class="n">row_cluster_metric</span><span class="o">=</span><span class="s1">&#39;jaccard&#39;</span><span class="p">,</span>
+                        <span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Group&#39;</span><span class="p">]],</span>
+                        <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Strain&#39;</span><span class="p">],</span>
+                        <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">my_cmap</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;SNP&#39;</span><span class="p">)</span> <span class="c1"># or cmap=&#39;gray&#39; or Greys,</span>
+<span class="n">cmlist</span><span class="o">=</span><span class="p">[</span><span class="n">cm2</span><span class="p">,</span><span class="n">cm1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
@@ -543,7 +585,7 @@ Collecting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_composite_heatmaps_5_1.png" src="../_images/notebooks_composite_heatmaps_5_1.png" />
+<img alt="../_images/notebooks_composite_heatmaps_6_1.png" src="../_images/notebooks_composite_heatmaps_6_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
