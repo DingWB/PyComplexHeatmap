@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PyComplexHeatmap.dotHeatmap module &mdash; PyComplexHeatmap 0.1 documentation</title>
@@ -12,10 +12,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -29,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PyComplexHeatmap
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComplexHeatmap
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,10 +81,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">PyComplexHeatmap</a> &raquo;</li>
-          <li><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a> &raquo;</li>
-      <li>PyComplexHeatmap.dotHeatmap module</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PyComplexHeatmap</a></li>
+          <li class="breadcrumb-item"><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a></li>
+      <li class="breadcrumb-item active">PyComplexHeatmap.dotHeatmap module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/PyComplexHeatmap.dotHeatmap.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -121,11 +123,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">DotClustermapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker='o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha=0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggfunc=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_na='NA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#DotClustermapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="source/PyComplexHeatmap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
 Plot dot heatmap / clustermap with annotation and legends.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe or numpy array.</p></li>
 <li><p><strong>x</strong> (<em>str</em>) – The column name in data.columns to be shown on the columns of heatmap / clustermap.</p></li>
@@ -162,7 +164,7 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Class DotClustermapPlotter.</p>
 </dd>
 </dl>
@@ -198,7 +200,7 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">dotHeatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_rownames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_colnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#dotHeatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.dotHeatmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot dot heatmap using different columns of dataframe <cite>data</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>DataFrame</em>) – a dataframe containing multiple columns.</p></li>
 <li><p><strong>x</strong> (<em>str</em>) – column name in data.columns, used to show on the xaxis of dot heatmap.</p></li>
@@ -226,7 +228,7 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <li><p><strong>kwargs</strong> (<em>dict</em>) – others kwargs passed to plt.scatter, such as linewidths, edgecolor, alphia and so on.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>ax</p>
 </dd>
 </dl>
@@ -251,9 +253,9 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <div><p>the parameter <cite>c</cite>.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cmap</strong> (<em>str of dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
+<li><p><strong>cmap</strong> (<em>str</em><em> of </em><em>dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 If <cite>cmap</cite> is a str (such as ‘Set1’), the parameter <cite>colors</cite> will overwrite the colors of dots.
 If <cite>cmap</cite> wisas a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the
 colors for markers.</p></li>
@@ -264,7 +266,7 @@ colors for markers.</p></li>
 other kwargs passed to plt.scatter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>axes</p>
 </dd>
 </dl>

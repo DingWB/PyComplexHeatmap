@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plot correlation matrix for CpG modules using DotClustermap &mdash; PyComplexHeatmap 0.1 documentation</title>
@@ -12,10 +12,8 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -31,11 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> PyComplexHeatmap
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComplexHeatmap
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -75,9 +77,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../more_examples.html">More Examples</a> &raquo;</li>
-      <li>Plot correlation matrix for CpG modules using DotClustermap</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../more_examples.html">More Examples</a></li>
+      <li class="breadcrumb-item active">Plot correlation matrix for CpG modules using DotClustermap</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/notebooks/cpg_modules.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -1014,7 +1016,7 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
 <section id="Plotting-the-Dot-clustermap">
 <h2>Plotting the Dot clustermap<a class="headerlink" href="#Plotting-the-Dot-clustermap" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Module</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -1044,7 +1046,17 @@ array([&#39;H3K4me1;H3K79me2;H3K79me3&#39;, &#39;H3F3A;H4K20me1&#39;, nan,
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_ann</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_anchor</span><span class="o">=</span><span class="s2">&quot;ax_heatmap&quot;</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Dark2&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Dark2&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># plot custom spines</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">]:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;dotClustermap.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>

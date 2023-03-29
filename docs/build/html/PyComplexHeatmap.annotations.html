@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PyComplexHeatmap.annotations module &mdash; PyComplexHeatmap 0.1 documentation</title>
@@ -12,10 +12,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -29,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PyComplexHeatmap
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComplexHeatmap
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,10 +81,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">PyComplexHeatmap</a> &raquo;</li>
-          <li><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a> &raquo;</li>
-      <li>PyComplexHeatmap.annotations module</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PyComplexHeatmap</a></li>
+          <li class="breadcrumb-item"><a href="PyComplexHeatmap.html">PyComplexHeatmap package</a></li>
+      <li class="breadcrumb-item active">PyComplexHeatmap.annotations module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/PyComplexHeatmap.annotations.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,7 +126,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class for annotation objects.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>dataframe</em>) – a pandas series or dataframe (only one column).</p></li>
 <li><p><strong>cmap</strong> (<em>str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
@@ -152,7 +154,7 @@ there is also kws: vmin and vmax, if one want to change the range, please try:
 anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Class AnnotationBase.</p>
 </dd>
 </dl>
@@ -205,7 +207,7 @@ anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).<
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Generate and plot heatmap annotations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>self</strong> (<em>Class</em>) – HeatmapAnnotation</p></li>
 <li><p><strong>df</strong> (<em>dataframe</em>) – a pandas dataframe, each column will be converted to one anno_simple class.</p></li>
@@ -258,7 +260,7 @@ series, or annotation such as
 anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Class HeatmapAnnotation.</p>
 </dd>
 </dl>
@@ -274,7 +276,7 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 <span class="sig-name descname"><span class="pre">plot_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.plot_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot annotations</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> (<em>ax</em>) – axes to plot the annotations.</p></li>
 <li><p><strong>subplot_spec</strong> (<em>ax.figure.add_gridspec</em>) – object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</p></li>
@@ -284,7 +286,7 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 <li><p><strong>hspace</strong> (<em>float</em>) – if hspace not is None, use hspace, else hspace would be calculated based on gap.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>self.ax</p>
 </dd>
 </dl>
@@ -297,7 +299,7 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 :param ax:
 :type ax: axes for the plot, is ax is None, then ax=plt.figure()</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>
@@ -353,7 +355,7 @@ plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor</
 <dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
 <p>Add label and text annotations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>merge</strong> (<em>bool</em>) – whether to merge the same clusters into one and label only once.</p></li>
 <li><p><strong>extend</strong> (<em>bool</em>) – whether to distribute all the labels extend to the all axis, figure or ax or False.</p></li>
@@ -373,7 +375,7 @@ more information about arrowprops could be found in
 matplotlib.patches.FancyArrowPatch</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Class AnnotationBase.</p>
 </dd>
 </dl>

@@ -11,10 +11,8 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -26,11 +24,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> PyComplexHeatmap
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PyComplexHeatmap
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -59,9 +61,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>PyComplexHeatmap.example</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PyComplexHeatmap.example</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,7 +88,7 @@
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
 
-<div class="viewcode-block" id="clustermap_example0"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.example.clustermap_example0">[docs]</a><span class="k">def</span> <span class="nf">clustermap_example0</span><span class="p">():</span>
+<div class="viewcode-block" id="clustermap_example0"><a class="viewcode-back" href="../../PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example0">[docs]</a><span class="k">def</span> <span class="nf">clustermap_example0</span><span class="p">():</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
@@ -139,7 +141,7 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;/Users/dingw1/Desktop/20220412_test_text_legend.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="clustermap_example1"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.example.clustermap_example1">[docs]</a><span class="k">def</span> <span class="nf">clustermap_example1</span><span class="p">():</span>
+<div class="viewcode-block" id="clustermap_example1"><a class="viewcode-back" href="../../PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example1">[docs]</a><span class="k">def</span> <span class="nf">clustermap_example1</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">pickle</span>
     <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">_ROOT</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s2">&quot;influence_of_snp_on_beta.pickle&quot;</span><span class="p">),</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
     <span class="n">data</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -166,7 +168,7 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;/Users/dingw1/Desktop/20220428_test.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="get_kycg_example_data"><a class="viewcode-back" href="../../source/PyComplexHeatmap.html#PyComplexHeatmap.example.get_kycg_example_data">[docs]</a><span class="k">def</span> <span class="nf">get_kycg_example_data</span><span class="p">():</span>
+<div class="viewcode-block" id="get_kycg_example_data"><a class="viewcode-back" href="../../PyComplexHeatmap.example.html#PyComplexHeatmap.example.get_kycg_example_data">[docs]</a><span class="k">def</span> <span class="nf">get_kycg_example_data</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
     <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Clark2018_Argelaguet2019_neg.kycg&#39;</span><span class="p">,</span> <span class="s1">&#39;Clark2018_Argelaguet2019_pos.kycg&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;GSE140493_Luo2022_hg38_neg.kycg&#39;</span><span class="p">,</span> <span class="s1">&#39;GSE140493_Luo2022_hg38_pos.kycg&#39;</span><span class="p">]</span>
