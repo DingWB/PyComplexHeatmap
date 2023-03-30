@@ -717,12 +717,14 @@
 <span class="sd">        True or False, whether to plot heatmap legend, determined by cmap.</span>
 <span class="sd">    legend_kws :dict</span>
 <span class="sd">        kws passed to plot legend. If one want to change the outline color and linewidth of cbar:</span>
+<span class="sd">        ```</span>
 <span class="sd">        for cbar in cm.cbars:</span>
 <span class="sd">            if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
 <span class="sd">                cbar.outline.set_color(&#39;white&#39;)</span>
 <span class="sd">                cbar.outline.set_linewidth(2)</span>
 <span class="sd">                cbar.dividers.set_color(&#39;red&#39;)</span>
 <span class="sd">                cbar.dividers.set_linewidth(2)</span>
+<span class="sd">        ```</span>
 <span class="sd">    plot :bool</span>
 <span class="sd">        whether to plot or not.</span>
 <span class="sd">    plot_legend :bool</span>
@@ -1453,7 +1455,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    legend_axes</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        ax,legend_axes</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1516,7 +1519,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
     <span class="c1"># import pdb;</span>
     <span class="c1"># pdb.set_trace()</span>
-    <span class="k">return</span> <span class="n">legend_axes</span></div>
+    <span class="k">return</span> <span class="n">ax</span><span class="p">,</span><span class="n">legend_axes</span></div>
 <span class="c1"># =============================================================================</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">pass</span>

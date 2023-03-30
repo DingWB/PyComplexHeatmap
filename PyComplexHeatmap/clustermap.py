@@ -642,12 +642,14 @@ class ClusterMapPlotter():
         True or False, whether to plot heatmap legend, determined by cmap.
     legend_kws :dict
         kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
+        ```
         for cbar in cm.cbars:
             if isinstance(cbar,matplotlib.colorbar.Colorbar):
                 cbar.outline.set_color('white')
                 cbar.outline.set_linewidth(2)
                 cbar.dividers.set_color('red')
                 cbar.dividers.set_linewidth(2)
+        ```
     plot :bool
         whether to plot or not.
     plot_legend :bool
@@ -1378,7 +1380,8 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
 
     Returns
     -------
-    legend_axes
+    tuple:
+        ax,legend_axes
 
     """
     if ax is None:
@@ -1441,7 +1444,7 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
     ax.set_axis_off()
     # import pdb;
     # pdb.set_trace()
-    return legend_axes
+    return ax,legend_axes
 # =============================================================================
 if __name__ == "__main__":
     pass

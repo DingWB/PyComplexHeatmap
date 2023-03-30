@@ -539,9 +539,12 @@ class anno_label(AnnotationBase):
 # =============================================================================
 class anno_boxplot(AnnotationBase):
     """
-    annotate boxplots, all arguments are included in AnnotationBase,
-    plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
+        annotate boxplots, all arguments are included in AnnotationBase,
+        plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
         width and other arguments passed to plt.boxplot.
+
+    Parameters
+    ----------
     """
 
     def _height(self, height):

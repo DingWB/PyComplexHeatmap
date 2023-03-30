@@ -125,7 +125,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">DotClustermapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker='o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha=0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggfunc=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_na='NA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#DotClustermapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
-Plot dot heatmap / clustermap with annotation and legends.</p>
+Plot dot heatmap (clustermap) with annotation and legends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -165,7 +165,7 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Class DotClustermapPlotter.</p>
+<dd class="field-even"><p>DotClustermapPlotter.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -237,24 +237,17 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <dl class="py function">
 <dt class="sig sig-object py" id="PyComplexHeatmap.dotHeatmap.dotHeatmap2d">
 <span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">dotHeatmap2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#dotHeatmap2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.dotHeatmap2d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot dot heatmap using a dataframe matrix as input.
-:param data: input matrix (pandas.DataFrame)
-:type data: pd.DataFrame
-:param hue: hue to control the colors and cmap of the dot.
-:type hue: pd.DataFrame
-:param vmin: minimal size for the dot.
-:type vmin: float
-:param vmax: maximal size for the dot
-:type vmax: float
-:param ax: ax
-:type ax: ax
-:param colors: colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite</p>
-<blockquote>
-<div><p>the parameter <cite>c</cite>.</p>
-</div></blockquote>
+<dd><p>Plot dot heatmap using a dataframe matrix as input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – input matrix (pandas.DataFrame)</p></li>
+<li><p><strong>hue</strong> (<em>pd.DataFrame</em>) – hue to control the colors and cmap of the dot.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em>) – minimal size for the dot.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em>) – maximal size for the dot</p></li>
+<li><p><strong>ax</strong> (<em>ax</em>) – ax</p></li>
+<li><p><strong>colors</strong> (<em>dict</em>) – colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite
+the parameter <cite>c</cite>.</p></li>
 <li><p><strong>cmap</strong> (<em>str</em><em> of </em><em>dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 If <cite>cmap</cite> is a str (such as ‘Set1’), the parameter <cite>colors</cite> will overwrite the colors of dots.
 If <cite>cmap</cite> wisas a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the

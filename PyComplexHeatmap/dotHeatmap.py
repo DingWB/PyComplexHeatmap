@@ -23,6 +23,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
                  colors=None, cmap=None, ratio=None,spines=False, **kwargs):
     """
     Plot dot heatmap using a dataframe matrix as input.
+
     Parameters
     ----------
     data : pd.DataFrame
@@ -379,7 +380,7 @@ def dotHeatmap(data=None, x=None, y=None, value=None, hue=None,
 class DotClustermapPlotter(ClusterMapPlotter):
     """
     DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
-    Plot dot heatmap / clustermap with annotation and legends.
+    Plot dot heatmap (clustermap) with annotation and legends.
 
     Parameters
     ----------
@@ -439,8 +440,9 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
     Returns
     -------
-    Class DotClustermapPlotter.
+    DotClustermapPlotter.
     """
+
     def __init__(self, data=None, x=None, y=None, value=None, hue=None,
                  s=None,c=None,marker='o',alpha=0.8,
                  color_legend_kws={},cmap_legend_kws={},

@@ -13,6 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
+print(sys.path)
 import recommonmark
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
@@ -33,13 +34,14 @@ release = '0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-'sphinx.ext.autodoc',
-'sphinx.ext.todo',
-'sphinx.ext.viewcode',
-'sphinx.ext.autosectionlabel',
-'recommonmark',
-'sphinx.ext.napoleon',
-'nbsphinx'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autosectionlabel',
+    'recommonmark',
+    'sphinx.ext.napoleon',
+    'nbsphinx',
+    # 'sphinxcontrib.googleanalytics'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -73,7 +75,8 @@ html_theme_path=[sphinx_rtd_theme.get_html_theme_path()]
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['docs/build/html/_static']
+html_static_path=[]
 
 html_sidebars = {
     '**': [
@@ -114,3 +117,7 @@ def setup(app):
             'auto_toc_tree_section': 'Contents',
             }, True)
     app.add_transform(AutoStructify)
+
+
+# googleanalytics
+# googleanalytics_id = 'G-F99YH1DGPY'
