@@ -17,6 +17,7 @@ print(sys.path)
 import recommonmark
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
+import sphinx_sizzle_theme,sphinx_pdj_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -69,14 +70,15 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_rtd_theme' #Read the Docs; pip install --upgrade sphinx-rtd-theme
+# html_theme = 'sphinx_pdj_theme' #pip install sphinx_sizzle_theme
 html_theme_path=[sphinx_rtd_theme.get_html_theme_path()]
+# html_theme_path=[sphinx_pdj_theme.get_html_theme_path()]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['docs/build/html/_static']
-html_static_path=[]
+html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
@@ -121,3 +123,12 @@ def setup(app):
 
 # googleanalytics
 # googleanalytics_id = 'G-F99YH1DGPY'
+
+
+# Change the width of content, add the following to the css
+html_css_files = [
+    'css/custom.css',
+]
+# .wy-nav-content {
+#     max-width: 75% !important;
+# }
