@@ -26,7 +26,7 @@ copyright = '2022, Wubin Ding'
 author = 'Wubin Ding'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '1.3.8'
 
 
 # -- General configuration ---------------------------------------------------
@@ -64,16 +64,25 @@ exclude_patterns = []
 pygments_style='sphinx'
 todo_include_todos = False
 
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme' #Read the Docs; pip install --upgrade sphinx-rtd-theme
+# documentation: https://sphinx-rtd-theme.readthedocs.io/en/stable/configuring.html
 # html_theme = 'sphinx_pdj_theme' #pip install sphinx_sizzle_theme
 html_theme_path=[sphinx_rtd_theme.get_html_theme_path()]
 # html_theme_path=[sphinx_pdj_theme.get_html_theme_path()]
+html_theme_options = {
+    'analytics_id': 'G-VRB2NBWG05',
+    'collapse_navigation':False,
+    'globaltoc_collapse':False,
+    'globaltoc_maxdepth':3,
+    'collapse_navigation': False,
+    'display_version': True,
+    'sidebarwidth': 200, #sidebarwidth
+    'navigation_depth': 6}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -83,7 +92,7 @@ html_static_path = ['_static']
 html_sidebars = {
     '**': [
         'relations.html',  # needs 'show_related': True theme option to display
-        'searchbox.html',
+        'searchbox.html'
     ]
 }
 
@@ -112,13 +121,20 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
+# enable markdown
 def setup(app):
-    app.add_config_value('recommonmark_config', {
-            'url_resolver': lambda url: github_doc_root + url,
-            'auto_toc_tree_section': 'Contents',
-            }, True)
+    app.add_config_value(
+        "recommonmark_config",
+        {"enable_math": True, "enable_inline_math": True, "enable_eval_rst": True},
+        True,
+    )
     app.add_transform(AutoStructify)
+    app.add_object_type(
+        "confval",
+        "confval",
+        objname="configuration value",
+        indextemplate="pair: %s; configuration value",
+    )
 
 
 # googleanalytics

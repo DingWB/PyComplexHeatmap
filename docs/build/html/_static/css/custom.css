@@ -1,3 +1,17 @@
 .wy-nav-content {
-    max-width: 75% !important;
+    max-width: 85% !important;
 }
+
+/*
+.wy-nav-side {
+    width: 260px;
+} */
+
+.wy-nav-side.shift {
+    max-width: 15%;
+}
+
+/*
+.wy-nav-side {
+    background: #09741f;
+} */
