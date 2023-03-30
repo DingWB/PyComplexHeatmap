@@ -699,6 +699,7 @@ class ClusterMapPlotter():
                  legend_anchor='auto', legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
+        self.data = data
         self.kwargs = kwargs if not kwargs is None else {}
         self.data2d = self.format_data(data, z_score, standard_scale)
         self.verbose=verbose
@@ -1253,11 +1254,19 @@ class ClusterMapPlotter():
                 if annotation.label_max_width > self.label_max_width:
                     self.label_max_width = annotation.label_max_width
         if self.legend:
-            vmax = self.kwargs.get('vmax', np.nanmax(self.data2d[self.data2d != np.inf]))
-            vmin = self.kwargs.get('vmin', np.nanmin(self.data2d[self.data2d != -np.inf]))
-            self.legend_kws.setdefault('vmin', round(vmin, 2))
-            self.legend_kws.setdefault('vmax', round(vmax, 2))
-            self.legend_list.append([self.cmap, self.label, self.legend_kws, 4,'cmap'])
+            if isinstance(self.cmap, list):
+                if isinstance(self.data, pd.DataFrame):
+                    unique_values = sorted(np.unique(self.data.values.astype(str)))
+                else:
+                    unique_values = sorted(np.unique(self.data.astype(str)))
+                cmap = {v: k for v, k in zip(unique_values, self.cmap)}
+                self.legend_list.append([cmap, self.label, self.legend_kws, 4,'color_dict'])
+            else:
+                vmax = self.kwargs.get('vmax', np.nanmax(self.data2d[self.data2d != np.inf]))
+                vmin = self.kwargs.get('vmin', np.nanmin(self.data2d[self.data2d != -np.inf]))
+                self.legend_kws.setdefault('vmin', round(vmin, 2))
+                self.legend_kws.setdefault('vmax', round(vmax, 2))
+                self.legend_list.append([self.cmap, self.label, self.legend_kws, 4,'cmap'])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
                 self.yticklabels) > 0 else 0
             # heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(
