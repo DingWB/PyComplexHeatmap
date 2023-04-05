@@ -37,14 +37,14 @@ pip install --upgrade PyComplexHeatmap
 ```
 
 2. **Install the developmental version directly from github**:
-```
+```shell
 pip install git+https://github.com/DingWB/PyComplexHeatmap
 ```
 if you have installed it previously and want to update it, please run 
 `pip uninstall PyComplexHeatmap`
 and install from github again
 OR
-```
+```shell
 git clone https://github.com/DingWB/PyComplexHeatmap
 cd PyComplexHeatmap
 python setup.py install
@@ -53,7 +53,7 @@ python setup.py install
 ## **Usage**
 ----------------------
 ### **1. Simple Guide To Get started.**
-```
+```py
 from PyComplexHeatmap import *
 
 #Generate example dataset (random)
