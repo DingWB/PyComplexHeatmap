@@ -1,4 +1,4 @@
-dotHeatmap
+oncoPrint
 =======================
 .. toctree::
    :maxdepth: 2

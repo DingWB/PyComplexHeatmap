@@ -138,6 +138,12 @@ plt.show()
 </a>
 </p>
 
+<p align="center">
+<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
+<img src="docs/images/6.png" width=600 align="middle">
+</a>
+</p>
+
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
 
