@@ -14,6 +14,7 @@ PyComplexHeatmap
    installation
    clustermap
    dotHeatmap
+   oncoPrint
    advanced_usage
    more_examples
    modules

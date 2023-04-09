@@ -642,6 +642,8 @@ class anno_barplot(anno_boxplot):
         self.plot_kws.setdefault('edgecolor', 'black')
         self.plot_kws.setdefault('grid', True)
         self.plot_kws.setdefault('zorder', 10)
+        # self.plot_kws.setdefault('width', 0.7)
+        self.plot_kws.setdefault('align', 'center')
 
     def _check_cmap(self, cmap):
         if cmap == 'auto':
@@ -1260,7 +1262,7 @@ class HeatmapAnnotation():
             height_ratios = self.heights
             width_ratios = [len(idx) for idx in idxs]
             wspace = gap * mm2inch * self.ax.figure.dpi / (
-                    self.ax.get_window_extent().width / nrows) if wspace is None else wspace  # 1mm=mm2inch inch
+                    self.ax.get_window_extent().width / ncols) if wspace is None else wspace  # 1mm=mm2inch inch
             hspace = 0 if hspace is None else hspace  # fraction of height
         else:
             nrows = len(idxs)
@@ -1268,13 +1270,13 @@ class HeatmapAnnotation():
             width_ratios = self.heights
             height_ratios = [len(idx) for idx in idxs]
             hspace = gap * mm2inch * self.ax.figure.dpi / (
-                    self.ax.get_window_extent().height / ncols) if hspace is None else hspace
+                    self.ax.get_window_extent().height / nrows) if hspace is None else hspace
             wspace = 0 if wspace is None else wspace  # The amount of width reserved for space between subplots, expressed as a fraction of the average axis width
         if subplot_spec is None:
             self.gs = self.ax.figure.add_gridspec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                   height_ratios=height_ratios,
                                                   width_ratios=width_ratios)
-        else:
+        else: #this ax is a subplot of another bigger figure.
             self.gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                                   subplot_spec=subplot_spec,
                                                                   height_ratios=height_ratios,

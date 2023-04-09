@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 from .clustermap import heatmap,ClusterMapPlotter,composite
+from .oncoPrint import oncoprint,oncoPrintPlotter
 from .annotations import *
 from .dotHeatmap import *
 from .colors import *

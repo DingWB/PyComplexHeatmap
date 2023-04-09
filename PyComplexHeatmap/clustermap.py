@@ -695,14 +695,13 @@ class ClusterMapPlotter():
                  row_dendrogram=False, col_dendrogram=False, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_order=None, col_split_order=None, row_split_gap=0.5, col_split_gap=0.2, mask=None,
-                 subplot_gap=1, legend=True, legend_kws=None, plot=True, plot_legend=True,
+                 subplot_gap=3, legend=True, legend_kws=None, plot=True, plot_legend=True,
                  legend_anchor='auto', legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
         self.kwargs = kwargs if not kwargs is None else {}
-        self.data2d = self.format_data(data, z_score, standard_scale)
+        self.data2d = self.format_data(data, mask, z_score, standard_scale)
         self.verbose=verbose
-        self.mask = _check_mask(self.data2d, mask)
         self._define_kws(xticklabels_kws, yticklabels_kws)
         self.top_annotation = top_annotation
         self.bottom_annotation = bottom_annotation
@@ -764,7 +763,7 @@ class ClusterMapPlotter():
         self.xticklabels_kws = {} if xticklabels_kws is None else xticklabels_kws
         # self.xticklabels_kws.setdefault('labelrotation', 90)
 
-    def format_data(self, data, z_score=None, standard_scale=None):
+    def format_data(self, data, mask=None, z_score=None, standard_scale=None):
         data2d = data.copy()
         self.kwargs.setdefault('vmin', np.nanmin(data.values))
         self.kwargs.setdefault('vmax', np.nanmax(data.values))
@@ -774,6 +773,7 @@ class ClusterMapPlotter():
             data2d = self.z_score(data, z_score)
         if standard_scale is not None:
             data2d = self.standard_scale(data, standard_scale)
+        self.mask = _check_mask(data2d, mask)
         return data2d
 
     def _define_gs_ratio(self):
@@ -1140,9 +1140,9 @@ class ClusterMapPlotter():
         nrows = len(row_order)
         ncols = len(col_order)
         self.wspace = self.col_split_gap * mm2inch * self.ax.figure.dpi / (
-                self.ax_heatmap.get_window_extent().width / nrows)  # 1mm=mm2inch inch
+                self.ax_heatmap.get_window_extent().width / ncols)  # 1mm=mm2inch inch
         self.hspace = self.row_split_gap * mm2inch * self.ax.figure.dpi / (
-                self.ax_heatmap.get_window_extent().height / ncols)
+                self.ax_heatmap.get_window_extent().height / nrows) #height
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(nrows, ncols, hspace=self.hspace,
                                                                       wspace=self.wspace,
                                                                       subplot_spec=self.gs[1, 1],
