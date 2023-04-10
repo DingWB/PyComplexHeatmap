@@ -107,6 +107,7 @@ cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=r
 plt.show()
 ```
 ### Example output
+Click picture to view the source code
 <!--
 <p align="center"> 
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
@@ -153,8 +154,8 @@ plt.show()
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
-                <img src="docs/images/gallery2.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
+                <img src="docs/images/gallery11.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
@@ -199,8 +200,8 @@ plt.show()
     </tr>
     <tr style="height: 500px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
-                <img src="docs/images/gallery11.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
+                <img src="docs/images/gallery2.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
