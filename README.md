@@ -52,7 +52,7 @@ python setup.py install
 
 ## **Usage**
 ----------------------
-### **1. Simple Guide To Get started.**
+### **1. [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html).**
 ```py
 from PyComplexHeatmap import *
 
@@ -77,6 +77,7 @@ df_rows = df_heatmap.apply(lambda x:x.name if x.sample4 > 0.5 else None,axis=1)
 df_rows=df_rows.to_frame(name='Selected')
 df_rows['XY']=df_rows.index.to_series().apply(lambda x:'A' if int(x.replace('Fea',''))>=15 else 'B')
 
+#Create row annotations
 row_ha = HeatmapAnnotation(
                            Scatter=anno_scatterplot(df_heatmap.sample4.apply(lambda x:round(x,2)),
                                             height=12,cmap='jet',legend=False),
@@ -86,6 +87,7 @@ row_ha = HeatmapAnnotation(
                            label_kws={'rotation':30,'horizontalalignment':'left','verticalalignment':'bottom'},
                             axis=0,verbose=0)
 
+#Create column annotations
 col_ha = HeatmapAnnotation(label=anno_label(df.AB, merge=True,rotation=10),
                            AB=anno_simple(df.AB,add_text=True),axis=1,
                            CD=anno_simple(df.CD,add_text=True),
@@ -108,43 +110,6 @@ plt.show()
 ```
 ### Example output
 Click picture to view the source code
-<!--
-<p align="center"> 
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
-<img src="docs/images/1.jpg" width=700 align="center">
-</a>
-</p>
-
-<p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
-<img src="docs/images/2.png" width=600 align="middle">
-</a>
-</p>
-
-<p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Change-orentation-to-the-right">
-<img src="docs/images/3.png" width=700 align="middle">
-</a>
-</p>
-
-<p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
-<img src="docs/images/4.png" width=600 align="middle">
-</a>
-</p>
-
-<p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/composite_heatmaps.html#Composite-two-heatmaps-horizontally-for-mouse-DNA-methylation-array-dataset">
-<img src="docs/images/5.jpg" width=500 align="middle">
-</a>
-</p>
-
-<p align="center">
-<a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
-<img src="docs/images/6.png" width=600 align="middle">
-</a>
-</p>
--->
 
 <table>
     <tr style="height: 500px">
