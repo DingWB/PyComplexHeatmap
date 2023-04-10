@@ -176,8 +176,8 @@ Click picture to view the source code
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
-                <img src="docs/images/gallery4.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/single_cell_methylation.html">
+                <img src="docs/images/gallery9.png" align="center">
             </a>
         </td>
     </tr>
@@ -193,8 +193,8 @@ Click picture to view the source code
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/single_cell_methylation.html">
-                <img src="docs/images/gallery9.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
+                <img src="docs/images/gallery4.png" align="center">
             </a>
         </td>
     </tr>
