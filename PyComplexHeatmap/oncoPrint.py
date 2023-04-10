@@ -3,6 +3,7 @@
 import os, sys
 import pandas as pd
 import numpy as np
+from scipy.cluster import hierarchy
 import matplotlib
 import matplotlib.pylab as plt
 from .utils import _draw_figure,mm2inch,plot_legend_list,despine,_index_to_ticklabels
@@ -200,7 +201,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
 
         elif isinstance(self.row_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.row_split, pd.Series):
-                self.row_split = self.row_split.to_frame(name=self.row_split.name)
+                self.row_split = self.row_split.to_frame(name=self.row_split.name).loc[self.data2d.index.tolist()]
             cols = self.row_split.columns.tolist()
             row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist())
             if self.row_split_order:
@@ -221,21 +222,28 @@ class oncoPrintPlotter(ClusterMapPlotter):
                 self.dendrogram_rows.append(None)
                 continue
             if self.row_cluster:
-                self.calculate_row_dendrograms(self.data2d.loc[rows])
-                self.dendrogram_rows.append(self.dendrogram_row)
-                self.row_order.append(self.dendrogram_row.dendrogram['ivl'])
+                row_order=self.row_vc.loc[rows].sum(axis=1).sort_values(ascending=False).index.tolist()
+                self.row_order.append(row_order)
             else:
                 self.row_order.append(rows)
+
+    def get_samples_order(self,data,row_order):
+        """
+        data is a dataframe, row_order is a list ([[],[]]).
+        """
+        nrows = data.shape[0]
+        row_orders = list(np.array(row_order).flatten())
+        # https://gist.github.com/armish/564a65ab874a770e2c26
+        col_order = data.apply(
+            lambda x: x.apply(lambda y: 0 if np.sum(y) == 0 else 2 ** (nrows - row_orders.index(x.name) - 1)), axis=1) \
+            .sum().sort_values(ascending=False).index.tolist()
+        return col_order
 
     def _reorder_cols(self):
         if self.verbose >= 1:
             print("Reordering cols..")
         if self.col_split is None and self.col_cluster:
-            nrows=self.data2d.shape[0]
-            row_orders=list(np.array(self.row_order).flatten())
-            #https://gist.github.com/armish/564a65ab874a770e2c26
-            col_order=self.data2d.apply(lambda x:x.apply(lambda y:0 if np.sum(y)==0 else 2**(nrows-row_orders.index(x.name)-1)),axis=1)\
-                .sum().sort_values(ascending=False).index.tolist()
+            col_order=self.get_samples_order(self.data2d,self.row_order)
             self.col_order = [col_order]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
         elif isinstance(self.col_split, int) and self.col_cluster:
@@ -248,7 +256,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
 
         elif isinstance(self.col_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.col_split, pd.Series):
-                self.col_split = self.col_split.to_frame(name=self.col_split.name)
+                self.col_split = self.col_split.to_frame(name=self.col_split.name).loc[self.data2d.columns.tolist()]
             cols = self.col_split.columns.tolist()
             col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist())
             if self.col_split_order:
@@ -269,9 +277,8 @@ class oncoPrintPlotter(ClusterMapPlotter):
                 self.dendrogram_cols.append(None)
                 continue
             if self.col_cluster:
-                self.calculate_col_dendrograms(self.data2d.loc[:, cols])
-                self.dendrogram_cols.append(self.dendrogram_col)
-                self.col_order.append(self.dendrogram_col.dendrogram['ivl'])
+                col_order=self.get_samples_order(self.data2d.loc[:,cols],self.row_order)
+                self.col_order.append(col_order)
             else:
                 self.col_order.append(cols)
 

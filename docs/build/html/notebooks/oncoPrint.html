@@ -224,6 +224,7 @@
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
 </ul>
@@ -575,7 +576,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -789,15 +790,26 @@ div.rendered_html tbody tr:hover {
 </table>
 </div></div>
 </div>
+<p>Plot oncoPrint with columns split</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AMP&#39;</span><span class="p">,</span><span class="s1">&#39;HOMDEL&#39;</span><span class="p">,</span><span class="s1">&#39;MUT&#39;</span><span class="p">]</span>
 <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="s2">&quot;#008000&quot;</span><span class="p">]</span>
+
+<span class="c1"># calculate genes (row) mutation frequencies.</span>
 <span class="n">row_vc</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="c1"># calculate samples (cols) mutation frequencies.</span>
 <span class="n">col_vc</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;SampleID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1">#Samples with variants at KRAS</span>
+<span class="n">kras_samples</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="o">.</span><span class="n">Genes</span><span class="o">==</span><span class="s1">&#39;KRAS&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">df_col_split</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;KRAS&#39;</span><span class="p">:[</span><span class="s1">&#39;No KRAS Var&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">nunique</span><span class="p">()})</span>
+<span class="n">df_col_split</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kras_samples</span><span class="p">,</span><span class="s1">&#39;KRAS&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;KRAS Var&#39;</span>
+
 <span class="n">top_annotation</span><span class="o">=</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                <span class="n">KRAS</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col_split</span><span class="o">.</span><span class="n">KRAS</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
                                 <span class="n">Col</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">col_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
                                 <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
 <span class="n">right_annotation</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
@@ -806,8 +818,9 @@ div.rendered_html tbody tr:hover {
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">op</span><span class="o">=</span><span class="n">oncoPrintPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Genes&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span>
-                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Alteration&#39;</span><span class="p">,</span>
                     <span class="n">top_annotation</span><span class="o">=</span><span class="n">top_annotation</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">right_annotation</span><span class="p">,</span>
+                    <span class="n">col_split</span><span class="o">=</span><span class="n">df_col_split</span><span class="o">.</span><span class="n">KRAS</span><span class="p">,</span><span class="n">col_split_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;KRAS Var&#39;</span><span class="p">,</span><span class="s1">&#39;No KRAS Var&#39;</span><span class="p">],</span><span class="n">col_split_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                    <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#xticklabels_kws={&#39;labelsize&#39;:3}</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;oncoPrint.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -833,40 +846,12 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_oncoPrint_7_1.png" src="../_images/notebooks_oncoPrint_7_1.png" />
+<img alt="../_images/notebooks_oncoPrint_8_1.png" src="../_images/notebooks_oncoPrint_8_1.png" />
 </div>
 </div>
+<p>Adding more annotations to the oncoPrint heatmap</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Genes
-BRAF      11.046512
-DAB2      11.627907
-HRAS      2.325581
-KRAS      35.465116
-MAP2K1    3.488372
-            ...
-MAPK8     2.325581
-MAPK9     6.395349
-RAB25     15.697674
-RAF1      1.162791
-RASSF1    0.000000
-Length: 26, dtype: float64
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AMP&#39;</span><span class="p">,</span><span class="s1">&#39;HOMDEL&#39;</span><span class="p">,</span><span class="s1">&#39;MUT&#39;</span><span class="p">]</span>
@@ -874,6 +859,7 @@ Length: 26, dtype: float64
 <span class="n">row_vc</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 <span class="n">col_vc</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;SampleID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 <span class="n">row_var_freq</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">IsVar</span><span class="o">=</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">IsVar</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
 <span class="n">top_annotation</span><span class="o">=</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span>
                                 <span class="n">Col</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">col_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
                                 <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
@@ -887,7 +873,7 @@ Length: 26, dtype: float64
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">op</span><span class="o">=</span><span class="n">oncoPrintPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Genes&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span>
-                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Alteration&#39;</span><span class="p">,</span>
                     <span class="n">top_annotation</span><span class="o">=</span><span class="n">top_annotation</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">right_annotation</span><span class="p">,</span>
                    <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -921,7 +907,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_oncoPrint_9_1.png" src="../_images/notebooks_oncoPrint_9_1.png" />
+<img alt="../_images/notebooks_oncoPrint_10_1.png" src="../_images/notebooks_oncoPrint_10_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
