@@ -170,25 +170,25 @@ plt.show()
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
-                <img src="docs/images/gallery4.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
+                <img src="docs/images/gallery6.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
-                <img src="docs/images/gallery6.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
+                <img src="docs/images/gallery4.png" align="center">
             </a>
         </td>
     </tr>
     <tr style="height: 500px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">
-                <img src="docs/images/gallery7.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
+                <img src="docs/images/gallery8.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
-                <img src="docs/images/gallery8.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">
+                <img src="docs/images/gallery7.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
@@ -199,13 +199,13 @@ plt.show()
     </tr>
     <tr style="height: 500px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#Changing-the-size-of-point">
-                <img src="docs/images/gallery10.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
+                <img src="docs/images/gallery11.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
-                <img src="docs/images/gallery11.png" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#Changing-the-size-of-point">
+                <img src="docs/images/gallery10.png" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
