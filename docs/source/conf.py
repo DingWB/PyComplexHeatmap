@@ -14,8 +14,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
 print(sys.path)
-import recommonmark
-from recommonmark.transform import AutoStructify
+from recommonmark.parser import CommonMarkParser
 import sphinx_rtd_theme
 import sphinx_sizzle_theme,sphinx_pdj_theme
 
@@ -41,17 +40,14 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'recommonmark',
     'sphinx.ext.napoleon',
-    'nbsphinx',
-    # 'sphinxcontrib.googleanalytics'
+    'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 from recommonmark.parser import CommonMarkParser
-source_parsers = {
-    '.md': 'recommonmark.parser.CommonMarkParser',
-}
+source_parsers = {'.md': CommonMarkParser}
 source_suffix = ['.rst', '.md']
 
 master_doc='index'
@@ -120,22 +116,6 @@ texinfo_documents = [
      author, 'PyComplexHeatmap', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-# enable markdown
-def setup(app):
-    app.add_config_value(
-        "recommonmark_config",
-        {"enable_math": True, "enable_inline_math": True, "enable_eval_rst": True},
-        True,
-    )
-    app.add_transform(AutoStructify)
-    app.add_object_type(
-        "confval",
-        "confval",
-        objname="configuration value",
-        indextemplate="pair: %s; configuration value",
-    )
-
 
 # googleanalytics
 # googleanalytics_id = 'G-F99YH1DGPY'
