@@ -107,6 +107,7 @@ cm = ClusterMapPlotter(data=df_heatmap, top_annotation=col_ha,right_annotation=r
 plt.show()
 ```
 ### Example output
+<!--
 <p align="center"> 
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
 <img src="docs/images/1.jpg" width=700 align="center">
@@ -124,7 +125,6 @@ plt.show()
 <img src="docs/images/3.png" width=700 align="middle">
 </a>
 </p>
-<!-- ![image](docs/images/4.png) -->
 
 <p align="center">
 <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
@@ -143,69 +143,70 @@ plt.show()
 <img src="docs/images/6.png" width=600 align="middle">
 </a>
 </p>
+-->
 
 <table>
     <tr style="height: 500px">
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
                 <img src="docs/images/gallery1.jpg" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">
                 <img src="docs/images/gallery2.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/composite_heatmaps.html#Composite-two-heatmaps-horizontally-for-mouse-DNA-methylation-array-dataset">
                 <img src="docs/images/gallery3.jpg" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/advanced_usage.html#4.-Annotations">
                 <img src="docs/images/gallery5.png" align="center">
             </a>
         </td>
     </tr>
     <tr style="height: 300px">
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/oncoPrint.html">
                 <img src="docs/images/gallery4.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/clustermap.html#3.3-Top,-bottom,-left-,right-annotations">
                 <img src="docs/images/gallery6.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/dotHeatmap.html#4.2-Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">
                 <img src="docs/images/gallery7.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/oncoPrint.html">
                 <img src="docs/images/gallery8.png" align="center">
             </a>
         </td>
     </tr>
     <tr style="height: 500px">
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/single_cell_methylation.html">
                 <img src="docs/images/gallery9.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/dotHeatmap.html#Changing-the-size-of-point">
                 <img src="docs/images/gallery10.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/dotHeatmap.html#4.1-Plot-clustermap-using-seaborn-brain-networks-dataset">
                 <img src="docs/images/gallery11.png" align="center">
             </a>
         </td>
-        <td style="width:24%; background-color:white;text-align:center; vertical-align:middle">
+        <td style="width:200px; background-color:white;text-align:center; vertical-align:middle">
             <a href="notebooks/advanced_usage.html#Change-orentation-to-the-left">
                 <img src="docs/images/gallery12.png" align="center">
             </a>
