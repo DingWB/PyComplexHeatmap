@@ -6,8 +6,8 @@ This dataset include 29,827 rows and 28 columns. Here, we generated the same hea
 # Comparison Result
 | Package Name     | Processing Time (s) | Memory (kb) |
 | ---------------- | ------------------- | ----------- |
-| ComplexHeatmap   | 40.21               | 3,366,768   |
-| PyComplexHeatmap | 22.57               | 1,037,944   |
+| ComplexHeatmap   | 38.33               | 3,706,592   |
+| PyComplexHeatmap | 22.83               |   937,364   |
 
 # Outputs
 Click the header to view the source code, click the image to view the pdf.
