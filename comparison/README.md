@@ -10,19 +10,20 @@ This dataset include 29,827 rows and 28 columns. Here, we generated the same hea
 | PyComplexHeatmap | 22.57               | 1,037,944   |
 
 # Outputs
+Click the header to view the source code, click the image to view the pdf.
 <table>
     <tr>
-        <th>ComplexHeatmap</th>
-        <th>PyComplexHeatmap</th>
-  </tr>
+        <th><a href="heatmap.R">ComplexHeatmap</a>></th>
+        <th><a href="heatmap.py">PyComplexHeatmap</a></th>
+    </tr>
     <tr style="height: 800px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="heatmap.R">
+            <a href="ComplexHeatmap.pdf">
                 <img src="ComplexHeatmap.png" title="ComplexHeatmap" align="center" width="375px">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="heatmap.py">
+            <a href="PyComplexHeatmap.pdf">
                 <img src="PyComplexHeatmap.png" title="PyComplexHeatmap" align="center" width="375px">
             </a>
         </td>
