@@ -548,7 +548,7 @@ class anno_boxplot(AnnotationBase):
     """
 
     def _height(self, height):
-        return 8 if height is None else height
+        return 10 if height is None else height
 
     def _set_default_plot_kws(self, plot_kws):
         self.plot_kws = plot_kws if plot_kws is not None else {}
@@ -924,7 +924,7 @@ class HeatmapAnnotation():
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
                  legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5, orientation=None,
-                 wspace=0, hspace=0,
+                 wgap=0.1,hgap=0.1,
                  plot_legend=True, rasterized=False, verbose=1, **args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
@@ -942,6 +942,8 @@ class HeatmapAnnotation():
         self._check_legend(legend)
         self.legend_side = legend_side
         self.legend_gap = legend_gap
+        self.wgap=wgap
+        self.hgap = hgap
         self.legend_width = legend_width
         self.legend_hpad = legend_hpad
         self.legend_vpad = legend_vpad
@@ -960,7 +962,7 @@ class HeatmapAnnotation():
         self._nrows()
         self.label_kws,self.ticklabels_kws = label_kws, ticklabels_kws
         if self.plot:
-            self.plot_annotations(wspace=wspace, hspace=hspace)
+            self.plot_annotations()
 
     def _check_df(self, df):
         if type(df) == list or isinstance(df, np.ndarray):
@@ -1222,7 +1224,7 @@ class HeatmapAnnotation():
         self.label_max_width = max([ann.get_max_label_width() for ann in self.annotations])
         # self.label_max_height = max([ann.ax.yaxis.label.get_window_extent().height for ann in self.annotations])
 
-    def plot_annotations(self, ax=None, subplot_spec=None, idxs=None, gap=0.5,
+    def plot_annotations(self, ax=None, subplot_spec=None, idxs=None,
                          wspace=None, hspace=None):
         """
         Plot annotations
@@ -1235,8 +1237,6 @@ class HeatmapAnnotation():
             object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.
         idxs : list
             index to reorder df and df of annotation class.
-        gap : float
-            gap to calculate wspace and hspace for gridspec.
         wspace : float
             if wspace not is None, use wspace, else wspace would be calculated based on gap.
         hspace : float
@@ -1261,17 +1261,19 @@ class HeatmapAnnotation():
             ncols = len(idxs)
             height_ratios = self.heights
             width_ratios = [len(idx) for idx in idxs]
-            wspace = gap * mm2inch * self.ax.figure.dpi / (
+            wspace = self.wgap * mm2inch * self.ax.figure.dpi / (
                     self.ax.get_window_extent().width / ncols) if wspace is None else wspace  # 1mm=mm2inch inch
-            hspace = 0 if hspace is None else hspace  # fraction of height
+            hspace = self.hgap * mm2inch * self.ax.figure.dpi / (
+                    self.ax.get_window_extent().height / nrows) if hspace is None else hspace  # fraction of height
         else:
             nrows = len(idxs)
             ncols = len(self.heights)
             width_ratios = self.heights
             height_ratios = [len(idx) for idx in idxs]
-            hspace = gap * mm2inch * self.ax.figure.dpi / (
+            hspace = self.hgap * mm2inch * self.ax.figure.dpi / (
                     self.ax.get_window_extent().height / nrows) if hspace is None else hspace
-            wspace = 0 if wspace is None else wspace  # The amount of width reserved for space between subplots, expressed as a fraction of the average axis width
+            wspace = self.wgap * mm2inch * self.ax.figure.dpi / (
+                    self.ax.get_window_extent().width / ncols) if wspace is None else wspace  # The amount of width reserved for space between subplots, expressed as a fraction of the average axis width
         if subplot_spec is None:
             self.gs = self.ax.figure.add_gridspec(nrows, ncols, hspace=hspace, wspace=wspace,
                                                   height_ratios=height_ratios,

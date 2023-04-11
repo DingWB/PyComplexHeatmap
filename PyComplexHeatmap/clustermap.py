@@ -695,7 +695,7 @@ class ClusterMapPlotter():
                  row_dendrogram=False, col_dendrogram=False, row_dendrogram_size=10, col_dendrogram_size=10,
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_order=None, col_split_order=None, row_split_gap=0.5, col_split_gap=0.2, mask=None,
-                 subplot_gap=3, legend=True, legend_kws=None, plot=True, plot_legend=True,
+                 subplot_gap=1, legend=True, legend_kws=None, plot=True, plot_legend=True,
                  legend_anchor='auto', legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
