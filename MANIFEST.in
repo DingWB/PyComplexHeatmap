@@ -3,3 +3,4 @@ recursive-include notebooks *.ipynb
 prune data 
 prune docs
 prune notebooks
+prune comprison
