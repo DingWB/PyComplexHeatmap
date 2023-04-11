@@ -2,7 +2,7 @@ import os,sys
 import matplotlib.pylab as plt
 plt.rcParams['figure.dpi'] = 100
 plt.rcParams['savefig.dpi']=300
-sys.path.append(os.path.expanduser("~/Projects/Github/PyComplexHeatmap/"))
+# sys.path.append(os.path.expanduser("~/Projects/Github/PyComplexHeatmap/"))
 from PyComplexHeatmap import *
 
 # Read data

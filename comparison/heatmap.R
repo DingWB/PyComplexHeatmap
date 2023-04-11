@@ -12,7 +12,8 @@ tissue_col <- structure(c("#00E5FF","#6CBF00","#007F19","#FF0000"),names=c('Fron
 strain_col <- structure(c('#66AA9F','#8A6699','#D8A49C'),names=c('CAST_EiJ','MOLF_EiJ','PWK_PhJ'))
 
 target_col <- structure(c('yellowgreen','orangered'), names = c(0,1))
-group_col <- structure(c('darkorange','skyblue','red','wheat','green','darkgray'),names=c('Artificial high meth. reading','Artificial low meth. reading','G-R','No Effect','R-G','Suboptimal hybridization'))
+group_col <- structure(c('darkorange','skyblue','red','wheat','green','darkgray'),
+                       names=c('Artificial high meth. reading','Artificial low meth. reading','G-R','No Effect','R-G','Suboptimal hybridization'))
 
 # create heatmap annotations
 col_ha <- HeatmapAnnotation(
