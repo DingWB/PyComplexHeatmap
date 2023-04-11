@@ -16,7 +16,7 @@ Click the header to view the source code, click the image to view the pdf.
         <th><a href="heatmap.R">ComplexHeatmap</a></th>
         <th><a href="heatmap.py">PyComplexHeatmap</a></th>
     </tr>
-    <tr style="height: 800px">
+    <tr style="height: 600px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
             <a href="ComplexHeatmap.pdf">
                 <img src="ComplexHeatmap.png" title="ComplexHeatmap" align="center" width="375px">
