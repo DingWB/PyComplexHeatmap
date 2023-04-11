@@ -13,7 +13,7 @@ This dataset include 29,827 rows and 28 columns. Here, we generated the same hea
 Click the header to view the source code, click the image to view the pdf.
 <table>
     <tr>
-        <th><a href="heatmap.R">ComplexHeatmap</a>></th>
+        <th><a href="heatmap.R">ComplexHeatmap</a></th>
         <th><a href="heatmap.py">PyComplexHeatmap</a></th>
     </tr>
     <tr style="height: 800px">
