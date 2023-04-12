@@ -12,6 +12,7 @@ PyComplexHeatmap
    :caption: Contents:
 
    installation
+   get_started
    clustermap
    dotHeatmap
    oncoPrint
