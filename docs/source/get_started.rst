@@ -1,7 +1,7 @@
 Get Started
 =======================
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    notebooks/get_started.ipynb
