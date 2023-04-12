@@ -92,6 +92,13 @@ html_sidebars = {
     ]
 }
 
+html_context = {
+  'display_github': True,
+  'github_user': 'DingWB',
+  'github_repo': 'PyComplexHeatmap',
+  'github_version': 'main/docs/source/',
+}
+
 htmlhelp_basename = 'PyComplexHeatmapDoc'
 
 latex_documents = [
