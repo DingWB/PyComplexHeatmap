@@ -3,17 +3,17 @@ PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Pleas
 
 ## Documentation:
 ----------------------
-[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap) 
+[https://dingwb.github.io/PyComplexHeatmap](https://dingwb.github.io/PyComplexHeatmap)
 <br><br>
-PYPI:
-<br>
-[https://pypi.org/project/PyComplexHeatmap/](https://pypi.org/project/PyComplexHeatmap/)
+[PYPI](https://pypi.org/project/PyComplexHeatmap/)
 <br>
 
-### Wiki
+### [Wiki](https://github.com/DingWB/PyComplexHeatmap/wiki)
 [wiki/layout](../../wiki/Layout/)
 <br>
 [wiki/Parameters](../../wiki/Parameters/)
+<br>
+[wiki/Features](../../wiki/Features/)
 
 ## Dependencies:
 ----------------------
@@ -50,7 +50,7 @@ cd PyComplexHeatmap
 python setup.py install
 ```
 
-## **Usage**
+## [**Usage**](https://dingwb.github.io/PyComplexHeatmap)
 ----------------------
 ### **1. [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html).**
 ```py
@@ -184,7 +184,6 @@ Click picture to view the source code
 
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
-
 
 ## Call for Contributions
 ----------------------

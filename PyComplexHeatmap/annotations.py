@@ -901,13 +901,12 @@ class HeatmapAnnotation():
         left or right, when axis=0;
         When anno_label shows up in annotation, the orientation would be automatically be assigned according
         to the position of anno_label.
-    wspace: float
-        optional. The amount of width reserved for space between subplots, expressed as a fraction of the
-        average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.
-    hspace: float
-        optional
-        The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
-        If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params
+    wgap: float or int
+        optional,  the space used to calculate wspace, default is [0.1] (mm),
+        control the vertical gap between two annotations.
+    hgap: float or int
+        optional,  the space used to calculate hspace, default is [0.1] (mm),
+        control the horizontal gap between two annotations.
     plot_legend : bool
         whether to plot legends.
     args : name-value pair
@@ -924,8 +923,7 @@ class HeatmapAnnotation():
     def __init__(self, df=None, axis=1, cmap='auto', colors=None, label_side=None, label_kws=None,
                  ticklabels_kws=None, plot_kws=None, plot=False, legend=True, legend_side='right',
                  legend_gap=5, legend_width=4.5, legend_hpad=2, legend_vpad=5, orientation=None,
-                 wgap=0.1,hgap=0.1,
-                 plot_legend=True, rasterized=False, verbose=1, **args):
+                 wgap=0.1,hgap=0.1,plot_legend=True, rasterized=False, verbose=1, **args):
         if df is None and len(args) == 0:
             raise ValueError("Please specify either df or other args")
         if not df is None and len(args) > 0:
