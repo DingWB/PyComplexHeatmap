@@ -25,7 +25,7 @@ copyright = '2022, Wubin Ding'
 author = 'Wubin Ding'
 
 # The full version, including alpha/beta/rc tags
-release = '1.4.1'
+release = '1.4.2'
 
 
 # -- General configuration ---------------------------------------------------
