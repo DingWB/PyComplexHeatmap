@@ -286,52 +286,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="module-PyComplexHeatmap.oncoPrint">
+  <section id="module-PyComplexHeatmap.oncoPrint">
 <span id="pycomplexheatmap-oncoprint-module"></span><h1>PyComplexHeatmap.oncoPrint module<a class="headerlink" href="#module-PyComplexHeatmap.oncoPrint" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.oncoPrint.oncoPrintPlotter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.oncoPrint.</span></span><span class="sig-name descname"><span class="pre">oncoPrintPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'whitesmoke'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_empty_rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_empty_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/oncoPrint.html#oncoPrintPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.oncoPrint.oncoPrintPlotter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
 Plot dot heatmap (clustermap) with annotation and legends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe or numpy array.</p></li>
-<li><p><strong>x</strong> (<em>str</em>) – The column name in data.columns to be shown on the columns of heatmap / clustermap.</p></li>
-<li><p><strong>y</strong> (<em>str</em>) – The column name in data.columns to be shown on the rows of heatmap / clustermap.</p></li>
-<li><p><strong>values</strong> (<em>str</em><em> or </em><em>list</em>) – The column names in data.columns to control the sizes, or color of scatter (dot).</p></li>
-<li><p><strong>colors</strong> (<em>list.</em>) – colors for each column in values</p></li>
-<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>dict</em><em>, </em><em>optional.</em>) – If cmap is a dict, the keys should be the values from data[hue].values, and values should be cmap.
+<li><p><strong>data</strong> (<em class="hover">dataframe</em>) – pandas dataframe or numpy array.</p></li>
+<li><p><strong>x</strong> (<em class="hover">str</em>) – The column name in data.columns to be shown on the columns of heatmap / clustermap.</p></li>
+<li><p><strong>y</strong> (<em class="hover">str</em>) – The column name in data.columns to be shown on the rows of heatmap / clustermap.</p></li>
+<li><p><strong>values</strong> (<em class="hover">str</em><em> or </em><em class="hover">list</em>) – The column names in data.columns to control the sizes, or color of scatter (dot).</p></li>
+<li><p><strong>colors</strong> (<em class="hover">list.</em>) – colors for each column in values</p></li>
+<li><p><strong>cmap</strong> (<em class="hover">str</em><em> or </em><em class="hover">dict</em><em>, </em><em class="hover">optional.</em>) – If cmap is a dict, the keys should be the values from data[hue].values, and values should be cmap.
 If cmap is a string, it should be colormap, such as ‘Set1’.</p></li>
-<li><p><strong>bgcolor</strong> (<em>str</em>) – background color, default is whitesmoke (or lightgray)</p></li>
-<li><p><strong>color_legend_kws</strong> (<em>dict</em>) – legend_kws passed to plot_color_dict_legend</p></li>
-<li><p><strong>cmap_legend_kws</strong> (<em>dict</em>) – legend_kws passed to plot_cmap_legend</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
+<li><p><strong>bgcolor</strong> (<em class="hover">str</em>) – background color, default is whitesmoke (or lightgray)</p></li>
+<li><p><strong>color_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_color_dict_legend</p></li>
+<li><p><strong>cmap_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_cmap_legend</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -378,16 +354,16 @@ If cmap is a string, it should be colormap, such as ‘Set1’.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – input matrix (pandas.DataFrame), for each element in this dataframe, the value should be a list.</p></li>
-<li><p><strong>ax</strong> (<em>ax</em>) – ax</p></li>
-<li><p><strong>colors</strong> (<em>dict</em>) – colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite
+<li><p><strong>data</strong> (<em class="hover">pd.DataFrame</em>) – input matrix (pandas.DataFrame), for each element in this dataframe, the value should be a list.</p></li>
+<li><p><strong>ax</strong> (<em class="hover">ax</em>) – ax</p></li>
+<li><p><strong>colors</strong> (<em class="hover">dict</em>) – colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite
 the parameter <cite>c</cite>.</p></li>
-<li><p><strong>cmap</strong> (<em>str</em><em> of </em><em>dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
+<li><p><strong>cmap</strong> (<em class="hover">str</em><em> of </em><em class="hover">dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 If <cite>cmap</cite> is a str (such as ‘Set1’), the parameter <cite>colors</cite> will overwrite the colors of dots.
 If <cite>cmap</cite> wisas a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the
 colors for markers.</p></li>
-<li><p><strong>bgcolor</strong> (<em>str</em>) – background color, default is whitesmoke (#CCCCCC)</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – such as s,c,marker, s,marker and colors can also be pandas.DataFrame.
+<li><p><strong>bgcolor</strong> (<em class="hover">str</em>) – background color, default is whitesmoke (#CCCCCC)</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – such as s,c,marker, s,marker and colors can also be pandas.DataFrame.
 other kwargs passed to plt.scatter</p></li>
 </ul>
 </dd>

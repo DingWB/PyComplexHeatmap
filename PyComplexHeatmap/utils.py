@@ -79,7 +79,7 @@ def define_cmap(plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=
         else:
             cmap = 'exp1'
     if isinstance(cmap, str):
-        cmap1 = matplotlib.cm.get_cmap(cmap)
+        cmap1 = matplotlib.cm.get_cmap(cmap).copy()
     elif isinstance(cmap, list):
         cmap1 = matplotlib.colors.ListedColormap(cmap)
     else:

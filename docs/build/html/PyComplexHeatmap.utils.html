@@ -286,31 +286,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="module-PyComplexHeatmap.utils">
+  <section id="module-PyComplexHeatmap.utils">
 <span id="pycomplexheatmap-utils-module"></span><h1>PyComplexHeatmap.utils module<a class="headerlink" href="#module-PyComplexHeatmap.utils" title="Permalink to this heading">¶</a></h1>
 <p>Utility functions, for internal use.</p>
 <dl class="py function">
@@ -319,7 +295,7 @@
 <dd><p>Return a boolean for whether the list of ticklabels have overlaps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>labels</strong> (<em>list</em><em> of </em><em>matplotlib ticklabels</em>) – </p>
+<dd class="field-odd"><p><strong>labels</strong> (<em class="hover">list</em><em> of </em><em class="hover">matplotlib ticklabels</em>) – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>overlap</strong> – True if any of the labels overlap.</p>
@@ -337,9 +313,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>labels</strong> (<em>a list</em><em> of </em><em>labels.</em>) – </p></li>
-<li><p><strong>xticks</strong> (<em>a list</em><em> of </em><em>x</em><em> or </em><em>y ticks coordinates.</em>) – </p></li>
-<li><p><strong>majority</strong> (<em>if majority=True</em><em>, </em><em>keep the labels with the largest clusters.</em>) – </p></li>
+<li><p><strong>labels</strong> (<em class="hover">a list</em><em> of </em><em class="hover">labels.</em>) – </p></li>
+<li><p><strong>xticks</strong> (<em class="hover">a list</em><em> of </em><em class="hover">x</em><em> or </em><em class="hover">y ticks coordinates.</em>) – </p></li>
+<li><p><strong>majority</strong> (<em class="hover">if majority=True</em><em>, </em><em class="hover">keep the labels with the largest clusters.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -368,12 +344,12 @@ new_labels,x=cluster_labels(labels,xticks)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<em>matplotlib figure</em><em>, </em><em>optional</em>) – Figure to despine all axes of, defaults to the current figure.</p></li>
-<li><p><strong>ax</strong> (<em>matplotlib axes</em><em>, </em><em>optional</em>) – Specific axes object to despine. Ignored if fig is provided.</p></li>
-<li><p><strong>top</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
-<li><p><strong>right</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
-<li><p><strong>left</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
-<li><p><strong>bottom</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>fig</strong> (<em class="hover">matplotlib figure</em><em>, </em><em class="hover">optional</em>) – Figure to despine all axes of, defaults to the current figure.</p></li>
+<li><p><strong>ax</strong> (<em class="hover">matplotlib axes</em><em>, </em><em class="hover">optional</em>) – Specific axes object to despine. Ignored if fig is provided.</p></li>
+<li><p><strong>top</strong> (<em class="hover">boolean</em><em>, </em><em class="hover">optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>right</strong> (<em class="hover">boolean</em><em>, </em><em class="hover">optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>left</strong> (<em class="hover">boolean</em><em>, </em><em class="hover">optional</em>) – If True, remove that spine.</p></li>
+<li><p><strong>bottom</strong> (<em class="hover">boolean</em><em>, </em><em class="hover">optional</em>) – If True, remove that spine.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -389,12 +365,12 @@ new_labels,x=cluster_labels(labels,xticks)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cax</strong> (<em>Axes into which the colorbar will be drawn.</em>) – </p></li>
-<li><p><strong>ax</strong> (<em>axes to anchor.</em>) – </p></li>
-<li><p><strong>cmap</strong> (<em>turbo</em><em>, </em><em>hsv</em><em>, </em><em>Set1</em><em>, </em><em>Dark2</em><em>, </em><em>Paired</em><em>, </em><em>Accent</em><em>,</em><em>tab20</em><em>,</em><em>exp1</em><em>,</em><em>exp2</em><em>,</em><em>meth1</em><em>,</em><em>meth2</em>) – </p></li>
-<li><p><strong>label</strong> (<em>title for legend.</em>) – </p></li>
-<li><p><strong>kws</strong> (<em>kws passed to plt.colorbar.</em>) – </p></li>
-<li><p><strong>label_side</strong> (<em>right</em><em> or </em><em>left.</em>) – </p></li>
+<li><p><strong>cax</strong> (<em class="hover">Axes into which the colorbar will be drawn.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em class="hover">axes to anchor.</em>) – </p></li>
+<li><p><strong>cmap</strong> (<em class="hover">turbo</em><em>, </em><em class="hover">hsv</em><em>, </em><em class="hover">Set1</em><em>, </em><em class="hover">Dark2</em><em>, </em><em class="hover">Paired</em><em>, </em><em class="hover">Accent</em><em>,</em><em class="hover">tab20</em><em>,</em><em class="hover">exp1</em><em>,</em><em class="hover">exp2</em><em>,</em><em class="hover">meth1</em><em>,</em><em class="hover">meth2</em>) – </p></li>
+<li><p><strong>label</strong> (<em class="hover">title for legend.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em class="hover">kws passed to plt.colorbar.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em class="hover">right</em><em> or </em><em class="hover">left.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -413,12 +389,12 @@ new_labels,x=cluster_labels(labels,xticks)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>D</strong> (<em>a dict</em><em>, </em><em>key is categorical variable</em><em>, </em><em>values are colors.</em>) – </p></li>
-<li><p><strong>ax</strong> (<em>axes to plot the legend.</em>) – </p></li>
-<li><p><strong>title</strong> (<em>title</em><em> of </em><em>legend.</em>) – </p></li>
-<li><p><strong>color_text</strong> (<em>whether to change the color</em><em> of </em><em>text based on the color in D.</em>) – </p></li>
-<li><p><strong>label_side</strong> (<em>right</em><em> of </em><em>left.</em>) – </p></li>
-<li><p><strong>kws</strong> (<em>kws passed to plt.legend.</em>) – </p></li>
+<li><p><strong>D</strong> (<em class="hover">a dict</em><em>, </em><em class="hover">key is categorical variable</em><em>, </em><em class="hover">values are colors.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em class="hover">axes to plot the legend.</em>) – </p></li>
+<li><p><strong>title</strong> (<em class="hover">title</em><em> of </em><em class="hover">legend.</em>) – </p></li>
+<li><p><strong>color_text</strong> (<em class="hover">whether to change the color</em><em> of </em><em class="hover">text based on the color in D.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em class="hover">right</em><em> of </em><em class="hover">left.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em class="hover">kws passed to plt.legend.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -434,13 +410,13 @@ new_labels,x=cluster_labels(labels,xticks)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>legend_list</strong> (<em>a list including</em><em> [</em><em>handles</em><em>(</em><em>dict</em><em>) </em><em>/ cmap / markers dict</em><em>, </em><em>title</em><em>, </em><em>legend_kws</em><em>, </em><em>height</em><em>, </em><em>legend_type</em><em>]</em>) – </p></li>
-<li><p><strong>ax</strong> (<em>axes to plot.</em>) – </p></li>
-<li><p><strong>space</strong> (<em>unit is pixels.</em>) – </p></li>
-<li><p><strong>legend_side</strong> (<em>right</em><em>, or </em><em>left</em>) – </p></li>
-<li><p><strong>y0</strong> (<em>the initate coordinate</em><em> of </em><em>y for the legend.</em>) – </p></li>
-<li><p><strong>gap</strong> (<em>gap between legends</em><em>, </em><em>default is 2mm.</em>) – </p></li>
-<li><p><strong>legend_width</strong> (<em>width</em><em> of </em><em>the legend</em><em>, </em><em>default is 4.5mm.</em>) – </p></li>
+<li><p><strong>legend_list</strong> (<em class="hover">a list including</em><em> [</em><em class="hover">handles</em><em>(</em><em class="hover">dict</em><em>) </em><em class="hover">/ cmap / markers dict</em><em>, </em><em class="hover">title</em><em>, </em><em class="hover">legend_kws</em><em>, </em><em class="hover">height</em><em>, </em><em class="hover">legend_type</em><em>]</em>) – </p></li>
+<li><p><strong>ax</strong> (<em class="hover">axes to plot.</em>) – </p></li>
+<li><p><strong>space</strong> (<em class="hover">unit is pixels.</em>) – </p></li>
+<li><p><strong>legend_side</strong> (<em class="hover">right</em><em>, or </em><em class="hover">left</em>) – </p></li>
+<li><p><strong>y0</strong> (<em class="hover">the initate coordinate</em><em> of </em><em class="hover">y for the legend.</em>) – </p></li>
+<li><p><strong>gap</strong> (<em class="hover">gap between legends</em><em>, </em><em class="hover">default is 2mm.</em>) – </p></li>
+<li><p><strong>legend_width</strong> (<em class="hover">width</em><em> of </em><em class="hover">the legend</em><em>, </em><em class="hover">default is 4.5mm.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -456,12 +432,12 @@ new_labels,x=cluster_labels(labels,xticks)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>D</strong> (<em>a dict</em><em>, </em><em>key is categorical variable</em><em>, </em><em>values are marker.</em>) – </p></li>
-<li><p><strong>ax</strong> (<em>axes to plot the legend.</em>) – </p></li>
-<li><p><strong>title</strong> (<em>title</em><em> of </em><em>legend.</em>) – </p></li>
-<li><p><strong>color_text</strong> (<em>whether to change the color</em><em> of </em><em>text based on the color in D.</em>) – </p></li>
-<li><p><strong>label_side</strong> (<em>right</em><em> of </em><em>left.</em>) – </p></li>
-<li><p><strong>kws</strong> (<em>kws passed to plt.legend.</em>) – </p></li>
+<li><p><strong>D</strong> (<em class="hover">a dict</em><em>, </em><em class="hover">key is categorical variable</em><em>, </em><em class="hover">values are marker.</em>) – </p></li>
+<li><p><strong>ax</strong> (<em class="hover">axes to plot the legend.</em>) – </p></li>
+<li><p><strong>title</strong> (<em class="hover">title</em><em> of </em><em class="hover">legend.</em>) – </p></li>
+<li><p><strong>color_text</strong> (<em class="hover">whether to change the color</em><em> of </em><em class="hover">text based on the color in D.</em>) – </p></li>
+<li><p><strong>label_side</strong> (<em class="hover">right</em><em> of </em><em class="hover">left.</em>) – </p></li>
+<li><p><strong>kws</strong> (<em class="hover">kws passed to plt.legend.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -480,7 +456,7 @@ For other objects, the method <code class="docutils literal notranslate"><span c
 returned as a string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>obj</strong> (<em>object</em>) – Any Python object</p>
+<dd class="field-odd"><p><strong>obj</strong> (<em class="hover">object</em>) – Any Python object</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>s</strong> – UTF-8-decoded string representation of <code class="docutils literal notranslate"><span class="pre">obj</span></code></p>

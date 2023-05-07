@@ -286,74 +286,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="module-PyComplexHeatmap.dotHeatmap">
+  <section id="module-PyComplexHeatmap.dotHeatmap">
 <span id="pycomplexheatmap-dotheatmap-module"></span><h1>PyComplexHeatmap.dotHeatmap module<a class="headerlink" href="#module-PyComplexHeatmap.dotHeatmap" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">DotClustermapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker='o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha=0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggfunc=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_na='NA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#DotClustermapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
 Plot dot heatmap (clustermap) with annotation and legends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dataframe</em>) – pandas dataframe or numpy array.</p></li>
-<li><p><strong>x</strong> (<em>str</em>) – The column name in data.columns to be shown on the columns of heatmap / clustermap.</p></li>
-<li><p><strong>y</strong> (<em>str</em>) – The column name in data.columns to be shown on the rows of heatmap / clustermap.</p></li>
-<li><p><strong>value</strong> (<em>str</em>) – The column name in data.columns to control the sizes, or color of scatter (dot).</p></li>
-<li><p><strong>hue</strong> (<em>str</em><em>, </em><em>optional.</em>) – The column name in data.columns to control the color, cmap, markers of scatter (dot).</p></li>
-<li><p><strong>s</strong> (<em>str</em><em> or </em><em>int</em><em>, </em><em>optional.</em>) – The column name in data.columns to control the size of scatter (dot). If <cite>s</cite> is None,
+<li><p><strong>data</strong> (<em class="hover">dataframe</em>) – pandas dataframe or numpy array.</p></li>
+<li><p><strong>x</strong> (<em class="hover">str</em>) – The column name in data.columns to be shown on the columns of heatmap / clustermap.</p></li>
+<li><p><strong>y</strong> (<em class="hover">str</em>) – The column name in data.columns to be shown on the rows of heatmap / clustermap.</p></li>
+<li><p><strong>value</strong> (<em class="hover">str</em>) – The column name in data.columns to control the sizes, or color of scatter (dot).</p></li>
+<li><p><strong>hue</strong> (<em class="hover">str</em><em>, </em><em class="hover">optional.</em>) – The column name in data.columns to control the color, cmap, markers of scatter (dot).</p></li>
+<li><p><strong>s</strong> (<em class="hover">str</em><em> or </em><em class="hover">int</em><em>, </em><em class="hover">optional.</em>) – The column name in data.columns to control the size of scatter (dot). If <cite>s</cite> is None,
 <cite>value</cite> will be used to control the sizes of dot. This parameter will overwrite value.</p></li>
-<li><p><strong>c</strong> (<em>str</em><em>, </em><em>optional.</em>) – The column name in data.columns to control the color of scatter (dot).
+<li><p><strong>c</strong> (<em class="hover">str</em><em>, </em><em class="hover">optional.</em>) – The column name in data.columns to control the color of scatter (dot).
 <cite>c</cite> can also be one color str, such as ‘red’. If <cite>c</cite> is not given, colors of the dot
 will be determined by <cite>cmap</cite> or <cite>colors</cite>.</p></li>
-<li><p><strong>marker</strong> (<em>str</em><em> or </em><em>dict</em><em>, </em><em>optional.</em>) – Please go to: <a class="reference external" href="https://matplotlib.org/stable/api/markers_api.html">https://matplotlib.org/stable/api/markers_api.html</a> to see all available markers.
+<li><p><strong>marker</strong> (<em class="hover">str</em><em> or </em><em class="hover">dict</em><em>, </em><em class="hover">optional.</em>) – Please go to: <a class="reference external" href="https://matplotlib.org/stable/api/markers_api.html">https://matplotlib.org/stable/api/markers_api.html</a> to see all available markers.
 Such as ‘.’,’,’,’o’,’v’,’^’,’&lt;’,’&gt;’,’1’,’2’,’3’,’4’,’8’,’s’,’p’,’P’,’*’,’h’,’H’,’+’,’x’,’X’,’D’,’d’,’|’,’_’,
 default marker is ‘o’.
 If marker is a string, it should be a marker to control the markers of scatter (dot).
 marker could also be a name of the column from data.columns.tolist()
 If marker is a dict, the keys should be the values from data[hue].values, and values should be marker.</p></li>
-<li><p><strong>alpha</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>1</em><em>]</em>) – coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.</p></li>
-<li><p><strong>colors</strong> (<em>dict.</em>) – Keys should be the values from data[hue].values, and values should be color.
+<li><p><strong>alpha</strong> (<em class="hover">float</em><em> [</em><em class="hover">0</em><em>,</em><em class="hover">1</em><em>]</em>) – coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.</p></li>
+<li><p><strong>colors</strong> (<em class="hover">dict.</em>) – Keys should be the values from data[hue].values, and values should be color.
 It will be only used to control the colors of markers in figure legend.</p></li>
-<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>dict</em><em>, </em><em>optional.</em>) – If cmap is a dict, the keys should be the values from data[hue].values, and values should be cmap.
+<li><p><strong>cmap</strong> (<em class="hover">str</em><em> or </em><em class="hover">dict</em><em>, </em><em class="hover">optional.</em>) – If cmap is a dict, the keys should be the values from data[hue].values, and values should be cmap.
 If cmap is a string, it should be colormap, such as ‘Set1’.</p></li>
-<li><p><strong>color_legend_kws</strong> (<em>dict</em>) – legend_kws passed to plot_color_dict_legend</p></li>
-<li><p><strong>cmap_legend_kws</strong> (<em>dict</em>) – legend_kws passed to plot_cmap_legend</p></li>
-<li><p><strong>dot_legend_kws</strong> (<em>dict</em>) – legend_kws passed to plot_marker_legend</p></li>
-<li><p><strong>value_na</strong> (<em>float</em><em> or </em><em>int</em>) – used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.value,aggfunc=self.aggfunc).fillna(self.value_na)</p></li>
+<li><p><strong>color_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_color_dict_legend</p></li>
+<li><p><strong>cmap_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_cmap_legend</p></li>
+<li><p><strong>dot_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_marker_legend</p></li>
+<li><p><strong>value_na</strong> (<em class="hover">float</em><em> or </em><em class="hover">int</em>) – used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.value,aggfunc=self.aggfunc).fillna(self.value_na)</p></li>
 <li><p><strong>hue_na</strong> – float, str or int
 used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.hue,aggfunc=self.aggfunc).fillna(self.hue_na)</p></li>
 <li><p><strong>s_na</strong> – floator int
 used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.s,aggfunc=self.aggfunc).fillna(self.s_na)</p></li>
-<li><p><strong>c_na</strong> (<em>float</em><em>, </em><em>int</em><em> or </em><em>str</em>) – used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.c,aggfunc=self.aggfunc).fillna(self.c_na)</p></li>
-<li><p><strong>aggfunc</strong> (<em>function</em>) – when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
+<li><p><strong>c_na</strong> (<em class="hover">float</em><em>, </em><em class="hover">int</em><em> or </em><em class="hover">str</em>) – used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.c,aggfunc=self.aggfunc).fillna(self.c_na)</p></li>
+<li><p><strong>aggfunc</strong> (<em class="hover">function</em>) – when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
 aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -389,21 +365,21 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – input matrix (pandas.DataFrame)</p></li>
-<li><p><strong>hue</strong> (<em>pd.DataFrame</em>) – hue to control the colors and cmap of the dot.</p></li>
-<li><p><strong>vmin</strong> (<em>float</em>) – minimal size for the dot.</p></li>
-<li><p><strong>vmax</strong> (<em>float</em>) – maximal size for the dot</p></li>
-<li><p><strong>ax</strong> (<em>ax</em>) – ax</p></li>
-<li><p><strong>colors</strong> (<em>dict</em>) – colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite
+<li><p><strong>data</strong> (<em class="hover">pd.DataFrame</em>) – input matrix (pandas.DataFrame)</p></li>
+<li><p><strong>hue</strong> (<em class="hover">pd.DataFrame</em>) – hue to control the colors and cmap of the dot.</p></li>
+<li><p><strong>vmin</strong> (<em class="hover">float</em>) – minimal size for the dot.</p></li>
+<li><p><strong>vmax</strong> (<em class="hover">float</em>) – maximal size for the dot</p></li>
+<li><p><strong>ax</strong> (<em class="hover">ax</em>) – ax</p></li>
+<li><p><strong>colors</strong> (<em class="hover">dict</em>) – colors to control the dot, keys should be the value in hue. if colors is a str, then colors will overwrite
 the parameter <cite>c</cite>.</p></li>
-<li><p><strong>cmap</strong> (<em>str</em><em> of </em><em>dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
+<li><p><strong>cmap</strong> (<em class="hover">str</em><em> of </em><em class="hover">dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 If <cite>cmap</cite> is a str (such as ‘Set1’), the parameter <cite>colors</cite> will overwrite the colors of dots.
 If <cite>cmap</cite> wisas a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the
 colors for markers.</p></li>
-<li><p><strong>s</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dataframe</em>) – control the sizes of dot.</p></li>
-<li><p><strong>c</strong> (<em>dataframe</em><em>, or </em><em>str</em>) – control the colors of dots.</p></li>
-<li><p><strong>marker</strong> (<em>str</em><em>, </em><em>dataframe</em><em> or </em><em>dict</em>) – when marker is a dict, hue must not be None, and keys are categorical values from hue, values should be marker.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – such as s,c,marker, s,marker and colors can also be pandas.DataFrame.
+<li><p><strong>s</strong> (<em class="hover">int</em><em>, </em><em class="hover">float</em><em>, or </em><em class="hover">dataframe</em>) – control the sizes of dot.</p></li>
+<li><p><strong>c</strong> (<em class="hover">dataframe</em><em>, or </em><em class="hover">str</em>) – control the colors of dots.</p></li>
+<li><p><strong>marker</strong> (<em class="hover">str</em><em>, </em><em class="hover">dataframe</em><em> or </em><em class="hover">dict</em>) – when marker is a dict, hue must not be None, and keys are categorical values from hue, values should be marker.</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – such as s,c,marker, s,marker and colors can also be pandas.DataFrame.
 other kwargs passed to plt.scatter</p></li>
 </ul>
 </dd>

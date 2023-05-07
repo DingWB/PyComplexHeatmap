@@ -286,61 +286,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="module-PyComplexHeatmap.annotations">
+  <section id="module-PyComplexHeatmap.annotations">
 <span id="pycomplexheatmap-annotations-module"></span><h1>PyComplexHeatmap.annotations module<a class="headerlink" href="#module-PyComplexHeatmap.annotations" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">AnnotationBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#AnnotationBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class hover docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class for annotation objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>dataframe</em>) – a pandas series or dataframe (only one column).</p></li>
-<li><p><strong>cmap</strong> (<em>str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<li><p><strong>df</strong> (<em class="hover">dataframe</em>) – a pandas series or dataframe (only one column).</p></li>
+<li><p><strong>cmap</strong> (<em class="hover">str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
 <a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
 matplotlib.pyplot.colormaps() to see all availabel cmap.
 default cmap is ‘auto’, it would be determined based on the dtype for each columns of df.</p></li>
-<li><p><strong>colors</strong> (<em>dict</em><em>, </em><em>list</em><em> or </em><em>str</em>) – a dict or list (for boxplot, barplot) or str.
+<li><p><strong>colors</strong> (<em class="hover">dict</em><em>, </em><em class="hover">list</em><em> or </em><em class="hover">str</em>) – a dict or list (for boxplot, barplot) or str.
 If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
 values for the dict should be colors (color names or HEX color).
 If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()
 If colors is a string, means all values in df.iloc[:,0].unique() share the same color.</p></li>
-<li><p><strong>height</strong> (<em>float</em>) – height (if axis=1) / width (if axis=0) for the annotation size.</p></li>
-<li><p><strong>legend</strong> (<em>bool</em>) – whether to plot legend for this annotation when legends are plotted or
+<li><p><strong>height</strong> (<em class="hover">float</em>) – height (if axis=1) / width (if axis=0) for the annotation size.</p></li>
+<li><p><strong>legend</strong> (<em class="hover">bool</em>) – whether to plot legend for this annotation when legends are plotted or
 plot legend with HeatmapAnnotation.plot_legends().</p></li>
-<li><p><strong>legend_kws</strong> (<em>dict</em>) – vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
+<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
 markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
 arguments, pleast type ?plt.legend. There is an additional parameter <cite>color_text</cite> (default is True),
 which would set the color of the text to the same color as legend marker. if one set
 <cite>legend_kws={‘color_text’:False}</cite>, then, black would be the default color for the text.
 If the user want to use a custom color instead of black (such as blue), please set
 legend_kws={‘color_text’:False,’labelcolor’:’blue’}.</p></li>
-<li><p><strong>plot_kws</strong> (<em>dict</em>) – other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
 annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
 there is also kws: vmin and vmax, if one want to change the range, please try:
 anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).</p></li>
@@ -396,15 +372,15 @@ anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).<
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">HeatmapAnnotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wgap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hgap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class hover docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Generate and plot heatmap annotations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<em>Class</em>) – HeatmapAnnotation</p></li>
-<li><p><strong>df</strong> (<em>dataframe</em>) – a pandas dataframe, each column will be converted to one anno_simple class.</p></li>
-<li><p><strong>axis</strong> (<em>int</em>) – 1 for columns annotation, 0 for rows annotations.</p></li>
-<li><p><strong>cmap</strong> (<em>str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<li><p><strong>self</strong> (<em class="hover">Class</em>) – HeatmapAnnotation</p></li>
+<li><p><strong>df</strong> (<em class="hover">dataframe</em>) – a pandas dataframe, each column will be converted to one anno_simple class.</p></li>
+<li><p><strong>axis</strong> (<em class="hover">int</em>) – 1 for columns annotation, 0 for rows annotations.</p></li>
+<li><p><strong>cmap</strong> (<em class="hover">str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
 <a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
 matplotlib.pyplot.colormaps() to see all availabel cmap.
 default cmap is ‘auto’, it would be determined based on the dtype for each columns in df.
@@ -412,42 +388,41 @@ If df is None, then there is no need to specify cmap, cmap and colors will only 
 df is provided.
 If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
 a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).</p></li>
-<li><p><strong>colors</strong> (<em>dict</em>) – a dict, keys are the column names of df, values are list, dict or string passed to
+<li><p><strong>colors</strong> (<em class="hover">dict</em>) – a dict, keys are the column names of df, values are list, dict or string passed to
 AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
 colors must have the same length as the df.columns, if colors is not provided (default), else,
 colors would be calculated based on the given cmap.
 If colors is given, then the cmap would be invalid.</p></li>
-<li><p><strong>label_side</strong> (<em>str</em>) – top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</p></li>
-<li><p><strong>label_kws</strong> (<em>dict</em>) – kws passed to the labels of the annotation labels (would be df.columns if df is given).
+<li><p><strong>label_side</strong> (<em class="hover">str</em>) – top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</p></li>
+<li><p><strong>label_kws</strong> (<em class="hover">dict</em>) – kws passed to the labels of the annotation labels (would be df.columns if df is given).
 such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
 va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.
 For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()</p></li>
-<li><p><strong>ticklabels_kws</strong> (<em>dict</em>) – label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
+<li><p><strong>ticklabels_kws</strong> (<em class="hover">dict</em>) – label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
 such as axis, which, direction, length, width,
 color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
 labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
 For more information,see ?matplotlib.axes.Axes.tick_params</p></li>
-<li><p><strong>plot_kws</strong> (<em>dict</em>) – kws passed to annotation functions, such as anno_simple, anno_label et.al.</p></li>
-<li><p><strong>plot</strong> (<em>bool</em>) – whether to plot, when the annotation are included in clustermap, plot would be
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – kws passed to annotation functions, such as anno_simple, anno_label et.al.</p></li>
+<li><p><strong>plot</strong> (<em class="hover">bool</em>) – whether to plot, when the annotation are included in clustermap, plot would be
 set to False automotially.</p></li>
-<li><p><strong>legend</strong> (<em>bool</em>) – True or False, or dict (when df is no None), when legend is dict, keys are the
+<li><p><strong>legend</strong> (<em class="hover">bool</em>) – True or False, or dict (when df is no None), when legend is dict, keys are the
 columns of df.</p></li>
-<li><p><strong>legend_side</strong> (<em>str</em>) – right or left</p></li>
-<li><p><strong>legend_gap</strong> (<em>float</em>) – the vertical gap between two legends, default is 2 [mm]</p></li>
-<li><p><strong>legend_width</strong> (<em>float</em>) – width of the legend, default is 4.5[mm]</p></li>
-<li><p><strong>legend_hpad</strong> (<em>float</em>) – Horizonal space between heatmap and legend, default is 2 [mm].</p></li>
-<li><p><strong>legend_vpad</strong> (<em>float</em>) – Vertical space between top of ax and legend, default is 2 [mm].</p></li>
-<li><p><strong>orientation</strong> (<em>str</em>) – up or down, when axis=1
+<li><p><strong>legend_side</strong> (<em class="hover">str</em>) – right or left</p></li>
+<li><p><strong>legend_gap</strong> (<em class="hover">float</em>) – the vertical gap between two legends, default is 2 [mm]</p></li>
+<li><p><strong>legend_width</strong> (<em class="hover">float</em>) – width of the legend, default is 4.5[mm]</p></li>
+<li><p><strong>legend_hpad</strong> (<em class="hover">float</em>) – Horizonal space between heatmap and legend, default is 2 [mm].</p></li>
+<li><p><strong>legend_vpad</strong> (<em class="hover">float</em>) – Vertical space between top of ax and legend, default is 2 [mm].</p></li>
+<li><p><strong>orientation</strong> (<em class="hover">str</em>) – up or down, when axis=1
 left or right, when axis=0;
 When anno_label shows up in annotation, the orientation would be automatically be assigned according
 to the position of anno_label.</p></li>
-<li><p><strong>wspace</strong> (<em>float</em>) – optional. The amount of width reserved for space between subplots, expressed as a fraction of the
-average axis width. If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params.</p></li>
-<li><p><strong>hspace</strong> (<em>float</em>) – optional
-The amount of height reserved for space between subplots, expressed as a fraction of the average axis height.
-If not given, the values will be inferred from a figure or rcParams when necessary. See also GridSpec.get_subplot_params</p></li>
-<li><p><strong>plot_legend</strong> (<em>bool</em>) – whether to plot legends.</p></li>
-<li><p><strong>args</strong> (<em>name-value pair</em>) – key is the annotation label (name), values can be a pandas dataframe,
+<li><p><strong>wgap</strong> (<em class="hover">float</em><em> or </em><em class="hover">int</em>) – optional,  the space used to calculate wspace, default is [0.1] (mm),
+control the vertical gap between two annotations.</p></li>
+<li><p><strong>hgap</strong> (<em class="hover">float</em><em> or </em><em class="hover">int</em>) – optional,  the space used to calculate hspace, default is [0.1] (mm),
+control the horizontal gap between two annotations.</p></li>
+<li><p><strong>plot_legend</strong> (<em class="hover">bool</em>) – whether to plot legends.</p></li>
+<li><p><strong>args</strong> (<em class="hover">name-value pair</em>) – key is the annotation label (name), values can be a pandas dataframe,
 series, or annotation such as
 anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 </ul>
@@ -470,11 +445,11 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> (<em>ax</em>) – axes to plot the annotations.</p></li>
-<li><p><strong>subplot_spec</strong> (<em>ax.figure.add_gridspec</em>) – object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</p></li>
-<li><p><strong>idxs</strong> (<em>list</em>) – index to reorder df and df of annotation class.</p></li>
-<li><p><strong>wspace</strong> (<em>float</em>) – if wspace not is None, use wspace, else wspace would be calculated based on gap.</p></li>
-<li><p><strong>hspace</strong> (<em>float</em>) – if hspace not is None, use hspace, else hspace would be calculated based on gap.</p></li>
+<li><p><strong>ax</strong> (<em class="hover">ax</em>) – axes to plot the annotations.</p></li>
+<li><p><strong>subplot_spec</strong> (<em class="hover">ax.figure.add_gridspec</em>) – object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</p></li>
+<li><p><strong>idxs</strong> (<em class="hover">list</em>) – index to reorder df and df of annotation class.</p></li>
+<li><p><strong>wspace</strong> (<em class="hover">float</em>) – if wspace not is None, use wspace, else wspace would be calculated based on gap.</p></li>
+<li><p><strong>hspace</strong> (<em class="hover">float</em>) – if hspace not is None, use hspace, else hspace would be calculated based on gap.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -511,7 +486,7 @@ anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_barplot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_barplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_barplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_barplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_boxplot" title="PyComplexHeatmap.annotations.anno_boxplot"><code class="xref py py-class docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_boxplot" title="PyComplexHeatmap.annotations.anno_boxplot"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a></p>
 <dl class="simple">
 <dt>Annotate barplot, all arguments are included in AnnotationBase,</dt><dd><p>plot_kws for anno_boxplot include edgecolor, grid,
 and other arguments passed to plt.barplot.</p>
@@ -527,7 +502,7 @@ and other arguments passed to plt.barplot.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_boxplot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_boxplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
 <blockquote>
 <div><p>annotate boxplots, all arguments are included in AnnotationBase,
 plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
@@ -543,25 +518,25 @@ width and other arguments passed to plt.boxplot.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">majority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjust_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">luminance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
 <p>Add label and text annotations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>merge</strong> (<em>bool</em>) – whether to merge the same clusters into one and label only once.</p></li>
-<li><p><strong>extend</strong> (<em>bool</em>) – whether to distribute all the labels extend to the all axis, figure or ax or False.</p></li>
-<li><p><strong>frac</strong> (<em>float</em>) – fraction of the armA and armB.</p></li>
-<li><p><strong>majority</strong> (<em>bool</em>) – If there are multiple group for one label, whether to annotate the label in the largest group. [True]</p></li>
-<li><p><strong>adjust_color</strong> (<em>bool</em>) – When the luminance of the color is too high, use black color replace the original color. [True]</p></li>
-<li><p><strong>luminance</strong> (<em>float</em>) – luminance values [0-1], used together with adjust_color, when the calculated luminance &gt; luminance,
+<li><p><strong>merge</strong> (<em class="hover">bool</em>) – whether to merge the same clusters into one and label only once.</p></li>
+<li><p><strong>extend</strong> (<em class="hover">bool</em>) – whether to distribute all the labels extend to the all axis, figure or ax or False.</p></li>
+<li><p><strong>frac</strong> (<em class="hover">float</em>) – fraction of the armA and armB.</p></li>
+<li><p><strong>majority</strong> (<em class="hover">bool</em>) – If there are multiple group for one label, whether to annotate the label in the largest group. [True]</p></li>
+<li><p><strong>adjust_color</strong> (<em class="hover">bool</em>) – When the luminance of the color is too high, use black color replace the original color. [True]</p></li>
+<li><p><strong>luminance</strong> (<em class="hover">float</em>) – luminance values [0-1], used together with adjust_color, when the calculated luminance &gt; luminance,
 the color will be replaced with black. [0.5]</p></li>
-<li><p><strong>relpos</strong> (<em>tuple</em>) – <dl class="simple">
+<li><p><strong>relpos</strong> (<em class="hover">tuple</em>) – <dl class="simple">
 <dt>relpos passed to arrowprops in plt.annotate, tuple (x,y) means the arrow start point position relative to the</dt><dd><p>label. default is (0, 0) if self.side == ‘top’ else (0, 1) for columns labels, (1, 1) if self.side == ‘left’
 else (0, 0) for rows labels.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>plot_kws</strong> (<em>dict</em>) – passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
 more information about arrowprops could be found in
 matplotlib.patches.FancyArrowPatch</p></li>
 </ul>
@@ -595,7 +570,7 @@ matplotlib.patches.FancyArrowPatch</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_scatterplot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_scatterplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_scatterplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_scatterplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_barplot" title="PyComplexHeatmap.annotations.anno_barplot"><code class="xref py py-class docutils literal notranslate"><span class="pre">anno_barplot</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_barplot" title="PyComplexHeatmap.annotations.anno_barplot"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">anno_barplot</span></code></a></p>
 <dl class="simple">
 <dt>Annotate scatterplot, all arguments are included in AnnotationBase,</dt><dd><p>plot_kws for anno_boxplot include linewidths, grid, edgecolors
 and other arguments passed to plt.scatter.</p>
@@ -611,7 +586,7 @@ and other arguments passed to plt.scatter.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_simple">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">majority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_simple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_simple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
 <p>Annotate simple annotation, categorical or continuous variables.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_simple.plot">

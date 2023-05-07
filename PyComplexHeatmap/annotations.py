@@ -719,7 +719,7 @@ class anno_barplot(anno_boxplot):
         if type(self.colors) == list:
             colors = self.colors
         else: #dict
-            bad_value_color = matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap).get_bad())
+            #bad_value_color = matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap).get_bad())
             # colors = [[self.colors.get(v, bad_value_color) for v in self.plot_data.iloc[:, 0].values]]
             colors = [[self.colors(v) for v in self.plot_data.iloc[:, 0].values]]
         base_coordinates = [0] * self.plot_data.shape[0]
