@@ -1003,11 +1003,13 @@ class ClusterMapPlotter():
                 self.row_split = self.row_split.to_frame(name=self.row_split.name)
             cols = self.row_split.columns.tolist()
             row_clusters = self.row_split.groupby(cols).apply(lambda x: x.index.tolist())
-            if self.row_split_order is None:
+            if len(cols)==1 and self.row_split_order is None:
                 # calculate row_split_order using the mean across all samples in this group of
                 # values of mean values across all samples
                 self.row_split_order = row_clusters.apply(lambda x: self.data2d.loc[x].mean(axis=1).mean())\
                     .sort_values(ascending=False).index.tolist()
+            else:
+                self.row_split_order=row_clusters.sort_index().index.tolist()
             self.row_clusters = row_clusters.loc[self.row_split_order].to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
@@ -1050,11 +1052,13 @@ class ClusterMapPlotter():
                 self.col_split = self.col_split.to_frame(name=self.col_split.name)
             cols = self.col_split.columns.tolist()
             col_clusters = self.col_split.groupby(cols).apply(lambda x: x.index.tolist())
-            if self.col_split_order is None:
+            if len(cols)==1 and self.col_split_order is None:
                 # calculate col_split_order using the mean across all samples in this group of
                 # values of mean values across all samples
                 self.col_split_order = col_clusters.apply(lambda x: self.data2d.loc[:,x].mean().mean())\
                     .sort_values(ascending=False).index.tolist()
+            else:
+                self.col_split_order=col_clusters.sort_index().index.tolist()
             self.col_clusters = col_clusters.loc[self.col_split_order].to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]

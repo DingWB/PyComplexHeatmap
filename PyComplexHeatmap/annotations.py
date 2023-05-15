@@ -238,6 +238,11 @@ class anno_simple(AnnotationBase):
         self.text_kws = text_kws if not text_kws is None else {}
         self.plot_kws = plot_kws
         # print(self.plot_kws)
+        legend_kws = legend_kws if not legend_kws is None else {}
+        if 'vmax' in plot_kws:
+            legend_kws.setdefault('vmax', plot_kws.get('vmax'))
+        if 'vmin' in plot_kws:
+            legend_kws.setdefault('vmin', plot_kws.get('vmin'))
         super().__init__(df=df, cmap=cmap, colors=colors,
                          height=height, legend=legend, legend_kws=legend_kws, **plot_kws)
 

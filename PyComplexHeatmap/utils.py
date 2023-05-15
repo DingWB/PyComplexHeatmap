@@ -11,6 +11,26 @@ import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 mm2inch=1/25.4
 # =============================================================================
+def set_default_style():
+    from matplotlib import rcParams
+    D={
+        'font.family':['sans serif'], #'serif',
+        # 'mathtext.fontset':'dejavuserif',
+        'font.sans-serif':['Arial'],
+        'pdf.fonttype':42,
+
+        # Remove legend frame
+        'legend.frameon': True,
+
+        # Savefig
+        'figure.dpi': 100,
+        'savefig.bbox': 'tight',
+        'savefig.dpi':300,
+        'savefig.pad_inches': 0.05
+    }
+    
+    rcParams.update(D)
+# =============================================================================
 def _check_mask(data, mask):
     """
 
@@ -373,6 +393,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     """
     label='' if label is None else label
     cbar_kws={} if kws is None else kws.copy()
+    cbar_kws.setdefault('label',label)
     # cbar_kws.setdefault("aspect",3)
     cbar_kws.setdefault("orientation","vertical")
     # cbar_kws.setdefault("use_gridspec", True)
@@ -390,7 +411,7 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
         cmap=cmap)
     cax.yaxis.set_label_position(label_side)
     cax.yaxis.set_ticks_position(label_side)
-    cbar=ax.figure.colorbar(m,cax=cax,label=label,**cbar_kws) #use_gridspec=True
+    cbar=ax.figure.colorbar(m,cax=cax,**cbar_kws) #use_gridspec=True
     # cbar.outline.set_color('white')
     # cbar.outline.set_linewidth(2)
     # cbar.dividers.set_color('red')
@@ -634,3 +655,5 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         boundry = ax1.get_position().y0 - max_width / ax.figure.get_window_extent().width
     return legend_axes,cbars,boundry
 # =============================================================================
+
+set_default_style()

@@ -7,7 +7,7 @@ from .annotations import *
 from .dotHeatmap import *
 from .colors import *
 from .tools import *
-# from .example import *
+from .utils import set_default_style
 
 #__all__=['*']
 __version__='1.4.2'
