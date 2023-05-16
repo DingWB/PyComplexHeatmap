@@ -534,8 +534,8 @@ def plot_heatmap(data, vmin=None, vmax=None, cmap=None, center=None, robust=Fals
                 text_kwargs = dict(color=text_color, ha="center", va="center")
                 text_kwargs.update(annot_kws)
                 ax.text(x, y, annotation, **text_kwargs)
-        ax.xaxis.tick_bottom()
-        ax.yaxis.tick_left()
+    ax.xaxis.tick_bottom()
+    ax.yaxis.tick_left()
     return ax
 # =============================================================================
 class DendrogramPlotter(object):

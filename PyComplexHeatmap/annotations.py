@@ -289,9 +289,9 @@ class anno_simple(AnnotationBase):
         xlabel = None if axis == 1 else self.label
         ylabel = self.label if axis == 1 else None
 
-        ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
-                      xticklabels=False, yticklabels=False, **self.plot_kws)
-        # ax1 = plot_heatmap(matrix, cmap=self.cmap, ax=ax, xticklabels=False, yticklabels=False, **self.plot_kws)
+        # ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
+        #               xticklabels=False, yticklabels=False, **self.plot_kws)
+        ax1 = plot_heatmap(matrix, cmap=self.cmap, ax=ax, xticklabels=False, yticklabels=False, **self.plot_kws)
         # if axis==0:
         #     ax1.invert_yaxis()
         ax.tick_params(axis='both', which='both',
