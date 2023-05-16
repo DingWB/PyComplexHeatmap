@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.4.1 documentation</title>
+  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.4.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a><ul>
@@ -195,6 +196,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
@@ -247,6 +249,7 @@
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
 </ul>
 </li>
@@ -575,6 +578,35 @@ of cmlist.</p></li>
 <dd><p>Draw the heatmap on the provided Axes.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.plot_heatmap">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.clustermap.</span></span><span class="sig-name descname"><span class="pre">plot_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.2g'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#plot_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.plot_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Plot heatmap.</dt><dd><dl class="simple">
+<dt>heatmap(self.data2d.loc[rows, cols], ax=ax1,cmap=self.cmap,</dt><dd><p>mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
+xticklabels=’auto’, yticklabels=’auto’, annot=annot1, <a href="#id7"><span class="problematic" id="id8">**</span></a>self.kwargs)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em class="hover">dataframe</em>) – pandas dataframe</p></li>
+<li><p><strong>vmax</strong> (<em class="hover">float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>vmin</strong> (<em class="hover">float</em>) – the maximal and minimal values for cmap colorbar.</p></li>
+<li><p><strong>center</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>robust</strong> – the same as seaborn.heatmap</p></li>
+<li><p><strong>annot</strong> (<em class="hover">bool</em>) – whether to add annotation for values</p></li>
+<li><p><strong>fmt</strong> (<em class="hover">str</em>) – annotation format.</p></li>
+<li><p><strong>anno_kws</strong> (<em class="hover">dict</em>) – passed to ax.text</p></li>
+<li><p><strong>xticklabels</strong> (<em class="hover">bool</em>) – whether to show ticklabels</p></li>
+<li><p><strong>yticklabels</strong> (<em class="hover">bool</em>) – whether to show ticklabels</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
