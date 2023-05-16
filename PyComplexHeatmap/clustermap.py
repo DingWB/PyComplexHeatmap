@@ -397,12 +397,19 @@ def plot_heatmap(data, vmin=None, vmax=None, cmap=None, center=None, robust=Fals
     ----------
     data: dataframe
         pandas dataframe
-    xlabel / ylabel: bool
-        True, False, or list of xlabels
     vmax, vmin: float
         the maximal and minimal values for cmap colorbar.
     center, robust:
         the same as seaborn.heatmap
+    annot: bool
+        whether to add annotation for values
+    fmt: str
+        annotation format.
+    anno_kws: dict
+        passed to ax.text
+    xticklabels,yticklabels: bool
+        whether to show ticklabels
+
     """
 
     if isinstance(data, pd.DataFrame):
