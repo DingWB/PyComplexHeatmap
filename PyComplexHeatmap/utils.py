@@ -212,6 +212,36 @@ def axis_ticklabels_overlap(labels):
         # Issue on macos backend raises an error in the above code
         return False
 # =============================================================================
+# =============================================================================
+def _skip_ticks(labels, tickevery):
+    """Return ticks and labels at evenly spaced intervals."""
+    n = len(labels)
+    if tickevery == 0:
+        ticks, labels = [], []
+    elif tickevery == 1:
+        ticks, labels = np.arange(n) + .5, labels
+    else:
+        start, end, step = 0, n, tickevery
+        ticks = np.arange(start, end, step) + .5
+        labels = labels[start:end:step]
+    return ticks, labels
+# =============================================================================
+def _auto_ticks(ax, labels, axis):
+    """Determine ticks and ticklabels that minimize overlap."""
+    transform = ax.figure.dpi_scale_trans.inverted()
+    bbox = ax.get_window_extent().transformed(transform)
+    size = [bbox.width, bbox.height][axis]
+    axis = [ax.xaxis, ax.yaxis][axis]
+    tick, = axis.set_ticks([0])
+    fontsize = tick.label1.get_size()
+    max_ticks = int(size // (fontsize / 72))
+    if max_ticks < 1:
+        return [], []
+    tick_every = len(labels) // max_ticks + 1
+    tick_every = 1 if tick_every == 0 else tick_every
+    ticks, labels =_skip_ticks(labels, tick_every)
+    return ticks, labels
+# =============================================================================
 def to_utf8(obj):
     """
     Return a string representing a Python object.
@@ -655,5 +685,4 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         boundry = ax1.get_position().y0 - max_width / ax.figure.get_window_extent().width
     return legend_axes,cbars,boundry
 # =============================================================================
-
 set_default_style()

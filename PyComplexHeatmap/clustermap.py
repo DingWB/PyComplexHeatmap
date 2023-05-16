@@ -16,6 +16,8 @@ from .utils import (
     despine,
     _draw_figure,
     axis_ticklabels_overlap,
+    _skip_ticks,
+    _auto_ticks,
     _index_to_label,
     _index_to_ticklabels,
     plot_legend_list
@@ -63,7 +65,7 @@ class heatmapPlotter:
             self.xticks = "auto"
             self.xticklabels = _index_to_ticklabels(data.columns)
         else:
-            self.xticks, self.xticklabels = self._skip_ticks(xticklabels, xtickevery)
+            self.xticks, self.xticklabels = _skip_ticks(xticklabels, xtickevery)
 
         if not len(yticklabels):
             self.yticks = []
@@ -72,7 +74,7 @@ class heatmapPlotter:
             self.yticks = "auto"
             self.yticklabels = _index_to_ticklabels(data.index)
         else:
-            self.yticks, self.yticklabels = self._skip_ticks(yticklabels, ytickevery)
+            self.yticks, self.yticklabels = _skip_ticks(yticklabels, ytickevery)
 
         # Get good names for the axis labels
         xlabel = _index_to_label(data.columns) if xlabel is None else xlabel
@@ -192,35 +194,6 @@ class heatmapPlotter:
                 text_kwargs.update(self.annot_kws)
                 ax.text(x, y, annotation, **text_kwargs)
 
-    def _skip_ticks(self, labels, tickevery):
-        """Return ticks and labels at evenly spaced intervals."""
-        n = len(labels)
-        if tickevery == 0:
-            ticks, labels = [], []
-        elif tickevery == 1:
-            ticks, labels = np.arange(n) + .5, labels
-        else:
-            start, end, step = 0, n, tickevery
-            ticks = np.arange(start, end, step) + .5
-            labels = labels[start:end:step]
-        return ticks, labels
-
-    def _auto_ticks(self, ax, labels, axis):
-        """Determine ticks and ticklabels that minimize overlap."""
-        transform = ax.figure.dpi_scale_trans.inverted()
-        bbox = ax.get_window_extent().transformed(transform)
-        size = [bbox.width, bbox.height][axis]
-        axis = [ax.xaxis, ax.yaxis][axis]
-        tick, = axis.set_ticks([0])
-        fontsize = tick.label1.get_size()
-        max_ticks = int(size // (fontsize / 72))
-        if max_ticks < 1:
-            return [], []
-        tick_every = len(labels) // max_ticks + 1
-        tick_every = 1 if tick_every == 0 else tick_every
-        ticks, labels = self._skip_ticks(labels, tick_every)
-        return ticks, labels
-
     def _set_axes_label(self, ax, xlabel_kws, xlabel_bbox_kws, ylabel_kws, ylabel_bbox_kws,
                         xlabel_side, ylabel_side, xlabel_pad, ylabel_pad):
         # xlabel_kws: alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,fontweight,label,rasterized,
@@ -329,12 +302,12 @@ class heatmapPlotter:
 
         # Add row and column labels
         if isinstance(self.xticks, str) and self.xticks == "auto":
-            xticks, xticklabels = self._auto_ticks(ax, self.xticklabels, 0)
+            xticks, xticklabels = _auto_ticks(ax, self.xticklabels, 0)
         else:
             xticks, xticklabels = self.xticks, self.xticklabels
 
         if isinstance(self.yticks, str) and self.yticks == "auto":
-            yticks, yticklabels = self._auto_ticks(ax, self.yticklabels, 1)
+            yticks, yticklabels = _auto_ticks(ax, self.yticklabels, 1)
         else:
             yticks, yticklabels = self.yticks, self.yticklabels
 
@@ -409,6 +382,160 @@ def heatmap(data, xlabel=None, ylabel=None, xlabel_side='bottom', ylabel_side='l
     plotter.plot(ax, cbar_ax, xlabel_kws, xlabel_bbox_kws, ylabel_kws, ylabel_bbox_kws,
                  xlabel_side, ylabel_side, xlabel_pad, ylabel_pad, xticklabels_side, yticklabels_side,
                  xticklabels_kws, yticklabels_kws, kwargs)
+    return ax
+# =============================================================================
+def plot_heatmap(data, vmin=None, vmax=None, cmap=None, center=None, robust=False,
+            annot=None, fmt=".2g",annot_kws=None,
+            xticklabels=True, yticklabels=True, mask=None, na_col='white', ax=None,
+            linewidths=0, linecolor="white",**kwargs):
+    """
+    Plot heatmap.
+        heatmap(self.data2d.loc[rows, cols], ax=ax1,cmap=self.cmap,
+                        mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
+                        xticklabels='auto', yticklabels='auto', annot=annot1, **self.kwargs)
+    Parameters
+    ----------
+    data: dataframe
+        pandas dataframe
+    xlabel / ylabel: bool
+        True, False, or list of xlabels
+    vmax, vmin: float
+        the maximal and minimal values for cmap colorbar.
+    center, robust:
+        the same as seaborn.heatmap
+    """
+
+    if isinstance(data, pd.DataFrame):
+        plot_data = data.values
+    else:
+        plot_data = np.asarray(data)
+        data = pd.DataFrame(plot_data)
+    # Validate the mask and convert to DataFrame
+    mask = _check_mask(data, mask)
+    plot_data = np.ma.masked_where(np.asarray(mask), plot_data)
+    # Get good names for the rows and columns
+    if xticklabels is False:
+        xticks = []
+        xticklabels = []
+    else:
+        xticks = "auto"
+        xticklabels = _index_to_ticklabels(data.columns)
+
+    if yticklabels is False:
+        yticks = []
+        yticklabels = []
+    else:
+        yticks = "auto"
+        yticklabels = _index_to_ticklabels(data.index)
+
+    # Determine good default values for the colormapping
+    calc_data = plot_data.astype(float).filled(np.nan)
+    if vmin is None:
+        if robust:
+            vmin = np.nanpercentile(calc_data, 2)
+        else:
+            vmin = np.nanmin(calc_data)
+    if vmax is None:
+        if robust:
+            vmax = np.nanpercentile(calc_data, 98)
+        else:
+            vmax = np.nanmax(calc_data)
+
+    # Choose default colormaps if not provided
+    if isinstance(cmap, str):
+        try:
+            cmap = matplotlib.cm.get_cmap(cmap).copy()
+        except:
+            cmap = matplotlib.cm.get_cmap(cmap)
+
+    cmap.set_bad(color=na_col)  # set the color for NaN values
+    # Recenter a divergent colormap
+    if center is not None:
+        # bad = cmap(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color
+        under = cmap(-np.inf)
+        over = cmap(np.inf)
+        under_set = under != cmap(0)
+        over_set = over != cmap(cmap.N - 1)
+
+        vrange = max(vmax - center, center - vmin)
+        normlize = matplotlib.colors.Normalize(center - vrange, center + vrange)
+        cmin, cmax = normlize([vmin, vmax])
+        cc = np.linspace(cmin, cmax, 256)
+        cmap = matplotlib.colors.ListedColormap(cmap(cc))
+        # self.cmap.set_bad(bad)
+        if under_set:
+            cmap.set_under(under)  # set the color of -np.inf as the color for low out-of-range values.
+        if over_set:
+            cmap.set_over(over)
+
+    # Sort out the annotations
+    if annot is None or annot is False:
+        annot = False
+        annot_data = None
+    else:
+        if isinstance(annot, bool):
+            annot_data = plot_data
+        else:
+            annot_data = np.asarray(annot)
+            if annot_data.shape != plot_data.shape:
+                err = "`data` and `annot` must have same shape."
+                raise ValueError(err)
+        annot = True
+
+    if annot_kws is None:
+        annot_kws = {}
+
+    # Add the pcolormesh kwargs here
+    kwargs["linewidths"] = linewidths
+    kwargs["edgecolor"] = linecolor
+
+    # Draw the plot and return the Axes
+    despine(ax=ax, left=True, bottom=True)
+    if "norm" not in kwargs:
+        kwargs.setdefault("vmin", vmin)
+        kwargs.setdefault("vmax", vmax)
+
+    # Draw the heatmap
+    mesh = ax.pcolormesh(plot_data, cmap=cmap, **kwargs)
+    # Set the axis limits
+    ax.set(xlim=(0, data.shape[1]), ylim=(0, data.shape[0]))
+    # Invert the y axis to show the plot in matrix form
+    ax.invert_yaxis()  # from top to bottom
+
+    # Add row and column labels
+    if isinstance(xticks, str) and xticks == "auto":
+        xticks, xticklabels = _auto_ticks(ax, xticklabels, 0)
+
+    if isinstance(yticks, str) and yticks == "auto":
+        yticks, yticklabels = _auto_ticks(ax, yticklabels, 1)
+
+    ax.set(xticks=xticks, yticks=yticks)
+    xtl = ax.set_xticklabels(xticklabels)
+    ytl = ax.set_yticklabels(yticklabels, rotation="vertical")
+
+    _draw_figure(ax.figure)
+    if axis_ticklabels_overlap(xtl):
+        plt.setp(xtl, rotation="vertical")
+    if axis_ticklabels_overlap(ytl):
+        plt.setp(ytl, rotation="horizontal")
+
+    # Annotate the cells with the formatted values
+    if annot:
+        mesh.update_scalarmappable()
+        height, width = annot_data.shape
+        xpos, ypos = np.meshgrid(np.arange(width) + .5, np.arange(height) + .5)
+        for x, y, m, color, val in zip(xpos.flat, ypos.flat,
+                                       mesh.get_array(), mesh.get_facecolors(),
+                                       annot_data.flat):
+            if m is not np.ma.masked:
+                lum = _calculate_luminance(color)
+                text_color = ".15" if lum > .408 else "w"
+                annotation = ("{:" + fmt + "}").format(val)
+                text_kwargs = dict(color=text_color, ha="center", va="center")
+                text_kwargs.update(annot_kws)
+                ax.text(x, y, annotation, **text_kwargs)
+        ax.xaxis.tick_bottom()
+        ax.yaxis.tick_left()
     return ax
 # =============================================================================
 class DendrogramPlotter(object):
@@ -1183,8 +1310,11 @@ class ClusterMapPlotter():
                 ax1.set_xlim([0, len(rows)])
                 ax1.set_ylim([0, len(cols)])
                 annot1 = None if annot is None else annot_data.loc[rows, cols]
-                heatmap(self.data2d.loc[rows, cols], ax=ax1, cbar=False, cmap=self.cmap,
-                        cbar_kws=None, mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
+                # heatmap(self.data2d.loc[rows, cols], ax=ax1, cbar=False, cmap=self.cmap,
+                #         cbar_kws=None, mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
+                #         xticklabels='auto', yticklabels='auto', annot=annot1, **self.kwargs)
+                plot_heatmap(self.data2d.loc[rows, cols], ax=ax1, cmap=self.cmap,
+                        mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
                         xticklabels='auto', yticklabels='auto', annot=annot1, **self.kwargs)
                 self.heatmap_axes[i, j] = ax1
                 ax1.yaxis.label.set_visible(False)
