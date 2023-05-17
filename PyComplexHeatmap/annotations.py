@@ -1224,7 +1224,10 @@ class HeatmapAnnotation():
                 self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4,'cmap'])
         if len(self.legend_list) > 1:
             self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
-        self.label_max_width = max([ann.get_max_label_width() for ann in self.annotations])
+        if self.label_side == 'right':
+            self.label_max_width = max([ann.get_max_label_width() for ann in self.annotations])
+        else:
+            self.label_max_width = max([ann.get_ticklabel_width() for ann in self.annotations])
         # self.label_max_height = max([ann.ax.yaxis.label.get_window_extent().height for ann in self.annotations])
 
     def plot_annotations(self, ax=None, subplot_spec=None, idxs=None,

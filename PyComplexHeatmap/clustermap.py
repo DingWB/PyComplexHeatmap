@@ -830,7 +830,7 @@ class ClusterMapPlotter():
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_order=None, col_split_order=None, row_split_gap=0.5, col_split_gap=0.2, mask=None,
                  subplot_gap=1, legend=True, legend_kws=None, plot=True, plot_legend=True,
-                 legend_anchor='auto', legend_gap=7, legend_width=4.5, legend_hpad=2, legend_vpad=5,
+                 legend_anchor='auto', legend_gap=7, legend_width=4.5, legend_hpad=1, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
         self.kwargs = kwargs if not kwargs is None else {}
@@ -1340,6 +1340,7 @@ class ClusterMapPlotter():
         if (self.show_rownames and self.left_annotation is None and not self.row_dendrogram) \
                 and ((not self.right_annotation is None) or (
                 self.right_annotation is None and self.row_names_side == 'left')):  # tick left
+            self.row_names_side='left'
             self.yticklabels_kws.setdefault('labelrotation', 0)
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, 0].yaxis.set_visible(True)
@@ -1349,6 +1350,7 @@ class ClusterMapPlotter():
                          ha='right', va='center')
                 self.yticklabels.extend(self.heatmap_axes[i, 0].get_yticklabels())
         elif self.show_rownames and self.right_annotation is None:  # tick right
+            self.row_names_side = 'right'
             self.yticklabels_kws.setdefault('labelrotation', 0)
             for i in range(self.heatmap_axes.shape[0]):
                 self.heatmap_axes[i, -1].yaxis.tick_right()  # set_ticks_position('right')
@@ -1406,11 +1408,11 @@ class ClusterMapPlotter():
             self.legend_kws.setdefault('vmax', round(vmax, 2))
             self.legend_list.append([self.cmap, self.label, self.legend_kws, 4,'cmap'])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
-                self.yticklabels) > 0 else 0
+                self.yticklabels) > 0 and self.row_names_side=='right' else 0
             # heatmap_label_max_height = max([label.get_window_extent().height for label in self.yticklabels]) if len(
             #     self.yticklabels) > 0 else 0
             if heatmap_label_max_width >= self.label_max_width or self.legend_anchor == 'ax_heatmap':
-                self.label_max_width = heatmap_label_max_width * 1.1
+                self.label_max_width = heatmap_label_max_width #* 1.1
             if len(self.legend_list) > 1:
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 

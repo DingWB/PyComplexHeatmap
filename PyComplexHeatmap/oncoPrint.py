@@ -351,9 +351,9 @@ class oncoPrintPlotter(ClusterMapPlotter):
             self.legend_list.append(
                 [self.color_dict, self.label, self.color_legend_kws, len(self.color_dict), 'color_dict'])
             heatmap_label_max_width = max([label.get_window_extent().width for label in self.yticklabels]) if len(
-                self.yticklabels) > 0 else 0
+                self.yticklabels) > 0 and self.row_names_side=='right' else 0
             if heatmap_label_max_width >= self.label_max_width or self.legend_anchor == 'ax_heatmap':
-                self.label_max_width = heatmap_label_max_width * 1.1
+                self.label_max_width = heatmap_label_max_width #* 1.1
             if len(self.legend_list) > 1:
                 self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
 

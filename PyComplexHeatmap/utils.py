@@ -550,7 +550,7 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
     return Lgd
 # =============================================================================
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None,legend_width=4.5,legend_vpad=5,
+                     y0=None,gap=2,delta_x=None,legend_width=6,legend_vpad=5,
                      cmap_width=4.5):
     """
     Plot all lengends for a given legend_list.
@@ -581,40 +581,37 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         # print(space,pad)
         left=ax.get_position().x1 + pad
         # print(ax.get_position(),space,pad,left)
-    legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px
-    cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px
+    legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px to fraction
+    cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px to fraction
     if legend_side=='right':
         ax_legend=ax.figure.add_axes([left,ax.get_position().y0,legend_width,ax.get_position().height]) #left, bottom, width, height
-    # print(ax.get_position(),ax_legend.get_position())
     legend_axes=[ax_legend]
     cbars=[]
-    leg_pos = ax_legend.get_position()
+    leg_pos = ax_legend.get_position() #left bototm: x0,y0; top right: x1,y1
+
+    # y is the bottom position of the first legend (from top to the bottom)
     y = leg_pos.y1 - legend_vpad*mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
-    max_width=0
-    h_gap=round(gap*mm2inch*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm height gap between two legends
+    lgd_col_max_width=0 #the maximum width of all legends in one column
+    v_gap=round(gap*mm2inch*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm vertically height gap between two legends
     i=0
     while i <= len(legend_list)-1:
-    # for i,legend in enumerate(legend_list):
         obj, title, legend_kws, n, lgd_t = legend_list[i]
-        ax1 = legend_axes[-1]
+        ax1 = legend_axes[-1] #ax for the legend on the right
         ax1.set_axis_off()
-        # print(i,legend_list[i])
         color_text=legend_kws.pop("color_text",True)
         if lgd_t=='cmap': #type(obj)==str: # a cmap, plot colorbar
-            f = (15) * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height  # 15 mm
+            f = 15 * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height  # 15 mm
             if y-f < 0: #add a new column of axes to plot legends
-                left_pos=ax1.get_position()
-                pad=(max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
-                ax2=ax.figure.add_axes([left_pos.x1+pad, ax.get_position().y0, cmap_width, ax.get_position().height]) #left_pos.width
+                offset=(lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
+                ax2=ax.figure.add_axes(rect=[ax1.get_position().x0+offset, ax.get_position().y0, cmap_width, ax.get_position().height]) #left_pos.width
                 legend_axes.append(ax2)
                 ax1=legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y=leg_pos.y1 if y0 is None else y0
-                max_width = 0
-            y_cax_to_figure=y-f
-            # width=leg_pos.width
-            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y_cax_to_figure,cmap_width,f],
+                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
+                lgd_col_max_width = 0
+
+            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y-f,cmap_width,f],
                                    xmargin=0,ymargin=0) #unit is fractions of figure width and height
             # [i.set_linewidth(0.5) for i in cax.spines.values()]
             cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0
@@ -623,34 +620,31 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             cbar=plot_cmap_legend(ax=ax1,cax=cax,cmap=obj,label=title,label_side=legend_side,kws=legend_kws)
             cbar_width=cbar.ax.get_window_extent().width
             cbars.append(cbar)
-            if cbar_width > max_width:
-                max_width=cbar_width
-            # print(cax.get_position(),cbar.ax.get_position())
+            if cbar_width > lgd_col_max_width:
+                lgd_col_max_width=cbar_width
         elif lgd_t == 'color_dict':
-            # print("color_dict",leg_pos.x0,y)
             legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #lower left position of the box.
             #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
             # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
-            # print("color_dict",ax1.get_position(),leg_pos)
             L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
                                        color_text=color_text, kws=legend_kws)
             if L is None:
                 print("Legend too long, generating a new column..")
-                pad = (max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
+                pad = (lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
                 left_pos = ax1.get_position()
-                ax2 = ax.figure.add_axes([left_pos.x1 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+                ax2 = ax.figure.add_axes([left_pos.x0 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
                 legend_axes.append(ax2)
                 ax1 = legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y=leg_pos.y1 if y0 is None else y0
+                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
                 legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
                 L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
                                            color_text=color_text, kws=legend_kws)
-                max_width = 0
+                lgd_col_max_width = 0
             L_width = L.get_window_extent().width
-            if L_width > max_width:
-                max_width = L_width
+            if L_width > lgd_col_max_width:
+                lgd_col_max_width = L_width
             f = L.get_window_extent().height / ax.figure.get_window_extent().height
             cbars.append(L)
         elif lgd_t == 'markers':
@@ -659,30 +653,32 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
                                    color_text=color_text, kws=legend_kws) #obj is a tuple: markers and colors
             if L is None:
                 print("Legend too long, generating a new column..")
-                pad = (max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
+                pad = (lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
                 left_pos = ax1.get_position()
                 ax2 = ax.figure.add_axes(
-                    [left_pos.x1 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+                    [left_pos.x0 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
                 legend_axes.append(ax2)
                 ax1 = legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y = leg_pos.y1 if y0 is None else y0
+                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
                 legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
                 L = plot_marker_legend(obj=obj, ax=ax1, title=title, label_side=legend_side,
                                            color_text=color_text, kws=legend_kws)
-                max_width = 0
+                lgd_col_max_width = 0
             L_width = L.get_window_extent().width
-            if L_width > max_width:
-                max_width = L_width
+            if L_width > lgd_col_max_width:
+                lgd_col_max_width = L_width
             f = L.get_window_extent().height / ax.figure.get_window_extent().height
             cbars.append(L)
-        y = y - f - h_gap
+
+        y = y - f - v_gap
         i+=1
+
     if legend_side=='right':
-        boundry=ax1.get_position().y1+max_width / ax.figure.get_window_extent().width
+        boundry=ax1.get_position().y1+lgd_col_max_width / ax.figure.get_window_extent().width
     else:
-        boundry = ax1.get_position().y0 - max_width / ax.figure.get_window_extent().width
+        boundry = ax1.get_position().y0 - lgd_col_max_width / ax.figure.get_window_extent().width
     return legend_axes,cbars,boundry
 # =============================================================================
 set_default_style()
