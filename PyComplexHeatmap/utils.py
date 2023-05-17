@@ -578,9 +578,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     else:
         #labelpad: Spacing in points, pad is the fraction relative to x1.
         pad = (space+ax.yaxis.labelpad*1.2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
-        # print(space,pad)
         left=ax.get_position().x1 + pad
-        # print(ax.get_position(),space,pad,left)
     legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px to fraction
     cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px to fraction
     if legend_side=='right':
