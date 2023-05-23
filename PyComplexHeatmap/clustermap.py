@@ -793,8 +793,8 @@ class ClusterMapPlotter():
         ax_heatmap or ax, the ax to which legend anchor.
     legend_gap :float
         the columns gap between different legends.
-    legend_width: float
-        width of the legend, default is 4.5[mm]
+    legend_width: float [mm]
+        width of the legend, default is None (infer from data automatically)
     legend_hpad: float
         Horizonal space between the heatmap and legend, default is 2 [mm].
     legend_vpad: float
@@ -830,7 +830,7 @@ class ClusterMapPlotter():
                  row_split=None, col_split=None, dendrogram_kws=None, tree_kws=None,
                  row_split_order=None, col_split_order=None, row_split_gap=0.5, col_split_gap=0.2, mask=None,
                  subplot_gap=1, legend=True, legend_kws=None, plot=True, plot_legend=True,
-                 legend_anchor='auto', legend_gap=7, legend_width=4.5, legend_hpad=1, legend_vpad=5,
+                 legend_anchor='auto', legend_gap=7, legend_width=None, legend_hpad=1, legend_vpad=5,
                  legend_side='right', cmap='jet', label=None, xticklabels_kws=None, yticklabels_kws=None,
                  rasterized=False, legend_delta_x=None, verbose=1, **kwargs):
         self.kwargs = kwargs if not kwargs is None else {}
@@ -1507,7 +1507,7 @@ class ClusterMapPlotter():
 # =============================================================================
 def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
               legend_side='right', legend_gap=5, legend_y=0.8, legend_hpad=None,
-              legend_width=4.5):
+              legend_width=None):
     """
     Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
 

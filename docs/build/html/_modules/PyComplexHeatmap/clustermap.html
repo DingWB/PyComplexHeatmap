@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.4.4 documentation</title>
+  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.5.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -239,6 +239,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
@@ -1080,8 +1081,8 @@
 <span class="sd">        ax_heatmap or ax, the ax to which legend anchor.</span>
 <span class="sd">    legend_gap :float</span>
 <span class="sd">        the columns gap between different legends.</span>
-<span class="sd">    legend_width: float</span>
-<span class="sd">        width of the legend, default is 4.5[mm]</span>
+<span class="sd">    legend_width: float [mm]</span>
+<span class="sd">        width of the legend, default is None (infer from data automatically)</span>
 <span class="sd">    legend_hpad: float</span>
 <span class="sd">        Horizonal space between the heatmap and legend, default is 2 [mm].</span>
 <span class="sd">    legend_vpad: float</span>
@@ -1117,7 +1118,7 @@
                  <span class="n">row_split</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_split</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dendrogram_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tree_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">row_split_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_split_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">subplot_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">legend_anchor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">legend_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">legend_hpad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                 <span class="n">legend_anchor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">legend_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_hpad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                  <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend_delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
@@ -1794,7 +1795,7 @@
 <span class="c1"># =============================================================================</span>
 <div class="viewcode-block" id="composite"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite">[docs]</a><span class="k">def</span> <span class="nf">composite</span><span class="p">(</span><span class="n">cmlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">col_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
               <span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend_y</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_hpad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">legend_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">):</span>
+              <span class="n">legend_width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assemble multiple ClusterMapPlotter objects vertically or horizontally together.</span>
 

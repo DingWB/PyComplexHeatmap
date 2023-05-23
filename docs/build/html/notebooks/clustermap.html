@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A quick example &mdash; PyComplexHeatmap 1.4.4 documentation</title>
+  <title>A quick example &mdash; PyComplexHeatmap 1.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -245,6 +245,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
@@ -292,7 +293,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -309,7 +310,7 @@
 <section id="A-quick-example">
 <h1>A quick example<a class="headerlink" href="#A-quick-example" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -339,7 +340,7 @@
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span> <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                      <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span>
-                       <span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+                       <span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="c1">#legend_gap is the gap between two legends, legend_hpad is the horizonal space between legend and heatmap, legend_vpad</span>
 <span class="c1"># is the verticall space between the first legend and the top of axes (legend_anchor).</span>
 <span class="c1"># cm.ax_heatmap.set_axis_off()</span>
@@ -362,7 +363,6 @@ Starting plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..
-5 0.03543307086614173
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -378,7 +378,7 @@ Plotting legends..
 <section id="Only-plot-the-row/column-annotation">
 <h2>Only plot the row/column annotation<a class="headerlink" href="#Only-plot-the-row/column-annotation" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -401,7 +401,6 @@ Plotting legends..
 <div class="highlight"><pre>
 Starting plotting HeatmapAnnotations
 Collecting annotation legends..
-4.5 0.02952755905511811
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -416,7 +415,7 @@ Collecting annotation legends..
 <h2>anno_label:<a class="headerlink" href="#anno_label:" title="Permalink to this heading">¶</a></h2>
 <p>anno_label is used to add a text label to the annotatin, parameter <code class="docutils literal notranslate"><span class="pre">merge</span></code> control whether to merge the adjacent labels with the same text, if <code class="docutils literal notranslate"><span class="pre">merge</span></code> != True, then, texts would be draw for each columns. We can also annotate the selected rows/cols using <code class="docutils literal notranslate"><span class="pre">anno_label</span></code>. In the following example, we also set <code class="docutils literal notranslate"><span class="pre">annot=True</span></code> to show the float value for each cell,<code class="docutils literal notranslate"><span class="pre">linewidths=0.05,linecolor='orange'</span></code> can be used to control the line and line color for the boarder between cells.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -445,19 +444,11 @@ Collecting annotation legends..
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-4.5 0.02952755905511811
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_clustermap_7_1.png" src="../_images/notebooks_clustermap_7_1.png" />
+<img alt="../_images/notebooks_clustermap_7_0.png" src="../_images/notebooks_clustermap_7_0.png" />
 </div>
 </div>
 </section>
@@ -466,7 +457,7 @@ Collecting annotation legends..
 <p>anno_simple is to draw simple annotatin, cmap for anno_simple can be either categorical (Set1, Dark2, tab10 et.al) or continnuous (jet, turbo, parula). Parameter add_text control whether to add text on the annotation, if the color and fontsize in text_kws was not specified, the color and fontsize would be determined automatically, for example, if the background color is deep, then the text color would be white, otherwise the text color would be black. The text color can be changed with parameter
 text_kws={‘color’:your_color},for example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -488,7 +479,6 @@ text_kws={‘color’:your_color},for example:</p>
 <div class="highlight"><pre>
 Starting plotting HeatmapAnnotations
 Collecting annotation legends..
-4.5 0.03543307086614173
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -503,7 +493,7 @@ Collecting annotation legends..
 <h2>To add a annotation quickly, you just need a dataframe<a class="headerlink" href="#To-add-a-annotation-quickly,-you-just-need-a-dataframe" title="Permalink to this heading">¶</a></h2>
 <p>if df was given, all columns in dataframe df would be treated as a separately anno_simple annotation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -519,7 +509,6 @@ Collecting annotation legends..
 <div class="highlight"><pre>
 Starting plotting HeatmapAnnotations
 Collecting annotation legends..
-4.5 0.03543307086614173
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -534,7 +523,7 @@ Collecting annotation legends..
 <h2>Plot the figure and legend separately<a class="headerlink" href="#Plot-the-figure-and-legend-separately" title="Permalink to this heading">¶</a></h2>
 <p>Sometimes, one only want to plot the figure without legend, or plot the legend in a separated pdf, you can do that by giving the parameter plot_legend=False, and plot the legend in another pdf with row_ha.plot_legends</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -575,7 +564,6 @@ Starting plotting HeatmapAnnotations
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 No ax was provided, using plt.gca()
-4.5 0.027682086614173228
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -590,7 +578,7 @@ No ax was provided, using plt.gca()
 <section id="Top,-bottom,-left-,right-annotations">
 <h1>Top, bottom, left ,right annotations<a class="headerlink" href="#Top,-bottom,-left-,right-annotations" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load an example dataset</span>
@@ -601,7 +589,7 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
@@ -609,7 +597,7 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -829,7 +817,7 @@ No ax was provided, using plt.gca()
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rows</span>
@@ -837,7 +825,7 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -927,7 +915,7 @@ No ax was provided, using plt.gca()
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cols</span>
@@ -935,7 +923,7 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1131,7 +1119,7 @@ No ax was provided, using plt.gca()
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_colors_dict</span>
@@ -1139,7 +1127,7 @@ No ax was provided, using plt.gca()
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1154,7 +1142,7 @@ No ax was provided, using plt.gca()
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Put annotations on the top</span>
@@ -1165,7 +1153,7 @@ No ax was provided, using plt.gca()
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
                        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                        <span class="n">col_split</span><span class="o">=</span><span class="n">df_cols</span><span class="o">.</span><span class="n">Family</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;exp1&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AUC&#39;</span><span class="p">,</span>
-                       <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_anchor</span><span class="o">=</span><span class="s1">&#39;ax_heatmap&#39;</span><span class="p">)</span>
+                       <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_anchor</span><span class="o">=</span><span class="s1">&#39;ax_heatmap&#39;</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="c1">#legend_pad control the space between heatmap and legend.</span>
 <span class="c1">#plt.savefig(&quot;clustermap.pdf&quot;, bbox_inches=&#39;tight&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1187,7 +1175,6 @@ Starting plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..
-4.5 0.02530933633295838
 Incresing ncol
 </pre></div></div>
 </div>
@@ -1200,7 +1187,7 @@ Incresing ncol
 </div>
 <p>If you have a very long list of legends, the function will automatically increace another column of legend, for example, in the above plot, there are two columns of legends.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Put annotations on the bottom</span>
@@ -1232,7 +1219,6 @@ Starting plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..
-4.5 0.027256208358570563
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1245,7 +1231,7 @@ Plotting legends..
 <p>If you want to put the columns annotations on the bottom, then you need to <strong>change the order of HeatmapAnnotation</strong>, <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> should be the <strong>last one</strong> and <code class="docutils literal notranslate"><span class="pre">anno_label(df_cols.Family)</span></code> should be the second last one. When the columns annotation is on the top, the <code class="docutils literal notranslate"><span class="pre">rotation</span></code> of the <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> is 45, but when it is on the bottom, rotation should be -45 (rotate to the other direction). In addition, you can change the row labels to the right by setting <code class="docutils literal notranslate"><span class="pre">row_names_side='right'</span></code>. It’s
 worth noting that <strong>the gap betwee the heatmap and the legend could be automatically determined by the code</strong> when you set <code class="docutils literal notranslate"><span class="pre">row_names_side</span></code> to the right. The height of the annotation bar could be changed by the parameter <code class="docutils literal notranslate"><span class="pre">height</span></code> (mm) in <code class="docutils literal notranslate"><span class="pre">anno_simple</span></code> or other kinds of annotation functions.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Put annotations on the left</span>
@@ -1281,7 +1267,6 @@ Starting plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..
-4.5 0.04429133858267717
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1293,7 +1278,7 @@ Plotting legends..
 </div>
 <p>To put annotation on the left in this example, we tranpose the dataframe by useing df.T and use left_annotation. We can put the columns labels on the top by set <code class="docutils literal notranslate"><span class="pre">col_names_side='top'</span></code> and use <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> to change the rotation and color of the columsn labels. We can also change the rotation and color for the annotation labels (for example, <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Tissue</span></code> in this plot) by set <code class="docutils literal notranslate"><span class="pre">label_kws={'rotation':45,'rotation_mode':'anchor','color':'red'}</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Put annotation on the right</span>
@@ -1329,7 +1314,6 @@ Starting plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..
-4.5 0.04429133858267717
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

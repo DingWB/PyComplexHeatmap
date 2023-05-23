@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visualizing Single Cell DNA Methylation Data (Loyfer2023) &mdash; PyComplexHeatmap 1.4.4 documentation</title>
+  <title>Visualizing Single Cell DNA Methylation Data (Loyfer2023) &mdash; PyComplexHeatmap 1.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -245,6 +245,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
@@ -669,7 +670,7 @@ array([&#39;Adipocytes&#39;, &#39;Bladder-Ep&#39;, &#39;Blood-B&#39;, &#39;Blood
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                             <span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">,</span><span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">luminance</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
                                             <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="c1">#fontsize=10</span>
-                           <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">),</span>
+                           <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="n">col_colors_dict</span><span class="p">),</span> <span class="c1">#legend_kws={&#39;fontsize&#39;:4}</span>
                            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
                            <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>

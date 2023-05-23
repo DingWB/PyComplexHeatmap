@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.utils &mdash; PyComplexHeatmap 1.4.4 documentation</title>
+  <title>PyComplexHeatmap.utils &mdash; PyComplexHeatmap 1.5.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -239,6 +239,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
@@ -308,6 +309,7 @@
 
         <span class="c1"># Remove legend frame</span>
         <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
 
         <span class="c1"># Savefig</span>
         <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
@@ -836,8 +838,25 @@
     <span class="c1"># print(availabel_height,L.get_window_extent().height)</span>
     <span class="k">return</span> <span class="n">Lgd</span></div>
 <span class="c1"># =============================================================================</span>
+<div class="viewcode-block" id="cal_legend_width"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width">[docs]</a><span class="k">def</span> <span class="nf">cal_legend_width</span><span class="p">(</span><span class="n">legend_list</span><span class="p">):</span>
+    <span class="n">lgd_w</span><span class="o">=</span><span class="mf">4.5</span>
+    <span class="n">legend_width</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">lgd</span> <span class="ow">in</span> <span class="n">legend_list</span><span class="p">:</span>
+        <span class="n">obj</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend_kws</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lgd_t</span> <span class="o">=</span> <span class="n">lgd</span>
+        <span class="k">if</span> <span class="n">lgd_t</span><span class="o">==</span><span class="s1">&#39;color_dict&#39;</span><span class="p">:</span>
+            <span class="n">max_text_len</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">)),</span><span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]))</span>
+            <span class="n">fontsize</span> <span class="o">=</span> <span class="n">legend_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;legend.fontsize&#39;</span><span class="p">])</span>
+            <span class="n">lgd_w</span><span class="o">=</span><span class="n">max_text_len</span> <span class="o">*</span> <span class="n">fontsize</span> <span class="o">*</span> <span class="mf">0.65</span> <span class="o">/</span> <span class="mi">72</span> <span class="o">/</span> <span class="n">mm2inch</span> <span class="c1">#point to inches to mm. in average, width = height * 0.6</span>
+        <span class="k">elif</span> <span class="n">lgd_t</span><span class="o">==</span><span class="s2">&quot;markers&quot;</span><span class="p">:</span>
+            <span class="n">max_text_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
+            <span class="n">fontsize</span> <span class="o">=</span> <span class="n">legend_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;legend.fontsize&#39;</span><span class="p">])</span>
+            <span class="n">lgd_w</span> <span class="o">=</span> <span class="n">max_text_len</span> <span class="o">*</span> <span class="n">fontsize</span> <span class="o">*</span> <span class="mf">0.65</span> <span class="o">/</span> <span class="mi">72</span> <span class="o">/</span> <span class="n">mm2inch</span>
+        <span class="k">if</span> <span class="n">legend_width</span> <span class="o">&lt;</span> <span class="n">lgd_w</span><span class="p">:</span>
+            <span class="n">legend_width</span><span class="o">=</span><span class="n">lgd_w</span>
+    <span class="k">return</span> <span class="n">legend_width</span></div>
+
 <div class="viewcode-block" id="plot_legend_list"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list">[docs]</a><span class="k">def</span> <span class="nf">plot_legend_list</span><span class="p">(</span><span class="n">legend_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">space</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
-                     <span class="n">y0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                     <span class="n">y0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                      <span class="n">cmap_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot all lengends for a given legend_list.</span>
@@ -866,6 +885,9 @@
         <span class="c1">#labelpad: Spacing in points, pad is the fraction relative to x1.</span>
         <span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="n">space</span><span class="o">+</span><span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">labelpad</span><span class="o">*</span><span class="mf">1.2</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="mi">72</span><span class="p">)</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="k">if</span> <span class="n">delta_x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">delta_x</span> <span class="c1">#labelpad unit is points</span>
         <span class="n">left</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span><span class="o">.</span><span class="n">x1</span> <span class="o">+</span> <span class="n">pad</span>
+    <span class="k">if</span> <span class="n">legend_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">legend_width</span><span class="o">=</span><span class="n">cal_legend_width</span><span class="p">(</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="c1">#base width for color rectangle is set to 2 mm</span>
+    <span class="c1"># print(&quot;Estimated legend width: &quot;,legend_width)</span>
     <span class="n">legend_width</span><span class="o">=</span><span class="n">legend_width</span><span class="o">*</span><span class="n">mm2inch</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="c1">#mm to px to fraction</span>
     <span class="n">cmap_width</span> <span class="o">=</span> <span class="n">cmap_width</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>  <span class="c1"># mm to px to fraction</span>
     <span class="k">if</span> <span class="n">legend_side</span><span class="o">==</span><span class="s1">&#39;right&#39;</span><span class="p">:</span>
@@ -908,6 +930,7 @@
             <span class="k">if</span> <span class="n">cbar_width</span> <span class="o">&gt;</span> <span class="n">lgd_col_max_width</span><span class="p">:</span>
                 <span class="n">lgd_col_max_width</span><span class="o">=</span><span class="n">cbar_width</span>
         <span class="k">elif</span> <span class="n">lgd_t</span> <span class="o">==</span> <span class="s1">&#39;color_dict&#39;</span><span class="p">:</span>
+            <span class="c1"># print(obj, title, legend_kws)</span>
             <span class="n">legend_kws</span><span class="p">[</span><span class="s1">&#39;bbox_to_anchor&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">leg_pos</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="c1">#lower left position of the box.</span>
             <span class="c1">#x, y, width, height #kws[&#39;bbox_transform&#39;] = ax.figure.transFigure</span>
             <span class="c1"># ax1.scatter(leg_pos.x0,y,s=6,color=&#39;red&#39;,zorder=20,transform=ax1.figure.transFigure)</span>

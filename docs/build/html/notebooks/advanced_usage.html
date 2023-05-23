@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate dataset &mdash; PyComplexHeatmap 1.4.4 documentation</title>
+  <title>Generate dataset &mdash; PyComplexHeatmap 1.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -245,6 +245,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
@@ -292,7 +293,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -309,7 +310,7 @@
 <section id="Generate-dataset">
 <h1>Generate dataset<a class="headerlink" href="#Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -334,7 +335,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -384,7 +385,7 @@
 <section id="Add-float-annotations-on-the-top-of-heatmap-cells">
 <h1>Add float annotations on the top of heatmap cells<a class="headerlink" href="#Add-float-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -434,90 +435,90 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD EF         F
-sample1   GroupA  C  E -0.859948
-sample2   GroupA  C  E  1.813728
-sample3   GroupA  C  E  0.153548
-sample4   GroupA  D  E -0.827443
-sample5   GroupA  D  E -2.249850
-sample6   GroupB  D  E -0.665078
-sample7   GroupB  G  F  0.564935
-sample8   GroupB  G  F -0.263776
-sample9   GroupB  G  H -0.435037
-sample10  GroupB  G  H  1.477268
-sample1     0.446541
-sample2    -0.082513
-sample3    -0.080596
-sample4     0.167233
-sample5    -0.958009
-sample6     0.578079
-sample7    -0.368848
-sample8    -0.139012
-sample9     0.039080
-sample10   -0.856043
+sample1   GroupA  C  E -0.648806
+sample2   GroupA  C  E -0.508273
+sample3   GroupA  C  E  0.295277
+sample4   GroupA  D  E  0.816406
+sample5   GroupA  D  E  2.625710
+sample6   GroupB  D  E  0.165730
+sample7   GroupB  G  F -0.627950
+sample8   GroupB  G  F -1.325252
+sample9   GroupB  G  H -0.697560
+sample10  GroupB  G  H  1.996681
+sample1     0.311464
+sample2     0.123381
+sample3    -0.053366
+sample4    -0.504907
+sample5    -0.209773
+sample6    -0.253052
+sample7     0.456970
+sample8     0.141385
+sample9     1.175905
+sample10    0.254629
 dtype: float64
         sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1  -0.877166  0.265181  0.823042 -0.981402  0.362029 -0.213432 -0.448885
-Fea2  -0.743388  0.781751       NaN  0.276794 -1.460112 -0.279018  0.163417
-Fea3   0.421180  0.260401 -1.174095 -0.907233  1.276132 -0.390080 -0.075853
-Fea4  -0.150159  0.400321  0.179255 -1.030270 -0.406187 -1.775124 -0.700560
-Fea5   0.964685 -0.940792 -0.144390  1.383145  0.300831  0.695761 -0.404168
-Fea6   0.204621  0.093723  0.281383  1.361812 -1.042573  0.129742 -0.775788
-Fea7  -1.902415 -0.806874  0.870966  0.125986  1.219670 -0.960076  1.435098
-Fea8  -1.010085  0.270316 -1.759756  3.006086 -0.846707  0.190551 -0.140936
-Fea9  -1.265180 -0.196219  1.898675 -0.042636  0.303799 -0.128248  0.833861
-Fea10 -0.758375 -0.555008  1.116832 -1.473889  1.017720  1.602876  0.397571
-Fea11  0.908306 -0.316460  0.665032  1.680465 -1.176873 -2.042179  0.232529
-Fea12  1.287990 -0.575111  0.906274  0.677040  0.437380  0.112263 -1.117458
-Fea13 -0.694879  0.374590  2.138990  1.100818 -0.334083 -1.110932  1.954705
-Fea14  1.144151  1.690766 -0.289967 -0.814823 -1.124164 -0.177697  0.290262
-Fea15 -1.280772  2.005389 -1.368325 -1.026443 -0.374949  0.070582 -1.719484
-Fea16 -0.314863  0.372048 -0.201769  0.241457 -1.547741 -0.336836 -0.697329
-Fea17 -0.108272 -0.337453 -1.383287  0.350678 -0.185529 -0.330586 -2.484676
-Fea18  1.584378  0.050790 -0.122059 -0.953197  0.312796 -0.551361 -0.231572
-Fea19 -1.766541 -0.096992 -0.978384  0.749836  1.252559 -0.611097  0.018051
-Fea20  0.011821 -1.491000  0.868178  1.329879  0.438717  1.309023  0.202048
-Fea21 -0.949330  0.416080  0.930556  0.476568 -0.560246 -0.632065 -0.860343
-Fea22  0.234758  0.444963 -1.999734 -1.998993 -1.000453 -0.131733 -0.605457
-Fea23 -0.159530  0.284705 -0.273547 -0.372532  0.253049  0.553321  0.114095
-Fea24 -0.956842 -0.594020  0.850930  0.078980  0.105819  0.707397  0.337757
-Fea25  0.963289 -0.802005 -2.119166 -2.100783  0.399919 -0.225974  1.162257
-Fea26 -0.954519  0.916134 -0.228371  0.622193  1.111228  0.288610  1.103265
-Fea27  0.205186  0.606899  1.367445  0.403951 -1.309080  0.292251 -0.398428
-Fea28  1.920994 -0.243971  0.521776  0.281719 -0.391781  0.802194  0.202651
-Fea29  0.079689 -0.737538 -1.639389  0.077018 -0.384835 -1.132290  0.679437
-Fea30 -0.211342 -1.569738 -0.850527 -1.044262  0.009282 -1.717027 -1.134956
+Fea1  -0.258545  0.548350 -0.271090 -0.459403  0.588995 -0.433684 -0.637726
+Fea2   0.764434  1.588241       NaN -1.624566 -1.189902  1.178222 -1.006224
+Fea3   0.590381  0.485348  0.060269 -0.149361 -1.093134  0.537452 -2.908016
+Fea4   1.142749  0.794601 -2.927785 -0.917174  0.388939 -1.120139 -0.430665
+Fea5  -1.809308 -0.815502 -1.321852 -0.341095 -0.246940 -0.321125 -1.363337
+Fea6   0.223227 -1.009031 -2.813174 -1.004600  0.286324  1.332872  0.108337
+Fea7   1.425879  0.590613  0.333387 -0.806362 -1.220637 -1.811606  0.781707
+Fea8   0.467190 -0.757654 -1.064133 -0.210654 -0.220242 -0.098484 -0.584667
+Fea9  -1.328931  0.396282  0.655084 -1.699735 -0.423537 -0.481600  1.001521
+Fea10  0.014357  0.443928 -0.142804 -0.606488 -0.433262  0.883867 -0.648369
+Fea11  0.785285 -0.991490  0.353125 -0.659715 -0.382219  0.482800 -0.623175
+Fea12  1.012978  1.481975  1.124118 -0.967736  0.347097  1.130589  0.880165
+Fea13  0.277951  0.976987  0.698693  0.539984  0.004004 -1.420483  1.177913
+Fea14 -0.940809 -0.072422  0.921313 -1.920248  2.048917  0.391478 -0.884724
+Fea15 -0.470567 -0.985975  0.187057  0.609039  1.136726 -0.178573  0.226701
+Fea16  1.320400  0.359338  1.265973  2.272762  0.606529  0.577742 -0.742301
+Fea17 -0.652745 -0.500255  1.372870 -1.552863 -0.890511 -0.600293 -0.603318
+Fea18  0.127768 -0.760221 -1.591050  0.755272 -0.238947 -1.472040 -0.198402
+Fea19  0.619603  0.038169  0.020461 -1.791809  0.451378  0.627787  0.029248
+Fea20 -0.849289 -0.271659 -1.233572 -1.142977 -1.058879 -1.375507 -1.405628
+Fea21  0.457711 -1.270289  0.571422 -0.263978  0.185763 -0.956231 -0.972680
+Fea22  1.196557 -0.292005 -0.224622 -2.002783 -0.524108 -0.153118 -0.717876
+Fea23 -1.273291  0.701278  1.113138  0.804648 -2.185459  1.235285 -0.386850
+Fea24 -1.353500 -0.120004  1.929782 -0.344106 -2.610213  1.075285 -0.920411
+Fea25  1.628264 -0.179969 -0.689124 -0.667433  0.385241  0.709176 -2.149862
+Fea26 -0.294765  0.403762 -0.546594  0.450404  0.879777  1.080233 -0.131532
+Fea27  0.763316  0.785901  0.310184  1.147420 -0.570161 -1.187025 -0.889100
+Fea28 -0.057045  1.439500  1.689955  0.502897  1.227737 -0.230583 -0.433880
+Fea29 -0.725122 -2.314608 -0.831594  1.921514  0.425742  0.536889  0.520197
+Fea30  0.307725  1.055141  0.148014  0.245378 -0.448889 -0.270385  0.170956
 
         sample8   sample9  sample10
-Fea1  -1.391912  0.174035 -0.722055
-Fea2   1.478779  2.031392 -0.624922
-Fea3   0.511031  1.430047 -0.071864
-Fea4  -0.182810  0.119937  0.324184
-Fea5  -2.535191  0.286462  1.426887
-Fea6   0.232702  0.382808  0.888311
-Fea7  -0.239777  0.299595 -1.708014
-Fea8   0.320477  0.141416  2.187434
-Fea9   2.506455  0.466097  0.187460
-Fea10 -0.980254  0.637211  1.334159
-Fea11  1.325824  0.243619 -1.423854
-Fea12 -1.523032  0.512943 -0.825561
-Fea13 -1.550660  1.289337 -0.644046
-Fea14 -0.603473  0.467091  1.377651
-Fea15  0.048387  0.013709  0.050784
-Fea16  0.308682  0.447234 -0.100215
-Fea17  0.337761 -1.601556 -0.807779
-Fea18 -0.644107  0.655278 -0.696159
-Fea19 -0.800338 -0.154318  0.116613
-Fea20  0.370850 -1.418935  0.123965
-Fea21 -2.789528 -0.410036 -0.747049
-Fea22  1.059998  2.332677  2.182107
-Fea23  0.170121 -2.873444  1.790078
-Fea24 -0.774847 -0.760396  2.081487
-Fea25 -0.661914 -0.409701 -1.205854
-Fea26  1.251407  0.426934 -0.186160
-Fea27 -1.612129 -0.789275  0.037124
-Fea28  0.245675 -0.937235  0.915192
-Fea29 -1.604977 -1.061503 -1.459613
-Fea30  0.162638 -2.463289 -0.065506
+Fea1   1.162640 -1.396877 -0.164571
+Fea2  -0.481910 -0.443271 -0.879971
+Fea3  -1.785986  0.664799  0.064696
+Fea4  -0.354119  0.190043 -0.520683
+Fea5   2.205380 -0.208592  2.176976
+Fea6  -0.712013 -2.004226 -0.086980
+Fea7  -0.958667 -0.141327  0.631750
+Fea8  -0.285771 -0.366954 -1.091362
+Fea9   0.311422 -0.450287  0.934323
+Fea10  0.411671 -0.704692 -0.520393
+Fea11  0.975727 -1.597444  1.109762
+Fea12 -0.170817  0.335732 -1.519387
+Fea13  1.631969  0.501534  0.831816
+Fea14  0.137354 -0.390965 -1.055428
+Fea15  0.447352 -0.588055 -0.241612
+Fea16  1.149781  1.776052  0.226781
+Fea17 -0.319522  2.055336 -0.761767
+Fea18  0.127030  1.044869  0.359087
+Fea19 -1.717734 -0.394878  2.207962
+Fea20  0.713210 -0.223565  1.429589
+Fea21 -0.639675  1.981945 -0.362918
+Fea22 -0.676388 -0.503348 -0.114552
+Fea23  1.582988 -1.186198 -0.986840
+Fea24 -0.108691  0.693065  1.572972
+Fea25 -0.578328  1.109725  0.483776
+Fea26 -0.971843  2.620090 -0.296983
+Fea27  0.178446 -0.743092 -1.304383
+Fea28  0.594562  0.141741 -0.837856
+Fea29  1.881485  0.166680 -1.211611
+Fea30  1.179559 -0.878710 -0.132864
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -532,15 +533,15 @@ Fea30  0.162638 -2.463289 -0.065506
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea6&#39;, &#39;Fea8&#39;, &#39;Fea5&#39;, &#39;Fea12&#39;, &#39;Fea3&#39;, &#39;Fea4&#39;, &#39;Fea14&#39;, &#39;Fea9&#39;, &#39;Fea2&#39;, &#39;Fea11&#39;, &#39;Fea7&#39;, &#39;Fea13&#39;, &#39;Fea1&#39;, &#39;Fea10&#39;], [&#39;Fea19&#39;, &#39;Fea26&#39;, &#39;Fea16&#39;, &#39;Fea15&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea18&#39;, &#39;Fea25&#39;, &#39;Fea21&#39;, &#39;Fea27&#39;, &#39;Fea17&#39;, &#39;Fea28&#39;, &#39;Fea23&#39;, &#39;Fea30&#39;, &#39;Fea20&#39;, &#39;Fea24&#39;]]
-[[&#39;sample5&#39;, &#39;sample3&#39;, &#39;sample4&#39;, &#39;sample1&#39;, &#39;sample2&#39;], [&#39;sample6&#39;, &#39;sample10&#39;, &#39;sample8&#39;, &#39;sample7&#39;, &#39;sample9&#39;]]
+[[&#39;Fea25&#39;, &#39;Fea19&#39;, &#39;Fea22&#39;, &#39;Fea18&#39;, &#39;Fea20&#39;, &#39;Fea16&#39;, &#39;Fea26&#39;, &#39;Fea17&#39;, &#39;Fea21&#39;, &#39;Fea15&#39;, &#39;Fea29&#39;, &#39;Fea23&#39;, &#39;Fea24&#39;, &#39;Fea28&#39;, &#39;Fea27&#39;, &#39;Fea30&#39;], [&#39;Fea6&#39;, &#39;Fea4&#39;, &#39;Fea8&#39;, &#39;Fea3&#39;, &#39;Fea14&#39;, &#39;Fea12&#39;, &#39;Fea2&#39;, &#39;Fea10&#39;, &#39;Fea5&#39;, &#39;Fea1&#39;, &#39;Fea11&#39;, &#39;Fea9&#39;, &#39;Fea7&#39;, &#39;Fea13&#39;]]
+[[&#39;sample6&#39;, &#39;sample7&#39;, &#39;sample8&#39;, &#39;sample9&#39;, &#39;sample10&#39;], [&#39;sample2&#39;, &#39;sample3&#39;, &#39;sample4&#39;, &#39;sample1&#39;, &#39;sample5&#39;]]
 </pre></div></div>
 </div>
 </section>
 <section id="Only-plot-the-annotations">
 <h1>Only plot the annotations<a class="headerlink" href="#Only-plot-the-annotations" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -580,97 +581,97 @@ Fea30  0.162638 -2.463289 -0.065506
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  1.541289
-sample2    AAAA1  C -0.102821
-sample3    AAAA1  C  0.259648
-sample4    AAAA1  D  1.436915
-sample5    AAAA1  D -2.297329
-sample6   BBBBB2  D -0.974089
-sample7   BBBBB2  G  0.681651
-sample8   BBBBB2  G  1.160996
-sample9   BBBBB2  G  0.571872
-sample10  BBBBB2  G -1.229941
+sample1    AAAA1  C  0.476815
+sample2    AAAA1  C -0.871445
+sample3    AAAA1  C  0.079018
+sample4    AAAA1  D  1.234679
+sample5    AAAA1  D  0.160081
+sample6   BBBBB2  D -0.590994
+sample7   BBBBB2  G -0.493970
+sample8   BBBBB2  G -0.339429
+sample9   BBBBB2  G  1.065347
+sample10  BBBBB2  G  0.739121
              Gene1     Gene2     Gene3     Gene4
-sample1  -0.131465 -0.371337  0.138128 -1.542273
-sample2   1.182917 -1.386970 -0.960037 -0.030246
-sample3  -0.503022  1.790121  0.443361 -0.606130
-sample4   1.617694 -0.376257  0.368313  0.520198
-sample5  -0.597127  1.662337 -1.185716  0.513523
-sample6   0.336382  0.020714  0.525140  0.483646
-sample7   0.461217 -1.184083  0.848058 -0.148974
-sample8   0.608859 -0.838415 -1.094193 -0.862620
-sample9   0.727717  0.959946 -0.013376  0.863445
-sample10  1.862572 -0.466525 -0.920731 -1.613271
+sample1  -1.111868  2.786468 -0.561621 -1.352137
+sample2   1.895135 -1.896783  1.465549 -1.936403
+sample3  -1.537065  0.531731  0.680945 -1.307337
+sample4   1.544115 -0.079018 -0.838451  0.256670
+sample5  -0.398485  0.727260  2.297607 -0.270549
+sample6   0.601374 -0.172153 -0.228924  1.525816
+sample7  -1.600924  0.654322  0.872997  1.143627
+sample8  -1.158920 -0.142417  0.573036  1.668805
+sample9   0.533117  1.673710  0.232764  0.190140
+sample10  1.699921 -1.222971 -0.574387 -0.581846
            Scatter
-sample1   3.791560
-sample2   1.669241
-sample3   1.443030
-sample4   0.906090
-sample5   7.063251
-sample6   3.012269
-sample7   6.178319
-sample8   5.085822
-sample9   5.588178
-sample10  5.513931
+sample1   2.972138
+sample2   7.653516
+sample3   7.716263
+sample4   8.660225
+sample5   4.827547
+sample6   3.568820
+sample7   8.727535
+sample8   7.258840
+sample9   0.826745
+sample10  8.200785
               TMB1      TMB2
-sample1   9.729744  1.147032
-sample2   0.802999  5.648049
-sample3   2.197804  9.147613
-sample4   4.449553  9.815907
-sample5   8.113552  2.192335
-sample6   9.725593  1.523963
-sample7   7.203187  8.437753
-sample8   2.069131  4.192921
-sample9   6.467201  0.805402
-sample10  7.612313  3.542631
+sample1   5.976146  2.147335
+sample2   3.812434  3.091699
+sample3   6.072444  1.318699
+sample4   0.303809  3.368319
+sample5   9.026940  0.675393
+sample6   5.758167  9.666032
+sample7   8.940573  7.315860
+sample8   6.840246  3.866870
+sample9   1.041289  5.510241
+sample10  4.706200  1.979550
               T1-A      T1-B
-sample1   4.860624  0.156916
-sample2   7.160146  2.429743
-sample3   4.622685  5.138283
-sample4   5.770720  8.207074
-sample5   8.603930  3.629076
-sample6   5.271024  9.255648
-sample7   9.292743  6.489236
-sample8   2.897897  2.182119
-sample9   5.897453  2.698376
-sample10  6.268491  7.355952
+sample1   6.355608  3.528661
+sample2   4.944407  6.429908
+sample3   8.225848  8.828991
+sample4   8.558957  5.896840
+sample5   1.383825  3.546492
+sample6   2.653243  5.128849
+sample7   6.839333  9.541739
+sample8   9.494121  0.062334
+sample9   8.182445  4.263709
+sample10  3.784590  3.536460
               T2-A      T2-B
-sample1   1.132690  2.407927
-sample2   5.916669  7.111583
-sample3   3.831625  8.322169
-sample4   3.991335  7.868207
-sample5   3.147674  8.091576
-sample6   2.991293  0.612838
-sample7   0.622686  8.194433
-sample8   6.388769  9.316565
-sample9   3.378051  4.953043
-sample10  0.799175  8.839933
+sample1   3.999860  7.653217
+sample2   6.214247  7.926987
+sample3   1.805186  1.701215
+sample4   0.491743  7.286598
+sample5   0.114655  5.316715
+sample6   5.036210  4.327356
+sample7   1.491922  4.695856
+sample8   7.368061  8.018792
+sample9   2.901576  8.106027
+sample10  3.146674  2.055680
               T3-A      T3-B
-sample1   9.512154  7.272552
-sample2   4.047535  6.689993
-sample3   5.216673  2.794997
-sample4   4.388826  4.950351
-sample5   4.142342  2.088228
-sample6        NaN  5.343664
-sample7   7.722010  0.456926
-sample8   0.983511  0.112865
-sample9   7.988217  0.904032
-sample10  0.047689  9.098559
+sample1   8.858054  7.271691
+sample2   6.256122  1.479932
+sample3   7.742731  7.642217
+sample4   2.093422  5.612755
+sample5   2.176925  4.818285
+sample6        NaN  4.977643
+sample7   2.773804  0.842879
+sample8   2.494650  9.403349
+sample9   9.194664  4.383669
+sample10  6.134538  7.757482
                 T4
-sample1   4.695255
-sample2   2.886758
-sample3   5.715530
-sample4   3.410421
-sample5   3.529517
-sample6   9.526027
-sample7   5.485438
+sample1   3.866456
+sample2   8.533435
+sample3   1.752379
+sample4   5.308454
+sample5   2.328612
+sample6   0.237078
+sample7   0.586114
 sample8        NaN
-sample9   4.472848
-sample10  8.144972
+sample9   4.948419
+sample10  7.672137
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -710,7 +711,7 @@ Collecting annotation legends..
 <section id="Change-orentation-down-and-add-extra-space">
 <h1>Change orentation <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space<a class="headerlink" href="#Change-orentation-down-and-add-extra-space" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -753,7 +754,7 @@ Starting plotting HeatmapAnnotations
 <section id="Change-orentation-to-the-left">
 <h1>Change orentation to the left<a class="headerlink" href="#Change-orentation-to-the-left" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -800,7 +801,7 @@ Legend too long, generating a new column..
 <section id="Change-orentation-to-the-right">
 <h1>Change orentation to the right<a class="headerlink" href="#Change-orentation-to-the-right" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -849,7 +850,7 @@ Legend too long, generating a new column..
 <h1>Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code><a class="headerlink" href="#Changing-orientation-using-parameter-orientation" title="Permalink to this heading">¶</a></h1>
 <p>By Default, if there is no <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> in the annotation, the oriention would be determined by parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -892,7 +893,7 @@ Legend too long, generating a new column..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>

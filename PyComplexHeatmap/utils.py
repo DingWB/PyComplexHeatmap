@@ -21,6 +21,7 @@ def set_default_style():
 
         # Remove legend frame
         'legend.frameon': True,
+        'legend.fontsize': 10,
 
         # Savefig
         'figure.dpi': 100,
@@ -549,8 +550,25 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
     # print(availabel_height,L.get_window_extent().height)
     return Lgd
 # =============================================================================
+def cal_legend_width(legend_list):
+    lgd_w=4.5
+    legend_width=0
+    for lgd in legend_list:
+        obj, title, legend_kws, n, lgd_t = lgd
+        if lgd_t=='color_dict':
+            max_text_len=max(len(str(title)),max([len(str(k)) for k in obj]))
+            fontsize = legend_kws.get('fontsize',plt.rcParams['legend.fontsize'])
+            lgd_w=max_text_len * fontsize * 0.65 / 72 / mm2inch #point to inches to mm. in average, width = height * 0.6
+        elif lgd_t=="markers":
+            max_text_len = len(str(title))
+            fontsize = legend_kws.get('fontsize', plt.rcParams['legend.fontsize'])
+            lgd_w = max_text_len * fontsize * 0.65 / 72 / mm2inch
+        if legend_width < lgd_w:
+            legend_width=lgd_w
+    return legend_width
+
 def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None,legend_width=6,legend_vpad=5,
+                     y0=None,gap=2,delta_x=None,legend_width=None,legend_vpad=5,
                      cmap_width=4.5):
     """
     Plot all lengends for a given legend_list.
@@ -579,6 +597,9 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         #labelpad: Spacing in points, pad is the fraction relative to x1.
         pad = (space+ax.yaxis.labelpad*1.2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
         left=ax.get_position().x1 + pad
+    if legend_width is None:
+        legend_width=cal_legend_width(legend_list) + 2.5 #base width for color rectangle is set to 2 mm
+    # print("Estimated legend width: ",legend_width)
     legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px to fraction
     cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px to fraction
     if legend_side=='right':
@@ -621,6 +642,7 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             if cbar_width > lgd_col_max_width:
                 lgd_col_max_width=cbar_width
         elif lgd_t == 'color_dict':
+            # print(obj, title, legend_kws)
             legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #lower left position of the box.
             #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
             # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
