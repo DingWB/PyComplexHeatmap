@@ -12,7 +12,7 @@ authors:
   orcid: "https://orcid.org/0000-0001-9126-1932"
 title: "PyComplexHeatmap: A Python package to visualize multimodal genomics data"
 version: 1.5.0
-doi: '"10.1002/imt2.115"
+doi: "10.1002/imt2.115"
 date-released: 2023-05-25
 url: "https://github.com/DingWB/PyComplexHeatmap"
 preferred-citation:
@@ -25,6 +25,7 @@ preferred-citation:
     given-names: "David"
   - family-names: "Zhou"
     given-names: "Wanding"
+    orcid: "https://orcid.org/0000-0001-9126-1932"
   doi: "10.1002/imt2.115"
   journal: "iMeta"
   month: 05
