@@ -6,8 +6,10 @@ authors:
   orcid: "https://orcid.org/0000-0002-5355-7561"
 - family-names: "Goldberg"
   given-names: "David"
+  orcid: ""
 - family-names: "Zhou"
   given-names: "Wanding"
+  orcid: "https://orcid.org/0000-0001-9126-1932"
 title: "PyComplexHeatmap: A Python package to visualize multimodal genomics data"
 version: 1.5.0
 doi: '"10.1002/imt2.115"
