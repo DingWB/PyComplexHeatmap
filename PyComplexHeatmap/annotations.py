@@ -782,7 +782,7 @@ class anno_scatterplot(anno_barplot):
         elif type(cmap) == str:
             self.cmap = cmap
         else:
-            raise TypeError("cmap for boxplot should be a string")
+            raise TypeError("cmap for scatterplot should be a string")
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.colors = None

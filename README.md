@@ -26,6 +26,9 @@ pip install --ignore-install matplotlib==3.5.1 numpy==1.20.3 pandas==1.4.1
 pip install seaborn #only needed when call functions in tools.py
 ```
 
+## Citation
+Ding, W., Goldberg, D. and Zhou, W. (2023), PyComplexHeatmap: A Python package to visualize multimodal genomics data. iMeta e115. https://doi.org/10.1002/imt2.115
+
 ## **Installation**
 ----------------------
 1. **Install using pip**:

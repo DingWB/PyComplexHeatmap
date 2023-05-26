@@ -598,8 +598,8 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
         pad = (space+ax.yaxis.labelpad*1.2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
         left=ax.get_position().x1 + pad
     if legend_width is None:
-        legend_width=cal_legend_width(legend_list) + 2.5 #base width for color rectangle is set to 2 mm
-    # print("Estimated legend width: ",legend_width)
+        legend_width=cal_legend_width(legend_list) + 2.5 #base width for color rectangle is set to 2.5 mm
+        print(f"Estimated legend width: {legend_width} mm")
     legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px to fraction
     cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px to fraction
     if legend_side=='right':
