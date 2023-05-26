@@ -20,6 +20,7 @@ PyComplexHeatmap
    more_examples
    gallery
    modules
+   citation
 
 Credits and Thanks
 ========================

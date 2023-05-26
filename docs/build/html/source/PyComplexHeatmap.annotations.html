@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyComplexHeatmap.annotations module &mdash; PyComplexHeatmap 1.5.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#how-to-install">How to install?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/get_started.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/get_started.html#2.-Plot-heatmap-annotations">2. Plot heatmap annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/get_started.html#3.-Plot-the-heatmap-with-rows-and-columns-split">3. Plot the heatmap with rows and columns split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/get_started.html#4.-Plot-the-annotations-along-side-with-main-heatmap">4. Plot the annotations along side with main heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/clustermap.html">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/clustermap.html#Plotting-annotations">Plotting annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/clustermap.html#Only-plot-the-row/column-annotation">Only plot the row/column annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/clustermap.html#anno_label:">anno_label:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/clustermap.html#anno_simple:">anno_simple:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/clustermap.html#To-add-a-annotation-quickly,-you-just-need-a-dataframe">To add a annotation quickly, you just need a dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/clustermap.html#Plot-the-figure-and-legend-separately">Plot the figure and legend separately</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/dotHeatmap.html#Dot-Clustermap">Dot Clustermap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../oncoPrint.html">oncoPrint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html">Generate dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Add-float-annotations-on-the-top-of-heatmap-cells">Add float annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Change-orentation-down-and-add-extra-space">Change orentation <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../more_examples.html">More Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase"><code class="docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.update_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.show_ticklabels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot"><code class="docutils literal notranslate"><span class="pre">anno_barplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_barplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label"><code class="docutils literal notranslate"><span class="pre">anno_label</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_label.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.plot"><code class="docutils literal notranslate"><span class="pre">anno_label.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws"><code class="docutils literal notranslate"><span class="pre">anno_label.set_plot_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_side"><code class="docutils literal notranslate"><span class="pre">anno_label.set_side()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.post_processing()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite"><code class="docutils literal notranslate"><span class="pre">composite()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d"><code class="docutils literal notranslate"><span class="pre">dotHeatmap2d()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.example.html">PyComplexHeatmap.example module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example0"><code class="docutils literal notranslate"><span class="pre">clustermap_example0()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example1"><code class="docutils literal notranslate"><span class="pre">clustermap_example1()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.example.html#PyComplexHeatmap.example.get_kycg_example_data"><code class="docutils literal notranslate"><span class="pre">get_kycg_example_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html">PyComplexHeatmap.oncoPrint module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoprint"><code class="docutils literal notranslate"><span class="pre">oncoprint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.tools.html">PyComplexHeatmap.tools module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.tools.html#PyComplexHeatmap.tools.dotplot"><code class="docutils literal notranslate"><span class="pre">dotplot()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.tools.html#PyComplexHeatmap.tools.tbarplot"><code class="docutils literal notranslate"><span class="pre">tbarplot()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.tools.html#PyComplexHeatmap.tools.volcano_plot"><code class="docutils literal notranslate"><span class="pre">volcano_plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PyComplexHeatmap.annotations module</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/source/PyComplexHeatmap.annotations.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PyComplexHeatmap.annotations">
+<span id="pycomplexheatmap-annotations-module"></span><h1>PyComplexHeatmap.annotations module<a class="headerlink" href="#module-PyComplexHeatmap.annotations" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">AnnotationBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class hover docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for annotation objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em class="hover">dataframe</em>) – a pandas series or dataframe (only one column).</p></li>
+<li><p><strong>cmap</strong> (<em class="hover">str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+matplotlib.pyplot.colormaps() to see all availabel cmap.
+default cmap is ‘auto’, it would be determined based on the dtype for each columns of df.</p></li>
+<li><p><strong>colors</strong> (<em class="hover">dict</em><em>, </em><em class="hover">list</em><em> or </em><em class="hover">str</em>) – a dict or list (for boxplot, barplot) or str.
+If colors is a dict: keys should be exactly the same as df.iloc[:,0].unique(),
+values for the dict should be colors (color names or HEX color).
+If  colors is a list, then the length of this list should be equal to df.iloc[:,0].nunique()
+If colors is a string, means all values in df.iloc[:,0].unique() share the same color.</p></li>
+<li><p><strong>height</strong> (<em class="hover">float</em>) – height (if axis=1) / width (if axis=0) for the annotation size.</p></li>
+<li><p><strong>legend</strong> (<em class="hover">bool</em>) – whether to plot legend for this annotation when legends are plotted or
+plot legend with HeatmapAnnotation.plot_legends().</p></li>
+<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,
+markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more
+arguments, pleast type ?plt.legend. There is an additional parameter <cite>color_text</cite> (default is True),
+which would set the color of the text to the same color as legend marker. if one set
+<cite>legend_kws={‘color_text’:False}</cite>, then, black would be the default color for the text.
+If the user want to use a custom color instead of black (such as blue), please set
+legend_kws={‘color_text’:False,’labelcolor’:’blue’}.</p></li>
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
+annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
+there is also kws: vmin and vmax, if one want to change the range, please try:
+anno_simple(df_box.Gene1,vmin=0,vmax=1,legend_kws={‘vmin’:0,’vmax’:1}).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Class AnnotationBase.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.get_label_width">
+<span class="sig-name descname"><span class="pre">get_label_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.get_label_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.get_label_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">
+<span class="sig-name descname"><span class="pre">get_max_label_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.get_max_label_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width">
+<span class="sig-name descname"><span class="pre">get_ticklabel_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.get_ticklabel_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.reorder">
+<span class="sig-name descname"><span class="pre">reorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.reorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.reorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>idx: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws">
+<span class="sig-name descname"><span class="pre">set_axes_kws</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subplot_ax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.set_axes_kws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.set_label">
+<span class="sig-name descname"><span class="pre">set_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.set_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.set_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.set_legend">
+<span class="sig-name descname"><span class="pre">set_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.set_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.set_legend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws">
+<span class="sig-name descname"><span class="pre">update_plot_kws</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#AnnotationBase.update_plot_kws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">HeatmapAnnotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_hpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_vpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wgap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hgap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class hover docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generate and plot heatmap annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<em class="hover">Class</em>) – HeatmapAnnotation</p></li>
+<li><p><strong>df</strong> (<em class="hover">dataframe</em>) – a pandas dataframe, each column will be converted to one anno_simple class.</p></li>
+<li><p><strong>axis</strong> (<em class="hover">int</em>) – 1 for columns annotation, 0 for rows annotations.</p></li>
+<li><p><strong>cmap</strong> (<em class="hover">str</em>) – colormap, such as Set1, Dark2, bwr, Reds, jet, hsv, rainbow and so on. Please see
+<a class="reference external" href="https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html">https://matplotlib.org/3.5.0/tutorials/colors/colormaps.html</a> for more information, or run
+matplotlib.pyplot.colormaps() to see all availabel cmap.
+default cmap is ‘auto’, it would be determined based on the dtype for each columns in df.
+If df is None, then there is no need to specify cmap, cmap and colors will only be used when
+df is provided.
+If cmap is a string, then all columns in the df would have the same cmap, cmap can also be
+a dict, keys are the column names from df, values should be cmap (matplotlib.pyplot.colormaps()).</p></li>
+<li><p><strong>colors</strong> (<em class="hover">dict</em>) – a dict, keys are the column names of df, values are list, dict or string passed to
+AnnotationBase.__subclasses__(), including anno_simple, anno_boxplot,anno_label and anno_scatter.
+colors must have the same length as the df.columns, if colors is not provided (default), else,
+colors would be calculated based on the given cmap.
+If colors is given, then the cmap would be invalid.</p></li>
+<li><p><strong>label_side</strong> (<em class="hover">str</em>) – top or bottom when axis=1 (columns annotation), left or right when axis=0 (rows annotations).</p></li>
+<li><p><strong>label_kws</strong> (<em class="hover">dict</em>) – kws passed to the labels of the annotation labels (would be df.columns if df is given).
+such as alpha, color, fontsize, fontstyle, ha (horizontalalignment),
+va (verticalalignment), rotation, rotation_mode, visible, rasterized and so on.
+For more information, see plt.gca().yaxis.label.properties() or ax.yaxis.label.properties()</p></li>
+<li><p><strong>ticklabels_kws</strong> (<em class="hover">dict</em>) – label_kws is for the label of annotation, ticklabels_kws is for the label (text) in anno_label,
+such as axis, which, direction, length, width,
+color, pad, labelsize, labelcolor, colors, zorder, bottom, top, left, right, labelbottom, labeltop,
+labelleft, labelright, labelrotation, grid_color, grid_linestyle and so on.
+For more information,see ?matplotlib.axes.Axes.tick_params</p></li>
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – kws passed to annotation functions, such as anno_simple, anno_label et.al.</p></li>
+<li><p><strong>plot</strong> (<em class="hover">bool</em>) – whether to plot, when the annotation are included in clustermap, plot would be
+set to False automotially.</p></li>
+<li><p><strong>legend</strong> (<em class="hover">bool</em>) – True or False, or dict (when df is no None), when legend is dict, keys are the
+columns of df.</p></li>
+<li><p><strong>legend_side</strong> (<em class="hover">str</em>) – right or left</p></li>
+<li><p><strong>legend_gap</strong> (<em class="hover">float</em>) – the vertical gap between two legends, default is 2 [mm]</p></li>
+<li><p><strong>legend_width</strong> (<em class="hover">float</em>) – width of the legend, default is 4.5[mm]</p></li>
+<li><p><strong>legend_hpad</strong> (<em class="hover">float</em>) – Horizonal space between heatmap and legend, default is 2 [mm].</p></li>
+<li><p><strong>legend_vpad</strong> (<em class="hover">float</em>) – Vertical space between top of ax and legend, default is 2 [mm].</p></li>
+<li><p><strong>orientation</strong> (<em class="hover">str</em>) – up or down, when axis=1
+left or right, when axis=0;
+When anno_label shows up in annotation, the orientation would be automatically be assigned according
+to the position of anno_label.</p></li>
+<li><p><strong>wgap</strong> (<em class="hover">float</em><em> or </em><em class="hover">int</em>) – optional,  the space used to calculate wspace, default is [0.1] (mm),
+control the vertical gap between two annotations.</p></li>
+<li><p><strong>hgap</strong> (<em class="hover">float</em><em> or </em><em class="hover">int</em>) – optional,  the space used to calculate hspace, default is [0.1] (mm),
+control the horizontal gap between two annotations.</p></li>
+<li><p><strong>plot_legend</strong> (<em class="hover">bool</em>) – whether to plot legends.</p></li>
+<li><p><strong>args</strong> (<em class="hover">name-value pair</em>) – key is the annotation label (name), values can be a pandas dataframe,
+series, or annotation such as
+anno_simple, anno_boxplot, anno_scatter, anno_label, or anno_barplot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Class HeatmapAnnotation.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends">
+<span class="sig-name descname"><span class="pre">collect_legends</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.collect_legends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect legends.
+:rtype: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations">
+<span class="sig-name descname"><span class="pre">plot_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.plot_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot annotations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em class="hover">ax</em>) – axes to plot the annotations.</p></li>
+<li><p><strong>subplot_spec</strong> (<em class="hover">ax.figure.add_gridspec</em>) – object from ax.figure.add_gridspec or matplotlib.gridspec.GridSpecFromSubplotSpec.</p></li>
+<li><p><strong>idxs</strong> (<em class="hover">list</em>) – index to reorder df and df of annotation class.</p></li>
+<li><p><strong>wspace</strong> (<em class="hover">float</em>) – if wspace not is None, use wspace, else wspace would be calculated based on gap.</p></li>
+<li><p><strong>hspace</strong> (<em class="hover">float</em>) – if hspace not is None, use hspace, else hspace would be calculated based on gap.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>self.ax</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends">
+<span class="sig-name descname"><span class="pre">plot_legends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.plot_legends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot legends.
+:param ax:
+:type ax: axes for the plot, is ax is None, then ax=plt.figure()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws">
+<span class="sig-name descname"><span class="pre">set_axes_kws</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.set_axes_kws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels">
+<span class="sig-name descname"><span class="pre">show_ticklabels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#HeatmapAnnotation.show_ticklabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_barplot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_barplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_barplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_barplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_boxplot" title="PyComplexHeatmap.annotations.anno_boxplot"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a></p>
+<dl class="simple">
+<dt>Annotate barplot, all arguments are included in AnnotationBase,</dt><dd><p>plot_kws for anno_boxplot include edgecolor, grid,
+and other arguments passed to plt.barplot.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_barplot.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_barplot.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_barplot.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_boxplot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_boxplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<blockquote>
+<div><p>annotate boxplots, all arguments are included in AnnotationBase,
+plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
+width and other arguments passed to plt.boxplot.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_boxplot.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_boxplot.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_boxplot.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">majority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjust_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">luminance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<p>Add label and text annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>merge</strong> (<em class="hover">bool</em>) – whether to merge the same clusters into one and label only once.</p></li>
+<li><p><strong>extend</strong> (<em class="hover">bool</em>) – whether to distribute all the labels extend to the all axis, figure or ax or False.</p></li>
+<li><p><strong>frac</strong> (<em class="hover">float</em>) – fraction of the armA and armB.</p></li>
+<li><p><strong>majority</strong> (<em class="hover">bool</em>) – If there are multiple group for one label, whether to annotate the label in the largest group. [True]</p></li>
+<li><p><strong>adjust_color</strong> (<em class="hover">bool</em>) – When the luminance of the color is too high, use black color replace the original color. [True]</p></li>
+<li><p><strong>luminance</strong> (<em class="hover">float</em>) – luminance values [0-1], used together with adjust_color, when the calculated luminance &gt; luminance,
+the color will be replaced with black. [0.5]</p></li>
+<li><p><strong>relpos</strong> (<em class="hover">tuple</em>) – <dl class="simple">
+<dt>relpos passed to arrowprops in plt.annotate, tuple (x,y) means the arrow start point position relative to the</dt><dd><p>label. default is (0, 0) if self.side == ‘top’ else (0, 1) for columns labels, (1, 1) if self.side == ‘left’
+else (0, 0) for rows labels.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
+more information about arrowprops could be found in
+matplotlib.patches.FancyArrowPatch</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Class AnnotationBase.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label.get_ticklabel_width">
+<span class="sig-name descname"><span class="pre">get_ticklabel_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_label.get_ticklabel_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_label.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label.set_plot_kws">
+<span class="sig-name descname"><span class="pre">set_plot_kws</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_label.set_plot_kws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label.set_plot_kws" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_label.set_side">
+<span class="sig-name descname"><span class="pre">set_side</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_label.set_side"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_label.set_side" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_scatterplot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_scatterplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_scatterplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_scatterplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.anno_barplot" title="PyComplexHeatmap.annotations.anno_barplot"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">anno_barplot</span></code></a></p>
+<dl class="simple">
+<dt>Annotate scatterplot, all arguments are included in AnnotationBase,</dt><dd><p>plot_kws for anno_boxplot include linewidths, grid, edgecolors
+and other arguments passed to plt.scatter.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_scatterplot.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_scatterplot.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_scatterplot.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">majority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_simple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
+<p>Annotate simple annotation, categorical or continuous variables.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_simple.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticklabels_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PyComplexHeatmap/annotations.html#anno_simple.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_simple.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRB2NBWG05"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VRB2NBWG05', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
