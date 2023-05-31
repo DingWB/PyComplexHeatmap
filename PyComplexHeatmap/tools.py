@@ -95,11 +95,14 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     r = min(w * 72 / len(df.shape[1]), h * 72 / len(df.shape[0]))
     if not hue_order is None:
         for c in hue_order:
-            idx=np.where(df[hue].values==c)[0]
-            s=df.iloc[idx][size].apply(lambda x:(x-s_min) / delta_s) * (r**2) if type(size)==str else size
-            color1=color_dict[c] if not color_dict is None else color
-            ax.scatter(x=df.iloc[idx][x].tolist(),y=[N[i] for i in idx],
-                       s=s,color=color1,label=c)
+          idx = np.where(df[hue].values == c)[0]
+          if type(size) == str:
+              s = (df.iloc[idx][size] - s_min) / delta_s * r**2
+          else:
+              s = size
+          color1 = color_dict[c] if not color_dict is None else color
+          ax.scatter(x=df.iloc[idx][x].tolist(), y=[N[i] for i in idx],
+                     s=s, color=color1, label=c)
     else:
         s = df[size].apply(lambda x:(x-s_min) / delta_s) * (r**2) if type(size) == str else size
         ax.scatter(x=df[x].tolist(), y=N,
