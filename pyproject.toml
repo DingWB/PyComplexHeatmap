@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0","matplotlib>=3.5.1","numpy>=1.20.3","pandas>=1.4.1", "scipy"]
+requires = ["setuptools>=61.0","matplotlib>=3.5.1","numpy>=1.20.3","pandas>=1.4.1", "scipy","fastcluster"]
 build-backend = "setuptools.build_meta"
 
 [project]

@@ -153,7 +153,7 @@ class AnnotationBase():
             self.cmap = cmap
         else:
             raise TypeError("Unknow data type for cmap!")
-        if plt.get_cmap(self.cmap).N == 256:  # then heatmap will automatically calculate vmin and vmax
+        if plt.colormaps.get(self.cmap).N == 256:  # then heatmap will automatically calculate vmin and vmax
             try:
                 self.plot_kws.setdefault('vmax', np.nanmax(self.df.values))
                 self.plot_kws.setdefault('vmin', np.nanmin(self.df.values))
@@ -163,14 +163,14 @@ class AnnotationBase():
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
         col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256 or self.df.dtypes[col] == object:
+        if plt.colormaps.get(self.cmap).N < 256 or self.df.dtypes[col] == object:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
             for v in cc_list:
-                color = plt.get_cmap(self.cmap)(cc_list.index(v))
+                color = plt.colormaps.get(self.cmap)(cc_list.index(v))
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
-            self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+            self.color_dict = {v: plt.colormaps.get(self.cmap)(v) for v in self.df[col].values}
         self.colors = None
 
     def _check_colors(self, colors):
@@ -192,7 +192,7 @@ class AnnotationBase():
         cc_list = list(self.color_dict.keys())  # column values
         self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
-        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
         self.plot_kws.setdefault('vmin', 0)
 
     def _type_specific_params(self):
@@ -256,14 +256,14 @@ class anno_simple(AnnotationBase):
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
         col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256:
+        if plt.colormaps.get(self.cmap).N < 256:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             for v in cc_list:
-                color = plt.get_cmap(self.cmap)(cc_list.index(v))
+                color = plt.colormaps.get(self.cmap)(cc_list.index(v))
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
             cc_list = None
-            self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+            self.color_dict = {v: plt.colormaps.get(self.cmap)(v) for v in self.df[col].values}
         self.cc_list = cc_list
         self.colors = None
 
@@ -273,12 +273,12 @@ class anno_simple(AnnotationBase):
         cc_list = list(self.color_dict.keys())  # column values
         self.cc_list = cc_list
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
-        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
         self.plot_kws.setdefault('vmin', 0)
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
-        self.plot_kws.setdefault('vmax', plt.get_cmap(self.cmap).N)
+        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
         self.plot_kws.setdefault('vmin', 0)
         if self.cc_list:
             mat = self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
@@ -412,13 +412,13 @@ class anno_label(AnnotationBase):
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.color_dict = {}
         col = self.df.columns.tolist()[0]
-        if plt.get_cmap(self.cmap).N < 256 or self.df.dtypes[col] == object:
+        if plt.colormaps.get(self.cmap).N < 256 or self.df.dtypes[col] == object:
             cc_list = self.df[col].value_counts().index.tolist()  # sorted by value counts
             for v in cc_list:
-                color = plt.get_cmap(self.cmap)(cc_list.index(v))
+                color = plt.colormaps.get(self.cmap)(cc_list.index(v))
                 self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
         else:  # float
-            self.color_dict = {v: plt.get_cmap(self.cmap)(v) for v in self.df[col].values}
+            self.color_dict = {v: plt.colormaps.get(self.cmap)(v) for v in self.df[col].values}
         self.colors = None
 
     def _calculate_cmap(self):
@@ -594,7 +594,7 @@ class anno_boxplot(AnnotationBase):
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
         fig = ax.figure
         if self.colors is None:  # calculate colors based on cmap
-            colors = [plt.get_cmap(self.cmap)(self.plot_data.loc[sampleID].mean()) for sampleID in
+            colors = [plt.colormaps.get(self.cmap)(self.plot_data.loc[sampleID].mean()) for sampleID in
                       self.plot_data.index.values]
         else:
             colors = [self.colors] * self.plot_data.shape[0]  # self.colors is a string
@@ -659,14 +659,14 @@ class anno_barplot(anno_boxplot):
         # print(cmap,self.cmap)
         else:
             self.cmap = cmap
-        if self.ncols >= 2 and plt.get_cmap(self.cmap).N >= 256:
+        if self.ncols >= 2 and plt.colormaps.get(self.cmap).N >= 256:
             raise TypeError("cmap for stacked barplot should not be continuous, you should try: Set1, Dark2 and so on.")
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         col_list = self.df.columns.tolist()
         self.color_dict = {}
         if len(col_list) >= 2:  # more than two columns, colored by columns names
-            self.colors = [plt.get_cmap(self.cmap)(col_list.index(v)) for v in self.df.columns]
+            self.colors = [plt.colormaps.get(self.cmap)(col_list.index(v)) for v in self.df.columns]
             for v, color in zip(col_list, self.colors):
                 self.color_dict[v] = color
         else:  # only one column, colored by cols[0] values (float)
@@ -675,7 +675,7 @@ class anno_barplot(anno_boxplot):
             # values = self.df[col_list[0]].fillna(np.nan).unique()
             self.cmap,normalize=define_cmap(self.df[col_list[0]].fillna(np.nan).values, vmin=None, vmax=None, cmap=self.cmap, center=None, robust=False,
                           na_col='white')
-            # self.colors = {v: matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap)((v - vmin) / delta)) for v in values}
+            # self.colors = {v: matplotlib.colors.rgb2hex(plt.colormaps.get(self.cmap)((v - vmin) / delta)) for v in values}
             self.colors = lambda v:matplotlib.colors.rgb2hex(self.cmap(normalize(v))) #a function
             self.color_dict = None
 
@@ -724,7 +724,7 @@ class anno_barplot(anno_boxplot):
         if type(self.colors) == list:
             colors = self.colors
         else: #dict
-            #bad_value_color = matplotlib.colors.rgb2hex(plt.get_cmap(self.cmap).get_bad())
+            #bad_value_color = matplotlib.colors.rgb2hex(plt.colormaps.get(self.cmap).get_bad())
             # colors = [[self.colors.get(v, bad_value_color) for v in self.plot_data.iloc[:, 0].values]]
             colors = [[self.colors(v) for v in self.plot_data.iloc[:, 0].values]]
         base_coordinates = [0] * self.plot_data.shape[0]
@@ -1206,7 +1206,7 @@ class HeatmapAnnotation():
             if not annotation.legend:
                 continue
             legend_kws = annotation.legend_kws.copy()
-            if annotation.cmap is None or plt.get_cmap(annotation.cmap).N < 256:
+            if annotation.cmap is None or plt.colormaps.get(annotation.cmap).N < 256:
                 color_dict = annotation.color_dict
                 if color_dict is None:
                     continue

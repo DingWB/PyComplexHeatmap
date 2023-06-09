@@ -1239,7 +1239,7 @@ class ClusterMapPlotter():
                 if rcmap is None:
                     colors = ['black'] * len(self.dendrogram_rows)
                 else:
-                    colors = [plt.get_cmap(rcmap)(i) for i in range(len(self.dendrogram_rows))]
+                    colors = [plt.colormaps.get(rcmap)(i) for i in range(len(self.dendrogram_rows))]
                 for ax_row_dendrogram, dendrogram_row, color in zip(self.ax_row_dendrogram_axes, self.dendrogram_rows,
                                                                     colors):
                     if dendrogram_row is None:
@@ -1268,7 +1268,7 @@ class ClusterMapPlotter():
                 if ccmap is None:
                     colors = ['black'] * len(self.dendrogram_cols)
                 else:
-                    colors = [plt.get_cmap(ccmap)(i) for i in range(len(self.dendrogram_cols))]
+                    colors = [plt.colormaps.get(ccmap)(i) for i in range(len(self.dendrogram_cols))]
                 for ax_col_dendrogram, dendrogram_col, color in zip(self.ax_col_dendrogram_axes, self.dendrogram_cols,
                                                                     colors):
                     if dendrogram_col is None:

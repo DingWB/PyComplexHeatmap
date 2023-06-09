@@ -134,7 +134,7 @@ def dotHeatmap2d(data, hue=None, vmin=None, vmax=None, ax=None,
         if colors is None:  #using cmap
             col_list = df['Hue'].value_counts().index.tolist()
             for c in col_list:
-                color_dict[c] = matplotlib.colors.to_hex(plt.get_cmap(cmap)(col_list.index(c)))
+                color_dict[c] = matplotlib.colors.to_hex(plt.colormaps.get(cmap)(col_list.index(c)))
         elif type(colors) == dict:
             color_dict = colors
         elif type(colors) == str:
@@ -404,7 +404,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 col_list = self.kwargs['hue'].unstack().value_counts().index.tolist()
                 # print(col_list,self.kwargs['hue'])
                 for c in col_list:
-                    color_dict[c] = matplotlib.colors.to_hex(plt.get_cmap(self.cmap)(col_list.index(c)))
+                    color_dict[c] = matplotlib.colors.to_hex(plt.colormaps.get(self.cmap)(col_list.index(c)))
                 self.legend_list.append([color_dict, self.hue, self.color_legend_kws, len(color_dict), 'color_dict'])
             cmap=self.cmap
             c=self.kwargs.get('c',None)

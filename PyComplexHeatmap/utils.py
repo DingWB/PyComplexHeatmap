@@ -16,6 +16,7 @@ def set_default_style():
     D={
         'font.family':['sans serif'], #'serif',
         # 'mathtext.fontset':'dejavuserif',
+        # 'font.sans-serif': 'SimHei',
         'font.sans-serif':['Arial'],
         'pdf.fonttype':42,
 

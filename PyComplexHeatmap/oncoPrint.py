@@ -48,7 +48,7 @@ def oncoprint(data,ax=None,colors=None, cmap='Set1',nvar=None,
     if nvar is None:
         nvar=data.iloc[:,0].apply(lambda x:len(x)).max()
     if colors is None:
-        colors=[plt.get_cmap(cmap)(i) for i in range(nvar)]
+        colors=[plt.colormaps.get(cmap)(i) for i in range(nvar)]
     plot_kws.setdefault('width',0.7)
     plot_kws.setdefault('align', 'center')
     rowticklabels=_index_to_ticklabels(data.index)
@@ -138,7 +138,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
     cmap_legend_kws: dict
         legend_kws passed to plot_cmap_legend
     kwargs :dict
-        Other kwargs passed to ClusterMapPlotter.
+        Other kwargs passed to ClusterMapPlotter and oncoprint.
 
     Returns
     -------
@@ -179,7 +179,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
         self.col_vc = data2d.apply(lambda x: x.apply(np.array).sum(), axis=0).T
         self.col_vc.columns=self.values
         if self.colors is None:
-            self.colors = [plt.get_cmap(self.cmap)(i) for i in range(len(self.values))]
+            self.colors = [plt.colormaps.get(self.cmap)(i) for i in range(len(self.values))]
         self.color_dict = {}
         for label, color in zip(self.values, self.colors):
             self.color_dict[label] = color

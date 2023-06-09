@@ -83,7 +83,7 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     """
     if not hue is None:
         hue_order=df[hue].unique().tolist() if hue_order is None else hue_order
-        color_dict={h:plt.get_cmap(cmap)(hue_order.index(h)) for h in hue_order}
+        color_dict={h:plt.colormaps.get(cmap)(hue_order.index(h)) for h in hue_order}
     else:
         color_dict=None
         hue_order=None
