@@ -14,10 +14,7 @@ mm2inch=1/25.4
 def set_default_style():
     from matplotlib import rcParams
     D={
-        'font.family':['sans serif'], #'serif',
-        # 'mathtext.fontset':'dejavuserif',
-        # 'font.sans-serif': 'SimHei',
-        'font.sans-serif':['Arial'],
+        'font.family':['sans serif'],
         'pdf.fonttype':42,
 
         # Remove legend frame
