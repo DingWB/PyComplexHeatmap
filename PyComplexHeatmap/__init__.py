@@ -10,6 +10,6 @@ from .tools import *
 from .utils import set_default_style
 
 #__all__=['*']
-__version__='1.5.0'
+__version__='1.5.1'
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))

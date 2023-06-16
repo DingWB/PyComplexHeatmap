@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate dataset &mdash; PyComplexHeatmap 1.5.0 documentation</title>
+  <title>Generate dataset &mdash; PyComplexHeatmap 1.5.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -294,7 +294,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -308,10 +308,22 @@
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans serif&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span>
+<span class="c1"># set pdf.fonttype to 42</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
+</pre></div>
+</div>
+</div>
 <section id="Generate-dataset">
 <h1>Generate dataset<a class="headerlink" href="#Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -336,7 +348,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -375,18 +387,26 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 16.258333333333333 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_4_0.png" src="../_images/notebooks_advanced_usage_4_0.png" />
+<img alt="../_images/notebooks_advanced_usage_5_1.png" src="../_images/notebooks_advanced_usage_5_1.png" />
 </div>
 </div>
 </section>
 <section id="Add-float-annotations-on-the-top-of-heatmap-cells">
 <h1>Add float annotations on the top of heatmap cells<a class="headerlink" href="#Add-float-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -436,97 +456,98 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD EF         F
-sample1   GroupA  C  E  2.457956
-sample2   GroupA  C  E  1.151167
-sample3   GroupA  C  E -0.940841
-sample4   GroupA  D  E -0.186487
-sample5   GroupA  D  E  0.607333
-sample6   GroupB  D  E -1.529482
-sample7   GroupB  G  F  0.563582
-sample8   GroupB  G  F -1.682889
-sample9   GroupB  G  H  0.603496
-sample10  GroupB  G  H  0.961501
-sample1    -0.277094
-sample2     0.825898
-sample3     1.090659
-sample4     0.222335
-sample5    -0.382335
-sample6    -0.654653
-sample7    -0.066323
-sample8     0.580080
-sample9     0.291279
-sample10   -0.109493
+sample1   GroupA  C  E -1.237721
+sample2   GroupA  C  E  1.616244
+sample3   GroupA  C  E -1.258170
+sample4   GroupA  D  E  0.605460
+sample5   GroupA  D  E  0.775571
+sample6   GroupB  D  E -0.068307
+sample7   GroupB  G  F  0.355112
+sample8   GroupB  G  F -0.423276
+sample9   GroupB  G  H  0.493730
+sample10  GroupB  G  H -1.332941
+sample1    -1.158157
+sample2    -0.177446
+sample3    -0.007312
+sample4     0.317043
+sample5     0.551470
+sample6    -0.405050
+sample7    -0.566055
+sample8    -0.004657
+sample9     0.205039
+sample10    0.741288
 dtype: float64
         sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1  -2.526145  0.091290 -0.199772  0.813994 -0.914805  0.189657 -0.973893
-Fea2  -0.854871 -0.649875       NaN  0.140280 -0.309826 -0.146999 -1.081476
-Fea3  -0.041260  0.570978  0.148533  0.602792  1.215375 -0.187857 -0.266431
-Fea4   0.011319  1.790945  1.504599  0.393744 -1.119861  0.461823  1.225910
-Fea5  -1.727152  0.341438  0.224700 -0.277870 -0.630769 -0.337226 -0.974951
-Fea6  -0.007976 -2.277362  1.148150  0.913423 -2.225546 -1.472275 -0.251631
-Fea7   0.100383  1.293906  2.495606  1.390204  0.535852  2.281815  1.000498
-Fea8  -0.488381 -0.601516  1.574525 -1.446854  0.063471  0.764223  0.068910
-Fea9   1.303638 -0.123384  1.729767 -0.327764  0.512777  0.185542  1.118778
-Fea10 -1.756508  2.015516  0.322184  0.410537 -0.271760  0.420540  0.714666
-Fea11 -1.426994  0.388407 -0.263180 -0.584027  1.051421 -0.351782 -0.137388
-Fea12  0.057901  0.851772  1.019733 -2.220346 -0.797931 -0.826223  0.320038
-Fea13 -1.420952  0.563276 -0.686762 -1.786826 -1.699344  0.613751 -0.074316
-Fea14 -1.049285 -0.870426 -1.002646 -0.218237  0.510613 -2.614205 -0.515837
-Fea15  0.230561  0.397165  1.238602 -1.114062 -0.668880  0.444703 -0.216281
-Fea16  0.020069  0.326624 -0.626001  0.858769  0.638045 -0.146242 -0.582003
-Fea17 -0.819133 -0.472575  0.378719  0.969663 -0.979954 -0.499786  0.470025
-Fea18  0.782536  0.492908 -0.879702 -1.482042  0.578516  1.394551  0.568694
-Fea19 -0.181510 -0.354125 -0.707153  0.059970 -1.206571 -0.735770 -0.553135
-Fea20 -0.131140 -1.368509  0.232508 -1.169755  1.080490  0.313368 -1.038983
-Fea21  0.319152 -0.146288  0.158278 -0.250120  0.022454 -1.113148  1.281844
-Fea22 -0.434238  1.345354 -0.067830 -0.009184  1.006878  0.946668 -1.373749
-Fea23 -0.218167  0.501457 -0.970909  1.608765  1.584953  0.410332  0.840835
-Fea24  0.462192  0.737886  0.235333  1.104714  0.095178 -0.102141 -0.324067
-Fea25  1.351701 -0.547820 -0.928625  0.469108  0.626691  0.660944 -0.257467
-Fea26  1.151396 -0.243392 -0.847240 -0.785164 -1.943665 -0.508083  1.629825
-Fea27 -0.629078 -1.203255 -0.782965 -0.852524  1.451199 -0.948428 -0.549793
-Fea28  0.226532 -0.537070 -0.027789  0.776737 -0.700096 -1.503224 -0.131205
-Fea29 -0.226122  2.175403 -0.569285 -0.279759 -0.984352 -0.563455  0.691671
-Fea30  0.081284 -0.260241  0.283694 -0.553384  0.630318 -0.898014  0.373373
+Fea1  -1.744219 -0.036039 -2.004938  1.226799 -1.985827 -1.836150  0.276584
+Fea2   1.420698 -0.321150       NaN  0.697960  0.202385  1.249342 -0.994730
+Fea3   1.009702 -1.490259  0.014467 -0.996508  1.417925  0.838245 -0.408265
+Fea4  -1.607622  2.227192  1.099229  0.587473 -0.825314  1.067807  1.131514
+Fea5   1.828212 -1.311932 -0.247538 -1.869757  0.256305 -0.065565 -1.680266
+Fea6  -0.564971 -0.832220  1.213726  0.884573 -0.854314  1.566632  1.951777
+Fea7  -0.583377 -1.252784 -1.298505  1.049436  0.710685 -0.802466  1.874198
+Fea8   0.665834  0.999353 -0.667384 -0.486368  0.465535  1.413054 -1.548926
+Fea9   1.918896 -1.262205 -2.086159 -1.059228 -0.947294 -0.321734  1.332119
+Fea10  1.257325  0.076168  0.331812 -0.612932 -0.952014 -0.645937 -1.560663
+Fea11  0.002020  0.411942 -2.307433 -0.253653  0.517688 -0.464056 -0.442025
+Fea12  1.183296  0.814578 -1.711553  1.278286  0.968354  1.114656  0.874683
+Fea13 -0.194720  0.191911  0.572482  0.218231  0.587668 -0.881331  0.258951
+Fea14 -0.082784  1.338572  0.028354 -1.542481  0.901477  1.858731 -0.410559
+Fea15 -1.198262  2.128013 -1.224540 -0.158869 -1.043334 -1.079969 -0.257126
+Fea16  0.271820  1.513061  0.321602 -0.494734 -1.295167  0.208782 -0.214062
+Fea17 -2.687282 -0.623869 -0.585143 -0.860223 -1.049672 -1.624363  0.803911
+Fea18  1.064406  0.280917  3.016924  0.093050  0.268218 -2.137558  1.798230
+Fea19 -0.797130  0.529163 -0.803214 -0.843564 -2.025758  0.332979 -0.993683
+Fea20  1.110150  0.225019  0.208167 -1.386928 -0.961548  2.016059  0.250885
+Fea21 -1.257247  1.827129 -0.691127 -0.873857  1.629516  0.129941  0.788495
+Fea22  0.657084  0.482906  0.083039 -1.945415 -1.025050  0.430309  0.711691
+Fea23  0.396162 -0.283245  0.861367 -0.244994 -0.331806 -0.438584 -0.708659
+Fea24 -1.449479 -0.302440  2.337422 -0.205821 -0.054287 -0.071450  0.698100
+Fea25  2.196286  1.030933  0.989918 -0.455429 -2.232631 -0.544994  0.706620
+Fea26 -0.345663 -0.029416 -0.347321 -0.227618 -0.748045  0.381943 -1.336021
+Fea27  0.689751 -0.674049 -0.871053  0.518734  1.377229  1.356040 -0.549625
+Fea28 -0.337864 -0.331369  0.152389 -0.652720 -0.730743  0.438291 -0.183544
+Fea29  0.300110 -0.286339  1.222650  0.880184 -0.834270 -0.274620  1.617929
+Fea30  0.753779 -0.123485  0.543059  1.229428  0.563521 -0.286203 -1.350431
 
         sample8   sample9  sample10
-Fea1  -1.563317 -0.492904 -1.387624
-Fea2   1.764176 -1.739705 -0.322588
-Fea3  -0.103341  1.364508 -0.479725
-Fea4  -2.073428  0.948856 -0.424253
-Fea5  -3.221142 -2.186664 -1.185019
-Fea6  -0.937959 -0.319223  0.117803
-Fea7  -0.010563  0.277294  0.455743
-Fea8  -0.866731  0.134080 -1.609917
-Fea9  -2.040419 -0.444315  0.272770
-Fea10  1.588484  0.385234  0.321371
-Fea11 -0.281874  0.212497 -0.410625
-Fea12 -0.089149 -0.510959  0.482124
-Fea13 -0.596718  0.955502 -1.163765
-Fea14  0.804152 -0.111487  0.412526
-Fea15  1.541337  0.246420 -1.068371
-Fea16 -0.960452  1.406951 -0.736120
-Fea17  0.671055 -0.121322  0.588917
-Fea18  0.872337 -1.618883  1.310622
-Fea19  0.227165  0.069179 -0.265460
-Fea20  0.175105 -0.331203 -0.888681
-Fea21 -0.401511  0.119116  0.498865
-Fea22  2.024600 -0.308065 -2.329696
-Fea23  0.526063 -0.448554 -0.528335
-Fea24  0.515159 -0.403096 -2.012456
-Fea25  0.290384  0.642046  0.180630
-Fea26  0.840182 -0.580438  0.521136
-Fea27  0.802833 -0.972335  1.343629
-Fea28 -0.639010 -1.003146  0.755163
-Fea29 -1.319642 -0.569061 -1.014573
-Fea30 -1.941025 -1.312563 -1.041147
+Fea1  -1.991377 -1.697172  0.233692
+Fea2   0.369071 -1.392757 -1.505512
+Fea3   0.098774  1.072953 -0.774008
+Fea4  -1.901494  2.415070  0.055539
+Fea5   0.325411 -0.886045 -0.265376
+Fea6   1.414110 -1.334251 -0.046644
+Fea7   0.826181  0.951489  1.100119
+Fea8  -0.370544 -0.885959 -1.193763
+Fea9   1.019810  0.906437 -1.160583
+Fea10 -1.258429  1.530051  0.525615
+Fea11 -0.799827  0.750702 -0.936007
+Fea12  0.002193 -0.993623  0.780779
+Fea13 -0.823248 -0.243442 -0.107993
+Fea14 -0.300391 -0.391776 -1.508426
+Fea15 -0.375083 -1.021302  0.748442
+Fea16 -1.068431  2.110248 -0.516394
+Fea17 -1.018607 -1.164631 -1.970253
+Fea18  0.238248 -1.208741 -0.913392
+Fea19 -1.741106  0.994682 -0.444777
+Fea20  0.716404  0.487228 -0.624059
+Fea21 -0.776333  0.420321 -0.911161
+Fea22 -0.714035  0.502988 -0.396866
+Fea23  0.159116  0.022884 -1.376890
+Fea24 -0.249752 -2.370155  0.379815
+Fea25  0.901711  0.066038  0.580827
+Fea26 -0.148973  0.144026  0.070329
+Fea27 -0.993018  0.885509 -0.327853
+Fea28  0.329000 -0.712551  0.367358
+Fea29 -1.497489 -0.798221  0.449452
+Fea30  0.680446  0.217150  0.302054
+Estimated legend width: 16.258333333333333 mm
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_6_1.png" src="../_images/notebooks_advanced_usage_6_1.png" />
+<img alt="../_images/notebooks_advanced_usage_7_1.png" src="../_images/notebooks_advanced_usage_7_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -534,15 +555,15 @@ Fea30 -1.941025 -1.312563 -1.041147
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea17&#39;, &#39;Fea19&#39;, &#39;Fea26&#39;, &#39;Fea21&#39;, &#39;Fea28&#39;, &#39;Fea20&#39;, &#39;Fea18&#39;, &#39;Fea27&#39;, &#39;Fea29&#39;, &#39;Fea30&#39;, &#39;Fea15&#39;, &#39;Fea22&#39;, &#39;Fea24&#39;, &#39;Fea23&#39;, &#39;Fea16&#39;, &#39;Fea25&#39;], [&#39;Fea3&#39;, &#39;Fea11&#39;, &#39;Fea4&#39;, &#39;Fea1&#39;, &#39;Fea5&#39;, &#39;Fea7&#39;, &#39;Fea8&#39;, &#39;Fea9&#39;, &#39;Fea12&#39;, &#39;Fea10&#39;, &#39;Fea13&#39;, &#39;Fea6&#39;, &#39;Fea2&#39;, &#39;Fea14&#39;]]
-[[&#39;sample1&#39;, &#39;sample3&#39;, &#39;sample2&#39;, &#39;sample4&#39;, &#39;sample5&#39;], [&#39;sample7&#39;, &#39;sample10&#39;, &#39;sample8&#39;, &#39;sample6&#39;, &#39;sample9&#39;]]
+[[&#39;Fea13&#39;, &#39;Fea4&#39;, &#39;Fea10&#39;, &#39;Fea3&#39;, &#39;Fea5&#39;, &#39;Fea2&#39;, &#39;Fea8&#39;, &#39;Fea14&#39;, &#39;Fea6&#39;, &#39;Fea9&#39;, &#39;Fea11&#39;, &#39;Fea7&#39;, &#39;Fea1&#39;, &#39;Fea12&#39;], [&#39;Fea29&#39;, &#39;Fea18&#39;, &#39;Fea24&#39;, &#39;Fea15&#39;, &#39;Fea17&#39;, &#39;Fea21&#39;, &#39;Fea26&#39;, &#39;Fea16&#39;, &#39;Fea19&#39;, &#39;Fea28&#39;, &#39;Fea25&#39;, &#39;Fea20&#39;, &#39;Fea22&#39;, &#39;Fea27&#39;, &#39;Fea23&#39;, &#39;Fea30&#39;]]
+[[&#39;sample1&#39;, &#39;sample5&#39;, &#39;sample4&#39;, &#39;sample2&#39;, &#39;sample3&#39;], [&#39;sample7&#39;, &#39;sample10&#39;, &#39;sample9&#39;, &#39;sample6&#39;, &#39;sample8&#39;]]
 </pre></div></div>
 </div>
 </section>
 <section id="Only-plot-the-annotations">
 <h1>Only plot the annotations<a class="headerlink" href="#Only-plot-the-annotations" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -582,97 +603,97 @@ Fea30 -1.941025 -1.312563 -1.041147
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C -1.304688
-sample2    AAAA1  C  0.860807
-sample3    AAAA1  C  1.111263
-sample4    AAAA1  D -1.344156
-sample5    AAAA1  D -1.235896
-sample6   BBBBB2  D  1.246925
-sample7   BBBBB2  G  0.083704
-sample8   BBBBB2  G  0.000945
-sample9   BBBBB2  G  0.279536
-sample10  BBBBB2  G -0.957371
+sample1    AAAA1  C  1.031303
+sample2    AAAA1  C  0.293598
+sample3    AAAA1  C -1.355748
+sample4    AAAA1  D -0.759029
+sample5    AAAA1  D  0.314025
+sample6   BBBBB2  D -1.499914
+sample7   BBBBB2  G -0.677191
+sample8   BBBBB2  G -0.587074
+sample9   BBBBB2  G -0.610566
+sample10  BBBBB2  G -0.766396
              Gene1     Gene2     Gene3     Gene4
-sample1   0.686417 -1.395080 -2.289158  0.143946
-sample2  -1.740655 -0.217396  1.240461 -1.375339
-sample3  -2.117535  1.100737  1.143435  0.308072
-sample4   1.577992 -0.027549 -2.035348  0.488555
-sample5   0.784690  0.342941  0.334643  0.359799
-sample6   1.219818  0.182400 -0.373504  0.818453
-sample7  -0.781312 -0.292435  0.591825 -0.581041
-sample8  -0.701587 -1.207734 -0.791521  1.053551
-sample9   0.011843 -1.775897  0.380798 -0.710183
-sample10 -1.892678 -0.570933 -1.074326  0.478821
+sample1   1.011262  1.071949 -0.933521  0.669437
+sample2   1.947088  0.488267  1.111069 -0.619809
+sample3  -0.997772 -0.508266  0.962136  1.584098
+sample4   0.330530  0.462836 -0.934982 -0.068907
+sample5   0.705138 -0.775728 -0.287939  0.184348
+sample6   0.971759  0.189396  0.250673  0.330774
+sample7   1.065352 -0.254268 -0.258029  1.134431
+sample8  -0.747436 -0.130045 -1.833788 -0.299179
+sample9  -0.687000 -0.363633  0.714356  1.271397
+sample10 -0.187923 -0.548144  1.228743 -0.742795
            Scatter
-sample1   4.212136
-sample2   4.502834
-sample3   9.343479
-sample4   1.897562
-sample5   5.772851
-sample6   1.394619
-sample7   2.889784
-sample8   0.018399
-sample9   4.438427
-sample10  4.789376
+sample1   5.744200
+sample2   2.579638
+sample3   7.211013
+sample4   4.501165
+sample5   3.920983
+sample6   8.986545
+sample7   8.607990
+sample8   6.677621
+sample9   2.284410
+sample10  9.112307
               TMB1      TMB2
-sample1   3.575610  7.540996
-sample2   8.586824  5.481434
-sample3   1.755746  0.712089
-sample4   9.292105  2.426021
-sample5   9.430925  9.938624
-sample6   3.771263  4.948124
-sample7   2.419096  1.932875
-sample8   5.345836  2.850304
-sample9   0.760604  4.062733
-sample10  8.442630  0.448855
+sample1   8.445163  3.453418
+sample2   8.909010  9.847141
+sample3   8.981405  0.081847
+sample4   7.534048  1.585130
+sample5   0.326525  5.946017
+sample6   8.824681  4.003034
+sample7   3.965425  5.415887
+sample8   6.569604  2.983409
+sample9   1.466312  9.480242
+sample10  6.843893  5.001696
               T1-A      T1-B
-sample1   3.836588  8.164180
-sample2   7.012872  9.919614
-sample3   9.339566  3.192820
-sample4   8.549779  2.699948
-sample5   4.403749  8.175375
-sample6   5.167956  2.461915
-sample7   1.497071  2.015877
-sample8   6.645937  6.996811
-sample9   7.614702  1.550719
-sample10  9.653678  9.107770
+sample1   8.548451  3.506500
+sample2   0.125333  1.473832
+sample3   4.837953  5.112690
+sample4   4.196156  5.525615
+sample5   9.897740  1.624072
+sample6   5.634391  1.425920
+sample7   7.676792  4.264159
+sample8   5.935728  3.911183
+sample9   6.009959  5.615676
+sample10  0.969375  2.384723
               T2-A      T2-B
-sample1   8.192179  7.734588
-sample2   6.461559  4.334723
-sample3   2.489748  5.929560
-sample4   9.617973  8.945971
-sample5   3.302073  1.574293
-sample6   7.474706  0.768079
-sample7   0.216698  0.358375
-sample8   5.797807  1.687989
-sample9   9.759898  4.100484
-sample10  9.882176  0.534763
+sample1   2.413462  9.701841
+sample2   8.973960  5.557239
+sample3   0.568696  9.980430
+sample4   3.953647  0.341543
+sample5   4.341120  5.388381
+sample6   5.613918  4.595489
+sample7   5.252112  9.157291
+sample8   5.644693  3.230703
+sample9   9.227212  1.556895
+sample10  2.376448  0.583118
               T3-A      T3-B
-sample1   1.420378  4.904104
-sample2   3.227756  1.929377
-sample3   9.726087  1.766535
-sample4   1.464182  6.739245
-sample5   8.668921  7.764200
-sample6        NaN  1.545488
-sample7   5.360232  2.661895
-sample8   5.527740  7.753042
-sample9   5.037258  5.179443
-sample10  4.235482  4.327593
+sample1   1.254736  6.833858
+sample2   3.031483  1.895457
+sample3   4.509020  7.310411
+sample4   2.143379  3.892560
+sample5   1.146218  6.206335
+sample6        NaN  1.698292
+sample7   3.405604  9.519133
+sample8   6.898752  1.508417
+sample9   7.241688  5.332481
+sample10  7.153990  3.921316
                 T4
-sample1   7.313009
-sample2   5.019371
-sample3   2.857364
-sample4   9.162209
-sample5   8.886253
-sample6   7.828301
-sample7   5.331836
+sample1   4.354846
+sample2   4.953556
+sample3   5.278140
+sample4   6.878527
+sample5   7.624043
+sample6   5.647294
+sample7   5.457905
 sample8        NaN
-sample9   8.756481
-sample10  1.454261
+sample9   1.210640
+sample10  3.989159
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -705,14 +726,14 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_9_1.png" src="../_images/notebooks_advanced_usage_9_1.png" />
+<img alt="../_images/notebooks_advanced_usage_10_1.png" src="../_images/notebooks_advanced_usage_10_1.png" />
 </div>
 </div>
 </section>
 <section id="Change-orentation-down-and-add-extra-space">
 <h1>Change orentation <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space<a class="headerlink" href="#Change-orentation-down-and-add-extra-space" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -748,14 +769,14 @@ Starting plotting HeatmapAnnotations
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_11_1.png" src="../_images/notebooks_advanced_usage_11_1.png" />
+<img alt="../_images/notebooks_advanced_usage_12_1.png" src="../_images/notebooks_advanced_usage_12_1.png" />
 </div>
 </div>
 </section>
 <section id="Change-orentation-to-the-left">
 <h1>Change orentation to the left<a class="headerlink" href="#Change-orentation-to-the-left" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -795,14 +816,14 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_13_1.png" src="../_images/notebooks_advanced_usage_13_1.png" />
+<img alt="../_images/notebooks_advanced_usage_14_1.png" src="../_images/notebooks_advanced_usage_14_1.png" />
 </div>
 </div>
 </section>
 <section id="Change-orentation-to-the-right">
 <h1>Change orentation to the right<a class="headerlink" href="#Change-orentation-to-the-right" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -843,7 +864,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_15_1.png" src="../_images/notebooks_advanced_usage_15_1.png" />
+<img alt="../_images/notebooks_advanced_usage_16_1.png" src="../_images/notebooks_advanced_usage_16_1.png" />
 </div>
 </div>
 </section>
@@ -851,7 +872,7 @@ Legend too long, generating a new column..
 <h1>Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code><a class="headerlink" href="#Changing-orientation-using-parameter-orientation" title="Permalink to this heading">¶</a></h1>
 <p>By Default, if there is no <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> in the annotation, the oriention would be determined by parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -890,11 +911,11 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_17_1.png" src="../_images/notebooks_advanced_usage_17_1.png" />
+<img alt="../_images/notebooks_advanced_usage_18_1.png" src="../_images/notebooks_advanced_usage_18_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -935,7 +956,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_18_1.png" src="../_images/notebooks_advanced_usage_18_1.png" />
+<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
 </div>
 </div>
 </section>

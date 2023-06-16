@@ -273,12 +273,16 @@ class anno_simple(AnnotationBase):
         cc_list = list(self.color_dict.keys())  # column values
         self.cc_list = cc_list
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
-        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
-        self.plot_kws.setdefault('vmin', 0)
 
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
-        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
+        if hasattr(self.cmap,'N'):
+            vmax=self.cmap.N
+        elif type(self.cmap)==str:
+            vmax=plt.colormaps.get(self.cmap).N
+        else:
+            vmax=len(self.color_dict)
+        self.plot_kws.setdefault('vmax',vmax)  # plt.colormaps.get(self.cmap).N
         self.plot_kws.setdefault('vmin', 0)
         if self.cc_list:
             mat = self.plot_data.iloc[:, 0].map({v: self.cc_list.index(v) for v in self.cc_list}).values
@@ -673,7 +677,9 @@ class anno_barplot(anno_boxplot):
             # vmax, vmin = np.nanmax(self.df[col_list[0]].values), np.nanmin(self.df[col_list[0]].values)
             # delta = vmax - vmin
             # values = self.df[col_list[0]].fillna(np.nan).unique()
-            self.cmap,normalize=define_cmap(self.df[col_list[0]].fillna(np.nan).values, vmin=None, vmax=None, cmap=self.cmap, center=None, robust=False,
+            self.cmap,normalize=define_cmap(self.df[col_list[0]].fillna(np.nan).values,
+                                            vmin=None, vmax=None, cmap=self.cmap,
+                                            center=None, robust=False,
                           na_col='white')
             # self.colors = {v: matplotlib.colors.rgb2hex(plt.colormaps.get(self.cmap)((v - vmin) / delta)) for v in values}
             self.colors = lambda v:matplotlib.colors.rgb2hex(self.cmap(normalize(v))) #a function
@@ -1206,7 +1212,10 @@ class HeatmapAnnotation():
             if not annotation.legend:
                 continue
             legend_kws = annotation.legend_kws.copy()
-            if annotation.cmap is None or plt.colormaps.get(annotation.cmap).N < 256:
+            # print(annotation.cmap,annotation)
+            if (annotation.cmap is None) or \
+                (hasattr(annotation.cmap,'N') and annotation.cmap.N < 256) or \
+                (type(annotation.cmap) ==str and plt.colormaps.get(annotation.cmap).N < 256):
                 color_dict = annotation.color_dict
                 if color_dict is None:
                     continue
@@ -1219,6 +1228,7 @@ class HeatmapAnnotation():
                     array = annotation.df.values
                 vmax = np.nanmax(array)
                 vmin = np.nanmin(array)
+                # print(vmax,vmin,annotation)
                 legend_kws.setdefault('vmin', round(vmin, 2))
                 legend_kws.setdefault('vmax', round(vmax, 2))
                 self.legend_list.append([annotation.cmap, annotation.label, legend_kws, 4,'cmap'])

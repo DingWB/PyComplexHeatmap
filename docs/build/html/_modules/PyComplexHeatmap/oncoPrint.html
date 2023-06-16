@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.oncoPrint &mdash; PyComplexHeatmap 1.5.0 documentation</title>
+  <title>PyComplexHeatmap.oncoPrint &mdash; PyComplexHeatmap 1.5.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -337,7 +337,7 @@
     <span class="k">if</span> <span class="n">nvar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">nvar</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nvar</span><span class="p">)]</span>
+        <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cmap</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nvar</span><span class="p">)]</span>
     <span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span><span class="mf">0.7</span><span class="p">)</span>
     <span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;align&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
     <span class="n">rowticklabels</span><span class="o">=</span><span class="n">_index_to_ticklabels</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -427,7 +427,7 @@
 <span class="sd">    cmap_legend_kws: dict</span>
 <span class="sd">        legend_kws passed to plot_cmap_legend</span>
 <span class="sd">    kwargs :dict</span>
-<span class="sd">        Other kwargs passed to ClusterMapPlotter.</span>
+<span class="sd">        Other kwargs passed to ClusterMapPlotter and oncoprint.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -468,7 +468,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">col_vc</span> <span class="o">=</span> <span class="n">data2d</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">col_vc</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">))]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">))]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>

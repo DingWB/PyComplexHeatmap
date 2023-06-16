@@ -135,19 +135,19 @@ class heatmapPlotter:
         if cmap is None:
             if center is None:
                 try:
-                    self.cmap = matplotlib.cm.get_cmap('turbo').copy()
+                    self.cmap = plt.colormaps.get('turbo').copy()
                 except:
-                    self.cmap = matplotlib.cm.get_cmap('turbo')
+                    self.cmap = plt.colormaps.get('turbo')
             else:
                 try:
-                    self.cmap = matplotlib.cm.get_cmap('exp1').copy()
+                    self.cmap = plt.colormaps.get('exp1').copy()
                 except:
-                    self.cmap = matplotlib.cm.get_cmap('exp1')
+                    self.cmap = plt.colormaps.get('exp1')
         elif isinstance(cmap, str):
             try:
-                self.cmap = matplotlib.cm.get_cmap(cmap).copy()
+                self.cmap = plt.colormaps.get(cmap).copy()
             except:
-                self.cmap = matplotlib.cm.get_cmap(cmap)
+                self.cmap = plt.colormaps.get(cmap)
         elif isinstance(cmap, list):
             self.cmap = matplotlib.colors.ListedColormap(cmap)
         else:
@@ -451,9 +451,9 @@ def plot_heatmap(data, vmin=None, vmax=None, cmap=None, center=None, robust=Fals
     # Choose default colormaps if not provided
     if isinstance(cmap, str):
         try:
-            cmap = matplotlib.cm.get_cmap(cmap).copy()
+            cmap = plt.colormaps.get(cmap).copy()
         except:
-            cmap = matplotlib.cm.get_cmap(cmap)
+            cmap = plt.colormaps.get(cmap)
 
     cmap.set_bad(color=na_col)  # set the color for NaN values
     # Recenter a divergent colormap

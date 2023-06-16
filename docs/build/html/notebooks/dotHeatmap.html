@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Load an example brain networks dataset from seaborn &mdash; PyComplexHeatmap 1.5.0 documentation</title>
+  <title>Load an example brain networks dataset from seaborn &mdash; PyComplexHeatmap 1.5.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -303,6 +303,9 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans serif&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
 <span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
@@ -664,6 +667,7 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
+Estimated legend width: 7.0 mm
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -701,6 +705,7 @@ Reordering cols..
 Plotting matrix..
 Collecting legends..
 Plotting legends..
+Estimated legend width: 7.0 mm
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -737,8 +742,6 @@ Reordering rows..
 Starting calculating col orders..
 Reordering cols..
 Plotting matrix..
-Collecting legends..
-Plotting legends..
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -750,11 +753,21 @@ Plotting legends..
   scale = np.sqrt(self._sizes) * dpi / 72.0 * self._factor
 </pre></div></div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Collecting legends..
+Plotting legends..
+Estimated legend width: 27.72361111111111 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_12_2.png" src="../_images/notebooks_dotHeatmap_12_2.png" />
+<img alt="../_images/notebooks_dotHeatmap_12_3.png" src="../_images/notebooks_dotHeatmap_12_3.png" />
 </div>
 </div>
 </section>
@@ -782,6 +795,9 @@ Reordering rows..
 Starting calculating col orders..
 Reordering cols..
 Plotting matrix..
+Collecting legends..
+Plotting legends..
+Estimated legend width: 27.72361111111111 mm
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -793,22 +809,6 @@ Plotting matrix..
   scale = np.sqrt(self._sizes) * dpi / 72.0 * self._factor
 /Users/wding/Projects/Github/PyComplexHeatmap/PyComplexHeatmap/dotHeatmap.py:158: UserWarning: No data for colormapping provided via &#39;c&#39;. Parameters &#39;cmap&#39;, &#39;norm&#39; will be ignored
   ax.scatter(x=df1.X.values, y=df1.Y.values, s=df1.S * ratio,
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Collecting legends..
-Plotting legends..
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 /Users/wding/anaconda3/lib/python3.10/site-packages/matplotlib/collections.py:963: RuntimeWarning: invalid value encountered in sqrt
   scale = np.sqrt(self._sizes) * dpi / 72.0 * self._factor
 </pre></div></div>
@@ -817,7 +817,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_14_4.png" src="../_images/notebooks_dotHeatmap_14_4.png" />
+<img alt="../_images/notebooks_dotHeatmap_14_2.png" src="../_images/notebooks_dotHeatmap_14_2.png" />
 </div>
 </div>
 </section>
@@ -848,8 +848,6 @@ Reordering rows..
 Starting calculating col orders..
 Reordering cols..
 Plotting matrix..
-Collecting legends..
-Plotting legends..
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -861,11 +859,21 @@ Plotting legends..
   scale = np.sqrt(self._sizes) * dpi / 72.0 * self._factor
 </pre></div></div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Collecting legends..
+Plotting legends..
+Estimated legend width: 13.965277777777779 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_16_2.png" src="../_images/notebooks_dotHeatmap_16_2.png" />
+<img alt="../_images/notebooks_dotHeatmap_16_3.png" src="../_images/notebooks_dotHeatmap_16_3.png" />
 </div>
 </div>
 <section id="Dot-Clustermap">
@@ -1015,11 +1023,19 @@ level_1
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 13.965277777777779 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_21_0.png" src="../_images/notebooks_dotHeatmap_21_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_21_1.png" src="../_images/notebooks_dotHeatmap_21_1.png" />
 </div>
 </div>
 </section>
@@ -1415,11 +1431,19 @@ Name: -log10(Pval), dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 25.430555555555557 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_29_0.png" src="../_images/notebooks_dotHeatmap_29_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_29_1.png" src="../_images/notebooks_dotHeatmap_29_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1439,11 +1463,19 @@ Name: -log10(Pval), dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 30.016666666666666 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_30_0.png" src="../_images/notebooks_dotHeatmap_30_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_30_1.png" src="../_images/notebooks_dotHeatmap_30_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1487,11 +1519,19 @@ Name: -log10(Pval), dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 25.430555555555557 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_dotHeatmap_32_0.png" src="../_images/notebooks_dotHeatmap_32_0.png" />
+<img alt="../_images/notebooks_dotHeatmap_32_1.png" src="../_images/notebooks_dotHeatmap_32_1.png" />
 </div>
 </div>
 </section>

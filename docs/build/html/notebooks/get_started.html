@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Import packages &mdash; PyComplexHeatmap 1.5.0 documentation</title>
+  <title>1. Import packages &mdash; PyComplexHeatmap 1.5.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -305,6 +305,9 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans serif&#39;</span> <span class="c1">#please remove this line if font is not installed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span> <span class="c1"># please remove this line if Arial font is not installed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
 <span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -362,35 +365,35 @@
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>1.643468</td>
+      <td>-0.961490</td>
     </tr>
     <tr>
       <th>sample2</th>
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>-0.237501</td>
+      <td>-0.257320</td>
     </tr>
     <tr>
       <th>sample3</th>
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>-1.196581</td>
+      <td>-0.856322</td>
     </tr>
     <tr>
       <th>sample4</th>
       <td>GroupA</td>
       <td>D</td>
       <td>E</td>
-      <td>-0.376012</td>
+      <td>-0.614155</td>
     </tr>
     <tr>
       <th>sample5</th>
       <td>GroupA</td>
       <td>D</td>
       <td>E</td>
-      <td>1.113723</td>
+      <td>-0.479870</td>
     </tr>
   </tbody>
 </table>
@@ -494,18 +497,26 @@ Collecting annotation legends..
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Estimated legend width: 7.0 mm
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_get_started_8_0.png" src="../_images/notebooks_get_started_8_0.png" />
+<img alt="../_images/notebooks_get_started_8_1.png" src="../_images/notebooks_get_started_8_1.png" />
 </div>
 </div>
 </section>
 <section id="4.-Plot-the-annotations-along-side-with-main-heatmap">
 <h1>4. Plot the annotations along side with main heatmap<a class="headerlink" href="#4.-Plot-the-annotations-along-side-with-main-heatmap" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rows</span> <span class="o">=</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sample4</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -530,7 +541,7 @@ Collecting annotation legends..
                            <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;verticalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;bottom&#39;</span><span class="p">},</span>
                             <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -551,6 +562,7 @@ Collecting annotation legends..
 <div class="highlight"><pre>
 Starting plotting HeatmapAnnotations
 Collecting annotation legends..
+Estimated legend width: 16.258333333333333 mm
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
