@@ -8,9 +8,6 @@ version = "1.5.2"
 authors = [
   { name="Wubin Ding", email="ding.wu.bin.gm@gmail.com" },
 ]
-maintainers = [
-    "Wubin Ding <ding.wu.bin.gm@gmail.com>"
-]
 description = "A python package to plot complex heatmap"
 keywords = ["ComplexHeatmap", "heatmap"]
 readme = "README.md"
@@ -20,7 +17,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-license = "MIT"
+license = {file = "LICENSE"}
 
 [project.urls]
 "Homepage" = "https://github.com/DingWB/PyComplexHeatmap"
