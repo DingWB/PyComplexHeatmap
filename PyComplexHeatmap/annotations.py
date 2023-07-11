@@ -184,7 +184,7 @@ class AnnotationBase():
         if len(colors) >= self.df.iloc[:, 0].nunique():
             self.colors = colors
         else:
-            raise TypeError("Unknown type of colors")
+            raise TypeError("The length of `colors` is not consistent with the shape of the input data")
 
     def _calculate_cmap(self):
         self.color_dict = self.colors
@@ -192,7 +192,7 @@ class AnnotationBase():
         cc_list = list(self.color_dict.keys())  # column values
         self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
         self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
-        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N)
+        self.plot_kws.setdefault('vmax', plt.colormaps.get(self.cmap).N-1)
         self.plot_kws.setdefault('vmin', 0)
 
     def _type_specific_params(self):
@@ -277,11 +277,11 @@ class anno_simple(AnnotationBase):
     def plot(self, ax=None, axis=1, subplot_spec=None, label_kws={},
              ticklabels_kws={}):  # add self.gs,self.fig,self.ax,self.axes
         if hasattr(self.cmap,'N'):
-            vmax=self.cmap.N
+            vmax=self.cmap.N-1
         elif type(self.cmap)==str:
-            vmax=plt.colormaps.get(self.cmap).N
+            vmax=plt.colormaps.get(self.cmap).N-1
         else:
-            vmax=len(self.color_dict)
+            vmax=len(self.color_dict)-1
         self.plot_kws.setdefault('vmax',vmax)  # plt.colormaps.get(self.cmap).N
         self.plot_kws.setdefault('vmin', 0)
         if self.cc_list:
@@ -380,7 +380,7 @@ class anno_label(AnnotationBase):
         self.annotated_texts = []
 
     def _height(self, height):
-        return 5 if height is None else height
+        return 4 if height is None else height
 
     def set_side(self, side):
         self.side = side
