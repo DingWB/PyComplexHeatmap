@@ -1573,7 +1573,13 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
         if i == main:
             continue
         gs1 = gs[i, 0] if axis == 0 else gs[0, i]
-        cm.plot(ax=axes[i], subplot_spec=gs1, row_order=cm_1.row_order, col_order=cm_1.col_order)
+        if axis==1: #composite horizontally, have the same row order
+            col_order=None
+            row_order=cm_1.row_order
+        else: # vertically, have the same col order
+            row_order=None
+            col_order=cm_1.col_order
+        cm.plot(ax=axes[i], subplot_spec=gs1, row_order=row_order, col_order=col_order)
         for L in cm.legend_list:
             if L[1] not in legend_names:
                 legend_names.append(L[1])
