@@ -1528,6 +1528,12 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
         right,left [right].
     legend_gap: float
         row gap between two legends, unit is mm.
+    legend_width: float
+        default is None, will be estimated automatically
+    width_ratios: list
+        a list of width, values can be either float or int.
+    height_ratios: list
+        a list of height, values can be either float or int.
 
     Returns
     -------
