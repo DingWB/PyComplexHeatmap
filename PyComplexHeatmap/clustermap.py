@@ -1509,7 +1509,7 @@ class ClusterMapPlotter():
 # =============================================================================
 def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
               legend_side='right', legend_gap=5, legend_y=0.8, legend_hpad=None,
-              legend_width=None):
+              legend_width=None, width_ratios=None, height_ratios=None):
     """
     Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
 
@@ -1543,14 +1543,14 @@ def composite(cmlist=None, main=0, ax=None, axis=1, row_gap=15, col_gap=15,
         wspace = col_gap * mm2inch * ax.figure.dpi / (ax.get_window_extent().width / n)
         nrows = 1
         ncols = n
-        width_ratios = [cm.data2d.shape[1] for cm in cmlist]
+        width_ratios = [cm.data2d.shape[1] for cm in cmlist] if width_ratios is None else width_ratios
         height_ratios = None
     else:  # vertically
         hspace = row_gap * mm2inch * ax.figure.dpi / (ax.get_window_extent().height / n)
         nrows = n
         ncols = 1
         width_ratios = None
-        height_ratios = [cm.data2d.shape[0] for cm in cmlist]
+        height_ratios = [cm.data2d.shape[0] for cm in cmlist] if height_ratios is None else height_ratios
     gs = ax.figure.add_gridspec(nrows, ncols, width_ratios=width_ratios,
                                 height_ratios=height_ratios,
                                 wspace=wspace, hspace=hspace)
