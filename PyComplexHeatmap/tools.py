@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pylab as plt
 import seaborn as sns
 import numpy as np
+from .utils import get_colormap
 
 def tbarplot(df=None,x=None,y=None,hue=None,hue_order=None,palette='Set1',figsize=(4,6),
              outname='test.pdf',title=''):
@@ -83,7 +84,7 @@ def dotplot(df=None,x=None,y=None,hue=None,hue_order=None,
     """
     if not hue is None:
         hue_order=df[hue].unique().tolist() if hue_order is None else hue_order
-        color_dict={h:plt.colormaps.get(cmap)(hue_order.index(h)) for h in hue_order}
+        color_dict={h:get_colormap(cmap)(hue_order.index(h)) for h in hue_order}
     else:
         color_dict=None
         hue_order=None

@@ -20,7 +20,8 @@ from .utils import (
     _auto_ticks,
     _index_to_label,
     _index_to_ticklabels,
-    plot_legend_list
+    plot_legend_list,
+    get_colormap
 )
 # =============================================================================
 class heatmapPlotter:
@@ -135,19 +136,19 @@ class heatmapPlotter:
         if cmap is None:
             if center is None:
                 try:
-                    self.cmap = plt.colormaps.get('turbo').copy()
+                    self.cmap = get_colormap('turbo').copy()
                 except:
-                    self.cmap = plt.colormaps.get('turbo')
+                    self.cmap = get_colormap('turbo')
             else:
                 try:
-                    self.cmap = plt.colormaps.get('exp1').copy()
+                    self.cmap = get_colormap('exp1').copy()
                 except:
-                    self.cmap = plt.colormaps.get('exp1')
+                    self.cmap = get_colormap('exp1')
         elif isinstance(cmap, str):
             try:
-                self.cmap = plt.colormaps.get(cmap).copy()
+                self.cmap = get_colormap(cmap).copy()
             except:
-                self.cmap = plt.colormaps.get(cmap)
+                self.cmap = get_colormap(cmap)
         elif isinstance(cmap, list):
             self.cmap = matplotlib.colors.ListedColormap(cmap)
         else:
@@ -451,9 +452,9 @@ def plot_heatmap(data, vmin=None, vmax=None, cmap=None, center=None, robust=Fals
     # Choose default colormaps if not provided
     if isinstance(cmap, str):
         try:
-            cmap = plt.colormaps.get(cmap).copy()
+            cmap = get_colormap(cmap).copy()
         except:
-            cmap = plt.colormaps.get(cmap)
+            cmap = get_colormap(cmap)
 
     cmap.set_bad(color=na_col)  # set the color for NaN values
     # Recenter a divergent colormap
@@ -1241,7 +1242,7 @@ class ClusterMapPlotter():
                 if rcmap is None:
                     colors = ['black'] * len(self.dendrogram_rows)
                 else:
-                    colors = [plt.colormaps.get(rcmap)(i) for i in range(len(self.dendrogram_rows))]
+                    colors = [get_colormap(rcmap)(i) for i in range(len(self.dendrogram_rows))]
                 for ax_row_dendrogram, dendrogram_row, color in zip(self.ax_row_dendrogram_axes, self.dendrogram_rows,
                                                                     colors):
                     if dendrogram_row is None:
@@ -1270,7 +1271,7 @@ class ClusterMapPlotter():
                 if ccmap is None:
                     colors = ['black'] * len(self.dendrogram_cols)
                 else:
-                    colors = [plt.colormaps.get(ccmap)(i) for i in range(len(self.dendrogram_cols))]
+                    colors = [get_colormap(ccmap)(i) for i in range(len(self.dendrogram_cols))]
                 for ax_col_dendrogram, dendrogram_col, color in zip(self.ax_col_dendrogram_axes, self.dendrogram_cols,
                                                                     colors):
                     if dendrogram_col is None:

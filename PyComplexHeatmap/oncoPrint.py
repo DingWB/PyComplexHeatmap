@@ -6,7 +6,7 @@ import numpy as np
 from scipy.cluster import hierarchy
 import matplotlib
 import matplotlib.pylab as plt
-from .utils import _draw_figure,mm2inch,plot_legend_list,despine,_index_to_ticklabels
+from .utils import _draw_figure,mm2inch,plot_legend_list,despine,_index_to_ticklabels,get_colormap
 from .clustermap import ClusterMapPlotter
 from .annotations import HeatmapAnnotation, anno_barplot
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
@@ -48,7 +48,7 @@ def oncoprint(data,ax=None,colors=None, cmap='Set1',nvar=None,
     if nvar is None:
         nvar=data.iloc[:,0].apply(lambda x:len(x)).max()
     if colors is None:
-        colors=[plt.colormaps.get(cmap)(i) for i in range(nvar)]
+        colors=[get_colormap(cmap)(i) for i in range(nvar)]
     plot_kws.setdefault('width',0.7)
     plot_kws.setdefault('align', 'center')
     rowticklabels=_index_to_ticklabels(data.index)
@@ -179,7 +179,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
         self.col_vc = data2d.apply(lambda x: x.apply(np.array).sum(), axis=0).T
         self.col_vc.columns=self.values
         if self.colors is None:
-            self.colors = [plt.colormaps.get(self.cmap)(i) for i in range(len(self.values))]
+            self.colors = [get_colormap(self.cmap)(i) for i in range(len(self.values))]
         self.color_dict = {}
         for label, color in zip(self.values, self.colors):
             self.color_dict[label] = color

@@ -32,6 +32,12 @@ def set_default_style():
     
     rcParams.update(D)
 # =============================================================================
+def get_colormap(cmap):
+    try:
+        return plt.colormaps.get(cmap) # matplotlib >= 3.5.1?
+    except:
+        return plt.get_cmap(cmap) # matplotlib <=3.4.3?
+
 def _check_mask(data, mask):
     """
 
