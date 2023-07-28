@@ -153,7 +153,8 @@ class AnnotationBase():
         elif type(cmap) == str:
             self.cmap = cmap
         else:
-            raise TypeError("Unknow data type for cmap!")
+            print("WARNING: cmap is not a string!")
+            self.cmap = cmap
         if get_colormap(self.cmap).N == 256:  # then heatmap will automatically calculate vmin and vmax
             try:
                 self.plot_kws.setdefault('vmax', np.nanmax(self.df.values))
@@ -575,7 +576,8 @@ class anno_boxplot(AnnotationBase):
         elif type(cmap) == str:
             self.cmap = cmap
         else:
-            raise TypeError("cmap for boxplot should be a string")
+            print("WARNING: cmap for boxplot is not a string!")
+            self.cmap = cmap
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.colors = None
@@ -789,7 +791,8 @@ class anno_scatterplot(anno_barplot):
         elif type(cmap) == str:
             self.cmap = cmap
         else:
-            raise TypeError("cmap for scatterplot should be a string")
+            print("WARNING: cmap for scatterplot is not a string!")
+            self.cmap = cmap
 
     def _calculate_colors(self):  # add self.color_dict (each col is a dict)
         self.colors = None
@@ -1029,7 +1032,8 @@ class HeatmapAnnotation():
                 raise ValueError("kind must have the same length with number of columns with df")
             self.cmap = cmap
         else:
-            raise TypeError("Unknow data type for cmap!")
+            print("WARNING: unknown datatype for cmap!")
+            self.cmap = cmap
 
     def _check_colors(self, colors):
         if self.df is None:
