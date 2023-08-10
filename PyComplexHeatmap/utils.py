@@ -9,34 +9,39 @@ import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
-mm2inch=1/25.4
+
+mm2inch = 1 / 25.4
+
+
 # =============================================================================
 def set_default_style():
     from matplotlib import rcParams
-    D={
+
+    D = {
         # 'font.family':['sans serif'], #'serif',
         # 'mathtext.fontset':'dejavuserif',
         # 'font.sans-serif':['Arial'],
-        'pdf.fonttype':42,
-
+        "pdf.fonttype": 42,
         # Remove legend frame
-        'legend.frameon': True,
-        'legend.fontsize': 10,
-
+        "legend.frameon": True,
+        "legend.fontsize": 10,
         # Savefig
-        'figure.dpi': 100,
-        'savefig.bbox': 'tight',
-        'savefig.dpi':300,
-        'savefig.pad_inches': 0.05
+        "figure.dpi": 100,
+        "savefig.bbox": "tight",
+        "savefig.dpi": 300,
+        "savefig.pad_inches": 0.05,
     }
-    
+
     rcParams.update(D)
+
+
 # =============================================================================
 def get_colormap(cmap):
     try:
-        return plt.colormaps.get(cmap) # matplotlib >= 3.5.1?
+        return plt.colormaps.get(cmap)  # matplotlib >= 3.5.1?
     except:
-        return plt.get_cmap(cmap) # matplotlib <=3.4.3?
+        return plt.get_cmap(cmap)  # matplotlib <=3.4.3?
+
 
 def _check_mask(data, mask):
     """
@@ -60,6 +65,8 @@ def _check_mask(data, mask):
     # Add any cells with missing values or infinite values to the mask
     mask = mask | pd.isnull(data) | np.logical_not(np.isfinite(data))
     return mask
+
+
 # =============================================================================
 def _calculate_luminance(color):
     """
@@ -75,15 +82,18 @@ def _calculate_luminance(color):
 
     """
     rgb = matplotlib.colors.colorConverter.to_rgba_array(color)[:, :3]
-    rgb = np.where(rgb <= .03928, rgb / 12.92, ((rgb + .055) / 1.055) ** 2.4)
-    lum = rgb.dot([.2126, .7152, .0722])
+    rgb = np.where(rgb <= 0.03928, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    lum = rgb.dot([0.2126, 0.7152, 0.0722])
     try:
         return lum.item()
     except ValueError:
         return lum
+
+
 # =============================================================================
-def define_cmap(plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=True,
-                          na_col='white'):
+def define_cmap(
+    plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=True, na_col="white"
+):
     """Use some heuristics to set good defaults for colorbar and range."""
     # plot_data is a np.ma.array instance
     # plot_data=np.ma.masked_where(np.asarray(plot_data), plot_data)
@@ -102,9 +112,9 @@ def define_cmap(plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=
     # Choose default colormaps if not provided
     if cmap is None:
         if center is None:
-            cmap = 'jet'
+            cmap = "jet"
         else:
-            cmap = 'exp1'
+            cmap = "exp1"
     if isinstance(cmap, str):
         cmap1 = matplotlib.cm.get_cmap(cmap).copy()
     elif isinstance(cmap, list):
@@ -128,15 +138,18 @@ def define_cmap(plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=
         cmap1 = matplotlib.colors.ListedColormap(cmap1(cc))
         # cmap1.set_bad(bad)
         if under_set:
-            cmap1.set_under(under)  # set the color of -np.inf as the color for low out-of-range values.
+            cmap1.set_under(
+                under
+            )  # set the color of -np.inf as the color for low out-of-range values.
         if over_set:
             cmap1.set_over(over)
     else:
         normalize = matplotlib.colors.Normalize(vmin, vmax)
-    return cmap1,normalize
+    return cmap1, normalize
+
+
 # =============================================================================
-def despine(fig=None, ax=None, top=True, right=True, left=False,
-            bottom=False):
+def despine(fig=None, ax=None, top=True, right=True, left=False, bottom=False):
     """
     Remove the top and right spines from plot(s).
 
@@ -165,7 +178,7 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
         for side in ["top", "right", "left", "bottom"]:
             is_visible = not locals()[side]
             ax_i.spines[side].set_visible(is_visible)
-        if left and not right: #remove left, keep right
+        if left and not right:  # remove left, keep right
             maj_on = any(t.tick1line.get_visible() for t in ax_i.yaxis.majorTicks)
             min_on = any(t.tick1line.get_visible() for t in ax_i.yaxis.minorTicks)
             ax_i.yaxis.set_ticks_position("right")
@@ -182,6 +195,8 @@ def despine(fig=None, ax=None, top=True, right=True, left=False,
                 t.tick2line.set_visible(maj_on)
             for t in ax_i.xaxis.minorTicks:
                 t.tick2line.set_visible(min_on)
+
+
 # =============================================================================
 def _draw_figure(fig):
     """
@@ -195,6 +210,8 @@ def _draw_figure(fig):
             fig.draw(fig.canvas.get_renderer())
         except AttributeError:
             pass
+
+
 # =============================================================================
 def axis_ticklabels_overlap(labels):
     """
@@ -218,6 +235,8 @@ def axis_ticklabels_overlap(labels):
     except RuntimeError:
         # Issue on macos backend raises an error in the above code
         return False
+
+
 # =============================================================================
 # =============================================================================
 def _skip_ticks(labels, tickevery):
@@ -226,12 +245,14 @@ def _skip_ticks(labels, tickevery):
     if tickevery == 0:
         ticks, labels = [], []
     elif tickevery == 1:
-        ticks, labels = np.arange(n) + .5, labels
+        ticks, labels = np.arange(n) + 0.5, labels
     else:
         start, end, step = 0, n, tickevery
-        ticks = np.arange(start, end, step) + .5
+        ticks = np.arange(start, end, step) + 0.5
         labels = labels[start:end:step]
     return ticks, labels
+
+
 # =============================================================================
 def _auto_ticks(ax, labels, axis):
     """Determine ticks and ticklabels that minimize overlap."""
@@ -239,15 +260,17 @@ def _auto_ticks(ax, labels, axis):
     bbox = ax.get_window_extent().transformed(transform)
     size = [bbox.width, bbox.height][axis]
     axis = [ax.xaxis, ax.yaxis][axis]
-    tick, = axis.set_ticks([0])
+    (tick,) = axis.set_ticks([0])
     fontsize = tick.label1.get_size()
     max_ticks = int(size // (fontsize / 72))
     if max_ticks < 1:
         return [], []
     tick_every = len(labels) // max_ticks + 1
     tick_every = 1 if tick_every == 0 else tick_every
-    ticks, labels =_skip_ticks(labels, tick_every)
+    ticks, labels = _skip_ticks(labels, tick_every)
     return ticks, labels
+
+
 # =============================================================================
 def to_utf8(obj):
     """
@@ -273,6 +296,8 @@ def to_utf8(obj):
         return obj.decode(encoding="utf-8")
     except AttributeError:  # obj is not bytes-like
         return str(obj)
+
+
 # =============================================================================
 def _index_to_label(index):
     """
@@ -283,6 +308,8 @@ def _index_to_label(index):
         return "-".join(map(to_utf8, index.names))
     else:
         return index.name
+
+
 # =============================================================================
 def _index_to_ticklabels(index):
     """
@@ -293,8 +320,10 @@ def _index_to_ticklabels(index):
         return ["-".join(map(to_utf8, i)) for i in index.values]
     else:
         return index.values
+
+
 # =============================================================================
-def cluster_labels(labels=None,xticks=None,majority=True):
+def cluster_labels(labels=None, xticks=None, majority=True):
     """
     Merge the adjacent labels into one.
 
@@ -317,7 +346,7 @@ def cluster_labels(labels=None,xticks=None,majority=True):
     """
     clusters_x = collections.defaultdict(list)
     clusters_labels = {}
-    scanned_labels = ''
+    scanned_labels = ""
     i = 0
     for label, x in zip(labels, xticks):
         if label != scanned_labels:
@@ -326,22 +355,33 @@ def cluster_labels(labels=None,xticks=None,majority=True):
             clusters_labels[i] = scanned_labels
         clusters_x[i].append(x)
     if majority:
-        cluster_size=collections.defaultdict(int)
-        largest_cluster={}
+        cluster_size = collections.defaultdict(int)
+        largest_cluster = {}
         for i in clusters_labels:
             if len(clusters_x[i]) > cluster_size[clusters_labels[i]]:
-                cluster_size[clusters_labels[i]]=len(clusters_x[i])
-                largest_cluster[clusters_labels[i]]=i
-        labels = [clusters_labels[i] for i in clusters_x if i==largest_cluster[clusters_labels[i]]]
-        x = [np.mean(clusters_x[i]) for i in clusters_x if i==largest_cluster[clusters_labels[i]]]
+                cluster_size[clusters_labels[i]] = len(clusters_x[i])
+                largest_cluster[clusters_labels[i]] = i
+        labels = [
+            clusters_labels[i]
+            for i in clusters_x
+            if i == largest_cluster[clusters_labels[i]]
+        ]
+        x = [
+            np.mean(clusters_x[i])
+            for i in clusters_x
+            if i == largest_cluster[clusters_labels[i]]
+        ]
         return labels, x
 
     labels = [clusters_labels[i] for i in clusters_x]
     x = [np.mean(clusters_x[i]) for i in clusters_x]
     return labels, x
+
+
 # =============================================================================
-def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
-                           label_side='right',kws=None):
+def plot_color_dict_legend(
+    D=None, ax=None, title=None, color_text=True, label_side="right", kws=None
+):
     """
     plot legned for color dict
 
@@ -360,37 +400,47 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
 
     """
     if ax is None:
-        ax=plt.gca()
-    lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
-    lgd_kws.setdefault("frameon",True)
+        ax = plt.gca()
+    lgd_kws = kws.copy() if not kws is None else {}  # bbox_to_anchor=(x,-0.05)
+    lgd_kws.setdefault("frameon", True)
     lgd_kws.setdefault("ncol", 1)
-    lgd_kws['loc'] = 'upper left'
-    lgd_kws['bbox_transform'] = ax.figure.transFigure
-    lgd_kws.setdefault('borderpad',0.1 * mm2inch * 72)  # 0.1mm
-    lgd_kws.setdefault('markerscale',1)
-    lgd_kws.setdefault('handleheight',1)  # font size, units is points
-    lgd_kws.setdefault('handlelength',1)  # font size, units is points
-    lgd_kws.setdefault('borderaxespad',0.1) #The pad between the axes and legend border, in font-size units.
-    lgd_kws.setdefault('handletextpad',0.3) #The pad between the legend handle and text, in font-size units.
-    lgd_kws.setdefault('labelspacing',0.1)  # gap height between two Patches,  0.05*mm2inch*72
-    lgd_kws.setdefault('columnspacing', 1)
-    lgd_kws.setdefault('bbox_to_anchor',(0,1))
-    if label_side=='left':
+    lgd_kws["loc"] = "upper left"
+    lgd_kws["bbox_transform"] = ax.figure.transFigure
+    lgd_kws.setdefault("borderpad", 0.1 * mm2inch * 72)  # 0.1mm
+    lgd_kws.setdefault("markerscale", 1)
+    lgd_kws.setdefault("handleheight", 1)  # font size, units is points
+    lgd_kws.setdefault("handlelength", 1)  # font size, units is points
+    lgd_kws.setdefault(
+        "borderaxespad", 0.1
+    )  # The pad between the axes and legend border, in font-size units.
+    lgd_kws.setdefault(
+        "handletextpad", 0.3
+    )  # The pad between the legend handle and text, in font-size units.
+    lgd_kws.setdefault(
+        "labelspacing", 0.1
+    )  # gap height between two Patches,  0.05*mm2inch*72
+    lgd_kws.setdefault("columnspacing", 1)
+    lgd_kws.setdefault("bbox_to_anchor", (0, 1))
+    if label_side == "left":
         lgd_kws.setdefault("markerfirst", False)
-        align = 'right'
+        align = "right"
     else:
         lgd_kws.setdefault("markerfirst", True)
-        align='left'
+        align = "left"
 
-    availabel_height=ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
-    l = [mpatches.Patch(color=c, label=l) for l, c in D.items()] #kws:?mpatches.Patch; rasterized=True
-    L = ax.legend(handles=l, title=title,**lgd_kws)
+    availabel_height = (
+        ax.figure.get_window_extent().height * lgd_kws["bbox_to_anchor"][1]
+    )
+    l = [
+        mpatches.Patch(color=c, label=l) for l, c in D.items()
+    ]  # kws:?mpatches.Patch; rasterized=True
+    L = ax.legend(handles=l, title=title, **lgd_kws)
     ax.figure.canvas.draw()
     while L.get_window_extent().height > availabel_height:
         # ax.cla()
         print("Incresing ncol")
-        lgd_kws['ncol']+=1
-        if lgd_kws['ncol']>=3:
+        lgd_kws["ncol"] += 1
+        if lgd_kws["ncol"] >= 3:
             print("More than 3 cols is not supported")
             L.remove()
             return None
@@ -401,7 +451,7 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
         for text in L.get_texts():
             try:
                 lum = _calculate_luminance(D[text.get_text()])
-                text_color = 'black' if lum > 0.408 else D[text.get_text()]
+                text_color = "black" if lum > 0.408 else D[text.get_text()]
                 text.set_color(text_color)
             except:
                 pass
@@ -409,8 +459,12 @@ def plot_color_dict_legend(D=None, ax=None, title=None, color_text=True,
     ax.grid(False)
     # print(availabel_height,L.get_window_extent().height)
     return L
+
+
 # =============================================================================
-def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_side='right'):
+def plot_cmap_legend(
+    cax=None, ax=None, cmap="turbo", label=None, kws=None, label_side="right"
+):
     """
     Plot legend for cmap.
 
@@ -428,27 +482,27 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     cbar: axes of legend
 
     """
-    label='' if label is None else label
-    cbar_kws={} if kws is None else kws.copy()
-    cbar_kws.setdefault('label',label)
+    label = "" if label is None else label
+    cbar_kws = {} if kws is None else kws.copy()
+    cbar_kws.setdefault("label", label)
     # cbar_kws.setdefault("aspect",3)
-    cbar_kws.setdefault("orientation","vertical")
+    cbar_kws.setdefault("orientation", "vertical")
     # cbar_kws.setdefault("use_gridspec", True)
     # cbar_kws.setdefault("location", "bottom")
     cbar_kws.setdefault("fraction", 1)
     cbar_kws.setdefault("shrink", 1)
     cbar_kws.setdefault("pad", 0)
-    vmax=cbar_kws.pop('vmax',1)
-    vmin=cbar_kws.pop('vmin',0)
+    vmax = cbar_kws.pop("vmax", 1)
+    vmin = cbar_kws.pop("vmin", 0)
     # print(vmin,vmax,'vmax,vmin')
-    cax.set_ylim([vmin,vmax])
-    cbar_kws.setdefault("ticks",[vmin,(vmax+vmin)/2,vmax])
+    cax.set_ylim([vmin, vmax])
+    cbar_kws.setdefault("ticks", [vmin, (vmax + vmin) / 2, vmax])
     m = plt.cm.ScalarMappable(
-        norm=matplotlib.colors.Normalize(vmin=vmin, vmax=vmax),
-        cmap=cmap)
+        norm=matplotlib.colors.Normalize(vmin=vmin, vmax=vmax), cmap=cmap
+    )
     cax.yaxis.set_label_position(label_side)
     cax.yaxis.set_ticks_position(label_side)
-    cbar=ax.figure.colorbar(m,cax=cax,**cbar_kws) #use_gridspec=True
+    cbar = ax.figure.colorbar(m, cax=cax, **cbar_kws)  # use_gridspec=True
     # cbar.outline.set_color('white')
     # cbar.outline.set_linewidth(2)
     # cbar.dividers.set_color('red')
@@ -458,9 +512,12 @@ def plot_cmap_legend(cax=None,ax=None,cmap='turbo',label=None,kws=None,label_sid
     # cax.spines['bottom'].set_visible(False)
     # f = cbar.ax.get_window_extent().height / cax.get_window_extent().height
     return cbar
+
+
 # =============================================================================
-def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
-                       label_side='right',kws=None):
+def plot_marker_legend(
+    obj=None, ax=None, title=None, color_text=True, label_side="right", kws=None
+):
     """
     plot legned for different marker
 
@@ -479,64 +536,81 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
 
     """
     if ax is None:
-        ax=plt.gca()
-    markers,colors,ms = obj
+        ax = plt.gca()
+    markers, colors, ms = obj
     # markers = {'A': 'o', 'B': 's', 'C': 'D'}
     # color_dict = {'A': 'red', 'B': 'blue', 'C': 'green'}
     if colors is None:
-        colors='black'
-    elif type(colors)==dict:
-        color_dict=colors
-    if type(colors)==str:
+        colors = "black"
+    elif type(colors) == dict:
+        color_dict = colors
+    if type(colors) == str:
         color_dict = {}
         for k in markers:
-            color_dict[k]=colors
+            color_dict[k] = colors
 
-    lgd_kws=kws.copy() if not kws is None else {} #bbox_to_anchor=(x,-0.05)
+    lgd_kws = kws.copy() if not kws is None else {}  # bbox_to_anchor=(x,-0.05)
     lgd_kws.setdefault("frameon", True)
     lgd_kws.setdefault("ncol", 1)
-    lgd_kws['loc'] = 'upper left'
-    lgd_kws['bbox_transform'] = ax.figure.transFigure
-    lgd_kws.setdefault('borderpad', 0.1 * mm2inch * 72)  # 0.1mm
+    lgd_kws["loc"] = "upper left"
+    lgd_kws["bbox_transform"] = ax.figure.transFigure
+    lgd_kws.setdefault("borderpad", 0.1 * mm2inch * 72)  # 0.1mm
     if ms is None:
-        s=lgd_kws.pop('markersize',10)
-        ms_dict={} #key is label (markers.keys), values is markersize.
+        s = lgd_kws.pop("markersize", 10)
+        ms_dict = {}  # key is label (markers.keys), values is markersize.
         for k in markers:
-            ms_dict[k]=s
+            ms_dict[k] = s
     elif type(ms) != dict:
         ms_dict = {}
         for k in markers:
             ms_dict[k] = ms
     else:
-        ms_dict=ms
+        ms_dict = ms
 
-    lgd_kws.setdefault('markerscale', 1)
-    lgd_kws.setdefault('handleheight', 1)  # font size, units is points
-    lgd_kws.setdefault('handlelength', 1)  # font size, units is points
-    lgd_kws.setdefault('borderaxespad', 0.1)  # The pad between the axes and legend border, in font-size units.
-    lgd_kws.setdefault('handletextpad', 0.3)  # The pad between the legend handle and text, in font-size units.
-    lgd_kws.setdefault('labelspacing', 0.5)  # gap height between two Patches,  0.05*mm2inch*72
-    lgd_kws.setdefault('columnspacing', 1)
-    lgd_kws.setdefault('bbox_to_anchor', (0, 1))
-    if label_side=='left':
+    lgd_kws.setdefault("markerscale", 1)
+    lgd_kws.setdefault("handleheight", 1)  # font size, units is points
+    lgd_kws.setdefault("handlelength", 1)  # font size, units is points
+    lgd_kws.setdefault(
+        "borderaxespad", 0.1
+    )  # The pad between the axes and legend border, in font-size units.
+    lgd_kws.setdefault(
+        "handletextpad", 0.3
+    )  # The pad between the legend handle and text, in font-size units.
+    lgd_kws.setdefault(
+        "labelspacing", 0.5
+    )  # gap height between two Patches,  0.05*mm2inch*72
+    lgd_kws.setdefault("columnspacing", 1)
+    lgd_kws.setdefault("bbox_to_anchor", (0, 1))
+    if label_side == "left":
         lgd_kws.setdefault("markerfirst", False)
-        align = 'right'
+        align = "right"
     else:
         lgd_kws.setdefault("markerfirst", True)
-        align='left'
+        align = "left"
 
-    availabel_height = ax.figure.get_window_extent().height * lgd_kws['bbox_to_anchor'][1]
+    availabel_height = (
+        ax.figure.get_window_extent().height * lgd_kws["bbox_to_anchor"][1]
+    )
     # print(ms_dict,markers)
-    L = [mlines.Line2D([], [], color=color_dict.get(l,'black'), marker=m, linestyle='None',
-                          markersize=ms_dict.get(l,10), label=l)
-         for l, m in markers.items()] #kws:?mpatches.Patch; rasterized=True
-    ms=lgd_kws.pop('markersize',10)
-    Lgd = ax.legend(handles=L, title=title,**lgd_kws)
+    L = [
+        mlines.Line2D(
+            [],
+            [],
+            color=color_dict.get(l, "black"),
+            marker=m,
+            linestyle="None",
+            markersize=ms_dict.get(l, 10),
+            label=l,
+        )
+        for l, m in markers.items()
+    ]  # kws:?mpatches.Patch; rasterized=True
+    ms = lgd_kws.pop("markersize", 10)
+    Lgd = ax.legend(handles=L, title=title, **lgd_kws)
     ax.figure.canvas.draw()
     while Lgd.get_window_extent().height > availabel_height:
         print("Incresing ncol")
-        lgd_kws['ncol']+=1
-        if lgd_kws['ncol']>=3:
+        lgd_kws["ncol"] += 1
+        if lgd_kws["ncol"] >= 3:
             print("More than 3 cols is not supported")
             Lgd.remove()
             return None
@@ -547,7 +621,7 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
         for text in Lgd.get_texts():
             try:
                 lum = _calculate_luminance(color_dict[text.get_text()])
-                text_color = 'black' if lum > 0.408 else color_dict[text.get_text()]
+                text_color = "black" if lum > 0.408 else color_dict[text.get_text()]
                 text.set_color(text_color)
             except:
                 pass
@@ -555,27 +629,41 @@ def plot_marker_legend(obj=None, ax=None, title=None, color_text=True,
     ax.grid(False)
     # print(availabel_height,L.get_window_extent().height)
     return Lgd
+
+
 # =============================================================================
 def cal_legend_width(legend_list):
-    lgd_w=4.5
-    legend_width=0
+    lgd_w = 4.5
+    legend_width = 0
     for lgd in legend_list:
         obj, title, legend_kws, n, lgd_t = lgd
-        if lgd_t=='color_dict':
-            max_text_len=max(len(str(title)),max([len(str(k)) for k in obj]))
-            fontsize = legend_kws.get('fontsize',plt.rcParams['legend.fontsize'])
-            lgd_w=max_text_len * fontsize * 0.65 / 72 / mm2inch #point to inches to mm. in average, width = height * 0.6
-        elif lgd_t=="markers":
+        if lgd_t == "color_dict":
+            max_text_len = max(len(str(title)), max([len(str(k)) for k in obj]))
+            fontsize = legend_kws.get("fontsize", plt.rcParams["legend.fontsize"])
+            lgd_w = (
+                max_text_len * fontsize * 0.65 / 72 / mm2inch
+            )  # point to inches to mm. in average, width = height * 0.6
+        elif lgd_t == "markers":
             max_text_len = len(str(title))
-            fontsize = legend_kws.get('fontsize', plt.rcParams['legend.fontsize'])
+            fontsize = legend_kws.get("fontsize", plt.rcParams["legend.fontsize"])
             lgd_w = max_text_len * fontsize * 0.65 / 72 / mm2inch
         if legend_width < lgd_w:
-            legend_width=lgd_w
+            legend_width = lgd_w
     return legend_width
 
-def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
-                     y0=None,gap=2,delta_x=None,legend_width=None,legend_vpad=5,
-                     cmap_width=4.5):
+
+def plot_legend_list(
+    legend_list=None,
+    ax=None,
+    space=0,
+    legend_side="right",
+    y0=None,
+    gap=2,
+    delta_x=None,
+    legend_width=None,
+    legend_vpad=5,
+    cmap_width=4.5,
+):
     """
     Plot all lengends for a given legend_list.
 
@@ -596,101 +684,216 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
     """
     if ax is None:
         print("No ax was provided, using plt.gca()")
-        ax=plt.gca()
+        ax = plt.gca()
         ax.set_axis_off()
-        left=ax.get_position().x0+ax.yaxis.labelpad*2/ax.figure.get_window_extent().width if delta_x is None else ax.get_position().x0+delta_x
+        left = (
+            ax.get_position().x0
+            + ax.yaxis.labelpad * 2 / ax.figure.get_window_extent().width
+            if delta_x is None
+            else ax.get_position().x0 + delta_x
+        )
     else:
-        #labelpad: Spacing in points, pad is the fraction relative to x1.
-        pad = (space+ax.yaxis.labelpad*1.2*ax.figure.dpi / 72) / ax.figure.get_window_extent().width if delta_x is None else delta_x #labelpad unit is points
-        left=ax.get_position().x1 + pad
+        # labelpad: Spacing in points, pad is the fraction relative to x1.
+        pad = (
+            (space + ax.yaxis.labelpad * 1.2 * ax.figure.dpi / 72)
+            / ax.figure.get_window_extent().width
+            if delta_x is None
+            else delta_x
+        )  # labelpad unit is points
+        left = ax.get_position().x1 + pad
     if legend_width is None:
-        legend_width=cal_legend_width(legend_list) + 2.5 #base width for color rectangle is set to 2.5 mm
+        legend_width = (
+            cal_legend_width(legend_list) + 2.5
+        )  # base width for color rectangle is set to 2.5 mm
         # print(f"Estimated legend width: {legend_width} mm")
-    legend_width=legend_width*mm2inch*ax.figure.dpi / ax.figure.get_window_extent().width #mm to px to fraction
-    cmap_width = cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width  # mm to px to fraction
-    if legend_side=='right':
-        ax_legend=ax.figure.add_axes([left,ax.get_position().y0,legend_width,ax.get_position().height]) #left, bottom, width, height
-    legend_axes=[ax_legend]
-    cbars=[]
-    leg_pos = ax_legend.get_position() #left bototm: x0,y0; top right: x1,y1
+    legend_width = (
+        legend_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
+    )  # mm to px to fraction
+    cmap_width = (
+        cmap_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
+    )  # mm to px to fraction
+    if legend_side == "right":
+        ax_legend = ax.figure.add_axes(
+            [left, ax.get_position().y0, legend_width, ax.get_position().height]
+        )  # left, bottom, width, height
+    legend_axes = [ax_legend]
+    cbars = []
+    leg_pos = ax_legend.get_position()  # left bototm: x0,y0; top right: x1,y1
 
     # y is the bottom position of the first legend (from top to the bottom)
-    y = leg_pos.y1 - legend_vpad*mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
-    lgd_col_max_width=0 #the maximum width of all legends in one column
-    v_gap=round(gap*mm2inch*ax.figure.dpi/ax.figure.get_window_extent().height,2) #2mm vertically height gap between two legends
-    i=0
-    while i <= len(legend_list)-1:
+    y = (
+        leg_pos.y1
+        - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height
+        if y0 is None
+        else y0
+    )
+    lgd_col_max_width = 0  # the maximum width of all legends in one column
+    v_gap = round(
+        gap * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height, 2
+    )  # 2mm vertically height gap between two legends
+    i = 0
+    while i <= len(legend_list) - 1:
         obj, title, legend_kws, n, lgd_t = legend_list[i]
-        ax1 = legend_axes[-1] #ax for the legend on the right
+        ax1 = legend_axes[-1]  # ax for the legend on the right
         ax1.set_axis_off()
-        color_text=legend_kws.pop("color_text",True)
-        if lgd_t=='cmap': #type(obj)==str: # a cmap, plot colorbar
-            f = 15 * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height  # 15 mm
-            if y-f < 0: #add a new column of axes to plot legends
-                offset=(lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
-                ax2=ax.figure.add_axes(rect=[ax1.get_position().x0+offset, ax.get_position().y0, cmap_width, ax.get_position().height]) #left_pos.width
-                legend_axes.append(ax2)
-                ax1=legend_axes[-1]
-                ax1.set_axis_off()
-                leg_pos = ax1.get_position()
-                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
-                lgd_col_max_width = 0
-
-            cax=ax1.figure.add_axes(rect=[leg_pos.x0,y-f,cmap_width,f],
-                                   xmargin=0,ymargin=0) #unit is fractions of figure width and height
-            # [i.set_linewidth(0.5) for i in cax.spines.values()]
-            cax.figure.subplots_adjust(bottom=0) #wspace=0, hspace=0
-            #https://matplotlib.org/stable/api/figure_api.html
-            #[left, bottom, width, height],sharex=True,anchor=(0,0),frame_on=False.
-            cbar=plot_cmap_legend(ax=ax1,cax=cax,cmap=obj,label=title,label_side=legend_side,kws=legend_kws)
-            cbar_width=cbar.ax.get_window_extent().width
-            cbars.append(cbar)
-            if cbar_width > lgd_col_max_width:
-                lgd_col_max_width=cbar_width
-        elif lgd_t == 'color_dict':
-            # print(obj, title, legend_kws)
-            legend_kws['bbox_to_anchor']=(leg_pos.x0,y) #lower left position of the box.
-            #x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
-            # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
-            L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
-                                       color_text=color_text, kws=legend_kws)
-            if L is None:
-                print("Legend too long, generating a new column..")
-                pad = (lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
-                left_pos = ax1.get_position()
-                ax2 = ax.figure.add_axes([left_pos.x0 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+        color_text = legend_kws.pop("color_text", True)
+        if lgd_t == "cmap":  # type(obj)==str: # a cmap, plot colorbar
+            f = (
+                15 * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height
+            )  # 15 mm
+            if y - f < 0:  # add a new column of axes to plot legends
+                offset = (
+                    lgd_col_max_width + ax.yaxis.labelpad * 2
+                ) / ax.figure.get_window_extent().width
+                ax2 = ax.figure.add_axes(
+                    rect=[
+                        ax1.get_position().x0 + offset,
+                        ax.get_position().y0,
+                        cmap_width,
+                        ax.get_position().height,
+                    ]
+                )  # left_pos.width
                 legend_axes.append(ax2)
                 ax1 = legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
-                legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
-                L = plot_color_dict_legend(D=obj, ax=ax1, title=title, label_side=legend_side,
-                                           color_text=color_text, kws=legend_kws)
+                y = (
+                    leg_pos.y1
+                    - legend_vpad
+                    * mm2inch
+                    * ax.figure.dpi
+                    / ax.figure.get_window_extent().height
+                    if y0 is None
+                    else y0
+                )
+                lgd_col_max_width = 0
+
+            cax = ax1.figure.add_axes(
+                rect=[leg_pos.x0, y - f, cmap_width, f], xmargin=0, ymargin=0
+            )  # unit is fractions of figure width and height
+            # [i.set_linewidth(0.5) for i in cax.spines.values()]
+            cax.figure.subplots_adjust(bottom=0)  # wspace=0, hspace=0
+            # https://matplotlib.org/stable/api/figure_api.html
+            # [left, bottom, width, height],sharex=True,anchor=(0,0),frame_on=False.
+            cbar = plot_cmap_legend(
+                ax=ax1,
+                cax=cax,
+                cmap=obj,
+                label=title,
+                label_side=legend_side,
+                kws=legend_kws,
+            )
+            cbar_width = cbar.ax.get_window_extent().width
+            cbars.append(cbar)
+            if cbar_width > lgd_col_max_width:
+                lgd_col_max_width = cbar_width
+        elif lgd_t == "color_dict":
+            # print(obj, title, legend_kws)
+            legend_kws["bbox_to_anchor"] = (
+                leg_pos.x0,
+                y,
+            )  # lower left position of the box.
+            # x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
+            # ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)
+            L = plot_color_dict_legend(
+                D=obj,
+                ax=ax1,
+                title=title,
+                label_side=legend_side,
+                color_text=color_text,
+                kws=legend_kws,
+            )
+            if L is None:
+                print("Legend too long, generating a new column..")
+                pad = (
+                    lgd_col_max_width + ax.yaxis.labelpad * 2
+                ) / ax.figure.get_window_extent().width
+                left_pos = ax1.get_position()
+                ax2 = ax.figure.add_axes(
+                    [
+                        left_pos.x0 + pad,
+                        ax.get_position().y0,
+                        left_pos.width,
+                        ax.get_position().height,
+                    ]
+                )
+                legend_axes.append(ax2)
+                ax1 = legend_axes[-1]
+                ax1.set_axis_off()
+                leg_pos = ax1.get_position()
+                y = (
+                    leg_pos.y1
+                    - legend_vpad
+                    * mm2inch
+                    * ax.figure.dpi
+                    / ax.figure.get_window_extent().height
+                    if y0 is None
+                    else y0
+                )
+                legend_kws["bbox_to_anchor"] = (leg_pos.x0, y)
+                L = plot_color_dict_legend(
+                    D=obj,
+                    ax=ax1,
+                    title=title,
+                    label_side=legend_side,
+                    color_text=color_text,
+                    kws=legend_kws,
+                )
                 lgd_col_max_width = 0
             L_width = L.get_window_extent().width
             if L_width > lgd_col_max_width:
                 lgd_col_max_width = L_width
             f = L.get_window_extent().height / ax.figure.get_window_extent().height
             cbars.append(L)
-        elif lgd_t == 'markers':
-            legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)  # lower left position of the box.
-            L = plot_marker_legend(obj=obj, ax=ax1, title=title, label_side=legend_side,
-                                   color_text=color_text, kws=legend_kws) #obj is a tuple: markers and colors
+        elif lgd_t == "markers":
+            legend_kws["bbox_to_anchor"] = (
+                leg_pos.x0,
+                y,
+            )  # lower left position of the box.
+            L = plot_marker_legend(
+                obj=obj,
+                ax=ax1,
+                title=title,
+                label_side=legend_side,
+                color_text=color_text,
+                kws=legend_kws,
+            )  # obj is a tuple: markers and colors
             if L is None:
                 print("Legend too long, generating a new column..")
-                pad = (lgd_col_max_width + ax.yaxis.labelpad * 2) / ax.figure.get_window_extent().width
+                pad = (
+                    lgd_col_max_width + ax.yaxis.labelpad * 2
+                ) / ax.figure.get_window_extent().width
                 left_pos = ax1.get_position()
                 ax2 = ax.figure.add_axes(
-                    [left_pos.x0 + pad, ax.get_position().y0, left_pos.width, ax.get_position().height])
+                    [
+                        left_pos.x0 + pad,
+                        ax.get_position().y0,
+                        left_pos.width,
+                        ax.get_position().height,
+                    ]
+                )
                 legend_axes.append(ax2)
                 ax1 = legend_axes[-1]
                 ax1.set_axis_off()
                 leg_pos = ax1.get_position()
-                y = leg_pos.y1 - legend_vpad * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height if y0 is None else y0
-                legend_kws['bbox_to_anchor'] = (leg_pos.x0, y)
-                L = plot_marker_legend(obj=obj, ax=ax1, title=title, label_side=legend_side,
-                                           color_text=color_text, kws=legend_kws)
+                y = (
+                    leg_pos.y1
+                    - legend_vpad
+                    * mm2inch
+                    * ax.figure.dpi
+                    / ax.figure.get_window_extent().height
+                    if y0 is None
+                    else y0
+                )
+                legend_kws["bbox_to_anchor"] = (leg_pos.x0, y)
+                L = plot_marker_legend(
+                    obj=obj,
+                    ax=ax1,
+                    title=title,
+                    label_side=legend_side,
+                    color_text=color_text,
+                    kws=legend_kws,
+                )
                 lgd_col_max_width = 0
             L_width = L.get_window_extent().width
             if L_width > lgd_col_max_width:
@@ -699,12 +902,20 @@ def plot_legend_list(legend_list=None,ax=None,space=0,legend_side='right',
             cbars.append(L)
 
         y = y - f - v_gap
-        i+=1
+        i += 1
 
-    if legend_side=='right':
-        boundry=ax1.get_position().y1+lgd_col_max_width / ax.figure.get_window_extent().width
+    if legend_side == "right":
+        boundry = (
+            ax1.get_position().y1
+            + lgd_col_max_width / ax.figure.get_window_extent().width
+        )
     else:
-        boundry = ax1.get_position().y0 - lgd_col_max_width / ax.figure.get_window_extent().width
-    return legend_axes,cbars,boundry
+        boundry = (
+            ax1.get_position().y0
+            - lgd_col_max_width / ax.figure.get_window_extent().width
+        )
+    return legend_axes, cbars, boundry
+
+
 # =============================================================================
 set_default_style()
