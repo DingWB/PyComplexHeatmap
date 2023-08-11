@@ -961,8 +961,13 @@ class ClusterMapPlotter:
     legend :bool
         True or False, whether to plot heatmap legend, determined by cmap.
     legend_kws :dict
-        kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
-
+        vmax, vmin and other kws passed to plot legend, such asfontsize,
+         fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
+         shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
+         so on (see ?plt.legend)
+        Alaternatively, we can also change the outline color and linewidth of cbar
+        after plotting:
+        cm=ClusterMapPlotter(...)
         for cbar in cm.cbars:
             if isinstance(cbar,matplotlib.colorbar.Colorbar):
                 cbar.outline.set_color('white')
@@ -1001,7 +1006,8 @@ class ClusterMapPlotter:
     rasterized :bool
         default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
-    kwargs :kws passed to heatmap.
+    kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,
+        cbar,cbar_kwss and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
 
     Returns
     -------
