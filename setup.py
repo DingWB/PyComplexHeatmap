@@ -11,6 +11,7 @@ except ImportError:
     from distutils.core import setup, find_packages
 
 from pathlib import Path
+from PyComplexHeatmap import __version__
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
@@ -19,7 +20,7 @@ long_description = (this_directory / "README.md").read_text()
 # release new version
 setup(
     name="PyComplexHeatmap",
-    version="1.5.4",
+    version=__version__,
     description="A Python package to plot complex heatmap",
     # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
     # long_description_content_type='text/markdown',

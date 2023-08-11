@@ -18,7 +18,7 @@ print(sys.path)
 from recommonmark.parser import CommonMarkParser
 import sphinx_rtd_theme
 import sphinx_sizzle_theme, sphinx_pdj_theme
-
+from PyComplexHeatmap import __version__
 # -- Project information -----------------------------------------------------
 
 project = "PyComplexHeatmap"
@@ -26,7 +26,7 @@ copyright = "2022, Wubin Ding"
 author = "Wubin Ding"
 
 # The full version, including alpha/beta/rc tags
-release = "1.5.4"
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
