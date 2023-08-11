@@ -59,7 +59,6 @@ class AnnotationBase:
     ----------
     Class AnnotationBase.
     """
-
     def __init__(
         self,
         df=None,
@@ -225,12 +224,8 @@ class AnnotationBase:
     def _type_specific_params(self):
         pass
 
-    def reorder(
-        self, idx
-    ):  # Before plotting, df needs to be reordered according to the new clustered order.
-        """
-        idx: list
-        """
+    def reorder(self, idx):
+        # Before plotting, df needs to be reordered according to the new clustered order.
         # n_overlap = len(set(self.df.index.tolist()) & set(idx))
         # if n_overlap == 0:
         #     raise ValueError("The input idx is not consistent with the df.index")
@@ -243,7 +238,7 @@ class AnnotationBase:
     def get_label_width(self):
         return self.ax.yaxis.label.get_window_extent(
             renderer=self.ax.figure.canvas.get_renderer()
-        ).width  #
+        ).width
 
     def get_ticklabel_width(self):
         yticklabels = self.ax.yaxis.get_ticklabels()
@@ -266,9 +261,8 @@ class AnnotationBase:
 # =============================================================================
 class anno_simple(AnnotationBase):
     """
-    Annotate simple annotation, categorical or continuous variables.
+        Annotate simple annotation, categorical or continuous variables.
     """
-
     def __init__(
         self,
         df=None,
@@ -456,7 +450,6 @@ class anno_label(AnnotationBase):
     Class AnnotationBase.
 
     """
-
     def __init__(
         self,
         df=None,
@@ -1175,7 +1168,6 @@ class HeatmapAnnotation:
     Class HeatmapAnnotation.
 
     """
-
     def __init__(
         self,
         df=None,

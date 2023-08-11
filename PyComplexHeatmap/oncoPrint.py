@@ -185,7 +185,6 @@ class oncoPrintPlotter(ClusterMapPlotter):
     -------
     oncoPrintPlotter.
     """
-
     def __init__(
         self,
         data=None,

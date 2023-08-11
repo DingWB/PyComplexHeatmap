@@ -45,11 +45,18 @@ def get_colormap(cmap):
 
 def _check_mask(data, mask):
     """
-
-    Ensure that data and mask are compatible and add missing values and infinite values.
+        Ensure that data and mask are compatible and add missing values and infinite values.
     Values will be plotted for cells where ``mask`` is ``False``.
-    ``data`` is expected to be a DataFrame; ``mask`` can be an array or
-    a DataFrame.
+     ``data`` is expected to be a DataFrame; ``mask`` can be an array or a DataFrame.
+
+    Parameters
+    ----------
+    data
+    mask
+
+    Returns
+    -------
+
     """
     if mask is None:
         mask = np.zeros(data.shape, bool)
@@ -94,7 +101,10 @@ def _calculate_luminance(color):
 def define_cmap(
     plot_data, vmin=None, vmax=None, cmap=None, center=None, robust=True, na_col="white"
 ):
-    """Use some heuristics to set good defaults for colorbar and range."""
+    """
+    Use some heuristics to set good defaults for colorbar and range.
+
+    """
     # plot_data is a np.ma.array instance
     # plot_data=np.ma.masked_where(np.asarray(plot_data), plot_data)
     # calc_data = plot_data.astype(float).filled(np.nan)
@@ -240,7 +250,10 @@ def axis_ticklabels_overlap(labels):
 # =============================================================================
 # =============================================================================
 def _skip_ticks(labels, tickevery):
-    """Return ticks and labels at evenly spaced intervals."""
+    """
+    Return ticks and labels at evenly spaced intervals.
+
+    """
     n = len(labels)
     if tickevery == 0:
         ticks, labels = [], []
@@ -255,7 +268,10 @@ def _skip_ticks(labels, tickevery):
 
 # =============================================================================
 def _auto_ticks(ax, labels, axis):
-    """Determine ticks and ticklabels that minimize overlap."""
+    """
+    Determine ticks and ticklabels that minimize overlap.
+
+    """
     transform = ax.figure.dpi_scale_trans.inverted()
     bbox = ax.get_window_extent().transformed(transform)
     size = [bbox.width, bbox.height][axis]

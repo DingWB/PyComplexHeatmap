@@ -297,7 +297,6 @@ class DotClustermapPlotter(ClusterMapPlotter):
     -------
     DotClustermapPlotter.
     """
-
     def __init__(
         self,
         data=None,

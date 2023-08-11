@@ -542,9 +542,7 @@ def plot_heatmap(
 ):
     """
     Plot heatmap.
-        heatmap(self.data2d.loc[rows, cols], ax=ax1,cmap=self.cmap,
-                        mask=self.mask.loc[rows, cols], rasterized=self.rasterized,
-                        xticklabels='auto', yticklabels='auto', annot=annot1, **self.kwargs)
+
     Parameters
     ----------
     data: dataframe
@@ -709,7 +707,6 @@ class DendrogramPlotter(object):
     def __init__(
         self, data, linkage, metric, method, axis, label, rotate, dendrogram_kws=None
     ):
-        """Plot a dendrogram of the relationships between the columns of data"""
         self.axis = axis
         if (
             self.axis == 1
@@ -949,6 +946,10 @@ class ClusterMapPlotter:
         kws passed to hierarchy.dendrogram.
     tree_kws :dict
         kws passed to DendrogramPlotter.plot()
+    row_split_order: list
+        a list to specify the order of row_split.
+    col_split_order: list
+        a list to specify the order of col_split.
     row_split_gap :float
         default are 0.5 and 0.2 mm for row and col.
     col_split_gap :float
@@ -961,14 +962,14 @@ class ClusterMapPlotter:
         True or False, whether to plot heatmap legend, determined by cmap.
     legend_kws :dict
         kws passed to plot legend. If one want to change the outline color and linewidth of cbar:
-        ```
+
         for cbar in cm.cbars:
             if isinstance(cbar,matplotlib.colorbar.Colorbar):
                 cbar.outline.set_color('white')
                 cbar.outline.set_linewidth(2)
                 cbar.dividers.set_color('red')
                 cbar.dividers.set_linewidth(2)
-        ```
+
     plot :bool
         whether to plot or not.
     plot_legend :bool
@@ -1006,7 +1007,6 @@ class ClusterMapPlotter:
     -------
     Class ClusterMapPlotter.
     """
-
     def __init__(
         self,
         data,
