@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.oncoPrint module &mdash; PyComplexHeatmap 1.5.3 documentation</title>
+  <title>PyComplexHeatmap.oncoPrint module &mdash; PyComplexHeatmap 1.5.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -88,6 +88,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="oncoPrint.html">oncoPrint</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a><ul>
@@ -303,7 +304,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.oncoPrint.oncoPrintPlotter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.oncoPrint.</span></span><span class="sig-name descname"><span class="pre">oncoPrintPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'whitesmoke'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_empty_rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_empty_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/oncoPrint.html#oncoPrintPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.oncoPrint.oncoPrintPlotter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
 Plot dot heatmap (clustermap) with annotation and legends.</p>
 <dl class="field-list simple">
@@ -319,7 +320,8 @@ If cmap is a string, it should be colormap, such as ‘Set1’.</p></li>
 <li><p><strong>bgcolor</strong> (<em class="hover">str</em>) – background color, default is whitesmoke (or lightgray)</p></li>
 <li><p><strong>color_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_color_dict_legend</p></li>
 <li><p><strong>cmap_legend_kws</strong> (<em class="hover">dict</em>) – legend_kws passed to plot_cmap_legend</p></li>
-<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter and oncoprint.</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter and oncoprint,
+such as width, align (will be passed to oncoprint).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

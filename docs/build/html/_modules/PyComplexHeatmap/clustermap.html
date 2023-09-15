@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.5.3 documentation</title>
+  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.5.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -85,6 +85,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a><ul>
@@ -322,7 +323,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="heatmapPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter">[docs]</a><span class="k">class</span> <span class="nc">heatmapPlotter</span><span class="p">:</span>
+<div class="viewcode-block" id="heatmapPlotter"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter">[docs]</a><span class="k">class</span> <span class="nc">heatmapPlotter</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -618,7 +619,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation_mode</span><span class="o">=</span><span class="s2">&quot;anchor&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="n">ha</span><span class="p">)</span>
 
-<div class="viewcode-block" id="heatmapPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span>
+<div class="viewcode-block" id="heatmapPlotter.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ax</span><span class="p">,</span>
         <span class="n">cax</span><span class="p">,</span>
@@ -709,7 +710,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="heatmap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap">[docs]</a><span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span>
+<div class="viewcode-block" id="heatmap"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap">[docs]</a><span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -817,7 +818,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="plot_heatmap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap">[docs]</a><span class="k">def</span> <span class="nf">plot_heatmap</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_heatmap"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap">[docs]</a><span class="k">def</span> <span class="nf">plot_heatmap</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -999,7 +1000,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="DendrogramPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter">[docs]</a><span class="k">class</span> <span class="nc">DendrogramPlotter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DendrogramPlotter"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter">[docs]</a><span class="k">class</span> <span class="nc">DendrogramPlotter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">rotate</span><span class="p">,</span> <span class="n">dendrogram_kws</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
@@ -1049,7 +1050,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dependent_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;dcoord&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">independent_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;icoord&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span>
 
-<div class="viewcode-block" id="DendrogramPlotter.check_array"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array">[docs]</a>    <span class="k">def</span> <span class="nf">check_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="DendrogramPlotter.check_array"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array">[docs]</a>    <span class="k">def</span> <span class="nf">check_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="c1"># To avoid missing values and infinite values and further error, remove missing values</span>
@@ -1099,7 +1100,7 @@
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_linkage_scipy</span><span class="p">()</span>
 
-<div class="viewcode-block" id="DendrogramPlotter.calculate_dendrogram"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_dendrogram</span><span class="p">(</span>
+<div class="viewcode-block" id="DendrogramPlotter.calculate_dendrogram"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_dendrogram</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>  <span class="c1"># Z (linkage) shape = (n,4), then dendrogram icoord shape = (n,4)</span>
         <span class="k">return</span> <span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span>
@@ -1115,7 +1116,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of the matrix, reordered by the dendrogram&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;leaves&quot;</span><span class="p">]</span>  <span class="c1"># idx of the matrix</span>
 
-<div class="viewcode-block" id="DendrogramPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tree_kws</span><span class="p">):</span>
+<div class="viewcode-block" id="DendrogramPlotter.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tree_kws</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots a dendrogram of the similarities between data on the axes</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1178,7 +1179,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="ClusterMapPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter">[docs]</a><span class="k">class</span> <span class="nc">ClusterMapPlotter</span><span class="p">:</span>
+<div class="viewcode-block" id="ClusterMapPlotter"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter">[docs]</a><span class="k">class</span> <span class="nc">ClusterMapPlotter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clustermap (Heatmap) plotter.</span>
 <span class="sd">    Plot heatmap / clustermap with annotation and legends.</span>
@@ -1257,8 +1258,13 @@
 <span class="sd">    legend :bool</span>
 <span class="sd">        True or False, whether to plot heatmap legend, determined by cmap.</span>
 <span class="sd">    legend_kws :dict</span>
-<span class="sd">        kws passed to plot legend. If one want to change the outline color and linewidth of cbar:</span>
-
+<span class="sd">        vmax, vmin and other kws passed to plot legend, such asfontsize,</span>
+<span class="sd">         fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon</span>
+<span class="sd">         shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and</span>
+<span class="sd">         so on (see ?plt.legend)</span>
+<span class="sd">        Alaternatively, we can also change the outline color and linewidth of cbar</span>
+<span class="sd">        after plotting:</span>
+<span class="sd">        cm=ClusterMapPlotter(...)</span>
 <span class="sd">        for cbar in cm.cbars:</span>
 <span class="sd">            if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
 <span class="sd">                cbar.outline.set_color(&#39;white&#39;)</span>
@@ -1297,7 +1303,8 @@
 <span class="sd">    rasterized :bool</span>
 <span class="sd">        default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested</span>
 <span class="sd">        to be True, otherwise the plot would be very slow.</span>
-<span class="sd">    kwargs :kws passed to heatmap.</span>
+<span class="sd">    kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,</span>
+<span class="sd">        cbar,cbar_kwss and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1422,7 +1429,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">xticklabels_kws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">xticklabels_kws</span>
         <span class="c1"># self.xticklabels_kws.setdefault(&#39;labelrotation&#39;, 90)</span>
 
-<div class="viewcode-block" id="ClusterMapPlotter.format_data"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">standard_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.format_data"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">standard_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">data2d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmax&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
@@ -1638,7 +1645,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ax_right_annotation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax_right</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax_right</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ClusterMapPlotter.z_score"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ClusterMapPlotter.z_score"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">z_score</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Standarize the mean and variance of the data axis</span>
@@ -1669,7 +1676,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">z_scored</span><span class="o">.</span><span class="n">T</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.standard_scale"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ClusterMapPlotter.standard_scale"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">standard_scale</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide the data by the difference between the max and min</span>
@@ -1704,7 +1711,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">standardized</span><span class="o">.</span><span class="n">T</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.calculate_row_dendrograms"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_row_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.calculate_row_dendrograms"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_row_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span> <span class="o">=</span> <span class="n">DendrogramPlotter</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">,</span>
@@ -1721,7 +1728,7 @@
         <span class="c1"># despine(ax=self.ax_row_dendrogram, bottom=True, left=True, top=True, right=True)</span>
         <span class="c1"># self.ax_col_dendrogram.spines[&#39;top&#39;].set_visible(False)</span>
 
-<div class="viewcode-block" id="ClusterMapPlotter.calculate_col_dendrograms"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_col_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.calculate_col_dendrograms"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_col_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span> <span class="o">=</span> <span class="n">DendrogramPlotter</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">,</span>
@@ -1878,7 +1885,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ClusterMapPlotter.plot_dendrograms"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">plot_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.plot_dendrograms"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms">[docs]</a>    <span class="k">def</span> <span class="nf">plot_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
         <span class="n">rcmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;row_cmap&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">ccmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;col_cmap&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">tree_kws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1963,7 +1970,7 @@
                     <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_col_dendrogram</span><span class="p">,</span> <span class="n">tree_kws</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span>
                 <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.plot_matrix"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">plot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.plot_matrix"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">plot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting matrix..&quot;</span><span class="p">)</span>
         <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span>
@@ -2044,7 +2051,7 @@
                     <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.set_axes_labels_kws"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws">[docs]</a>    <span class="k">def</span> <span class="nf">set_axes_labels_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.set_axes_labels_kws"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws">[docs]</a>    <span class="k">def</span> <span class="nf">set_axes_labels_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># ax.set_xticks(ticks=np.arange(1, self.nrows + 1, 1), labels=self.plot_data.index.tolist())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">yticklabels_kws</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="p">)</span>
@@ -2142,7 +2149,7 @@
         <span class="c1"># self.ax.figure.tight_layout(**tight_params)</span>
         <span class="c1"># _draw_figure(self.ax.figure)</span>
 
-<div class="viewcode-block" id="ClusterMapPlotter.collect_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.collect_legends"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Collecting legends..&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2185,7 +2192,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.plot_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">[docs]</a>    <span class="k">def</span> <span class="nf">plot_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.plot_legends"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">[docs]</a>    <span class="k">def</span> <span class="nf">plot_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting legends..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -2213,7 +2220,7 @@
                 <span class="n">legend_vpad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vpad</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.plot"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting..&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2279,7 +2286,7 @@
         <span class="c1"># _draw_figure(self.ax_heatmap.figure)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.tight_layout"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout">[docs]</a>    <span class="k">def</span> <span class="nf">tight_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">tight_params</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.tight_layout"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout">[docs]</a>    <span class="k">def</span> <span class="nf">tight_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">tight_params</span><span class="p">):</span>
         <span class="n">tight_params</span> <span class="o">=</span> <span class="p">(</span>
             <span class="nb">dict</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span> <span class="k">if</span> <span class="n">tight_params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tight_params</span>
         <span class="p">)</span>
@@ -2292,18 +2299,18 @@
         <span class="n">tight_params</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;rect&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="o">**</span><span class="n">tight_params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.set_height"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height">[docs]</a>    <span class="k">def</span> <span class="nf">set_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.set_height"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height">[docs]</a>    <span class="k">def</span> <span class="nf">set_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>  <span class="c1"># convert mm to inches</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.set_width"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width">[docs]</a>    <span class="k">def</span> <span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.set_width"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width">[docs]</a>    <span class="k">def</span> <span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
         <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>  <span class="c1"># convert mm to inches</span></div>
 
-<div class="viewcode-block" id="ClusterMapPlotter.post_processing"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing">[docs]</a>    <span class="k">def</span> <span class="nf">post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterMapPlotter.post_processing"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing">[docs]</a>    <span class="k">def</span> <span class="nf">post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div></div>
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="composite"><a class="viewcode-back" href="../../source/PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite">[docs]</a><span class="k">def</span> <span class="nf">composite</span><span class="p">(</span>
+<div class="viewcode-block" id="composite"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite">[docs]</a><span class="k">def</span> <span class="nf">composite</span><span class="p">(</span>
     <span class="n">cmlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">main</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

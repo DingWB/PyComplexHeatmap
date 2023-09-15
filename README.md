@@ -164,8 +164,8 @@ Click picture to view the source code
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint.html">
-                <img src="docs/images/gallery4.png" title="OncoPrint with mroe annotations" align="center" width="250px">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/oncoPrint2.html">
+                <img src="docs/images/gallery4.png" title="Visualizing categorical variables using oncoPrint" align="center" width="250px">
             </a>
         </td>
     </tr>

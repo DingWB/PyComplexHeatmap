@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.colors &mdash; PyComplexHeatmap 1.5.3 documentation</title>
+  <title>PyComplexHeatmap.colors &mdash; PyComplexHeatmap 1.5.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -85,6 +85,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a><ul>
@@ -303,7 +304,7 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_calculate_luminance</span>
 
 
-<div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">():</span>
+<div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">():</span>
     <span class="n">all_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
     <span class="k">if</span> <span class="s2">&quot;binarize&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>

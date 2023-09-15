@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.dotHeatmap &mdash; PyComplexHeatmap 1.5.3 documentation</title>
+  <title>PyComplexHeatmap.dotHeatmap &mdash; PyComplexHeatmap 1.5.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -85,6 +85,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a><ul>
@@ -307,7 +308,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">vmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">vmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">vmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -319,7 +320,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="dotHeatmap2d"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d">[docs]</a><span class="k">def</span> <span class="nf">dotHeatmap2d</span><span class="p">(</span>
+<div class="viewcode-block" id="dotHeatmap2d"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d">[docs]</a><span class="k">def</span> <span class="nf">dotHeatmap2d</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">hue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -528,7 +529,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="DotClustermapPlotter"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">[docs]</a><span class="k">class</span> <span class="nc">DotClustermapPlotter</span><span class="p">(</span><span class="n">ClusterMapPlotter</span><span class="p">):</span>
+<div class="viewcode-block" id="DotClustermapPlotter"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">[docs]</a><span class="k">class</span> <span class="nc">DotClustermapPlotter</span><span class="p">(</span><span class="n">ClusterMapPlotter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.</span>
 <span class="sd">    Plot dot heatmap (clustermap) with annotation and legends.</span>
@@ -636,7 +637,7 @@
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DotClustermapPlotter.format_data"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">standard_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DotClustermapPlotter.format_data"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">standard_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># self.data=data</span>
         <span class="n">data2d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggfunc</span>
@@ -712,7 +713,7 @@
             <span class="n">data2d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard_scale</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">standard_scale</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data2d</span></div>
 
-<div class="viewcode-block" id="DotClustermapPlotter.plot_matrix"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">plot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
+<div class="viewcode-block" id="DotClustermapPlotter.plot_matrix"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">plot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting matrix..&quot;</span><span class="p">)</span>
         <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span>
@@ -774,7 +775,7 @@
                     <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DotClustermapPlotter.collect_legends"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DotClustermapPlotter.collect_legends"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Collecting legends..&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -879,7 +880,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="DotClustermapPlotter.post_processing"><a class="viewcode-back" href="../../source/PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing">[docs]</a>    <span class="k">def</span> <span class="nf">post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DotClustermapPlotter.post_processing"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing">[docs]</a>    <span class="k">def</span> <span class="nf">post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spines</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">():</span>
                 <span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>

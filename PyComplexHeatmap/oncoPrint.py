@@ -179,7 +179,8 @@ class oncoPrintPlotter(ClusterMapPlotter):
     cmap_legend_kws: dict
         legend_kws passed to plot_cmap_legend
     kwargs :dict
-        Other kwargs passed to ClusterMapPlotter and oncoprint.
+        Other kwargs passed to ClusterMapPlotter and oncoprint,
+        such as width, align (will be passed to oncoprint).
 
     Returns
     -------

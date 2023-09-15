@@ -5,3 +5,4 @@ oncoPrint
    :caption: Contents:
 
    notebooks/oncoPrint.ipynb
+   notebooks/oncoPrint2.ipynb

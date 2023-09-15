@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.utils &mdash; PyComplexHeatmap 1.5.3 documentation</title>
+  <title>PyComplexHeatmap.utils &mdash; PyComplexHeatmap 1.5.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -85,6 +85,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a><ul>
@@ -310,7 +311,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="set_default_style"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style">[docs]</a><span class="k">def</span> <span class="nf">set_default_style</span><span class="p">():</span>
+<div class="viewcode-block" id="set_default_style"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style">[docs]</a><span class="k">def</span> <span class="nf">set_default_style</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
 
     <span class="n">D</span> <span class="o">=</span> <span class="p">{</span>
@@ -332,7 +333,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="get_colormap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap">[docs]</a><span class="k">def</span> <span class="nf">get_colormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">):</span>
+<div class="viewcode-block" id="get_colormap"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap">[docs]</a><span class="k">def</span> <span class="nf">get_colormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>  <span class="c1"># matplotlib &gt;= 3.5.1?</span>
     <span class="k">except</span><span class="p">:</span>
@@ -394,7 +395,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">(</span>
+<div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">(</span>
     <span class="n">plot_data</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">robust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">na_col</span><span class="o">=</span><span class="s2">&quot;white&quot;</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -455,7 +456,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="despine"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine">[docs]</a><span class="k">def</span> <span class="nf">despine</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="despine"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine">[docs]</a><span class="k">def</span> <span class="nf">despine</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Remove the top and right spines from plot(s).</span>
 
@@ -519,7 +520,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="axis_ticklabels_overlap"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap">[docs]</a><span class="k">def</span> <span class="nf">axis_ticklabels_overlap</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+<div class="viewcode-block" id="axis_ticklabels_overlap"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap">[docs]</a><span class="k">def</span> <span class="nf">axis_ticklabels_overlap</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a boolean for whether the list of ticklabels have overlaps.</span>
 
@@ -584,7 +585,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="to_utf8"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8">[docs]</a><span class="k">def</span> <span class="nf">to_utf8</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="to_utf8"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8">[docs]</a><span class="k">def</span> <span class="nf">to_utf8</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a string representing a Python object.</span>
 <span class="sd">    Strings (i.e. type ``str``) are returned unchanged.</span>
@@ -635,7 +636,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="cluster_labels"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels">[docs]</a><span class="k">def</span> <span class="nf">cluster_labels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="cluster_labels"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels">[docs]</a><span class="k">def</span> <span class="nf">cluster_labels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Merge the adjacent labels into one.</span>
 
@@ -691,7 +692,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="plot_color_dict_legend"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_color_dict_legend</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_color_dict_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_color_dict_legend</span><span class="p">(</span>
     <span class="n">D</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">kws</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -774,7 +775,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="plot_cmap_legend"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_cmap_legend</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_cmap_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_cmap_legend</span><span class="p">(</span>
     <span class="n">cax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;turbo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -827,7 +828,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="plot_marker_legend"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_marker_legend</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_marker_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_marker_legend</span><span class="p">(</span>
     <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">kws</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -944,7 +945,7 @@
 
 
 <span class="c1"># =============================================================================</span>
-<div class="viewcode-block" id="cal_legend_width"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width">[docs]</a><span class="k">def</span> <span class="nf">cal_legend_width</span><span class="p">(</span><span class="n">legend_list</span><span class="p">):</span>
+<div class="viewcode-block" id="cal_legend_width"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width">[docs]</a><span class="k">def</span> <span class="nf">cal_legend_width</span><span class="p">(</span><span class="n">legend_list</span><span class="p">):</span>
     <span class="n">lgd_w</span> <span class="o">=</span> <span class="mf">4.5</span>
     <span class="n">legend_width</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">lgd</span> <span class="ow">in</span> <span class="n">legend_list</span><span class="p">:</span>
@@ -964,7 +965,7 @@
     <span class="k">return</span> <span class="n">legend_width</span></div>
 
 
-<div class="viewcode-block" id="plot_legend_list"><a class="viewcode-back" href="../../source/PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list">[docs]</a><span class="k">def</span> <span class="nf">plot_legend_list</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_legend_list"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list">[docs]</a><span class="k">def</span> <span class="nf">plot_legend_list</span><span class="p">(</span>
     <span class="n">legend_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">space</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
