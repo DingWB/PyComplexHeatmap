@@ -96,15 +96,15 @@ def dotHeatmap2d(
     # s
     s = kwargs.pop("s", None)
     if s is None:
-        df["S"] = scale(df["Value"].values, vmin=vmin, vmax=vmax)
+        df["S"] = scale(df["Value"].values, vmin=0, vmax=1)
     else:
         if isinstance(s, pd.DataFrame):
             s = s.reindex(index=row_labels, columns=col_labels).stack().reset_index()
             s.columns = ["Row", "Col", "Value"]
             # print(s.shape)
             # print(s.head())
-            # df["S"] = scale(s.Value.values, vmax=vmax, vmin=vmin)
-            df['S'] = s.Value.values
+            df["S"] = scale(s.Value.values, vmax=0, vmin=1)
+            # df['S'] = s.Value.values
         elif isinstance(s, (int, float)):
             df["S"] = s
 
@@ -318,6 +318,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
         s_na=0,
         c_na=0,
         spines=False,
+        ratio=None,
         **kwargs
     ):
         kwargs["data"] = data
@@ -338,6 +339,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
         self.cmap_legend_kws = cmap_legend_kws
         self.spines = spines
         self.dot_legend_kws = dot_legend_kws
+        self.ratio=ratio
 
         super().__init__(**kwargs)
 
@@ -418,6 +420,18 @@ class DotClustermapPlotter(ClusterMapPlotter):
             print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
+
+        if self.ratio is None:
+            w, h = (
+                self.ax_heatmap.get_window_extent().width / self.ax_heatmap.figure.dpi,
+                self.ax_heatmap.get_window_extent().height / self.ax_heatmap.figure.dpi,
+            )
+            r = min(w * 72 / self.data2d.shape[1], h * 72 / self.data2d.shape[0])
+            ratio = r ** 2
+        else:
+            ratio = self.ratio
+        self.kwargs['ratio'] = ratio
+
         self.wspace = (
             self.col_split_gap
             * mm2inch
