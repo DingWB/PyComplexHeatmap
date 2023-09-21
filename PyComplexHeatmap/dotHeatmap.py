@@ -355,10 +355,14 @@ class DotClustermapPlotter(ClusterMapPlotter):
         if not self.s is None:
             if isinstance(self.s, (int, float)):
                 self.kwargs["s"] = self.s
+                self.smax=self.s
+                self.smin=self.s
             elif isinstance(self.s, str):
                 self.kwargs["s"] = data.pivot_table(
                     index=self.y, columns=self.x, values=self.s, aggfunc=self.aggfunc
                 ).fillna(self.s_na)
+                self.smin = np.nanmin(self.kwargs["s"].values)
+                self.smax = np.nanmax(self.kwargs["s"].values)
             else:
                 raise ValueError("s must be a str, int or float!")
         # c
@@ -512,8 +516,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
             cmap = self.cmap
             c = self.kwargs.get("c", None)
             cmap_legend_kws = self.cmap_legend_kws.copy()
-            cmap_legend_kws["vmax"] = self.vmax
-            cmap_legend_kws["vmin"] = self.vmin
+            cmap_legend_kws["vmax"] = self.kwargs.get('vmax',1)
+            cmap_legend_kws["vmin"] = self.kwargs.get('vmin',0)
             if (
                 not cmap is None
                 and type(cmap) == str
@@ -546,11 +550,11 @@ class DotClustermapPlotter(ClusterMapPlotter):
             if type(self.s) == str:
                 # s=self.kwargs.get('s',None)
                 # colors=self.kwargs.get('colors',None)
-                vmax = self.kwargs.get("vmax", 1)
+                smax = self.smax #self.kwargs.get("vmax", 1)
                 markers1 = {}
                 ms = {}
                 for f in [1, 0.8, 0.6, 0.4, 0.2]:
-                    k = str(round(f * vmax, 2))
+                    k = str(round(f * smax, 2))
                     markers1[k] = "o"
                     ms[k] = f * r * self.alpha
                 title = self.s if not self.s is None else self.value
