@@ -291,6 +291,10 @@ class DotClustermapPlotter(ClusterMapPlotter):
     aggfunc : function
         when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
         aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)
+    spines: bool
+        Whether show spines of the axes or not [False]
+    ratio: float
+        the size of dot will be multipled by ratio.
     kwargs :dict
         Other kwargs passed to ClusterMapPlotter and dotHeatmap2d, such as ratio, vmin, vmax.
 
