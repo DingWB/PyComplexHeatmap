@@ -11,7 +11,7 @@ def define_cmap():
     all_cmaps = matplotlib.pyplot.colormaps()
     if "binarize" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
-            "binarize", [(0, "lightgray"), (1, "black")]
+            "binarize", [(0, "#d3d3d3"), (1, "black")]
         )
         plt.register_cmap(cmap=c)
     if "exp1" not in all_cmaps:

@@ -103,7 +103,8 @@ def dotHeatmap2d(
             s.columns = ["Row", "Col", "Value"]
             # print(s.shape)
             # print(s.head())
-            df["S"] = scale(s.Value.values, vmax=vmax, vmin=vmin)
+            # df["S"] = scale(s.Value.values, vmax=vmax, vmin=vmin)
+            df['S'] = s.Value.values
         elif isinstance(s, (int, float)):
             df["S"] = s
 
@@ -291,7 +292,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
         when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
         aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)
     kwargs :dict
-        Other kwargs passed to ClusterMapPlotter.
+        Other kwargs passed to ClusterMapPlotter and dotHeatmap2d, such as ratio, vmin, vmax.
 
     Returns
     -------
@@ -354,18 +355,12 @@ class DotClustermapPlotter(ClusterMapPlotter):
         if not self.s is None:
             if isinstance(self.s, (int, float)):
                 self.kwargs["s"] = self.s
-                self.s_vmax = self.s
-                self.s_vmin = self.s
             elif isinstance(self.s, str):
                 self.kwargs["s"] = data.pivot_table(
                     index=self.y, columns=self.x, values=self.s, aggfunc=self.aggfunc
                 ).fillna(self.s_na)
-                self.s_vmin = np.nanmin(self.kwargs["s"].values)
-                self.s_vmax = np.nanmax(self.kwargs["s"].values)
             else:
                 raise ValueError("s must be a str, int or float!")
-        else:
-            self.s_vmax, self.s_vmin = None, None
         # c
         if not self.c is None:
             if not isinstance(self.c, str):
@@ -397,14 +392,12 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
         # print(data.head())
         # print(data2d.head())
-        self.v_vmin = np.nanmin(data2d.values)
-        self.v_vmax = np.nanmax(data2d.values)
-        if not self.s is None:
-            self.kwargs.setdefault("vmin", self.s_vmin)
-            self.kwargs.setdefault("vmax", self.s_vmax)
-        else:
-            self.kwargs.setdefault("vmin", self.v_vmin)
-            self.kwargs.setdefault("vmax", self.v_vmax)
+        if 'vmin' not in self.kwargs:
+            self.vmin = np.nanmin(data2d.values)
+            self.kwargs.setdefault("vmin", self.vmin)
+        if 'vmax' not in self.kwargs:
+            self.vmax = np.nanmax(data2d.values)
+            self.kwargs.setdefault("vmax", self.vmax)
 
         if z_score is not None and standard_scale is not None:
             raise ValueError(
@@ -519,8 +512,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
             cmap = self.cmap
             c = self.kwargs.get("c", None)
             cmap_legend_kws = self.cmap_legend_kws.copy()
-            cmap_legend_kws["vmax"] = self.v_vmax
-            cmap_legend_kws["vmin"] = self.v_vmin
+            cmap_legend_kws["vmax"] = self.vmax
+            cmap_legend_kws["vmin"] = self.vmin
             if (
                 not cmap is None
                 and type(cmap) == str
