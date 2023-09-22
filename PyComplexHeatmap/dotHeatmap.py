@@ -570,7 +570,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
             if type(marker) == dict and not self.hue is None:
                 self.legend_list.append(
                     [
-                        (marker, self.kwargs.get("colors", None), ratio * self.alpha),
+                        (marker, self.kwargs.get("colors", None), np.sqrt(ratio) * self.alpha),
                         self.hue,
                         self.dot_legend_kws,
                         len(marker),
@@ -586,7 +586,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 for f in [1, 0.8, 0.6, 0.4, 0.2]:
                     k = str(round(f * self.smax, 2))
                     markers1[k] = "o"
-                    ms[k] = f  * ratio * self.alpha
+                    ms[k] = f  * np.sqrt(ratio) * self.alpha
+                    # ms[k] = np.sqrt(f * ratio * self.alpha)
                 title = self.s if not self.s is None else self.value
                 self.legend_list.append(
                     [
