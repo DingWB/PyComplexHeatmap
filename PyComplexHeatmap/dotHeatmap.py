@@ -312,7 +312,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
         s=None,
         c=None,
         marker="o",
-        alpha=0.8,
+        alpha=1,
         color_legend_kws={},
         cmap_legend_kws={},
         dot_legend_kws={},
@@ -560,16 +560,17 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 for k in cmap:
                     self.legend_list.append([cmap[k], k, cmap_legend_kws, 4, "cmap"])
             marker = self.kwargs.get("marker", None)
-            ax = self.heatmap_axes[0, 0]
-            w, h = (
-                ax.get_window_extent().width / ax.figure.dpi,
-                ax.get_window_extent().height / ax.figure.dpi,
-            )
-            r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))
+            # ax = self.heatmap_axes[0, 0]
+            # w, h = (
+            #     ax.get_window_extent().width / ax.figure.dpi,
+            #     ax.get_window_extent().height / ax.figure.dpi,
+            # )
+            # r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))
+            ratio=self.kwargs['ratio']
             if type(marker) == dict and not self.hue is None:
                 self.legend_list.append(
                     [
-                        (marker, self.kwargs.get("colors", None), r * self.alpha),
+                        (marker, self.kwargs.get("colors", None), ratio * self.alpha),
                         self.hue,
                         self.dot_legend_kws,
                         len(marker),
@@ -580,13 +581,13 @@ class DotClustermapPlotter(ClusterMapPlotter):
             if type(self.s) == str:
                 # s=self.kwargs.get('s',None)
                 # colors=self.kwargs.get('colors',None)
-                smax = self.smax #self.kwargs.get("vmax", 1)
+                smax = self.smax*self.kwargs['ratio'] #self.kwargs.get("vmax", 1)
                 markers1 = {}
                 ms = {}
                 for f in [1, 0.8, 0.6, 0.4, 0.2]:
                     k = str(round(f * smax, 2))
                     markers1[k] = "o"
-                    ms[k] = f * r * self.alpha
+                    ms[k] = f * smax * ratio * self.alpha
                 title = self.s if not self.s is None else self.value
                 self.legend_list.append(
                     [
