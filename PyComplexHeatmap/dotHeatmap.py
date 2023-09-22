@@ -587,7 +587,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 for f in [1, 0.8, 0.6, 0.4, 0.2]:
                     k = str(round(f * smax, 2))
                     markers1[k] = "o"
-                    ms[k] = f * smax * ratio * self.alpha
+                    ms[k] = f  * ratio * self.alpha
                 title = self.s if not self.s is None else self.value
                 self.legend_list.append(
                     [
