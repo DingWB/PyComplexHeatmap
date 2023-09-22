@@ -96,14 +96,14 @@ def dotHeatmap2d(
     # s
     s = kwargs.pop("s", None)
     if s is None:
-        df["S"] = scale(df["Value"].values, vmin=0, vmax=1)
+        df["S"] = scale(df["Value"].abs().values)
     else:
         if isinstance(s, pd.DataFrame):
             s = s.reindex(index=row_labels, columns=col_labels).stack().reset_index()
             s.columns = ["Row", "Col", "Value"]
             # print(s.shape)
             # print(s.head())
-            df["S"] = scale(s.Value.values, vmax=0, vmin=1)
+            df["S"] = scale(s.Value.abs().values)
             # df['S'] = s.Value.values
         elif isinstance(s, (int, float)):
             df["S"] = s
@@ -369,20 +369,32 @@ class DotClustermapPlotter(ClusterMapPlotter):
                 ).fillna(self.s_na)
                 self.smin = np.nanmin(self.kwargs["s"].values)
                 self.smax = np.nanmax(self.kwargs["s"].values)
+            elif isinstance(self.s,pd.Series):
+                self.kwargs["s"] = data.assign(GivenS=self.s).pivot_table(
+                    index=self.y, columns=self.x, values='GivenS', aggfunc=self.aggfunc
+                ).fillna(self.s_na)
+                self.smin = np.nanmin(self.kwargs["s"].values)
+                self.smax = np.nanmax(self.kwargs["s"].values)
             else:
                 raise ValueError("s must be a str, int or float!")
         # c
         if not self.c is None:
-            if not isinstance(self.c, str):
-                raise ValueError(
-                    "c must be a str: color or column name from data.columns"
-                )
-            if self.c in data.columns:  # column name from data.columns
+            if isinstance(self.c,pd.Series):
+                self.kwargs["s"] = data.assign(GivenC=self.s).pivot_table(
+                    index=self.y, columns=self.x, values='GivenC', aggfunc=self.aggfunc
+                ).fillna(self.c_na)
+
+            elif type(self.c)==str and self.c in data.columns:  # column name from data.columns
                 self.kwargs["c"] = data.pivot_table(
                     index=self.y, columns=self.x, values=self.c, aggfunc=self.aggfunc
                 ).fillna(self.c_na)
-            else:  # color, such as 'red'
+
+            elif type(self.c) == str:  # color, such as 'red'
                 self.kwargs["c"] = self.c
+            else:
+                raise ValueError(
+                    "c must be a str: color or column name from data.columns"
+                )
         # marker
         if not self.marker is None:
             if not isinstance(self.marker, (str, dict)):
