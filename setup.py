@@ -21,6 +21,8 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="PyComplexHeatmap",
     version=__version__,
+    # use_scm_version=True,
+    # setup_requires=['setuptools_scm'],
     description="A Python package to plot complex heatmap",
     # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
     # long_description_content_type='text/markdown',
