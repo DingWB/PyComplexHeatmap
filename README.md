@@ -176,8 +176,8 @@ Click picture to view the source code
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/dotHeatmap.html#Changing-the-size-of-point">
-                <img src="docs/images/gallery10.png" title="Dot heatmap using different dot size" align="center" width="250px">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation">
+                <img src="docs/images/gallery10.png" title="Custom annotation" align="center" width="250px">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
