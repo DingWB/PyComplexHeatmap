@@ -11,7 +11,7 @@ except ImportError:
     from distutils.core import setup, find_packages
 
 from pathlib import Path
-__version__="1.5.5"
+__version__="1.5.6"
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
