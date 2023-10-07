@@ -852,6 +852,8 @@ class DendrogramPlotter(object):
         if colors is None:
             # colors=self.dendrogram['leaves_color_list']
             colors = ["black"] * len(self.dendrogram["ivl"])
+        if type(colors)==str:
+            colors=[colors]*len(self.dendrogram["ivl"])
         for (x, y), color in zip(coords, colors):
             ax.plot(x, y, color=color, **tree_kws)
         # ax.scatter(*self.root,c='red',s=2)
@@ -1439,40 +1441,39 @@ class ClusterMapPlotter:
             return standardized.T
 
     def calculate_row_dendrograms(self, data):
-        if self.row_cluster:
-            self.dendrogram_row = DendrogramPlotter(
-                data,
-                linkage=None,
-                axis=0,
-                metric=self.row_cluster_metric,
-                method=self.row_cluster_method,
-                label=False,
-                rotate=True,
-                dendrogram_kws=self.dendrogram_kws,
-            )
+        self.dendrogram_row = DendrogramPlotter(
+            data,
+            linkage=None,
+            axis=0,
+            metric=self.row_cluster_metric,
+            method=self.row_cluster_method,
+            label=False,
+            rotate=True,
+            dendrogram_kws=self.dendrogram_kws,
+        )
         if not self.ax_row_dendrogram is None:
             self.ax_row_dendrogram.set_axis_off()
         # despine(ax=self.ax_row_dendrogram, bottom=True, left=True, top=True, right=True)
         # self.ax_col_dendrogram.spines['top'].set_visible(False)
 
     def calculate_col_dendrograms(self, data):
-        if self.col_cluster:
-            self.dendrogram_col = DendrogramPlotter(
-                data,
-                linkage=None,
-                axis=1,
-                metric=self.col_cluster_metric,
-                method=self.col_cluster_method,
-                label=False,
-                rotate=False,
-                dendrogram_kws=self.dendrogram_kws,
-            )
+        self.dendrogram_col = DendrogramPlotter(
+            data,
+            linkage=None,
+            axis=1,
+            metric=self.col_cluster_metric,
+            method=self.col_cluster_method,
+            label=False,
+            rotate=False,
+            dendrogram_kws=self.dendrogram_kws,
+        )
             # self.dendrogram_col.plot(ax=self.ax_col_dendrogram)
         # despine(ax=self.ax_col_dendrogram, bottom=True, left=True, top=True, right=True)
         if not self.ax_col_dendrogram is None:
             self.ax_col_dendrogram.set_axis_off()
 
     def _reorder_rows(self):
+        self.row_split_dendrogram = False
         if self.verbose >= 1:
             print("Reordering rows..")
         if self.row_split is None and self.row_cluster:
@@ -1515,17 +1516,9 @@ class ClusterMapPlotter:
                     self.data2d.loc[rows].mean() for rows in row_clusters.tolist()],
                               axis=1).T #columns are original columns
                 mat.index=row_clusters.index.tolist()
-                dendrogram_row = DendrogramPlotter(
-                    mat,
-                    linkage=None,
-                    axis=0,
-                    metric=self.row_cluster_metric,
-                    method=self.row_cluster_method,
-                    label=False,
-                    rotate=True,
-                    # dendrogram_kws=self.dendrogram_kws,
-                )
-                self.row_split_order = dendrogram_row.dendrogram["ivl"]
+                self.calculate_row_dendrograms(mat)
+                self.row_split_order = self.dendrogram_row.dendrogram["ivl"]
+                self.row_split_dendrogram=self.dendrogram_row
             self.row_clusters = row_clusters.loc[self.row_split_order].to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
@@ -1549,6 +1542,7 @@ class ClusterMapPlotter:
                 self.row_order.append(rows)
 
     def _reorder_cols(self):
+        self.col_split_dendrogram=False
         if self.verbose >= 1:
             print("Reordering cols..")
         if self.col_split is None and self.col_cluster:
@@ -1589,17 +1583,9 @@ class ClusterMapPlotter:
                     self.data2d.loc[:,cols].mean(axis=1) for cols in col_clusters.tolist()],
                     axis=1)  # index are original rows labels
                 mat.columns = col_clusters.index.tolist()
-                dendrogram_col = DendrogramPlotter(
-                    mat,
-                    linkage=None,
-                    axis=1,
-                    metric=self.col_cluster_metric,
-                    method=self.col_cluster_method,
-                    label=False,
-                    rotate=False,
-                    # dendrogram_kws=self.dendrogram_kws,
-                )
-                self.col_split_order = dendrogram_col.dendrogram["ivl"]
+                self.calculate_col_dendrograms(mat)
+                self.col_split_order = self.dendrogram_col.dendrogram["ivl"]
+                self.col_split_dendrogram = self.dendrogram_col
             self.col_clusters = col_clusters.loc[self.col_split_order].to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]
@@ -1627,7 +1613,10 @@ class ClusterMapPlotter:
         ccmap = self.tree_kws.pop("col_cmap", None)
         tree_kws = self.tree_kws.copy()
 
-        if self.row_cluster and self.row_dendrogram:
+        if self.row_split_dendrogram and self.row_dendrogram:
+            self.row_split_dendrogram.plot(ax=self.ax_row_dendrogram, tree_kws=tree_kws)
+            
+        elif self.row_cluster and self.row_dendrogram:
             if self.left_annotation is None:
                 gs = self.gs[1, 0]
             else:
@@ -1667,7 +1656,9 @@ class ClusterMapPlotter:
                     ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
                 )
 
-        if self.col_cluster and self.col_dendrogram:
+        if self.col_split_dendrogram and self.col_dendrogram:
+            self.col_split_dendrogram.plot(ax=self.ax_col_dendrogram, tree_kws=tree_kws)
+        elif self.col_cluster and self.col_dendrogram:
             if self.top_annotation is None:
                 gs = self.gs[0, 1]
             else:
