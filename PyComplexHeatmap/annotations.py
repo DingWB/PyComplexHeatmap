@@ -419,7 +419,8 @@ class anno_simple(AnnotationBase):
 # =============================================================================
 class anno_label(AnnotationBase):
     """
-    Add label and text annotations.
+    Add label and text annotations. See example on documentatin website:
+    https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/single_cell_methylation.html
 
     Parameters
     ----------

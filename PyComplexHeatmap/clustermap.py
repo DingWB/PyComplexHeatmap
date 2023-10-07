@@ -214,7 +214,10 @@ class heatmapPlotter:
             if m is not np.ma.masked:
                 lum = _calculate_luminance(color)
                 text_color = ".15" if lum > 0.408 else "w"
-                annotation = ("{:" + self.fmt + "}").format(val)
+                if not self.fmt is None:
+                    annotation = ("{:" + self.fmt + "}").format(val)
+                else:
+                    annotation=val
                 text_kwargs = dict(color=text_color, ha="center", va="center")
                 text_kwargs.update(self.annot_kws)
                 ax.text(x, y, annotation, **text_kwargs)
@@ -693,7 +696,10 @@ def plot_heatmap(
             if m is not np.ma.masked:
                 lum = _calculate_luminance(color)
                 text_color = ".15" if lum > 0.408 else "w"
-                annotation = ("{:" + fmt + "}").format(val)
+                if not fmt is None:
+                    annotation = ("{:" + fmt + "}").format(val)
+                else:
+                    annotation=val
                 text_kwargs = dict(color=text_color, ha="center", va="center")
                 text_kwargs.update(annot_kws)
                 ax.text(x, y, annotation, **text_kwargs)
@@ -709,8 +715,8 @@ class DendrogramPlotter(object):
     ):
         self.axis = axis
         if (
-            self.axis == 1
-        ):  # default 1, columns, when calculating dendrogram, each row is a point.
+            self.axis == 1 # columns dendrogram
+        ):  # if not transpose, when calculating dendrogram, each row is a point.
             data = data.T
         self.check_array(data)
         self.shape = self.data.shape
@@ -830,12 +836,16 @@ class DendrogramPlotter(object):
         tree_kws.setdefault("linewidth", 0.5)
         tree_kws.setdefault("colors", None)
         # tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
+        root_x=np.mean(self.independent_coord[-1][1:3])
+        root_y = np.mean(self.dependent_coord[-1][1:3])
         if self.rotate and self.axis == 0:  # 0 is rows, 1 is columns (default)
             coords = zip(
                 self.dependent_coord, self.independent_coord
-            )  # independent is icoord (x), horizontal
-        else:
+            )  # independent is icoord (x), such as 0.5,1.5,2.5,1.25.., horizontal
+            self.root=(root_y,root_x) # the middle point of the most top level  line.
+        else: #axis control whether to tranpose the data, rotate: horizontal or vert
             coords = zip(self.independent_coord, self.dependent_coord)  # vertical
+            self.root = (root_x, root_y)
         # lines = LineCollection([list(zip(x,y)) for x,y in coords], **tree_kws)  #
         # ax.add_collection(lines)
         colors = tree_kws.pop("colors")
@@ -844,12 +854,13 @@ class DendrogramPlotter(object):
             colors = ["black"] * len(self.dendrogram["ivl"])
         for (x, y), color in zip(coords, colors):
             ax.plot(x, y, color=color, **tree_kws)
+        # ax.scatter(*self.root,c='red',s=2)
         number_of_leaves = len(self.reordered_ind)
-        max_dependent_coord = max(map(max, self.dependent_coord))  # max y
+        max_dependent_coord = root_y #max(map(max, self.dependent_coord))  # max y
         # if self.axis==0: #TODO
         #     ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
 
-        if self.rotate:  # horizontal
+        if self.rotate:  # horizontal; in default, no rotate
             ax.yaxis.set_ticks_position("right")
             # Constants 10 and 1.05 come from
             # `scipy.cluster.hierarchy._plot_dendrogram`
@@ -878,6 +889,7 @@ class DendrogramPlotter(object):
             plt.setp(ytl, rotation="horizontal")
         if len(xtl) > 0 and axis_ticklabels_overlap(xtl):
             plt.setp(xtl, rotation="vertical")
+        self.ax=ax
         return self
 
 
@@ -946,10 +958,17 @@ class ClusterMapPlotter:
         kws passed to hierarchy.dendrogram.
     tree_kws :dict
         kws passed to DendrogramPlotter.plot()
-    row_split_order: list
-        a list to specify the order of row_split.
-    col_split_order: list
-        a list to specify the order of col_split.
+    row_split_order: list or str
+        a list to specify the order of row_split, could also be
+        'cluster_between_groups', if cluster_between_groups was specified,
+        hierarchical clustering will be performed on the mean values for each
+        groups and pass the clsutered order to row_split_order. For example,
+        see https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups
+    col_split_order: list or str
+        a list to specify the order of col_split,  could also be
+        'cluster_between_groups', if cluster_between_groups was specified,
+        hierarchical clustering will be performed on the mean values for each
+        groups and pass the clsutered order to row_split_order.
     row_split_gap :float
         default are 0.5 and 0.2 mm for row and col.
     col_split_gap :float
@@ -1007,7 +1026,12 @@ class ClusterMapPlotter:
         default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
         to be True, otherwise the plot would be very slow.
     kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,
-        cbar,cbar_kwss and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+        annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
+        and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+        If annot is True, the values of data will be plotted on the top of heatmap,
+        if annot is a dataframe, then the custom values will be plotted on heatmap,
+        fmt should be set to None if dtype of annot is str. For documentation of
+        custom annot, see https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation
 
     Returns
     -------
@@ -1323,7 +1347,7 @@ class ClusterMapPlotter:
                     self.row_dendrogram_size,
                     sum(self.left_annotation.heights),
                 ],
-            )
+            ) # 1 row, 2columns (row dendrogram + left annotation)
             self.ax_left_annotation = self.ax_left.figure.add_subplot(
                 self.left_gs[0, 1]
             )
@@ -1485,18 +1509,23 @@ class ClusterMapPlotter:
                 lambda x: x.index.tolist()
             )
             if self.row_split_order is None:
-                if len(cols) == 1:
-                    # calculate row_split_order using the mean across all samples in this group of
-                    # values of mean values across all samples
-                    self.row_split_order = (
-                        row_clusters.apply(
-                            lambda x: self.data2d.loc[x].mean(axis=1).mean()
-                        )
-                        .sort_values(ascending=False)
-                        .index.tolist()
-                    )
-                else:
-                    self.row_split_order = row_clusters.sort_index().index.tolist()
+                self.row_split_order = row_clusters.index.tolist()
+            elif self.row_split_order == 'cluster_between_groups':
+                mat=pd.concat([
+                    self.data2d.loc[rows].mean() for rows in row_clusters.tolist()],
+                              axis=1).T #columns are original columns
+                mat.index=row_clusters.index.tolist()
+                dendrogram_row = DendrogramPlotter(
+                    mat,
+                    linkage=None,
+                    axis=0,
+                    metric=self.row_cluster_metric,
+                    method=self.row_cluster_method,
+                    label=False,
+                    rotate=True,
+                    # dendrogram_kws=self.dendrogram_kws,
+                )
+                self.row_split_order = dendrogram_row.dendrogram["ivl"]
             self.row_clusters = row_clusters.loc[self.row_split_order].to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
@@ -1512,7 +1541,7 @@ class ClusterMapPlotter:
                 self.row_order.append(rows)
                 self.dendrogram_rows.append(None)
                 continue
-            if self.row_cluster:
+            if self.row_cluster: #cluster within groups
                 self.calculate_row_dendrograms(self.data2d.loc[rows])
                 self.dendrogram_rows.append(self.dendrogram_row)
                 self.row_order.append(self.dendrogram_row.dendrogram["ivl"])
@@ -1554,18 +1583,23 @@ class ClusterMapPlotter:
                 lambda x: x.index.tolist()
             )
             if self.col_split_order is None:
-                if len(cols) == 1:
-                    # calculate col_split_order using the mean across all samples in this group of
-                    # values of mean values across all samples
-                    self.col_split_order = (
-                        col_clusters.apply(
-                            lambda x: self.data2d.loc[:, x].mean().mean()
-                        )
-                        .sort_values(ascending=False)
-                        .index.tolist()
-                    )
-                else:
-                    self.col_split_order = col_clusters.sort_index().index.tolist()
+                self.col_split_order = col_clusters.index.tolist()
+            elif self.col_split_order == 'cluster_between_groups':
+                mat = pd.concat([
+                    self.data2d.loc[:,cols].mean(axis=1) for cols in col_clusters.tolist()],
+                    axis=1)  # index are original rows labels
+                mat.columns = col_clusters.index.tolist()
+                dendrogram_col = DendrogramPlotter(
+                    mat,
+                    linkage=None,
+                    axis=1,
+                    metric=self.col_cluster_metric,
+                    method=self.col_cluster_method,
+                    label=False,
+                    rotate=False,
+                    # dendrogram_kws=self.dendrogram_kws,
+                )
+                self.col_split_order = dendrogram_col.dendrogram["ivl"]
             self.col_clusters = col_clusters.loc[self.col_split_order].to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]

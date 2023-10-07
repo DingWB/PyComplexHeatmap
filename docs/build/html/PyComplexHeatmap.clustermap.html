@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.5.4 documentation</title>
+  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.5.5 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -12,9 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9ad41ab2"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -107,6 +107,12 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Cluster-between-groups">Cluster between groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Before-cluster_between_groups">Before <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#After-cluster_between_groups">After <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a><ul>
@@ -343,8 +349,15 @@ used to split rows or rows into subplots.</p></li>
 <li><p><strong>col_split</strong> (<em class="hover">int</em><em> or </em><em class="hover">pd.Series</em><em> or </em><em class="hover">pd.DataFrame</em>) – int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.</p></li>
 <li><p><strong>dendrogram_kws</strong> (<em class="hover">dict</em>) – kws passed to hierarchy.dendrogram.</p></li>
 <li><p><strong>tree_kws</strong> (<em class="hover">dict</em>) – kws passed to DendrogramPlotter.plot()</p></li>
-<li><p><strong>row_split_order</strong> (<em class="hover">list</em>) – a list to specify the order of row_split.</p></li>
-<li><p><strong>col_split_order</strong> (<em class="hover">list</em>) – a list to specify the order of col_split.</p></li>
+<li><p><strong>row_split_order</strong> (<em class="hover">list</em><em> or </em><em class="hover">str</em>) – a list to specify the order of row_split, could also be
+‘cluster_between_groups’, if cluster_between_groups was specified,
+hierarchical clustering will be performed on the mean values for each
+groups and pass the clsutered order to row_split_order. For example,
+see <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups</a></p></li>
+<li><p><strong>col_split_order</strong> (<em class="hover">list</em><em> or </em><em class="hover">str</em>) – a list to specify the order of col_split,  could also be
+‘cluster_between_groups’, if cluster_between_groups was specified,
+hierarchical clustering will be performed on the mean values for each
+groups and pass the clsutered order to row_split_order.</p></li>
 <li><p><strong>row_split_gap</strong> (<em class="hover">float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
 <li><p><strong>col_split_gap</strong> (<em class="hover">float</em>) – default are 0.5 and 0.2 mm for row and col.</p></li>
 <li><p><strong>mask</strong> (<em class="hover">dataframe</em><em> or </em><em class="hover">array</em>) – mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</p></li>
@@ -388,7 +401,12 @@ For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</
 <li><p><strong>yticklabels_kws</strong> (<em class="hover">dict</em>) – the same as xticklabels_kws.</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested
 to be True, otherwise the plot would be very slow.</p></li>
-<li><p><strong>kwargs</strong> (<em class="hover">kws passed to plot_heatmap</em><em>, </em><em class="hover">including vmin</em><em>, </em><em class="hover">vmax</em><em>,</em><em class="hover">center</em><em>,</em><em class="hover">robust</em><em>,</em>) – cbar,cbar_kwss and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">kws passed to plot_heatmap</em><em>, </em><em class="hover">including vmin</em><em>, </em><em class="hover">vmax</em><em>,</em><em class="hover">center</em><em>,</em><em class="hover">robust</em><em>,</em>) – annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
+and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+If annot is True, the values of data will be plotted on the top of heatmap,
+if annot is a dataframe, then the custom values will be plotted on heatmap,
+fmt should be set to None if dtype of annot is str. For documentation of
+custom annot, see <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation</a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

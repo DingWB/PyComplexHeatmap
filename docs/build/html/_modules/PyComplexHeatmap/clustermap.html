@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.5.4 documentation</title>
+  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.5.5 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
@@ -11,9 +11,9 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=9ad41ab2"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -104,6 +104,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Cluster-between-groups">Cluster between groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Before-cluster_between_groups">Before <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#After-cluster_between_groups">After <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../more_examples.html">More Examples</a><ul>
@@ -511,7 +517,10 @@
             <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked</span><span class="p">:</span>
                 <span class="n">lum</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
                 <span class="n">text_color</span> <span class="o">=</span> <span class="s2">&quot;.15&quot;</span> <span class="k">if</span> <span class="n">lum</span> <span class="o">&gt;</span> <span class="mf">0.408</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
-                <span class="n">annotation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">annotation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">annotation</span><span class="o">=</span><span class="n">val</span>
                 <span class="n">text_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">text_color</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
                 <span class="n">text_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_kws</span><span class="p">)</span>
                 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">annotation</span><span class="p">,</span> <span class="o">**</span><span class="n">text_kwargs</span><span class="p">)</span>
@@ -990,7 +999,10 @@
             <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked</span><span class="p">:</span>
                 <span class="n">lum</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
                 <span class="n">text_color</span> <span class="o">=</span> <span class="s2">&quot;.15&quot;</span> <span class="k">if</span> <span class="n">lum</span> <span class="o">&gt;</span> <span class="mf">0.408</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
-                <span class="n">annotation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{:&quot;</span> <span class="o">+</span> <span class="n">fmt</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fmt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">annotation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{:&quot;</span> <span class="o">+</span> <span class="n">fmt</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">annotation</span><span class="o">=</span><span class="n">val</span>
                 <span class="n">text_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">text_color</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
                 <span class="n">text_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">annot_kws</span><span class="p">)</span>
                 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">annotation</span><span class="p">,</span> <span class="o">**</span><span class="n">text_kwargs</span><span class="p">)</span>
@@ -1006,8 +1018,8 @@
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span>
-        <span class="p">):</span>  <span class="c1"># default 1, columns, when calculating dendrogram, each row is a point.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># columns dendrogram</span>
+        <span class="p">):</span>  <span class="c1"># if not transpose, when calculating dendrogram, each row is a point.</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
@@ -1127,12 +1139,16 @@
         <span class="n">tree_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;linewidth&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="n">tree_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="c1"># tree_kws.setdefault(&quot;colors&quot;, tree_kws.pop(&quot;color&quot;, (.2, .2, .2)))</span>
+        <span class="n">root_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">independent_coord</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">root_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependent_coord</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 0 is rows, 1 is columns (default)</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dependent_coord</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">independent_coord</span>
-            <span class="p">)</span>  <span class="c1"># independent is icoord (x), horizontal</span>
-        <span class="k">else</span><span class="p">:</span>
+            <span class="p">)</span>  <span class="c1"># independent is icoord (x), such as 0.5,1.5,2.5,1.25.., horizontal</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">root_y</span><span class="p">,</span><span class="n">root_x</span><span class="p">)</span> <span class="c1"># the middle point of the most top level  line.</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#axis control whether to tranpose the data, rotate: horizontal or vert</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">independent_coord</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependent_coord</span><span class="p">)</span>  <span class="c1"># vertical</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="p">(</span><span class="n">root_x</span><span class="p">,</span> <span class="n">root_y</span><span class="p">)</span>
         <span class="c1"># lines = LineCollection([list(zip(x,y)) for x,y in coords], **tree_kws)  #</span>
         <span class="c1"># ax.add_collection(lines)</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="n">tree_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;colors&quot;</span><span class="p">)</span>
@@ -1141,12 +1157,13 @@
             <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;black&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">])</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">tree_kws</span><span class="p">)</span>
+        <span class="c1"># ax.scatter(*self.root,c=&#39;red&#39;,s=2)</span>
         <span class="n">number_of_leaves</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reordered_ind</span><span class="p">)</span>
-        <span class="n">max_dependent_coord</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependent_coord</span><span class="p">))</span>  <span class="c1"># max y</span>
+        <span class="n">max_dependent_coord</span> <span class="o">=</span> <span class="n">root_y</span> <span class="c1">#max(map(max, self.dependent_coord))  # max y</span>
         <span class="c1"># if self.axis==0: #TODO</span>
         <span class="c1">#     ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">:</span>  <span class="c1"># horizontal</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">:</span>  <span class="c1"># horizontal; in default, no rotate</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
             <span class="c1"># Constants 10 and 1.05 come from</span>
             <span class="c1"># `scipy.cluster.hierarchy._plot_dendrogram`</span>
@@ -1175,6 +1192,7 @@
             <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ytl</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xtl</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">axis_ticklabels_overlap</span><span class="p">(</span><span class="n">xtl</span><span class="p">):</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">xtl</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
         <span class="k">return</span> <span class="bp">self</span></div></div>
 
 
@@ -1243,10 +1261,17 @@
 <span class="sd">        kws passed to hierarchy.dendrogram.</span>
 <span class="sd">    tree_kws :dict</span>
 <span class="sd">        kws passed to DendrogramPlotter.plot()</span>
-<span class="sd">    row_split_order: list</span>
-<span class="sd">        a list to specify the order of row_split.</span>
-<span class="sd">    col_split_order: list</span>
-<span class="sd">        a list to specify the order of col_split.</span>
+<span class="sd">    row_split_order: list or str</span>
+<span class="sd">        a list to specify the order of row_split, could also be</span>
+<span class="sd">        &#39;cluster_between_groups&#39;, if cluster_between_groups was specified,</span>
+<span class="sd">        hierarchical clustering will be performed on the mean values for each</span>
+<span class="sd">        groups and pass the clsutered order to row_split_order. For example,</span>
+<span class="sd">        see https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups</span>
+<span class="sd">    col_split_order: list or str</span>
+<span class="sd">        a list to specify the order of col_split,  could also be</span>
+<span class="sd">        &#39;cluster_between_groups&#39;, if cluster_between_groups was specified,</span>
+<span class="sd">        hierarchical clustering will be performed on the mean values for each</span>
+<span class="sd">        groups and pass the clsutered order to row_split_order.</span>
 <span class="sd">    row_split_gap :float</span>
 <span class="sd">        default are 0.5 and 0.2 mm for row and col.</span>
 <span class="sd">    col_split_gap :float</span>
@@ -1304,7 +1329,12 @@
 <span class="sd">        default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested</span>
 <span class="sd">        to be True, otherwise the plot would be very slow.</span>
 <span class="sd">    kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,</span>
-<span class="sd">        cbar,cbar_kwss and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).</span>
+<span class="sd">        annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss</span>
+<span class="sd">        and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).</span>
+<span class="sd">        If annot is True, the values of data will be plotted on the top of heatmap,</span>
+<span class="sd">        if annot is a dataframe, then the custom values will be plotted on heatmap,</span>
+<span class="sd">        fmt should be set to None if dtype of annot is str. For documentation of</span>
+<span class="sd">        custom annot, see https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1620,7 +1650,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">row_dendrogram_size</span><span class="p">,</span>
                     <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_annotation</span><span class="o">.</span><span class="n">heights</span><span class="p">),</span>
                 <span class="p">],</span>
-            <span class="p">)</span>
+            <span class="p">)</span> <span class="c1"># 1 row, 2columns (row dendrogram + left annotation)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ax_left_annotation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax_left</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">left_gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">)</span>
@@ -1782,18 +1812,23 @@
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="c1"># calculate row_split_order using the mean across all samples in this group of</span>
-                    <span class="c1"># values of mean values across all samples</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">row_clusters</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-                            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-                        <span class="p">)</span>
-                        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                        <span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">=</span> <span class="n">row_clusters</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">=</span> <span class="n">row_clusters</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">==</span> <span class="s1">&#39;cluster_between_groups&#39;</span><span class="p">:</span>
+                <span class="n">mat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">row_clusters</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span>
+                              <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="c1">#columns are original columns</span>
+                <span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">row_clusters</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">dendrogram_row</span> <span class="o">=</span> <span class="n">DendrogramPlotter</span><span class="p">(</span>
+                    <span class="n">mat</span><span class="p">,</span>
+                    <span class="n">linkage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row_cluster_metric</span><span class="p">,</span>
+                    <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row_cluster_method</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="c1"># dendrogram_kws=self.dendrogram_kws,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">=</span> <span class="n">dendrogram_row</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">row_clusters</span> <span class="o">=</span> <span class="n">row_clusters</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
@@ -1809,7 +1844,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
                 <span class="k">continue</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span> <span class="c1">#cluster within groups</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">calculate_row_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">])</span>
@@ -1851,18 +1886,23 @@
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="c1"># calculate col_split_order using the mean across all samples in this group of</span>
-                    <span class="c1"># values of mean values across all samples</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">col_clusters</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-                            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-                        <span class="p">)</span>
-                        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                        <span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">=</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">=</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">==</span> <span class="s1">&#39;cluster_between_groups&#39;</span><span class="p">:</span>
+                <span class="n">mat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span>
+                    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># index are original rows labels</span>
+                <span class="n">mat</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">dendrogram_col</span> <span class="o">=</span> <span class="n">DendrogramPlotter</span><span class="p">(</span>
+                    <span class="n">mat</span><span class="p">,</span>
+                    <span class="n">linkage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col_cluster_metric</span><span class="p">,</span>
+                    <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col_cluster_method</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="c1"># dendrogram_kws=self.dendrogram_kws,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">=</span> <span class="n">dendrogram_col</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_clusters</span> <span class="o">=</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>

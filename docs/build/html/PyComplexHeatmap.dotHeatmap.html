@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.dotHeatmap module &mdash; PyComplexHeatmap 1.5.4 documentation</title>
+  <title>PyComplexHeatmap.dotHeatmap module &mdash; PyComplexHeatmap 1.5.5 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -12,9 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9ad41ab2"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -107,6 +107,12 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Cluster-between-groups">Cluster between groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Before-cluster_between_groups">Before <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#After-cluster_between_groups">After <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a><ul>
@@ -303,7 +309,7 @@
 <span id="pycomplexheatmap-dotheatmap-module"></span><h1>PyComplexHeatmap.dotHeatmap module<a class="headerlink" href="#module-PyComplexHeatmap.dotHeatmap" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">DotClustermapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker='o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha=0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggfunc=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_na='NA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#DotClustermapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.dotHeatmap.</span></span><span class="sig-name descname"><span class="pre">DotClustermapPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker='o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_legend_kws={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggfunc=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue_na='NA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_na=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/dotHeatmap.html#DotClustermapPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter" title="PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a></p>
 <p>DotClustermap (Heatmap) plotter, inherited from ClusterMapPlotter.
 Plot dot heatmap (clustermap) with annotation and legends.</p>
@@ -342,7 +348,9 @@ used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.s,a
 <li><p><strong>c_na</strong> (<em class="hover">float</em><em>, </em><em class="hover">int</em><em> or </em><em class="hover">str</em>) – used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.c,aggfunc=self.aggfunc).fillna(self.c_na)</p></li>
 <li><p><strong>aggfunc</strong> (<em class="hover">function</em>) – when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
 aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)</p></li>
-<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter.</p></li>
+<li><p><strong>spines</strong> (<em class="hover">bool</em>) – Whether show spines of the axes or not [False]</p></li>
+<li><p><strong>ratio</strong> (<em class="hover">float</em>) – the size of dot will be multipled by ratio.</p></li>
+<li><p><strong>kwargs</strong> (<em class="hover">dict</em>) – Other kwargs passed to ClusterMapPlotter and dotHeatmap2d, such as ratio, vmin, vmax.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
