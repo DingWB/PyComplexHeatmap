@@ -110,9 +110,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#Cluster-between-groups">Cluster between groups</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Before-cluster_between_groups">Before <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#After-cluster_between_groups">After <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Custom-annotation">Custom annotation</a></li>
@@ -202,6 +203,7 @@
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.get_coords()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
 </ul>
@@ -307,7 +309,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="nbinput nblast docutils container">
+  <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -318,9 +320,19 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
 <span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
+<span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.5.5
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -393,7 +405,7 @@
                        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
                        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
@@ -463,35 +475,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E  0.163698
-sample2  GroupA  C  E -0.137036
-sample3  GroupA  C  E -1.305841
-sample4  GroupA  D  E  0.334544
-sample5  GroupA  D  E -0.592585
-sample1    -0.153696
-sample2     0.163995
-sample3     0.050878
-sample4    -0.321673
-sample5    -0.507176
-sample6    -0.466586
-sample7     0.147641
-sample8     0.215975
-sample9    -0.216656
-sample10    0.041315
+sample1  GroupA  C  E  0.534943
+sample2  GroupA  C  E -0.025565
+sample3  GroupA  C  E  0.551784
+sample4  GroupA  D  E -0.770154
+sample5  GroupA  D  E  0.942603
+sample1    -0.640370
+sample2     0.375463
+sample3     0.125552
+sample4     1.106078
+sample5    -0.451594
+sample6    -0.517421
+sample7     0.293993
+sample8    -0.643404
+sample9     0.735350
+sample10    0.052017
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1 -2.251349  0.159900  1.561249  0.174925 -2.333959  0.175564  0.287466
-Fea2 -0.021226 -0.000923       NaN -0.608903 -0.581095 -0.695595 -1.077086
-Fea3 -0.141994  1.279011  0.855527  0.665854  0.536833  0.350969  0.930174
-Fea4  1.074883 -1.163840 -1.880597  0.165237 -0.229123  0.248790 -0.536870
-Fea5  0.985696  0.299699  1.315795 -1.288035 -1.015916 -0.467808  0.453297
+Fea1 -0.216608  0.428309 -0.024364  0.569834  0.558560 -0.143571  0.448657
+Fea2  1.861899 -0.930470       NaN  1.820733 -1.447273 -0.496209 -0.490017
+Fea3 -2.047286 -0.738093 -1.328495  1.003606 -0.915434 -0.165173  1.274020
+Fea4  1.492050 -0.466261  0.909928 -0.886344  1.027500  0.375209  0.031930
+Fea5  1.072928  0.172285 -0.379147 -1.591905 -1.380033  0.303566 -0.916022
 
        sample8   sample9  sample10
-Fea1 -1.908340 -0.382918 -0.276402
-Fea2  0.205497 -0.043094 -0.468165
-Fea3 -0.672130  0.729314  1.114071
-Fea4  1.275927  0.098664  0.472938
-Fea5 -0.257583  0.077007 -0.837847
+Fea1  0.446101  0.391416  0.760570
+Fea2  0.276801 -0.246762 -1.320727
+Fea3 -2.472144 -1.477638 -1.442554
+Fea4  1.597960  1.028966  0.801056
+Fea5 -0.006860  0.883613 -1.597729
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -506,8 +518,8 @@ Fea5 -0.257583  0.077007 -0.837847
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea17&#39;, &#39;Fea16&#39;, &#39;Fea18&#39;, &#39;Fea24&#39;, &#39;Fea26&#39;, &#39;Fea27&#39;, &#39;Fea19&#39;, &#39;Fea23&#39;, &#39;Fea22&#39;, &#39;Fea25&#39;, &#39;Fea20&#39;, &#39;Fea29&#39;, &#39;Fea15&#39;, &#39;Fea30&#39;, &#39;Fea21&#39;, &#39;Fea28&#39;], [&#39;Fea5&#39;, &#39;Fea11&#39;, &#39;Fea10&#39;, &#39;Fea3&#39;, &#39;Fea1&#39;, &#39;Fea7&#39;, &#39;Fea14&#39;, &#39;Fea6&#39;, &#39;Fea8&#39;, &#39;Fea2&#39;, &#39;Fea4&#39;, &#39;Fea9&#39;, &#39;Fea12&#39;, &#39;Fea13&#39;]]
-[[&#39;sample1&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample2&#39;, &#39;sample4&#39;], [&#39;sample10&#39;, &#39;sample7&#39;, &#39;sample9&#39;, &#39;sample6&#39;, &#39;sample8&#39;]]
+[[&#39;Fea26&#39;, &#39;Fea29&#39;, &#39;Fea17&#39;, &#39;Fea25&#39;, &#39;Fea19&#39;, &#39;Fea20&#39;, &#39;Fea16&#39;, &#39;Fea18&#39;, &#39;Fea28&#39;, &#39;Fea23&#39;, &#39;Fea27&#39;, &#39;Fea15&#39;, &#39;Fea24&#39;, &#39;Fea30&#39;, &#39;Fea21&#39;, &#39;Fea22&#39;], [&#39;Fea8&#39;, &#39;Fea2&#39;, &#39;Fea9&#39;, &#39;Fea4&#39;, &#39;Fea7&#39;, &#39;Fea5&#39;, &#39;Fea11&#39;, &#39;Fea12&#39;, &#39;Fea13&#39;, &#39;Fea6&#39;, &#39;Fea1&#39;, &#39;Fea10&#39;, &#39;Fea3&#39;, &#39;Fea14&#39;]]
+[[&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample4&#39;, &#39;sample3&#39;, &#39;sample5&#39;], [&#39;sample6&#39;, &#39;sample9&#39;, &#39;sample10&#39;, &#39;sample7&#39;, &#39;sample8&#39;]]
 </pre></div></div>
 </div>
 </section>
@@ -554,93 +566,93 @@ Fea5 -0.257583  0.077007 -0.837847
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  0.209829
-sample2    AAAA1  C -1.785404
-sample3    AAAA1  C -0.654199
-sample4    AAAA1  D  0.276068
-sample5    AAAA1  D -0.517376
-sample6   BBBBB2  D -1.143523
-sample7   BBBBB2  G  0.229395
-sample8   BBBBB2  G  0.960789
-sample9   BBBBB2  G  0.374927
-sample10  BBBBB2  G -1.125440
+sample1    AAAA1  C  0.491707
+sample2    AAAA1  C -0.833180
+sample3    AAAA1  C  0.139084
+sample4    AAAA1  D  1.005826
+sample5    AAAA1  D  0.415396
+sample6   BBBBB2  D  1.461063
+sample7   BBBBB2  G -0.334471
+sample8   BBBBB2  G -0.023615
+sample9   BBBBB2  G  1.086105
+sample10  BBBBB2  G -0.384579
              Gene1     Gene2     Gene3     Gene4
-sample1   0.455417 -0.193833 -0.170283  0.350252
-sample2   1.263450 -1.472722 -0.045997 -0.010719
-sample3  -0.261473  0.759537  1.422554  0.667726
-sample4  -0.901042  1.319195 -0.166030 -1.227098
-sample5  -0.476916 -2.094541  1.367859 -0.996129
-sample6   1.288746 -0.906807  1.992821  1.428059
-sample7  -0.566764 -0.356989 -1.270775 -0.808430
-sample8  -1.150356 -0.090582  0.705344 -1.596375
-sample9   0.714203 -1.652241  0.353654 -0.919628
-sample10  0.829234  1.407199 -1.192190  0.683737
+sample1   0.977621 -1.982714 -1.524016 -0.982979
+sample2  -1.326998  0.553413 -1.392740 -0.121619
+sample3  -1.611846 -0.194724  1.513891  1.985026
+sample4   0.558245 -0.055556  0.726010  1.022756
+sample5  -0.731752  0.024214 -0.033741  0.734231
+sample6  -1.003782  0.188963  0.387182  0.213643
+sample7  -0.505434  0.383627 -1.361103  2.673127
+sample8  -1.589717  0.056456 -0.537824 -0.394930
+sample9   1.733085 -0.462689  0.224293  1.759959
+sample10 -2.970398 -0.815571  0.895478 -0.510278
            Scatter
-sample1   1.073198
-sample2   4.616557
-sample3   4.312821
-sample4   0.459509
-sample5   5.990065
-sample6   9.443232
-sample7   6.448853
-sample8   2.588145
-sample9   5.503568
-sample10  9.194959
+sample1   9.325487
+sample2   4.535314
+sample3   0.301783
+sample4   7.837126
+sample5   6.887914
+sample6   8.871974
+sample7   2.080862
+sample8   5.941808
+sample9   7.851425
+sample10  8.367871
               TMB1      TMB2
-sample1   7.404369  6.199952
-sample2   9.616581  6.022237
-sample3   6.246225  7.104411
-sample4   6.241789  5.318706
-sample5   8.231040  3.110634
-sample6   9.510363  0.317757
-sample7   4.360936  6.932501
-sample8   9.222439  6.860978
-sample9   0.646424  5.761593
-sample10  6.523195  1.606187
+sample1   4.122145  2.703128
+sample2   7.199782  1.326381
+sample3   7.995213  5.683788
+sample4   8.725402  0.636108
+sample5   0.386258  7.726897
+sample6   9.394485  5.772218
+sample7   9.862353  6.027969
+sample8   5.711864  7.856735
+sample9   0.382544  6.092511
+sample10  8.539763  6.090960
               T1-A      T1-B
-sample1   2.859067  8.687212
-sample2   2.344770  2.920821
-sample3   5.254832  5.216861
-sample4   3.406186  0.302333
-sample5   2.394406  9.044773
-sample6   6.509986  5.790503
-sample7   1.823193  0.008586
-sample8   3.312239  0.168182
-sample9   2.863702  3.154352
-sample10  0.161204  1.505566
+sample1   3.146853  3.946848
+sample2   3.018956  8.113681
+sample3   3.014239  5.148263
+sample4   6.333062  1.278251
+sample5   6.325375  3.687123
+sample6   1.405511  0.316852
+sample7   2.710653  3.103910
+sample8   3.951155  9.091939
+sample9   7.839150  9.426361
+sample10  4.384937  2.188012
               T2-A      T2-B
-sample1   3.596494  8.815241
-sample2   4.805029  6.615750
-sample3   1.321409  9.265697
-sample4   6.389154  1.547876
-sample5   0.550803  3.708522
-sample6   4.465048  5.696371
-sample7   0.794812  6.322272
-sample8   0.394027  3.647757
-sample9   2.225433  6.847426
-sample10  7.277640  1.055224
+sample1   0.305374  3.281081
+sample2   4.707464  5.774337
+sample3   3.135102  2.474376
+sample4   2.261239  2.190618
+sample5   5.126856  5.362840
+sample6   8.666710  8.853389
+sample7   4.524187  2.156373
+sample8   3.413425  1.748613
+sample9   8.986315  8.944021
+sample10  8.963371  0.593154
               T3-A      T3-B
-sample1   2.533783  7.856247
-sample2   6.102463  8.841432
-sample3   4.407084  6.165253
-sample4   1.810936  1.660380
-sample5   8.702945  8.511790
-sample6        NaN  9.718363
-sample7   1.023770  4.919462
-sample8   3.135750  1.958493
-sample9   3.346744  2.649537
-sample10  0.963460  2.358614
+sample1   6.616249  5.799486
+sample2   0.598779  4.546447
+sample3   5.725462  1.269288
+sample4   9.316369  6.419307
+sample5   3.480690  5.222026
+sample6        NaN  5.825158
+sample7   3.121152  1.212689
+sample8   6.473635  4.501116
+sample9   0.295997  8.174549
+sample10  2.187370  9.027127
                 T4
-sample1   4.699981
-sample2   0.050864
-sample3   4.790591
-sample4   7.448526
-sample5   4.002233
-sample6   7.254517
-sample7   1.216646
+sample1   5.679032
+sample2   4.116399
+sample3   4.532862
+sample4   8.578377
+sample5   6.800981
+sample6   4.377444
+sample7   0.912567
 sample8        NaN
-sample9   9.311522
-sample10  5.269253
+sample9   5.953178
+sample10  3.476604
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1114,16 +1126,16 @@ Legend too long, generating a new column..
 </div>
 </section>
 </section>
-<section id="Cluster-between-groups">
-<h1>Cluster between groups<a class="headerlink" href="#Cluster-between-groups" title="Permalink to this heading">¶</a></h1>
-<p>Similar to <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code> in R (<a class="reference external" href="https://jokergoo.github.io/2021/03/05/cluster-groups-in-complexheatmap/">https://jokergoo.github.io/2021/03/05/cluster-groups-in-complexheatmap/</a>)</p>
-<section id="Before-cluster_between_groups">
-<h2>Before <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code><a class="headerlink" href="#Before-cluster_between_groups" title="Permalink to this heading">¶</a></h2>
+<section id="Cluster-between-groups-and-cluster-within-groups">
+<h1>Cluster between groups and cluster within groups<a class="headerlink" href="#Cluster-between-groups-and-cluster-within-groups" title="Permalink to this heading">¶</a></h1>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code> and <code class="docutils literal notranslate"><span class="pre">cluster_within_groups</span></code> in R (<a class="reference external" href="https://jokergoo.github.io/2021/03/05/cluster-groups-in-complexheatmap/">https://jokergoo.github.io/2021/03/05/cluster-groups-in-complexheatmap/</a>)</p>
+<section id="clsuter-within-groups:-col_split=*,-col_cluster=True">
+<h2>clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code><a class="headerlink" href="#clsuter-within-groups:-col_split=*,-col_cluster=True" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
                            <span class="n">Groups</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
                            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1133,11 +1145,11 @@ Legend too long, generating a new column..
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
-                       <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span>
+                       <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span><span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
                       <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1151,19 +1163,20 @@ Legend too long, generating a new column..
 </div>
 </div>
 </section>
-<section id="After-cluster_between_groups">
-<h2>After <code class="docutils literal notranslate"><span class="pre">cluster_between_groups</span></code><a class="headerlink" href="#After-cluster_between_groups" title="Permalink to this heading">¶</a></h2>
+<section id="cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">
+<h2>cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code><a class="headerlink" href="#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
                        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span> <span class="n">col_split_order</span><span class="o">=</span><span class="s2">&quot;cluster_between_groups&quot;</span><span class="p">,</span>
-                       <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
                       <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1177,11 +1190,38 @@ Legend too long, generating a new column..
 </div>
 </div>
 </section>
+<section id="cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">
+<h2>cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code><a class="headerlink" href="#cluster_within_groups-&&-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True" title="Permalink to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
+                       <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;AB&#39;</span><span class="p">,</span><span class="s1">&#39;Groups&#39;</span><span class="p">]],</span> <span class="n">col_split_order</span><span class="o">=</span><span class="s2">&quot;cluster_between_groups&quot;</span><span class="p">,</span>
+                       <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+                      <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_advanced_usage_38_0.png" src="../_images/notebooks_advanced_usage_38_0.png" />
+</div>
+</div>
+</section>
 </section>
 <section id="Custom-annotation">
 <h1>Custom annotation<a class="headerlink" href="#Custom-annotation" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annot</span><span class="o">=</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;***&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;**&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
@@ -1202,7 +1242,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_38_0.png" src="../_images/notebooks_advanced_usage_38_0.png" />
+<img alt="../_images/notebooks_advanced_usage_40_0.png" src="../_images/notebooks_advanced_usage_40_0.png" />
 </div>
 </div>
 </section>

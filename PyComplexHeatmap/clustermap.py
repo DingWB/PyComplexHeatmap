@@ -711,7 +711,8 @@ def plot_heatmap(
 # =============================================================================
 class DendrogramPlotter(object):
     def __init__(
-        self, data, linkage, metric, method, axis, label, rotate, dendrogram_kws=None
+        self, data=None, linkage=None, metric='correlation', method='average',
+        axis=0, label=True, rotate=False, sizes=None,dendrogram_kws=None
     ):
         self.axis = axis
         if (
@@ -729,6 +730,10 @@ class DendrogramPlotter(object):
             self.linkage = self.calculated_linkage
         else:
             self.linkage = linkage
+        if not sizes is None:
+            self.sizes={idx:s for idx,s in zip(self.data.index.tolist(),sizes)}
+        else:
+            self.sizes=None
         self.dendrogram = self.calculate_dendrogram()
         # Dendrogram ends are always at multiples of 5, who knows why
         ticks = np.arange(self.data.shape[0]) + 0.5  # xticklabels
@@ -755,9 +760,7 @@ class DendrogramPlotter(object):
             self.xticks, self.yticks = [], []
             self.yticklabels, self.xticklabels = [], []
             self.xlabel, self.ylabel = "", ""
-
-        self.dependent_coord = np.array(self.dendrogram["dcoord"])
-        self.independent_coord = np.array(self.dendrogram["icoord"]) / 10
+        self.get_coords()
 
     def check_array(self, data):
         if not isinstance(data, pd.DataFrame):
@@ -825,6 +828,25 @@ class DendrogramPlotter(object):
         """Indices of the matrix, reordered by the dendrogram"""
         return self.dendrogram["leaves"]  # idx of the matrix
 
+    def get_coords(self):
+        self.dependent_coord = np.array(self.dendrogram["dcoord"])
+        self.independent_coord = np.array(self.dendrogram["icoord"]) / 10
+        if not self.sizes is None:
+            # X=np.sort(np.unique(self.independent_coord.flatten()))
+            sizes=[self.sizes[idx] for idx in self.dendrogram['ivl']]
+            # sizes is the number of samples in each group
+            cum_sizes=np.cumsum(sizes)
+            xcoord_mapping = {} #map the old independent_coord to new coord
+            for x in np.unique(self.independent_coord.flatten()):
+                new_x=(x % 1) * sizes[int(x)]
+                if int(x) > 0:
+                    new_x+=cum_sizes[int(x)-1]
+                xcoord_mapping[x]= new_x
+            self.independent_coord=np.array(
+                [[xcoord_mapping[i] for i in a] for a in self.independent_coord]
+            )
+            
+        
     def plot(self, ax, tree_kws):
         """Plots a dendrogram of the similarities between data on the axes
         Parameters
@@ -836,16 +858,16 @@ class DendrogramPlotter(object):
         tree_kws.setdefault("linewidth", 0.5)
         tree_kws.setdefault("colors", None)
         # tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
-        root_x=np.mean(self.independent_coord[-1][1:3])
+        # root_x=np.mean(self.independent_coord[-1][1:3])
         root_y = np.mean(self.dependent_coord[-1][1:3])
         if self.rotate and self.axis == 0:  # 0 is rows, 1 is columns (default)
             coords = zip(
                 self.dependent_coord, self.independent_coord
             )  # independent is icoord (x), such as 0.5,1.5,2.5,1.25.., horizontal
-            self.root=(root_y,root_x) # the middle point of the most top level  line.
+            # self.root=(root_y,root_x) # the middle point of the most top level  line.
         else: #axis control whether to tranpose the data, rotate: horizontal or vert
             coords = zip(self.independent_coord, self.dependent_coord)  # vertical
-            self.root = (root_x, root_y)
+            # self.root = (root_x, root_y)
         # lines = LineCollection([list(zip(x,y)) for x,y in coords], **tree_kws)  #
         # ax.add_collection(lines)
         colors = tree_kws.pop("colors")
@@ -857,9 +879,12 @@ class DendrogramPlotter(object):
         for (x, y), color in zip(coords, colors):
             ax.plot(x, y, color=color, **tree_kws)
         # ax.scatter(*self.root,c='red',s=2)
-        number_of_leaves = len(self.reordered_ind)
+        if self.sizes is None:
+            number_of_leaves = len(self.reordered_ind)
+        else:
+            number_of_leaves=sum([self.sizes[k] for k in self.sizes])
         max_dependent_coord = root_y #max(map(max, self.dependent_coord))  # max y
-        # if self.axis==0: #TODO
+        # if self.axis==0:
         #     ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
 
         if self.rotate:  # horizontal; in default, no rotate
@@ -1440,7 +1465,7 @@ class ClusterMapPlotter:
         else:
             return standardized.T
 
-    def calculate_row_dendrograms(self, data):
+    def calculate_row_dendrograms(self, data, sizes = None):
         self.dendrogram_row = DendrogramPlotter(
             data,
             linkage=None,
@@ -1449,6 +1474,7 @@ class ClusterMapPlotter:
             method=self.row_cluster_method,
             label=False,
             rotate=True,
+            sizes=sizes,
             dendrogram_kws=self.dendrogram_kws,
         )
         if not self.ax_row_dendrogram is None:
@@ -1456,7 +1482,7 @@ class ClusterMapPlotter:
         # despine(ax=self.ax_row_dendrogram, bottom=True, left=True, top=True, right=True)
         # self.ax_col_dendrogram.spines['top'].set_visible(False)
 
-    def calculate_col_dendrograms(self, data):
+    def calculate_col_dendrograms(self, data, sizes = None):
         self.dendrogram_col = DendrogramPlotter(
             data,
             linkage=None,
@@ -1465,6 +1491,7 @@ class ClusterMapPlotter:
             method=self.col_cluster_method,
             label=False,
             rotate=False,
+            sizes=sizes,
             dendrogram_kws=self.dendrogram_kws,
         )
             # self.dendrogram_col.plot(ax=self.ax_col_dendrogram)
@@ -1516,7 +1543,8 @@ class ClusterMapPlotter:
                     self.data2d.loc[rows].mean() for rows in row_clusters.tolist()],
                               axis=1).T #columns are original columns
                 mat.index=row_clusters.index.tolist()
-                self.calculate_row_dendrograms(mat)
+                sizes=row_clusters.apply(lambda x:len(x)).tolist()
+                self.calculate_row_dendrograms(mat,sizes=sizes)
                 self.row_split_order = self.dendrogram_row.dendrogram["ivl"]
                 self.row_split_dendrogram=self.dendrogram_row
             self.row_clusters = row_clusters.loc[self.row_split_order].to_dict()
@@ -1583,7 +1611,8 @@ class ClusterMapPlotter:
                     self.data2d.loc[:,cols].mean(axis=1) for cols in col_clusters.tolist()],
                     axis=1)  # index are original rows labels
                 mat.columns = col_clusters.index.tolist()
-                self.calculate_col_dendrograms(mat)
+                sizes = col_clusters.apply(lambda x: len(x)).tolist()
+                self.calculate_col_dendrograms(mat, sizes=sizes)
                 self.col_split_order = self.dendrogram_col.dendrogram["ivl"]
                 self.col_split_dendrogram = self.dendrogram_col
             self.col_clusters = col_clusters.loc[self.col_split_order].to_dict()
