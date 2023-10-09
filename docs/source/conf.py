@@ -18,6 +18,7 @@ print(sys.path)
 from recommonmark.parser import CommonMarkParser
 import sphinx_rtd_theme
 import sphinx_sizzle_theme, sphinx_pdj_theme
+
 from PyComplexHeatmap import __version__
 # -- Project information -----------------------------------------------------
 
@@ -41,6 +42,8 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     "recommonmark",
     "sphinx.ext.napoleon",
+    "sphinxcontrib.jquery",
+    "sphinx_search.extension",
     "nbsphinx",
 ]
 
