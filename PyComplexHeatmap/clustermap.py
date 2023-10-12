@@ -1147,6 +1147,7 @@ class ClusterMapPlotter:
 		**kwargs
 	):
 		self.kwargs = kwargs if not kwargs is None else {}
+		self.rasterized = rasterized
 		self.data2d = self.format_data(data, mask, z_score, standard_scale)
 		self.verbose = verbose
 		self._define_kws(xticklabels_kws, yticklabels_kws)
@@ -1177,7 +1178,6 @@ class ClusterMapPlotter:
 		self.col_split_gap = col_split_gap
 		self.row_split_order = row_split_order
 		self.col_split_order = col_split_order
-		self.rasterized = rasterized
 		self.legend = legend
 		self.legend_kws = legend_kws if not legend_kws is None else {}
 		self.legend_side = legend_side
