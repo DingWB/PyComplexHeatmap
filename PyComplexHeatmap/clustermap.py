@@ -1952,7 +1952,9 @@ class ClusterMapPlotter:
 
 	def set_xy_labels(self):
 		if not self.xlabel is None:
-			if len(self.xticklabels) > 0 and self.xlabel_side=='bottom':
+			if (len(self.xticklabels) > 0 and
+				self.xlabel_side==self.col_names_side=='bottom'
+			):
 				xticklabel_h=max(
 					[label.get_window_extent().height for label in self.xticklabels]
 				) #unit is pixel
