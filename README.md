@@ -58,7 +58,7 @@ python setup.py install
 
 ## [**Usage**](https://dingwb.github.io/PyComplexHeatmap)
 ----------------------
-### [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html)
+### [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/get_started.html)
 ### Example output
 Click picture to view the source code
 
@@ -132,6 +132,10 @@ Click picture to view the source code
         </td>
     </tr>
 </table>
+
+### [Advanced Usage](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html)
+
+### [Kwargs](https://dingwb.github.io/PyComplexHeatmap/build/html/kwargs.html)
 
 ## **More Examples**
 [https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html](https://dingwb.github.io/PyComplexHeatmap/build/html/more_examples.html)
