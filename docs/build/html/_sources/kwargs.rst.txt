@@ -1,7 +1,7 @@
-Modify labels
+Kwargs
 =======================
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   notebooks/modify_label.ipynb
+   notebooks/kwargs.ipynb
