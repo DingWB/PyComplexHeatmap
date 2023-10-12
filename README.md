@@ -58,7 +58,7 @@ python setup.py install
 
 ## [**Usage**](https://dingwb.github.io/PyComplexHeatmap)
 ----------------------
-### **1. [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html).**
+### [Simple Guide To Get started](https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html)
 ### Example output
 Click picture to view the source code
 
