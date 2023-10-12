@@ -1368,9 +1368,31 @@
 <span class="sd">		For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</span>
 <span class="sd">	yticklabels_kws :dict</span>
 <span class="sd">		the same as xticklabels_kws.</span>
+<span class="sd">	xlabel: str</span>
+<span class="sd">		default is None (no xlabel would be shown).</span>
+<span class="sd">	ylabel: str</span>
+<span class="sd">		default is None (no ylabel would be shown).</span>
+<span class="sd">	xlabel_kws: dict</span>
+<span class="sd">		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,</span>
+<span class="sd">		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,</span>
+<span class="sd">		zorder,verticalalignment,horizontalalignment.</span>
+<span class="sd">		See ax.xaxis.label.properties()</span>
+<span class="sd">		or matplotlib.axis.XAxis.label.properties() for detail.</span>
+<span class="sd">	ylabel_kws: dict</span>
+<span class="sd">		sams as xlabel_kws</span>
+<span class="sd">	xlabel_side: str</span>
+<span class="sd">		bottom or top, default is bottom,</span>
+<span class="sd">	ylabel_side: str</span>
+<span class="sd">		left or right, default is left</span>
+<span class="sd">	xlabel_bbox_kws: dict</span>
+<span class="sd">		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,</span>
+<span class="sd">		linestyle, linewidth,rasterized,visible,width.</span>
+<span class="sd">		See ax.xaxis.label.get_bbox_patch().properties() for more information.</span>
+<span class="sd">	ylabel_bbox_kws: dict</span>
+<span class="sd">		same as xlabel_bbox_kws</span>
 <span class="sd">	rasterized :bool</span>
-<span class="sd">		default is False, when the number of rows * number of cols &gt; 100000, rasterized would be suggested</span>
-<span class="sd">		to be True, otherwise the plot would be very slow.</span>
+<span class="sd">		default is auto, when the number of rows or number of cols &gt; 5000,</span>
+<span class="sd">		rasterized would be automatically set to True to speed up the plotting.</span>
 <span class="sd">	kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,</span>
 <span class="sd">		annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss</span>
 <span class="sd">		and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).</span>
@@ -1438,7 +1460,7 @@
 		<span class="n">ylabel_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
 		<span class="n">xlabel_bbox_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">ylabel_bbox_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-		<span class="n">rasterized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+		<span class="n">rasterized</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
 		<span class="n">legend_delta_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">kwargs</span>
@@ -1531,6 +1553,11 @@
 		<span class="k">if</span> <span class="n">standard_scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">data2d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard_scale</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">standard_scale</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">_check_mask</span><span class="p">(</span><span class="n">data2d</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rasterized</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">rasterized</span> <span class="o">=</span> <span class="kc">False</span>
 		<span class="k">return</span> <span class="n">data2d</span></div>
 
 	<span class="k">def</span> <span class="nf">_define_gs_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

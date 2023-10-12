@@ -1049,9 +1049,31 @@ class ClusterMapPlotter:
 		For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.
 	yticklabels_kws :dict
 		the same as xticklabels_kws.
+	xlabel: str
+		default is None (no xlabel would be shown).
+	ylabel: str
+		default is None (no ylabel would be shown).
+	xlabel_kws: dict
+		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
+		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
+		zorder,verticalalignment,horizontalalignment.
+		See ax.xaxis.label.properties()
+		or matplotlib.axis.XAxis.label.properties() for detail.
+	ylabel_kws: dict
+		sams as xlabel_kws
+	xlabel_side: str
+		bottom or top, default is bottom,
+	ylabel_side: str
+		left or right, default is left
+	xlabel_bbox_kws: dict
+		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
+		linestyle, linewidth,rasterized,visible,width.
+		See ax.xaxis.label.get_bbox_patch().properties() for more information.
+	ylabel_bbox_kws: dict
+		same as xlabel_bbox_kws
 	rasterized :bool
-		default is False, when the number of rows * number of cols > 100000, rasterized would be suggested
-		to be True, otherwise the plot would be very slow.
+		default is auto, when the number of rows or number of cols > 5000,
+		rasterized would be automatically set to True to speed up the plotting.
 	kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,
 		annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
 		and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
@@ -1119,7 +1141,7 @@ class ClusterMapPlotter:
 		ylabel_side='left',
 		xlabel_bbox_kws=None,
 		ylabel_bbox_kws=None,
-		rasterized=False,
+		rasterized='auto',
 		legend_delta_x=None,
 		verbose=1,
 		**kwargs
@@ -1212,6 +1234,11 @@ class ClusterMapPlotter:
 		if standard_scale is not None:
 			data2d = self.standard_scale(data, standard_scale)
 		self.mask = _check_mask(data2d, mask)
+		if self.rasterized == 'auto':
+			if max(self.data2d.shape[0],self.data2d.shape[1]) > 5000:
+				self.rasterized = True
+			else:
+				self.rasterized = False
 		return data2d
 
 	def _define_gs_ratio(self):
