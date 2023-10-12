@@ -1235,7 +1235,7 @@ class ClusterMapPlotter:
 			data2d = self.standard_scale(data, standard_scale)
 		self.mask = _check_mask(data2d, mask)
 		if self.rasterized == 'auto':
-			if max(self.data2d.shape[0],self.data2d.shape[1]) > 5000:
+			if max(data2d.shape[0],data2d.shape[1]) > 5000:
 				self.rasterized = True
 			else:
 				self.rasterized = False
