@@ -10,8 +10,8 @@ Click the picuture to view the source code.
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">
-                <img src="../../images/gallery11.png" title="Dot heatmap for correlation matrix" align="center">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/modify_label.html#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">
+                <img src="../../images/gallery11.png" title="Modify labels" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
@@ -28,7 +28,7 @@ Click the picuture to view the source code.
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
             <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">
-                <img src="../../images/gallery6.png" title="cluster heatmap" align="center">
+                <img src="../../images/gallery6.png" title="Cluster between groups" align="center">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">

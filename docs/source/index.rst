@@ -18,6 +18,7 @@ PyComplexHeatmap
    oncoPrint
    advanced_usage
    more_examples
+   modify_labels
    gallery
    modules
    citation

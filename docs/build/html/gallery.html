@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="PyComplexHeatmap" href="modules.html" />
-    <link rel="prev" title="Plot correlation matrix for CpG modules using DotClustermap" href="notebooks/cpg_modules.html" /> 
+    <link rel="prev" title="Modifying labels" href="notebooks/modify_label.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -106,12 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
@@ -119,6 +113,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a><ul>
@@ -129,6 +129,14 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modify_labels.html">Modify labels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/modify_label.html">Modifying labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/modify_label.html#Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-xticklabels_kws">Modifying the heatmap annotations labels and xticklabels, yticklabels using <code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/modify_label.html#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> using <code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +204,7 @@
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_xy_labels"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_xy_labels()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
@@ -388,7 +397,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="notebooks/cpg_modules.html" class="btn btn-neutral float-left" title="Plot correlation matrix for CpG modules using DotClustermap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/modify_label.html" class="btn btn-neutral float-left" title="Modifying labels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="modules.html" class="btn btn-neutral float-right" title="PyComplexHeatmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
