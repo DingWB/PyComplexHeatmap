@@ -381,6 +381,7 @@ class anno_simple(AnnotationBase):
         if self.add_text:
             if axis == 0:
                 self.text_kws.setdefault("rotation", 90)
+                self.text_kws.setdefault("rotation_mode", 'anchor')
             labels, ticks = cluster_labels(
                 self.plot_data.iloc[:, 0].values,
                 np.arange(0.5, self.nrows, 1),
