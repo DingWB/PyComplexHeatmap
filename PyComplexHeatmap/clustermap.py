@@ -1364,7 +1364,7 @@ class ClusterMapPlotter:
 			labelleft=False,
 			labelright=False,
 		)
-		self.ax.set_axis_off() # add xlabel and ylabel, to comment out this line.
+		# self.ax.set_axis_off() # add xlabel and ylabel, to comment out this line.
 		despine(ax=self.ax, bottom=True, left=True, top=True, right=True)
 		# self.ax.figure.subplots_adjust(left=left,right=right,top=top,bottom=bottom)
 		# self.gs.figure.subplots_adjust(0,0,1,1,hspace=0.1,wspace=0)
