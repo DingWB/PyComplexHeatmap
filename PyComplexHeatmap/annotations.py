@@ -1786,6 +1786,7 @@ class HeatmapAnnotation:
                 gap=self.legend_gap,
                 legend_width=self.legend_width,
                 legend_vpad=self.legend_vpad,
+                verbose=self.verbose
             )
 
 

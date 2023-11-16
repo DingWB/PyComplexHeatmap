@@ -2071,6 +2071,7 @@ class ClusterMapPlotter:
 				delta_x=self.legend_delta_x,
 				legend_width=self.legend_width,
 				legend_vpad=self.legend_vpad,
+                verbose=self.verbose
 			)
 
 	def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
@@ -2178,6 +2179,7 @@ def composite(
 	legend_width=None,
 	width_ratios=None,
 	height_ratios=None,
+    verbose=1
 ):
 	"""
 	Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
@@ -2298,6 +2300,7 @@ def composite(
 		gap=legend_gap,
 		y0=legend_y,
 		legend_width=legend_width,
+        verbose=verbose
 	)
 	ax.set_axis_off()
 	# import pdb;

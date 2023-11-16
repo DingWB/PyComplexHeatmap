@@ -679,6 +679,7 @@ def plot_legend_list(
     legend_width=None,
     legend_vpad=5,
     cmap_width=4.5,
+    verbose=1
 ):
     """
     Plot all lengends for a given legend_list.
@@ -721,7 +722,8 @@ def plot_legend_list(
         legend_width = (
             cal_legend_width(legend_list) + 3
         )  # base width for color rectangle is set to 3 mm
-        # print(f"Estimated legend width: {legend_width} mm")
+        if verbose > 0:
+            print(f"Estimated legend width: {legend_width} mm")
     legend_width = (
         legend_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
     )  # mm to px to fraction
