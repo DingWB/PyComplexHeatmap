@@ -1,11 +1,5 @@
 **/.DS_Store
 /PyComplexHeatmap.egg-info/
 /notebooks/.ipynb_checkpoints/
-/notebooks/dotClustermap.pdf
-/notebooks/dotClustermap2.pdf
-/notebooks/dotHeatmap1.pdf
-/notebooks/example0.pdf
-/notebooks/Loyfer2023_heatmap.pdf
-/notebooks/oncoPrint.pdf
-/notebooks/oncoPrint2.pdf
+/notebooks/*.pdf
 /dist/
