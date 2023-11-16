@@ -719,8 +719,8 @@ def plot_legend_list(
         left = ax.get_position().x1 + pad
     if legend_width is None:
         legend_width = (
-            cal_legend_width(legend_list) + 2.5
-        )  # base width for color rectangle is set to 2.5 mm
+            cal_legend_width(legend_list) + 3
+        )  # base width for color rectangle is set to 3 mm
         # print(f"Estimated legend width: {legend_width} mm")
     legend_width = (
         legend_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
