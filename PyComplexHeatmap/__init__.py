@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-from .clustermap import heatmap, ClusterMapPlotter, composite
+from .clustermap import (heatmap, ClusterMapPlotter, composite,
+                         DendrogramPlotter)
 from .oncoPrint import oncoprint, oncoPrintPlotter
 from .annotations import *
 from .dotHeatmap import *

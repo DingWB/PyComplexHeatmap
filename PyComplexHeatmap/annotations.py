@@ -615,7 +615,7 @@ class anno_label(AnnotationBase):
                 x1 = [0] * n
                 y1 = [text_y] * n
         else:
-            # ax.invert_yaxis()  # Nov 16, fix bug for inverted label when extend=True
+            # ax.invert_yaxis()
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
             labels=labels[::-1] #20231116, fix bug for right anno_label when extend=True
             y = ticks[::-1] #Nov 16, fix bug for reverted right anno_label when extend=True
