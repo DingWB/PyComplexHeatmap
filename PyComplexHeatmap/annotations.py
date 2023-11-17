@@ -351,8 +351,8 @@ class anno_simple(AnnotationBase):
             mat = self.plot_data.values
         matrix = mat.reshape(1, -1) if axis == 1 else mat.reshape(-1, 1)
         # print(matrix)
-        xlabel = None if axis == 1 else self.label
-        ylabel = self.label if axis == 1 else None
+        # xlabel = None if axis == 1 else self.label
+        # ylabel = self.label if axis == 1 else None
 
         # ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
         #               xticklabels=False, yticklabels=False, **self.plot_kws)
@@ -560,10 +560,10 @@ class anno_label(AnnotationBase):
         self, ax=None, axis=1, subplot_spec=None, label_kws={}, ticklabels_kws={}
     ):  # add self.gs,self.fig,self.ax,self.axes
         self.axis = axis
-        ax_index = ax.figure.axes.index(ax)
-        ax_n = len(ax.figure.axes)
-        i = ax_index / ax_n
         if self.side is None:
+            ax_index = ax.figure.axes.index(ax)
+            ax_n = len(ax.figure.axes)
+            i = ax_index / ax_n
             if axis == 1 and i <= 0.5:
                 side = "top"
             elif axis == 1:
@@ -602,7 +602,7 @@ class anno_label(AnnotationBase):
         if axis == 1:
             ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
             x = ticks  # coordinate for the labels (text).
-            y = [0] * n if self.side == "top" else [1] * n  # position for line on axes
+            y = [0] * n if self.side == "top" else [1] * n  # position for line start on axes
             if self.extend:
                 extend_pos = np.linspace(0, 1, n + 1)
                 x1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
@@ -615,9 +615,11 @@ class anno_label(AnnotationBase):
                 x1 = [0] * n
                 y1 = [text_y] * n
         else:
+            # ax.invert_yaxis()  # Nov 16, fix bug for inverted label when extend=True
             ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
-            y = ticks
-            x = [1] * n if self.side == "left" else [0] * n
+            labels=labels[::-1] #20231116, fix bug for right anno_label when extend=True
+            y = ticks[::-1] #Nov 16, fix bug for reverted right anno_label when extend=True
+            x = [1] * n if self.side == "left" else [0] * n #side=left, x axis <---
             if self.extend:
                 extend_pos = np.linspace(0, 1, n + 1)
                 y1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
@@ -627,8 +629,8 @@ class anno_label(AnnotationBase):
                     else [0 + text_y / ax.figure.get_window_extent().width] * n
                 )
             else:
-                y1 = [0] * n
-                x1 = [text_y] * n
+                y1 = [0] * n #vertical distance related to point (anno_simple)
+                x1 = [text_y] * n #horizonal distance related to point (anno_simple)
         # angleA is the angle for the data point (clockwise), B is for text.
         # https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
         xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()
@@ -636,7 +638,7 @@ class anno_label(AnnotationBase):
         if self.extend:
             text_xycoords = (
                 ax.transAxes
-            )  # if self.extend=='ax' else ax.figure.transFigure #ax.transAxes,
+            )
         else:
             text_xycoords = "offset pixels"
         if self.plot_kws["arrowprops"]["connectionstyle"] is None:
@@ -652,8 +654,6 @@ class anno_label(AnnotationBase):
                 angleA, angleB = (self.plot_kws["rotation"] - 180, 0)
             connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
             self.plot_kws["arrowprops"]["connectionstyle"] = connectionstyle
-        hs = []
-        ws = []
         # import pdb;
         # pdb.set_trace()
         for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
@@ -677,18 +677,18 @@ class anno_label(AnnotationBase):
             self.annotated_texts.append(annotated_text)
         # _draw_figure(ax.figure)
         # print('anno_label:',self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)
-        ax.tick_params(
-            axis="both",
-            which="both",
-            left=False,
-            right=False,
-            top=False,
-            bottom=False,
-            labeltop=False,
-            labelbottom=False,
-            labelleft=False,
-            labelright=False,
-        )
+        # ax.tick_params(
+        #     axis="both",
+        #     which="both",
+        #     left=False,
+        #     right=False,
+        #     top=False,
+        #     bottom=False,
+        #     labeltop=False,
+        #     labelbottom=False,
+        #     labelleft=False,
+        #     labelright=False,
+        # )
         ax.set_axis_off()
         self.ax = ax
         self.fig = self.ax.figure
@@ -1683,6 +1683,7 @@ class HeatmapAnnotation:
                 gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
                 sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
                 sharey = self.axes[i, 0] if self.axis == 1 else self.axes[j, 0]
+                # sharex,sharey=None,None
                 ax1 = self.ax.figure.add_subplot(gs, sharex=sharex, sharey=sharey)
                 if self.axis == 1:
                     ax1.set_xlim([0, len(idx)])
@@ -1700,9 +1701,9 @@ class HeatmapAnnotation:
                     self.axes[i, j] = ax1
                     if self.orientation == "down":
                         ax1.invert_yaxis()
-
                 else:  # horizonal
                     if type(ann) != anno_simple:
+                        # if sharey, one y axis inverted will affect other y axis?
                         ax1.invert_yaxis()  # 20230312 fix bug for inversed row order in anno_label.
                     ax1.xaxis.label.set_visible(False)
                     ax1.tick_params(
