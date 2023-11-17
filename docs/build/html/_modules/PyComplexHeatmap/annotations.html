@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.annotations &mdash; PyComplexHeatmap 1.6.1 documentation</title>
+  <title>PyComplexHeatmap.annotations &mdash; PyComplexHeatmap 1.6.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=f4dadefe"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=c3225494"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -98,7 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Add-float-annotations-on-the-top-of-heatmap-cells">Add float annotations on the top of heatmap cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-down-and-add-extra-space">Change orentation <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
@@ -670,8 +670,8 @@
             <span class="n">mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">values</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">mat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="c1"># print(matrix)</span>
-        <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span>
-        <span class="n">ylabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="c1"># xlabel = None if axis == 1 else self.label</span>
+        <span class="c1"># ylabel = self.label if axis == 1 else None</span>
 
         <span class="c1"># ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,</span>
         <span class="c1">#               xticklabels=False, yticklabels=False, **self.plot_kws)</span>
@@ -700,6 +700,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_text</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">text_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;rotation&quot;</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;rotation_mode&quot;</span><span class="p">,</span> <span class="s1">&#39;anchor&#39;</span><span class="p">)</span>
             <span class="n">labels</span><span class="p">,</span> <span class="n">ticks</span> <span class="o">=</span> <span class="n">cluster_labels</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
@@ -878,10 +879,10 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_kws</span><span class="o">=</span><span class="p">{},</span> <span class="n">ticklabels_kws</span><span class="o">=</span><span class="p">{}</span>
     <span class="p">):</span>  <span class="c1"># add self.gs,self.fig,self.ax,self.axes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
-        <span class="n">ax_index</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-        <span class="n">ax_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="n">ax_index</span> <span class="o">/</span> <span class="n">ax_n</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax_index</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+            <span class="n">ax_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">ax_index</span> <span class="o">/</span> <span class="n">ax_n</span>
             <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">:</span>
                 <span class="n">side</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span>
             <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -920,7 +921,7 @@
         <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">ticks</span>  <span class="c1"># coordinate for the labels (text).</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;top&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>  <span class="c1"># position for line on axes</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;top&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>  <span class="c1"># position for line start on axes</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">:</span>
                 <span class="n">extend_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="n">x1</span> <span class="o">=</span> <span class="p">[(</span><span class="n">extend_pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">extend_pos</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
@@ -933,9 +934,11 @@
                 <span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
                 <span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_y</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># ax.invert_yaxis()</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">ticks</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+            <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#20231116, fix bug for right anno_label when extend=True</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ticks</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#Nov 16, fix bug for reverted right anno_label when extend=True</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="c1">#side=left, x axis &lt;---</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">:</span>
                 <span class="n">extend_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="n">y1</span> <span class="o">=</span> <span class="p">[(</span><span class="n">extend_pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">extend_pos</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
@@ -945,8 +948,8 @@
                     <span class="k">else</span> <span class="p">[</span><span class="mi">0</span> <span class="o">+</span> <span class="n">text_y</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-                <span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_y</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+                <span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="c1">#vertical distance related to point (anno_simple)</span>
+                <span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_y</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="c1">#horizonal distance related to point (anno_simple)</span>
         <span class="c1"># angleA is the angle for the data point (clockwise), B is for text.</span>
         <span class="c1"># https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html</span>
         <span class="n">xycoords</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">()</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis_transform</span><span class="p">()</span>
@@ -954,7 +957,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">:</span>
             <span class="n">text_xycoords</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span>
-            <span class="p">)</span>  <span class="c1"># if self.extend==&#39;ax&#39; else ax.figure.transFigure #ax.transAxes,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">text_xycoords</span> <span class="o">=</span> <span class="s2">&quot;offset pixels&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">][</span><span class="s2">&quot;connectionstyle&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -970,8 +973,6 @@
                 <span class="n">angleA</span><span class="p">,</span> <span class="n">angleB</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">connectionstyle</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;arc,angleA=</span><span class="si">{</span><span class="n">angleA</span><span class="si">}</span><span class="s2">,angleB=</span><span class="si">{</span><span class="n">angleB</span><span class="si">}</span><span class="s2">,armA=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,armB=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,rad=</span><span class="si">{</span><span class="n">rad</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">][</span><span class="s2">&quot;connectionstyle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connectionstyle</span>
-        <span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">ws</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># import pdb;</span>
         <span class="c1"># pdb.set_trace()</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
@@ -995,18 +996,18 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">annotated_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">annotated_text</span><span class="p">)</span>
         <span class="c1"># _draw_figure(ax.figure)</span>
         <span class="c1"># print(&#39;anno_label:&#39;,self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span>
-            <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-            <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-            <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">labeltop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">labelright</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="c1"># ax.tick_params(</span>
+        <span class="c1">#     axis=&quot;both&quot;,</span>
+        <span class="c1">#     which=&quot;both&quot;,</span>
+        <span class="c1">#     left=False,</span>
+        <span class="c1">#     right=False,</span>
+        <span class="c1">#     top=False,</span>
+        <span class="c1">#     bottom=False,</span>
+        <span class="c1">#     labeltop=False,</span>
+        <span class="c1">#     labelbottom=False,</span>
+        <span class="c1">#     labelleft=False,</span>
+        <span class="c1">#     labelright=False,</span>
+        <span class="c1"># )</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span>
@@ -2001,6 +2002,7 @@
                 <span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
                 <span class="n">sharex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
                 <span class="n">sharey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># sharex,sharey=None,None</span>
                 <span class="n">ax1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">sharex</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">sharey</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)])</span>
@@ -2018,9 +2020,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax1</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;down&quot;</span><span class="p">:</span>
                         <span class="n">ax1</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
-
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># horizonal</span>
                     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">!=</span> <span class="n">anno_simple</span><span class="p">:</span>
+                        <span class="c1"># if sharey, one y axis inverted will affect other y axis?</span>
                         <span class="n">ax1</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>  <span class="c1"># 20230312 fix bug for inversed row order in anno_label.</span>
                     <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                     <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span>
@@ -2104,6 +2106,7 @@
                 <span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span><span class="p">,</span>
                 <span class="n">legend_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_width</span><span class="p">,</span>
                 <span class="n">legend_vpad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vpad</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span>
             <span class="p">)</span></div></div>
 
 
