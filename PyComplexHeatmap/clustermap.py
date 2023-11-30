@@ -1791,7 +1791,11 @@ class ClusterMapPlotter:
 
             try:
                 if rcmap is None:
-                    colors = ["black"] * len(self.dendrogram_rows)
+                    if 'colors' not in self.tree_kws:
+                        color = 'black'
+                    else:
+                        color = self.tree_kws['colors']
+                    colors = color * len(self.dendrogram_rows)
                 else:
                     colors = [
                         get_colormap(rcmap)(i) for i in range(len(self.dendrogram_rows))
@@ -1808,6 +1812,11 @@ class ClusterMapPlotter:
                     ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
                 )
             if ncols > 1:
+                if 'colors' not in self.tree_kws:
+                    color = 'black'
+                else:
+                    color = self.tree_kws['colors']
+                tree_kws['colors'] = color
                 root_x=[dendrogram_row.root_x for dendrogram_row in self.dendrogram_rows]
                 self.ax_row_split_dendrogram=self.ax_row_dendrogram.figure.add_subplot(
                         self.row_dendrogram_gs[:, 0]
@@ -1852,7 +1861,11 @@ class ClusterMapPlotter:
 
             try:
                 if ccmap is None:
-                    colors = ["black"] * len(self.dendrogram_cols)
+                    if 'colors' not in self.tree_kws:
+                        color = 'black'
+                    else:
+                        color = self.tree_kws['colors']
+                    colors = color * len(self.dendrogram_rows)
                 else:
                     colors = [
                         get_colormap(ccmap)(i) for i in range(len(self.dendrogram_cols))
@@ -1869,6 +1882,11 @@ class ClusterMapPlotter:
                     ax=self.ax_col_dendrogram, tree_kws=self.tree_kws
                 )
             if nrows > 1: #plot between groups dendrogram
+                if 'colors' not in self.tree_kws:
+                    color = 'black'
+                else:
+                    color = self.tree_kws['colors']
+                tree_kws['colors'] = color
                 root_x = [dendrogram_col.root_x for dendrogram_col in self.dendrogram_cols]
                 self.ax_col_split_dendrogram=self.ax_col_dendrogram.figure.add_subplot(
                         self.col_dendrogram_gs[0, :]
