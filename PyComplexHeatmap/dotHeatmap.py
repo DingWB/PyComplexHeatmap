@@ -447,19 +447,22 @@ class DotClustermapPlotter(ClusterMapPlotter):
         else:
             ratio = self.ratio
         self.kwargs['ratio'] = ratio
-
+        self.col_split_gap_pixel = self.col_split_gap * mm2inch * self.ax.figure.dpi
         self.wspace = (
-            self.col_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().width / ncols)
-        )  # 1mm=mm2inch inch
+            (self.col_split_gap_pixel * ncols)
+            / (
+                self.ax_heatmap.get_window_extent().width
+                + self.col_split_gap_pixel - self.col_split_gap_pixel * ncols
+            )
+        )
+        self.row_split_gap_pixel = self.row_split_gap * mm2inch * self.ax.figure.dpi
         self.hspace = (
-            self.row_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().height / nrows)
-        )  # height
+            (self.row_split_gap_pixel * nrows)
+            / (
+                self.ax_heatmap.get_window_extent().height
+                + self.row_split_gap_pixel - self.row_split_gap_pixel * nrows
+            )
+        )
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
             nrows,
             ncols,

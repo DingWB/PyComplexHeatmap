@@ -6,6 +6,11 @@ from matplotlib.colors import LinearSegmentedColormap, ListedColormap, CSS4_COLO
 import random
 from .utils import _calculate_luminance
 
+def register_cmap(c):
+    try:
+        plt.register_cmap(cmap=c)
+    except:
+        matplotlib.colormaps.register(c, force=True)
 
 def define_cmap():
     all_cmaps = matplotlib.pyplot.colormaps()
@@ -13,17 +18,16 @@ def define_cmap():
     #     c = LinearSegmentedColormap.from_list(
     #         "binarize", [(0, 'lightgray'), (1, "black")]
     #     )
-    #     plt.register_cmap(cmap=c)
     if "exp1" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
             "exp1", [(0, "blue"), (0.5, "yellow"), (1, "red")]
         )
-        plt.register_cmap(cmap=c)  # name='exp1'
+        register_cmap(c)
     if "exp2" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
             "exp2", [(0, "#4A5EA0"), (0.5, "#F9FFB2"), (1, "#A42A26")]
         )
-        plt.register_cmap(cmap=c)
+        register_cmap(c)
     if "meth1" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
             "meth1",
@@ -36,7 +40,7 @@ def define_cmap():
                 (1, "#7D1416"),
             ],
         )
-        plt.register_cmap(cmap=c)
+        register_cmap(c)
     if "meth2" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
             "meth2",
@@ -50,12 +54,12 @@ def define_cmap():
                 (1, "red"),
             ],
         )
-        plt.register_cmap(cmap=c)
+        register_cmap(c)
     if "diverging1" not in all_cmaps:
         c = LinearSegmentedColormap.from_list(
             "diverging1", [(0, "#67a9cf"), (0.5, "#f7f7f7"), (1, "#ef8a62")]
         )
-        plt.register_cmap(cmap=c)
+        register_cmap(c)
 
     if "cmap50" not in all_cmaps:
         colors = []
@@ -74,7 +78,7 @@ def define_cmap():
             ),
             "cmap50",
         )
-        plt.register_cmap(cmap=c)
+        register_cmap(c)
 
     if "parula" not in all_cmaps:
         cm_data = [
@@ -144,7 +148,6 @@ def define_cmap():
             [0.9763, 0.9831, 0.0538],
         ]
         c = LinearSegmentedColormap.from_list("parula", cm_data)
-        plt.register_cmap(cmap=c)
-
+        register_cmap(c)
 
 define_cmap()

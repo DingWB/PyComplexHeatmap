@@ -333,7 +333,7 @@ class oncoPrintPlotter(ClusterMapPlotter):
             col_order = self.get_samples_order(self.data2d, self.row_order)
             self.col_order = [col_order]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
-        elif isinstance(self.col_split, int) and self.col_cluster:
+        if isinstance(self.col_split, int) and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d.applymap(lambda x: np.sum(x)))
             self.col_clusters = (
                 pd.Series(
@@ -349,8 +349,6 @@ class oncoPrintPlotter(ClusterMapPlotter):
                 .apply(lambda x: x.index.tolist())
                 .to_dict()
             )
-            # index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster')
-
         elif isinstance(self.col_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.col_split, pd.Series):
                 self.col_split = self.col_split.to_frame(name=self.col_split.name).loc[
@@ -390,17 +388,21 @@ class oncoPrintPlotter(ClusterMapPlotter):
             print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
+        self.col_split_gap_pixel = self.col_split_gap * mm2inch * self.ax.figure.dpi
         self.wspace = (
-            self.col_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().width / ncols)
-        )  # 1mm=mm2inch inch
+            (self.col_split_gap_pixel * ncols)
+            / (
+                self.ax_heatmap.get_window_extent().width
+                + self.col_split_gap_pixel - self.col_split_gap_pixel * ncols
+            )
+        )
+        self.row_split_gap_pixel = self.row_split_gap * mm2inch * self.ax.figure.dpi
         self.hspace = (
-            self.row_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().height / nrows)
+            (self.row_split_gap_pixel * nrows)
+            / (
+                self.ax_heatmap.get_window_extent().height
+                + self.row_split_gap_pixel - self.row_split_gap_pixel * nrows
+            )
         )
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
             nrows,

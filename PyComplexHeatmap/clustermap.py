@@ -754,7 +754,11 @@ class DendrogramPlotter(object):
             self.sizes = {idx: s for idx, s in zip(self.data.index.tolist(), sizes)}
         else:
             self.sizes = None
-        self.dendrogram = self.calculate_dendrogram()
+        if data.shape[0] > 1:
+            self.dendrogram = self.calculate_dendrogram()
+        else:  # only 1 row or col
+            self.dendrogram = dict(icoord=[[5, 5, 5, 5]], dcoord=[[0, 1, 1, 0]],
+                                   ivl=data.index.tolist(), leaves=[0])
         # Dendrogram ends are always at multiples of 5, who knows why
         ticks = np.arange(self.data.shape[0]) + 0.5  # xticklabels
 
@@ -780,7 +784,7 @@ class DendrogramPlotter(object):
             self.xticks, self.yticks = [], []
             self.yticklabels, self.xticklabels = [], []
             self.xlabel, self.ylabel = "", ""
-        self.get_coords()
+        # self.get_coords()
 
     def check_array(self, data):
         if not isinstance(data, pd.DataFrame):
@@ -848,25 +852,61 @@ class DendrogramPlotter(object):
         """Indices of the matrix, reordered by the dendrogram"""
         return self.dendrogram["leaves"]  # idx of the matrix
 
-    def get_coords(self):
+    def get_coords(self,ax,gap_pixel=None,root_x=None):
         self.dependent_coord = np.array(self.dendrogram["dcoord"])
         self.independent_coord = np.array(self.dendrogram["icoord"]) / 10
-        if not self.sizes is None:
-            # X=np.sort(np.unique(self.independent_coord.flatten()))
-            sizes = [self.sizes[idx] for idx in self.dendrogram['ivl']]
-            # sizes is the number of samples in each group
-            cum_sizes = np.cumsum(sizes)
-            xcoord_mapping = {}  # map the old independent_coord to new coord
-            for x in np.unique(self.independent_coord.flatten()):
-                new_x = (x % 1) * sizes[int(x)]
-                if int(x) > 0:
-                    new_x += cum_sizes[int(x) - 1]
-                xcoord_mapping[x] = new_x
-            self.independent_coord = np.array(
-                [[xcoord_mapping[i] for i in a] for a in self.independent_coord]
-            )
+        if self.sizes is None:
+            return None
+        icoord_max = self.icoord_max
+        ratio, x_gap = 1, 0
+        sizes = [self.sizes[idx] for idx in self.dendrogram['ivl']]
+        # sizes is the number of samples in each group
+        cum_sizes = np.cumsum(sizes)
+        if not gap_pixel is None:
+            if self.axis==1: #vertical
+                ax.set_xlim(0, self.icoord_max)
+                real_width = (
+                    ax.get_window_extent().width -
+                    (len(self.sizes) - 1) * gap_pixel
+                )  # width: number_of_leaves, real_width:?
+                ratio = real_width / ax.get_window_extent().width  # scale the original x
+                x_gap = (
+                    (gap_pixel / ax.get_window_extent().width) * icoord_max
+                )  # x_gap for each gap
+            else: #horizontal
+                ax.set_ylim(0, self.icoord_max)
+                real_height = (
+                    ax.get_window_extent().height -
+                    (len(self.sizes) - 1) * gap_pixel
+                )  # width: number_of_leaves, real_width:?
+                ratio = real_height / ax.get_window_extent().height  # scale the original x
+                x_gap = (
+                    (gap_pixel / ax.get_window_extent().height) * icoord_max
+                )
+        xcoord_mapping = {}  # map the old independent_coord to new coord
+        # print(sizes,cum_sizes, ratio, x_gap, gap_pixel)
+        icoord=np.unique(self.independent_coord.flatten())
+        if root_x is None:
+            Frac=[x % 1 for x in icoord]
+        else: # use the root_x from dendrogram for each group
+            root_x=[x / size for x,size in zip(root_x,sizes)]
+            Frac=[root_x[int(x)] if (x - 0.5) % 1 == 0 else x % 1 for x in icoord]
+        # print(icoord,root_x,Frac)
+        for x,frac in zip(icoord,Frac):
+            new_x = frac * sizes[int(x)] * ratio
+            idx = int(x)
+            if idx > 0:
+                new_x += cum_sizes[idx - 1] * ratio + x_gap*idx
+            xcoord_mapping[x] = new_x
+        # for i in range(1,icoord_max+2):
+        #     if self.axis==1:
+        #         ax.plot([i,i],[0,1],color='red',linewidth=0.5)
+        #         ax.plot([i-0.5, i-0.5], [0, 1], color='red', linestyle='--',linewidth=0.2)
+        self.independent_coord = np.array(
+            [[xcoord_mapping[i] for i in a] for a in self.independent_coord]
+        )
 
-    def plot(self, ax, tree_kws):
+    def plot(self, ax, gap_pixel=None, root_x=None,tree_kws=None):
         """Plots a dendrogram of the similarities between data on the axes
 		Parameters
 		----------
@@ -876,8 +916,13 @@ class DendrogramPlotter(object):
         tree_kws = {} if tree_kws is None else tree_kws
         tree_kws.setdefault("linewidth", 0.5)
         tree_kws.setdefault("colors", None)
+        if self.sizes is None:
+            self.icoord_max = len(self.reordered_ind)
+        else:
+            self.icoord_max = sum([self.sizes[k] for k in self.sizes])
+        self.get_coords(ax,gap_pixel,root_x)
         # tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
-        # root_x=np.mean(self.independent_coord[-1][1:3])
+        self.root_x=np.mean(self.independent_coord[-1][1:3])
         root_y = np.mean(self.dependent_coord[-1][1:3])
         if self.rotate and self.axis == 0:  # 0 is rows, 1 is columns (default)
             coords = zip(
@@ -897,29 +942,22 @@ class DendrogramPlotter(object):
             colors = [colors] * len(self.dendrogram["ivl"])
         for (x, y), color in zip(coords, colors):
             ax.plot(x, y, color=color, **tree_kws)
-        # ax.scatter(*self.root,c='red',s=2)
-        if self.sizes is None:
-            number_of_leaves = len(self.reordered_ind)
-        else:
-            number_of_leaves = sum([self.sizes[k] for k in self.sizes])
-        max_dependent_coord = root_y  # max(map(max, self.dependent_coord))  # max y
-        # if self.axis==0:
-        #     ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
+        # if self.axis==1:
+        #     ax.scatter(self.root_x, root_y,c='red',s=1)
+        # else:
+        #     ax.scatter(root_y,self.root_x, c='red', s=1)
+        if self.axis==0:
+            ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
 
         if self.rotate:  # horizontal; in default, no rotate
             ax.yaxis.set_ticks_position("right")
-            # Constants 10 and 1.05 come from
-            # `scipy.cluster.hierarchy._plot_dendrogram`
-            ax.set_ylim(0, number_of_leaves)
-            # ax.set_xlim(0, max_dependent_coord * 1.05)
-            ax.set_xlim(0, max_dependent_coord)
+            ax.set_ylim(0, self.icoord_max)
+            ax.set_xlim(0, root_y)
             ax.invert_xaxis()
             ax.invert_yaxis()
         else:  # vertical
-            # Constants 10 and 1.05 come from
-            # `scipy.cluster.hierarchy._plot_dendrogram`
-            ax.set_xlim(0, number_of_leaves)
-            ax.set_ylim(0, max_dependent_coord)
+            ax.set_xlim(0, self.icoord_max)
+            ax.set_ylim(0, root_y)
         despine(ax=ax, bottom=True, left=True)
         ax.set(
             xticks=self.xticks,
@@ -1566,6 +1604,23 @@ class ClusterMapPlotter:
         if not self.ax_col_dendrogram is None:
             self.ax_col_dendrogram.set_axis_off()
 
+    def cal_rowd_between_groups(self,row_clusters):
+        mat = pd.concat([
+            self.data2d.loc[rows].mean() for rows in row_clusters.tolist()],
+            axis=1).T  # columns are original columns
+        mat.index = row_clusters.index.tolist()
+        sizes = row_clusters.apply(lambda x: len(x)).tolist()
+        self.calculate_row_dendrograms(mat, sizes=sizes)
+        # return self.dendrogram_row
+
+    def cal_cold_between_groups(self,col_clusters):
+        mat = pd.concat([
+            self.data2d.loc[:, cols].mean(axis=1) for cols in col_clusters.tolist()],
+            axis=1)  # index are original rows labels
+        mat.columns = col_clusters.index.tolist()
+        sizes = col_clusters.apply(lambda x: len(x)).tolist()
+        self.calculate_col_dendrograms(mat, sizes=sizes)
+
     def _reorder_rows(self):
         self.row_split_dendrogram = False
         if self.verbose >= 1:
@@ -1578,9 +1633,9 @@ class ClusterMapPlotter:
                 self.dendrogram_row.dendrogram["ivl"]
             ]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
-        elif isinstance(self.row_split, int) and self.row_cluster:
+        if isinstance(self.row_split, int) and self.row_cluster:
             self.calculate_row_dendrograms(self.data2d)
-            self.row_clusters = (
+            row_clusters = (
                 pd.Series(
                     hierarchy.fcluster(
                         self.dendrogram_row.linkage,
@@ -1592,10 +1647,11 @@ class ClusterMapPlotter:
                     .to_frame(name="cluster")
                     .groupby("cluster")
                     .apply(lambda x: x.index.tolist())
-                    .to_dict()
             )
-        # index=self.dendrogram_row.dendrogram['ivl']).to_frame(name='cluster')
-
+            self.cal_rowd_between_groups(row_clusters)
+            row_split_order = self.dendrogram_row.dendrogram["ivl"]
+            self.row_split_dendrogram = self.dendrogram_row
+            self.row_clusters = row_clusters.loc[row_split_order].to_dict()
         elif isinstance(self.row_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.row_split, pd.Series):
                 self.row_split = self.row_split.to_frame(name=self.row_split.name)
@@ -1603,18 +1659,13 @@ class ClusterMapPlotter:
             row_clusters = self.row_split.groupby(cols).apply(
                 lambda x: x.index.tolist()
             )
-            if self.row_split_order is None:
-                self.row_split_order = row_clusters.index.tolist()
-            elif self.row_split_order == 'cluster_between_groups':
-                mat = pd.concat([
-                    self.data2d.loc[rows].mean() for rows in row_clusters.tolist()],
-                    axis=1).T  # columns are original columns
-                mat.index = row_clusters.index.tolist()
-                sizes = row_clusters.apply(lambda x: len(x)).tolist()
-                self.calculate_row_dendrograms(mat, sizes=sizes)
-                self.row_split_order = self.dendrogram_row.dendrogram["ivl"]
-                self.row_split_dendrogram = self.dendrogram_row
-            self.row_clusters = row_clusters.loc[self.row_split_order].to_dict()
+            self.cal_rowd_between_groups(row_clusters)
+            self.row_split_dendrogram = self.dendrogram_row
+            # if self.row_split_order is None:
+            #     self.row_split_order = row_clusters.index.tolist()
+            # elif self.row_split_order == 'cluster_between_groups':
+            row_split_order = self.dendrogram_row.dendrogram["ivl"]
+            self.row_clusters = row_clusters.loc[row_split_order].to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
             return None
@@ -1625,10 +1676,10 @@ class ClusterMapPlotter:
         self.dendrogram_rows = []
         for i, cluster in enumerate(self.row_clusters):
             rows = self.row_clusters[cluster]
-            if len(rows) <= 1:
-                self.row_order.append(rows)
-                self.dendrogram_rows.append(None)
-                continue
+            # if len(rows) <= 1:
+            #     self.row_order.append(rows)
+            #     self.dendrogram_rows.append(None)
+            #     continue
             if self.row_cluster:  # cluster within groups
                 self.calculate_row_dendrograms(self.data2d.loc[rows])
                 self.dendrogram_rows.append(self.dendrogram_row)
@@ -1646,9 +1697,9 @@ class ClusterMapPlotter:
                 self.dendrogram_col.dendrogram["ivl"]
             ]  # self.data2d.iloc[:, xind].columns.tolist()
             return None
-        elif isinstance(self.col_split, int) and self.col_cluster:
+        if isinstance(self.col_split, int) and self.col_cluster:
             self.calculate_col_dendrograms(self.data2d)
-            self.col_clusters = (
+            col_clusters = (
                 pd.Series(
                     hierarchy.fcluster(
                         self.dendrogram_col.linkage,
@@ -1660,10 +1711,11 @@ class ClusterMapPlotter:
                     .to_frame(name="cluster")
                     .groupby("cluster")
                     .apply(lambda x: x.index.tolist())
-                    .to_dict()
             )
-        # index=self.dendrogram_col.dendrogram['ivl']).to_frame(name='cluster')
-
+            self.cal_cold_between_groups(col_clusters)
+            col_split_order = self.dendrogram_col.dendrogram["ivl"]
+            self.col_split_dendrogram = self.dendrogram_col
+            self.col_clusters = col_clusters.loc[col_split_order].to_dict()
         elif isinstance(self.col_split, (pd.Series, pd.DataFrame)):
             if isinstance(self.col_split, pd.Series):
                 self.col_split = self.col_split.to_frame(name=self.col_split.name)
@@ -1671,18 +1723,13 @@ class ClusterMapPlotter:
             col_clusters = self.col_split.groupby(cols).apply(
                 lambda x: x.index.tolist()
             )
-            if self.col_split_order is None:
-                self.col_split_order = col_clusters.index.tolist()
-            elif self.col_split_order == 'cluster_between_groups':
-                mat = pd.concat([
-                    self.data2d.loc[:, cols].mean(axis=1) for cols in col_clusters.tolist()],
-                    axis=1)  # index are original rows labels
-                mat.columns = col_clusters.index.tolist()
-                sizes = col_clusters.apply(lambda x: len(x)).tolist()
-                self.calculate_col_dendrograms(mat, sizes=sizes)
-                self.col_split_order = self.dendrogram_col.dendrogram["ivl"]
-                self.col_split_dendrogram = self.dendrogram_col
-            self.col_clusters = col_clusters.loc[self.col_split_order].to_dict()
+            self.cal_cold_between_groups(col_clusters)
+            self.col_split_dendrogram = self.dendrogram_col
+            # if self.col_split_order is None:
+            #     self.col_split_order = col_clusters.index.tolist()
+            # elif self.col_split_order == 'cluster_between_groups':
+            col_split_order = self.dendrogram_col.dendrogram["ivl"]
+            self.col_clusters = col_clusters.loc[col_split_order].to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]
             return None
@@ -1693,10 +1740,10 @@ class ClusterMapPlotter:
         self.dendrogram_cols = []
         for i, cluster in enumerate(self.col_clusters):
             cols = self.col_clusters[cluster]
-            if len(cols) <= 1:
-                self.col_order.append(cols)
-                self.dendrogram_cols.append(None)
-                continue
+            # if len(cols) <= 1:
+            #     self.col_order.append(cols)
+            #     self.dendrogram_cols.append(None)
+            #     continue
             if self.col_cluster:
                 self.calculate_col_dendrograms(self.data2d.loc[:, cols])
                 self.dendrogram_cols.append(self.dendrogram_col)
@@ -1709,26 +1756,35 @@ class ClusterMapPlotter:
         ccmap = self.tree_kws.pop("col_cmap", None)
         tree_kws = self.tree_kws.copy()
 
-        if self.row_split_dendrogram and self.row_dendrogram:
-            self.row_split_dendrogram.plot(ax=self.ax_row_dendrogram, tree_kws=tree_kws)
+        if (
+            self.row_split_order == 'cluster_between_groups' and
+            self.row_split_dendrogram and self.row_dendrogram
+        ):
+            self.row_split_dendrogram.plot(
+                ax=self.ax_row_dendrogram,
+                gap_pixel=self.row_split_gap_pixel,
+                tree_kws=tree_kws)
 
         elif self.row_cluster and self.row_dendrogram:
             if self.left_annotation is None:
                 gs = self.gs[1, 0]
             else:
                 gs = self.left_gs[0, 0]
+            ncols = 2 if len(row_order) > 1 else 1
+            # width_ratios = None if ncols == 1 else [1, 2]
             self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
                 len(row_order),
-                1,
+                ncols,
                 hspace=self.hspace,
                 wspace=0,
                 subplot_spec=gs,
                 height_ratios=[len(rows) for rows in row_order],
+                # width_ratios=width_ratios,
             )
             self.ax_row_dendrogram_axes = []
             for i in range(len(row_order)):
                 ax1 = self.ax_row_dendrogram.figure.add_subplot(
-                    self.row_dendrogram_gs[i, 0]
+                    self.row_dendrogram_gs[i, -1]
                 )
                 ax1.set_axis_off()
                 self.ax_row_dendrogram_axes.append(ax1)
@@ -1751,26 +1807,45 @@ class ClusterMapPlotter:
                 self.dendrogram_row.plot(
                     ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
                 )
+            if ncols > 1:
+                root_x=[dendrogram_row.root_x for dendrogram_row in self.dendrogram_rows]
+                self.ax_row_split_dendrogram=self.ax_row_dendrogram.figure.add_subplot(
+                        self.row_dendrogram_gs[:, 0]
+                    )
+                self.ax_row_split_dendrogram.set_axis_off()
+                self.row_split_dendrogram.plot(
+                    ax=self.ax_row_split_dendrogram,
+                    gap_pixel=self.row_split_gap_pixel,
+                    root_x=root_x,
+                    tree_kws=tree_kws)
 
-        if self.col_split_dendrogram and self.col_dendrogram:
-            self.col_split_dendrogram.plot(ax=self.ax_col_dendrogram, tree_kws=tree_kws)
+        if (self.col_split_order == 'cluster_between_groups' and
+            self.col_split_dendrogram and self.col_dendrogram
+        ):
+            self.col_split_dendrogram.plot(
+                ax=self.ax_col_dendrogram,
+                gap_pixel=self.col_split_gap_pixel,
+                tree_kws=tree_kws)
         elif self.col_cluster and self.col_dendrogram:
             if self.top_annotation is None:
                 gs = self.gs[0, 1]
             else:
                 gs = self.top_gs[0, 0]
+            nrows = 2 if len(col_order) > 1 else 1
+            # height_ratios = None if nrows == 1 else [1, 2]
             self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
-                1,
+                nrows,
                 len(col_order),
                 hspace=0,
                 wspace=self.wspace,
                 subplot_spec=gs,
                 width_ratios=[len(cols) for cols in col_order],
+                # height_ratios=height_ratios
             )
             self.ax_col_dendrogram_axes = []
             for i in range(len(col_order)):
                 ax1 = self.ax_col_dendrogram.figure.add_subplot(
-                    self.col_dendrogram_gs[0, i]
+                    self.col_dendrogram_gs[-1, i]
                 )
                 ax1.set_axis_off()
                 self.ax_col_dendrogram_axes.append(ax1)
@@ -1793,24 +1868,50 @@ class ClusterMapPlotter:
                 self.dendrogram_col.plot(
                     ax=self.ax_col_dendrogram, tree_kws=self.tree_kws
                 )
+            if nrows > 1: #plot between groups dendrogram
+                root_x = [dendrogram_col.root_x for dendrogram_col in self.dendrogram_cols]
+                self.ax_col_split_dendrogram=self.ax_col_dendrogram.figure.add_subplot(
+                        self.col_dendrogram_gs[0, :]
+                    )
+                self.ax_col_split_dendrogram.set_axis_off()
+                self.col_split_dendrogram.plot(
+                    ax=self.ax_col_split_dendrogram,
+                    gap_pixel=self.col_split_gap_pixel,
+                    root_x=root_x,
+                    tree_kws=tree_kws)
 
     def plot_matrix(self, row_order, col_order):
         if self.verbose >= 1:
             print("Plotting matrix..")
         nrows = len(row_order)
         ncols = len(col_order)
-        self.wspace = (
-            self.col_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().width / ncols)
-        )  # 1mm=mm2inch inch
+        self.col_split_gap_pixel = self.col_split_gap * mm2inch * self.ax.figure.dpi
+        # self.wspace = (
+        #     self.col_split_gap_pixel
+        #     / (self.ax_heatmap.get_window_extent().width / ncols)
+        # )  # 1mm=mm2inch inch; pixels divided by average pixels
+        self.wspace=(
+            (self.col_split_gap_pixel * ncols)
+            / (
+                self.ax_heatmap.get_window_extent().width
+               + self.col_split_gap_pixel - self.col_split_gap_pixel*ncols
+            )
+        )
+        # wspace: The amount of width reserved for space between subplots,
+        # expressed as a fraction of the average axis width.
+        # 20231130: refer to: https://github.com/matplotlib/matplotlib/blob/main/lib/matplotlib/gridspec.py
+        self.row_split_gap_pixel = self.row_split_gap * mm2inch * self.ax.figure.dpi
+        # self.hspace = (
+        #     self.row_split_gap_pixel
+        #     / (self.ax_heatmap.get_window_extent().height / nrows)
+        # )  # height
         self.hspace = (
-            self.row_split_gap
-            * mm2inch
-            * self.ax.figure.dpi
-            / (self.ax_heatmap.get_window_extent().height / nrows)
-        )  # height
+            (self.row_split_gap_pixel * nrows)
+            / (
+                self.ax_heatmap.get_window_extent().height
+                + self.row_split_gap_pixel - self.row_split_gap_pixel * nrows
+            )
+        )
         self.heatmap_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
             nrows,
             ncols,
