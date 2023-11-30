@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate dataset &mdash; PyComplexHeatmap 1.6.2 documentation</title>
+  <title>Generate dataset &mdash; PyComplexHeatmap 1.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -16,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=c3225494"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=675ad08d"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../_static/js/rtd_search_config.js"></script>
@@ -198,6 +198,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
@@ -236,6 +238,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -348,7 +351,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.2
+1.6.3
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -496,35 +499,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E -0.747857
-sample2  GroupA  C  E  0.420673
-sample3  GroupA  C  E -0.565534
-sample4  GroupA  D  E -0.588126
-sample5  GroupA  D  E -0.783254
-sample1    -0.237643
-sample2    -0.488990
-sample3     0.208091
-sample4     0.535399
-sample5    -0.496377
-sample6    -0.009072
-sample7    -0.858287
-sample8    -0.402307
-sample9     0.554917
-sample10   -0.300471
+sample1  GroupA  C  E  0.354711
+sample2  GroupA  C  E  0.542935
+sample3  GroupA  C  E -0.084058
+sample4  GroupA  D  E  0.583879
+sample5  GroupA  D  E  0.333199
+sample1     0.258297
+sample2    -0.068886
+sample3    -0.170521
+sample4     0.097702
+sample5    -0.476208
+sample6    -0.192140
+sample7    -0.069811
+sample8     0.003164
+sample9    -0.301553
+sample10    0.139617
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1 -0.509214 -0.443358 -0.820240 -0.188907  1.378536 -0.365851 -1.024406
-Fea2 -0.050672 -1.571947       NaN  0.711212  0.136606 -0.631907 -0.191190
-Fea3  1.163570  0.461959  1.559828 -1.624257 -0.217502 -0.840552  1.598034
-Fea4 -1.823822 -0.608054  1.711355  1.686798  0.322804  0.011757  1.142169
-Fea5  1.909519  0.812372  0.032279  0.344830 -0.919382 -0.198808 -0.796377
+Fea1  1.709438  1.575950 -1.843793 -0.155491 -0.192544  2.675174  1.854673
+Fea2  1.017488 -0.747988       NaN  1.310081 -0.922493 -0.090495  0.884301
+Fea3 -1.778432  2.201774 -1.665345 -0.035301 -0.498010  0.438933 -0.684728
+Fea4  1.873976 -0.098681  0.685205 -1.297098  0.540771 -0.614916 -0.724002
+Fea5  0.186888  1.979111  1.631568  0.805246 -1.664653 -0.601700  1.180949
 
        sample8   sample9  sample10
-Fea1 -0.896823  0.496690  0.592725
-Fea2 -0.195963  1.276020  0.966043
-Fea3  0.035926  0.460126  0.284003
-Fea4  1.090398 -1.656872  0.270840
-Fea5 -0.681701  1.094396  0.559357
+Fea1  0.185024  0.533062 -2.242020
+Fea2  1.391348  0.135303  0.153741
+Fea3  1.600878 -0.494331 -0.695269
+Fea4  0.115794  0.470745  1.875255
+Fea5  1.307825  0.013662 -0.445574
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -539,8 +542,8 @@ Fea5 -0.681701  1.094396  0.559357
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea20&#39;, &#39;Fea24&#39;, &#39;Fea23&#39;, &#39;Fea15&#39;, &#39;Fea28&#39;, &#39;Fea30&#39;, &#39;Fea21&#39;, &#39;Fea16&#39;, &#39;Fea17&#39;, &#39;Fea25&#39;, &#39;Fea29&#39;, &#39;Fea19&#39;, &#39;Fea22&#39;, &#39;Fea26&#39;, &#39;Fea18&#39;, &#39;Fea27&#39;], [&#39;Fea4&#39;, &#39;Fea8&#39;, &#39;Fea13&#39;, &#39;Fea14&#39;, &#39;Fea1&#39;, &#39;Fea2&#39;, &#39;Fea7&#39;, &#39;Fea5&#39;, &#39;Fea11&#39;, &#39;Fea12&#39;, &#39;Fea3&#39;, &#39;Fea9&#39;, &#39;Fea6&#39;, &#39;Fea10&#39;]]
-[[&#39;sample1&#39;, &#39;sample5&#39;, &#39;sample4&#39;, &#39;sample2&#39;, &#39;sample3&#39;], [&#39;sample7&#39;, &#39;sample9&#39;, &#39;sample10&#39;, &#39;sample6&#39;, &#39;sample8&#39;]]
+[[&#39;Fea23&#39;, &#39;Fea29&#39;, &#39;Fea16&#39;, &#39;Fea19&#39;, &#39;Fea27&#39;, &#39;Fea28&#39;, &#39;Fea21&#39;, &#39;Fea24&#39;, &#39;Fea22&#39;, &#39;Fea30&#39;, &#39;Fea17&#39;, &#39;Fea18&#39;, &#39;Fea15&#39;, &#39;Fea25&#39;, &#39;Fea20&#39;, &#39;Fea26&#39;], [&#39;Fea4&#39;, &#39;Fea9&#39;, &#39;Fea11&#39;, &#39;Fea14&#39;, &#39;Fea2&#39;, &#39;Fea10&#39;, &#39;Fea1&#39;, &#39;Fea3&#39;, &#39;Fea12&#39;, &#39;Fea8&#39;, &#39;Fea13&#39;, &#39;Fea5&#39;, &#39;Fea6&#39;, &#39;Fea7&#39;]]
+[[&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample3&#39;, &#39;sample4&#39;, &#39;sample5&#39;], [&#39;sample8&#39;, &#39;sample6&#39;, &#39;sample7&#39;, &#39;sample9&#39;, &#39;sample10&#39;]]
 </pre></div></div>
 </div>
 </section>
@@ -587,93 +590,88 @@ Fea5 -0.681701  1.094396  0.559357
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  0.558153
-sample2    AAAA1  C -1.494018
-sample3    AAAA1  C -0.704753
-sample4    AAAA1  D -0.183867
-sample5    AAAA1  D  1.643585
-sample6   BBBBB2  D  0.905935
-sample7   BBBBB2  G -0.345495
-sample8   BBBBB2  G  1.141176
-sample9   BBBBB2  G -1.499875
-sample10  BBBBB2  G -0.394141
-             Gene1     Gene2     Gene3     Gene4
-sample1   0.554506  0.558455 -0.876005 -0.888674
-sample2  -2.401059  0.339780  0.739265  0.397495
-sample3  -0.866665 -0.312442 -0.621690  0.655843
-sample4  -1.215605  0.550951  0.240894 -0.481800
-sample5  -1.599696  0.701440 -0.115599  1.415857
-sample6  -0.502530 -1.178944 -2.059417 -0.803522
-sample7  -0.593700 -0.325853 -0.731131 -0.107001
-sample8  -1.067293 -0.634371  0.022329  0.777344
-sample9  -0.456939  0.082087  0.236450 -0.200559
-sample10 -1.010072 -0.881642  0.677214 -1.061660
+sample1    AAAA1  C  0.167496
+sample2    AAAA1  C -0.991386
+sample3    AAAA1  C  2.245944
+sample4    AAAA1  D -1.576799
+sample5    AAAA1  D -0.200125
+sample6   BBBBB2  D -0.271715
+sample7   BBBBB2  G -0.866864
+sample8   BBBBB2  G -0.812223
+sample9   BBBBB2  G -1.277984
+sample10  BBBBB2  G -0.114278
+            Gene1     Gene2     Gene3     Gene4
+sample1  1.446921 -0.708485 -0.509070  0.840460
+sample2  0.732308 -1.632821 -0.338449 -0.531048
+sample3 -0.525066  1.675141 -0.820168 -0.457436
+sample4  0.365036  0.572787  3.192177  0.212940
+sample5 -0.197410  2.552362 -1.282451 -0.068141
            Scatter
-sample1   7.316740
-sample2   3.576703
-sample3   8.034365
-sample4   0.297613
-sample5   4.133818
-sample6   9.391350
-sample7   8.297059
-sample8   1.741674
-sample9   7.347291
-sample10  0.644875
+sample1   3.436971
+sample2   3.319778
+sample3   6.144915
+sample4   1.059727
+sample5   7.980757
+sample6   2.861314
+sample7   1.872465
+sample8   0.496378
+sample9   4.350778
+sample10  1.264899
               TMB1      TMB2
-sample1   3.333072  9.383314
-sample2   7.364857  2.584386
-sample3   3.933983  4.009746
-sample4   1.781416  1.921156
-sample5   8.528948  5.423036
-sample6   4.027759  0.422103
-sample7   4.226584  3.776299
-sample8   2.568239  7.852064
-sample9   8.174801  1.756224
-sample10  9.817558  2.701983
+sample1   9.428729  1.181770
+sample2   5.762854  0.237505
+sample3   5.678036  3.961360
+sample4   7.552684  1.832018
+sample5   9.631855  2.198406
+sample6   0.026308  2.176609
+sample7   7.695370  1.108289
+sample8   5.415293  9.816145
+sample9   3.292791  0.030532
+sample10  9.220987  7.440713
               T1-A      T1-B
-sample1   5.592277  6.529767
-sample2   0.750141  7.170550
-sample3   9.670180  0.251318
-sample4   0.820366  6.011649
-sample5   8.704039  6.326258
-sample6   8.541232  1.164082
-sample7   3.132018  4.246505
-sample8   6.418021  5.232000
-sample9   3.417235  0.254089
-sample10  8.143321  4.505821
+sample1   9.592425  5.667908
+sample2   4.908152  9.327141
+sample3   9.080779  6.922145
+sample4   2.653934  1.716654
+sample5   7.360978  8.660856
+sample6   6.393565  7.688446
+sample7   2.086696  8.068655
+sample8   8.295157  5.898434
+sample9   5.558914  6.386266
+sample10  5.132533  7.037633
               T2-A      T2-B
-sample1   4.325620  0.650739
-sample2   7.354892  8.071065
-sample3   9.957895  7.875702
-sample4   9.028667  4.944944
-sample5   8.817095  5.685597
-sample6   0.134301  8.414088
-sample7   2.937611  1.922193
-sample8   6.303028  4.267477
-sample9   2.598630  2.600789
-sample10  3.140115  0.934388
+sample1   6.591014  8.821632
+sample2   7.621412  0.582102
+sample3   9.627655  4.433078
+sample4   9.097970  6.576678
+sample5   1.497809  8.744462
+sample6   4.570834  3.713892
+sample7   8.277718  5.473629
+sample8   4.205833  8.475198
+sample9   6.003829  3.092664
+sample10  4.155205  6.052477
               T3-A      T3-B
-sample1   7.087463  6.013203
-sample2   4.995301  7.318190
-sample3   3.671033  7.923160
-sample4   2.823577  4.970076
-sample5   4.809105  3.897411
-sample6        NaN  2.454826
-sample7   0.347297  8.196439
-sample8   7.846420  7.890449
-sample9   9.639851  4.073962
-sample10  1.049457  8.377965
+sample1   1.158865  8.438547
+sample2   9.925273  4.639386
+sample3   1.784764  2.111763
+sample4   5.658697  3.226277
+sample5   2.907819  0.356024
+sample6        NaN  7.880260
+sample7   0.009286  5.282679
+sample8   4.826250  7.210088
+sample9   7.216952  9.983478
+sample10  5.532668  3.260880
                 T4
-sample1   3.553174
-sample2   1.687560
-sample3   5.762584
-sample4   7.466562
-sample5   7.622682
-sample6   8.583526
-sample7   4.605739
+sample1   6.881147
+sample2   9.922348
+sample3   8.701319
+sample4   7.157492
+sample5   3.723565
+sample6   0.456673
+sample7   4.418532
 sample8        NaN
-sample9   0.989498
-sample10  2.521396
+sample9   6.350035
+sample10  2.483679
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">

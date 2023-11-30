@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.dotHeatmap &mdash; PyComplexHeatmap 1.6.2 documentation</title>
+  <title>PyComplexHeatmap.dotHeatmap &mdash; PyComplexHeatmap 1.6.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=c3225494"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=675ad08d"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -192,6 +192,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
@@ -230,6 +232,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -769,19 +772,22 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ratio</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wspace</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap</span>
-            <span class="o">*</span> <span class="n">mm2inch</span>
-            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
-            <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">ncols</span><span class="p">)</span>
-        <span class="p">)</span>  <span class="c1"># 1mm=mm2inch inch</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap_pixel</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
+                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap_pixel</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_gap_pixel</span> <span class="o">*</span> <span class="n">ncols</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap</span> <span class="o">*</span> <span class="n">mm2inch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hspace</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap</span>
-            <span class="o">*</span> <span class="n">mm2inch</span>
-            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
-            <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">)</span>
-        <span class="p">)</span>  <span class="c1"># height</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap_pixel</span> <span class="o">*</span> <span class="n">nrows</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span>
+                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap_pixel</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_gap_pixel</span> <span class="o">*</span> <span class="n">nrows</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_gs</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span>
             <span class="n">nrows</span><span class="p">,</span>
             <span class="n">ncols</span><span class="p">,</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.colors &mdash; PyComplexHeatmap 1.6.2 documentation</title>
+  <title>PyComplexHeatmap.colors &mdash; PyComplexHeatmap 1.6.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=c3225494"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=675ad08d"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -192,6 +192,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
@@ -230,6 +232,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -328,6 +331,11 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_calculate_luminance</span>
 
+<div class="viewcode-block" id="register_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap">[docs]</a><span class="k">def</span> <span class="nf">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">():</span>
     <span class="n">all_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
@@ -335,17 +343,16 @@
     <span class="c1">#     c = LinearSegmentedColormap.from_list(</span>
     <span class="c1">#         &quot;binarize&quot;, [(0, &#39;lightgray&#39;), (1, &quot;black&quot;)]</span>
     <span class="c1">#     )</span>
-    <span class="c1">#     plt.register_cmap(cmap=c)</span>
     <span class="k">if</span> <span class="s2">&quot;exp1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
             <span class="s2">&quot;exp1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)]</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># name=&#39;exp1&#39;</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;exp2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
             <span class="s2">&quot;exp2&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#4A5EA0&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#F9FFB2&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#A42A26&quot;</span><span class="p">)]</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;meth1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
             <span class="s2">&quot;meth1&quot;</span><span class="p">,</span>
@@ -358,7 +365,7 @@
                 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#7D1416&quot;</span><span class="p">),</span>
             <span class="p">],</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;meth2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
             <span class="s2">&quot;meth2&quot;</span><span class="p">,</span>
@@ -372,12 +379,12 @@
                 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">),</span>
             <span class="p">],</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;diverging1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
             <span class="s2">&quot;diverging1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#67a9cf&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#f7f7f7&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#ef8a62&quot;</span><span class="p">)]</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="s2">&quot;cmap50&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
@@ -396,7 +403,7 @@
             <span class="p">),</span>
             <span class="s2">&quot;cmap50&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="s2">&quot;parula&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
         <span class="n">cm_data</span> <span class="o">=</span> <span class="p">[</span>
@@ -466,8 +473,7 @@
             <span class="p">[</span><span class="mf">0.9763</span><span class="p">,</span> <span class="mf">0.9831</span><span class="p">,</span> <span class="mf">0.0538</span><span class="p">],</span>
         <span class="p">]</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;parula&quot;</span><span class="p">,</span> <span class="n">cm_data</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span></div>
-
+        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
 
 <span class="n">define_cmap</span><span class="p">()</span>
 </pre></div>
