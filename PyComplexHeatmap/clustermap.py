@@ -1679,10 +1679,10 @@ class ClusterMapPlotter:
         self.dendrogram_rows = []
         for i, cluster in enumerate(self.row_clusters):
             rows = self.row_clusters[cluster]
-            # if len(rows) <= 1:
-            #     self.row_order.append(rows)
-            #     self.dendrogram_rows.append(None)
-            #     continue
+            if len(rows) <= 1 and isinstance(self.row_split_order,(list,np.ndarray)):
+                self.row_order.append(rows)
+                self.dendrogram_rows.append(None)
+                continue
             if self.row_cluster:  # cluster within groups
                 self.calculate_row_dendrograms(self.data2d.loc[rows])
                 self.dendrogram_rows.append(self.dendrogram_row)
@@ -1746,10 +1746,10 @@ class ClusterMapPlotter:
         self.dendrogram_cols = []
         for i, cluster in enumerate(self.col_clusters):
             cols = self.col_clusters[cluster]
-            # if len(cols) <= 1:
-            #     self.col_order.append(cols)
-            #     self.dendrogram_cols.append(None)
-            #     continue
+            if len(cols) <= 1 and isinstance(self.col_split_order,(list,np.ndarray)):
+                self.col_order.append(cols)
+                self.dendrogram_cols.append(None)
+                continue
             if self.col_cluster:
                 self.calculate_col_dendrograms(self.data2d.loc[:, cols])
                 self.dendrogram_cols.append(self.dendrogram_col)
