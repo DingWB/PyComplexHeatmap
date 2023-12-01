@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.6.3 documentation</title>
+  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.6.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=675ad08d"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=acd34040"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -1984,12 +1984,15 @@
             <span class="n">row_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cal_rowd_between_groups</span><span class="p">(</span><span class="n">row_clusters</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">row_split_dendrogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span>
-            <span class="c1"># if self.row_split_order is None:</span>
-            <span class="c1">#     self.row_split_order = row_clusters.index.tolist()</span>
-            <span class="c1"># elif self.row_split_order == &#39;cluster_between_groups&#39;:</span>
-            <span class="n">row_split_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span> <span class="o">==</span> <span class="s1">&#39;cluster_between_groups&#39;</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cal_rowd_between_groups</span><span class="p">(</span><span class="n">row_clusters</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_split_dendrogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span>
+                <span class="n">row_split_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">row_split_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">row_clusters</span> <span class="o">=</span> <span class="n">row_clusters</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_split_order</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
@@ -2001,10 +2004,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_rows</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_clusters</span><span class="p">):</span>
             <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_clusters</span><span class="p">[</span><span class="n">cluster</span><span class="p">]</span>
-            <span class="c1"># if len(rows) &lt;= 1:</span>
-            <span class="c1">#     self.row_order.append(rows)</span>
-            <span class="c1">#     self.dendrogram_rows.append(None)</span>
-            <span class="c1">#     continue</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_split_order</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_cluster</span><span class="p">:</span>  <span class="c1"># cluster within groups</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">calculate_row_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="p">)</span>
@@ -2048,12 +2051,15 @@
             <span class="n">col_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cal_cold_between_groups</span><span class="p">(</span><span class="n">col_clusters</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">col_split_dendrogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span>
-            <span class="c1"># if self.col_split_order is None:</span>
-            <span class="c1">#     self.col_split_order = col_clusters.index.tolist()</span>
-            <span class="c1"># elif self.col_split_order == &#39;cluster_between_groups&#39;:</span>
-            <span class="n">col_split_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span> <span class="o">==</span> <span class="s1">&#39;cluster_between_groups&#39;</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cal_cold_between_groups</span><span class="p">(</span><span class="n">col_clusters</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_split_dendrogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span>
+                <span class="n">col_split_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">[</span><span class="s2">&quot;ivl&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">col_split_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_clusters</span> <span class="o">=</span> <span class="n">col_clusters</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col_split_order</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_cluster</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
@@ -2065,10 +2071,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_cols</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_clusters</span><span class="p">):</span>
             <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_clusters</span><span class="p">[</span><span class="n">cluster</span><span class="p">]</span>
-            <span class="c1"># if len(cols) &lt;= 1:</span>
-            <span class="c1">#     self.col_order.append(cols)</span>
-            <span class="c1">#     self.dendrogram_cols.append(None)</span>
-            <span class="c1">#     continue</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_split_order</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_cluster</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">calculate_col_dendrograms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">cols</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span><span class="p">)</span>
@@ -2095,8 +2101,7 @@
                 <span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-            <span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
-            <span class="c1"># width_ratios = None if ncols == 1 else [1, 2]</span>
+            <span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_dendrogram</span> <span class="k">else</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">row_dendrogram_gs</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span>
                 <span class="nb">len</span><span class="p">(</span><span class="n">row_order</span><span class="p">),</span>
                 <span class="n">ncols</span><span class="p">,</span>
@@ -2136,7 +2141,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_row</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                     <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_row_dendrogram</span><span class="p">,</span> <span class="n">tree_kws</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">ncols</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ncols</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_split_dendrogram</span><span class="p">:</span>
                 <span class="k">if</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="p">:</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -2165,7 +2170,7 @@
                 <span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">gs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-            <span class="n">nrows</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_dendrogram</span> <span class="k">else</span> <span class="mi">1</span>
             <span class="c1"># height_ratios = None if nrows == 1 else [1, 2]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_dendrogram_gs</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span>
                 <span class="n">nrows</span><span class="p">,</span>
@@ -2206,7 +2211,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dendrogram_col</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                     <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ax_col_dendrogram</span><span class="p">,</span> <span class="n">tree_kws</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">nrows</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#plot between groups dendrogram</span>
+            <span class="k">if</span> <span class="n">nrows</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_split_dendrogram</span><span class="p">:</span> <span class="c1">#plot between groups dendrogram</span>
                 <span class="k">if</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_kws</span><span class="p">:</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
