@@ -1659,12 +1659,15 @@ class ClusterMapPlotter:
             row_clusters = self.row_split.groupby(cols).apply(
                 lambda x: x.index.tolist()
             )
-            self.cal_rowd_between_groups(row_clusters)
-            self.row_split_dendrogram = self.dendrogram_row
-            # if self.row_split_order is None:
-            #     self.row_split_order = row_clusters.index.tolist()
-            # elif self.row_split_order == 'cluster_between_groups':
-            row_split_order = self.dendrogram_row.dendrogram["ivl"]
+            if (
+                self.row_split_order is None or
+                self.row_split_order == 'cluster_between_groups'
+            ):
+                self.cal_rowd_between_groups(row_clusters)
+                self.row_split_dendrogram = self.dendrogram_row
+                row_split_order = self.dendrogram_row.dendrogram["ivl"]
+            else:
+                row_split_order=self.row_split_order
             self.row_clusters = row_clusters.loc[row_split_order].to_dict()
         elif not self.row_cluster:
             self.row_order = [self.data2d.index.tolist()]
@@ -1723,12 +1726,15 @@ class ClusterMapPlotter:
             col_clusters = self.col_split.groupby(cols).apply(
                 lambda x: x.index.tolist()
             )
-            self.cal_cold_between_groups(col_clusters)
-            self.col_split_dendrogram = self.dendrogram_col
-            # if self.col_split_order is None:
-            #     self.col_split_order = col_clusters.index.tolist()
-            # elif self.col_split_order == 'cluster_between_groups':
-            col_split_order = self.dendrogram_col.dendrogram["ivl"]
+            if (
+                self.col_split_order is None or
+                self.col_split_order == 'cluster_between_groups'
+            ):
+                self.cal_cold_between_groups(col_clusters)
+                self.col_split_dendrogram = self.dendrogram_col
+                col_split_order = self.dendrogram_col.dendrogram["ivl"]
+            else:
+                col_split_order=self.col_split_order
             self.col_clusters = col_clusters.loc[col_split_order].to_dict()
         elif not self.col_cluster:
             self.col_order = [self.data2d.columns.tolist()]
@@ -1770,8 +1776,7 @@ class ClusterMapPlotter:
                 gs = self.gs[1, 0]
             else:
                 gs = self.left_gs[0, 0]
-            ncols = 2 if len(row_order) > 1 else 1
-            # width_ratios = None if ncols == 1 else [1, 2]
+            ncols = 2 if len(row_order) > 1 and self.row_split_dendrogram else 1
             self.row_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
                 len(row_order),
                 ncols,
@@ -1811,7 +1816,7 @@ class ClusterMapPlotter:
                 self.dendrogram_row.plot(
                     ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
                 )
-            if ncols > 1:
+            if ncols > 1 and self.row_split_dendrogram:
                 if 'colors' not in self.tree_kws:
                     color = 'black'
                 else:
@@ -1840,7 +1845,7 @@ class ClusterMapPlotter:
                 gs = self.gs[0, 1]
             else:
                 gs = self.top_gs[0, 0]
-            nrows = 2 if len(col_order) > 1 else 1
+            nrows = 2 if len(col_order) > 1 and self.col_split_dendrogram else 1
             # height_ratios = None if nrows == 1 else [1, 2]
             self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
                 nrows,
@@ -1881,7 +1886,7 @@ class ClusterMapPlotter:
                 self.dendrogram_col.plot(
                     ax=self.ax_col_dendrogram, tree_kws=self.tree_kws
                 )
-            if nrows > 1: #plot between groups dendrogram
+            if nrows > 1 and self.col_split_dendrogram: #plot between groups dendrogram
                 if 'colors' not in self.tree_kws:
                     color = 'black'
                 else:
