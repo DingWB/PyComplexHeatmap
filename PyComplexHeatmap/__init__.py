@@ -7,7 +7,6 @@ from .oncoPrint import oncoprint, oncoPrintPlotter
 from .annotations import *
 from .dotHeatmap import *
 from .colors import *
-from .tools import *
 from .utils import set_default_style
 
 # __all__=['*']
