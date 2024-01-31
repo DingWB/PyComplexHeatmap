@@ -1284,8 +1284,6 @@ class ClusterMapPlotter:
 
 	def format_data(self, data, mask=None, z_score=None, standard_scale=None):
 		data2d = data.copy()
-		self.kwargs.setdefault("vmin", np.nanmin(data.values))
-		self.kwargs.setdefault("vmax", np.nanmax(data.values))
 		if z_score is not None and standard_scale is not None:
 			raise ValueError(
 				"Cannot perform both z-scoring and standard-scaling on data"
@@ -1294,6 +1292,8 @@ class ClusterMapPlotter:
 			data2d = self.z_score(data, z_score)
 		if standard_scale is not None:
 			data2d = self.standard_scale(data, standard_scale)
+		self.kwargs.setdefault("vmin", np.nanmin(data2d))
+		self.kwargs.setdefault("vmax", np.nanmax(data2d))
 		self.mask = _check_mask(data2d, mask)
 		if self.rasterized == 'auto':
 			if max(data2d.shape[0], data2d.shape[1]) > 5000:
