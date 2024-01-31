@@ -13,7 +13,6 @@ Submodules
    PyComplexHeatmap.dotHeatmap
    PyComplexHeatmap.example
    PyComplexHeatmap.oncoPrint
-   PyComplexHeatmap.tools
    PyComplexHeatmap.utils
 
 Module contents
