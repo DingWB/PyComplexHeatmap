@@ -2171,14 +2171,14 @@ class ClusterMapPlotter:
 				if annotation.label_max_width > self.label_max_width:
 					self.label_max_width = annotation.label_max_width
 		if self.legend:
-			vmax = self.kwargs.get(
-				"vmax", np.nanmax(self.data2d[self.data2d != np.inf])
-			)
-			vmin = self.kwargs.get(
-				"vmin", np.nanmin(self.data2d[self.data2d != -np.inf])
-			)
-			self.legend_kws.setdefault("vmin", round(vmin, 2))
-			self.legend_kws.setdefault("vmax", round(vmax, 2))
+			# vmax = self.kwargs.get(
+			# 	"vmax", np.nanmax(self.data2d[self.data2d != np.inf])
+			# )
+			# vmin = self.kwargs.get(
+			# 	"vmin", np.nanmin(self.data2d[self.data2d != -np.inf])
+			# )
+			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
+			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
 			self.legend_list.append([self.cmap, self.label, self.legend_kws, 4, "cmap"])
 			if len(self.yticklabels) > 0 and self.row_names_side == "right":
 				max_yticklabel_w = max(

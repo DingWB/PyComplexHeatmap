@@ -10,6 +10,6 @@ from .colors import *
 from .utils import set_default_style
 
 # __all__=['*']
-__version__ = "1.6.4"
+__version__ = "1.6.5a"
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
