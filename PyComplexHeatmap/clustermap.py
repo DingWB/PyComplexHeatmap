@@ -1038,8 +1038,14 @@ class ClusterMapPlotter:
 		used to split rows or rows into subplots.
 	col_split :int or pd.Series or pd.DataFrame
 		int or pd.Series or pd.DataFrame, used to split rows or columns into subplots.
-	dendrogram_kws :dict
-		kws passed to hierarchy.dendrogram.
+	row_dendrogram_kws :dict
+		custom linkage could be passed to row_dendrogram_kws, for example:
+		row_dendrogram_kws=dict(linkage=my_linkage); Other kws passed to
+		hierarchy.dendrogram.
+	col_dendrogram_kws: dict
+		custom linkage could be passed to col_dendrogram_kws, for example:
+		col_dendrogram_kws=dict(linkage=my_linkage); Other kws passed to
+		hierarchy.dendrogram.
 	tree_kws :dict
 		kws passed to DendrogramPlotter.plot()
 	row_split_order: list or str
