@@ -1135,20 +1135,24 @@ class anno_img(AnnotationBase):
 			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), width=width) \
 						   for imgfile in imgfiles]))
 		else:
-			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile).transpose(1,0,2), width=width) \
+			imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), width=width) \
 						   for imgfile in imgfiles]))
-			imgs = imgs.transpose(1,0,2)
 
 		if axis==1:
 			extent = [0, self.nrows, 0, img_h+2*width]
 		else:
 			extent = [0, img_h+2*width, 0, self.nrows]
-		ax.imshow(imgs,aspect='auto',extent=extent)
+
+		ax.imshow(imgs, aspect='auto', extent=extent, cmap=self.cmap, **self.plot_kws)
+
 		if axis==1:
 			ax.invert_yaxis()
 		else:
 			ax.invert_xaxis()
-		ax.set_axis_off()
+
+		ax.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False)
+		ax.tick_params(bottom=False, left=False, right=False, top=False)
+
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
