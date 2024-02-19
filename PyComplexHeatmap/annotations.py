@@ -1122,21 +1122,26 @@ class anno_img(AnnotationBase):
 		if ax is None:
 			ax = plt.gca()
 		imgfiles = list(self.plot_data.iloc[:,0])
-		imgs = np.hstack(tuple([mpimg.imread(imgfile) for imgfile in imgfiles]))
-		# imgs = np.vstack(tuple([mpimg.imread(imgfile) for imgfile in imgfiles]))
-		print(imgs.shape)
+		if axis==1:
+			imgs = np.hstack(tuple([mpimg.imread(imgfile) for imgfile in imgfiles]))
+		else:
+			imgs = np.hstack(tuple([mpimg.imread(imgfile).transpose(1,0,2) for imgfile in imgfiles]))
+			imgs = imgs.transpose(1,0,2)
+
 		if axis==1:
 			extent = [0, self.nrows, 0, 255]
 		else:
 			extent = [0, 255, 0, self.nrows]
-		ax.imshow(imgs,aspect='auto',extent=[0,self.nrows,0,255])
-		ax.invert_yaxis()
-		# ax.set_axis_off()
+		ax.imshow(imgs,aspect='auto',extent=extent)
+		if axis==1:
+			ax.invert_yaxis()
+		ax.set_axis_off()
 		if axis==0:
 			ax.invert_xaxis()
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
+
 
 # =============================================================================
 class HeatmapAnnotation:
