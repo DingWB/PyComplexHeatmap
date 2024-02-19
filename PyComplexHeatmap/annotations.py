@@ -1117,27 +1117,38 @@ class anno_img(AnnotationBase):
 	def _check_cmap(self, cmap):
 		self.cmap = None
 
-	def plot(self, ax=None, axis=1):
+	def _add_border(self, img, width=1, color=0):
+		w = width
+		bordered_img = np.pad(img, pad_width=((w, w), (w, w), (0, 0)), 
+						mode='constant', constant_values=color)
+		return bordered_img
+
+
+
+	def plot(self, ax=None, axis=1, width=1):
 		import matplotlib.image as mpimg
 		if ax is None:
 			ax = plt.gca()
 		imgfiles = list(self.plot_data.iloc[:,0])
+		img_h = mpimg.imread(imgfiles[0]).shape[1]
 		if axis==1:
-			imgs = np.hstack(tuple([mpimg.imread(imgfile) for imgfile in imgfiles]))
+			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), width=width) \
+						   for imgfile in imgfiles]))
 		else:
-			imgs = np.hstack(tuple([mpimg.imread(imgfile).transpose(1,0,2) for imgfile in imgfiles]))
+			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile).transpose(1,0,2), width=width) \
+						   for imgfile in imgfiles]))
 			imgs = imgs.transpose(1,0,2)
 
 		if axis==1:
-			extent = [0, self.nrows, 0, 255]
+			extent = [0, self.nrows, 0, img_h+2*width]
 		else:
-			extent = [0, 255, 0, self.nrows]
+			extent = [0, img_h+2*width, 0, self.nrows]
 		ax.imshow(imgs,aspect='auto',extent=extent)
 		if axis==1:
 			ax.invert_yaxis()
-		ax.set_axis_off()
-		if axis==0:
+		else:
 			ax.invert_xaxis()
+		ax.set_axis_off()
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
