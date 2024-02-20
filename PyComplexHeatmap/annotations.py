@@ -1079,15 +1079,14 @@ class anno_scatterplot(anno_barplot):
 
 class anno_img(AnnotationBase):
 	"""
-		Annotate images.
+	Annotate images.
 
-		Parameters
-		----------
-		border_width : int
-            width of border lines between images.
-		border_color : int
-            color of border lines. black:0, white:255.
-
+	Parameters
+	----------
+	border_width : int
+		width of border lines between images (0-256?).
+	border_color : int
+		color of border lines. black:0, white:255.
 	"""
 	def __init__(
 		self,
@@ -1096,7 +1095,6 @@ class anno_img(AnnotationBase):
 		colors=None,
         border_width=1,
 		border_color=255,
-		text_kws=None,
 		height=None,
 		legend=True,
 		legend_kws=None,
@@ -1105,7 +1103,6 @@ class anno_img(AnnotationBase):
 		self.border_width = border_width
 		self.border_color = border_color
 
-		self.text_kws = text_kws if not text_kws is None else {}
 		self.plot_kws = plot_kws
 		super().__init__(
 			df=df,
@@ -1141,7 +1138,6 @@ class anno_img(AnnotationBase):
 		return bordered_img
 
 
-
 	def plot(self, ax=None, axis=1):
 		import matplotlib.image as mpimg
 		if ax is None:
@@ -1172,6 +1168,7 @@ class anno_img(AnnotationBase):
 
 		ax.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False)
 		ax.tick_params(bottom=False, left=False, right=False, top=False)
+		# ax.set_axis_off()
 
 		self.ax = ax
 		self.fig = self.ax.figure
