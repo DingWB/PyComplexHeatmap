@@ -1080,18 +1080,31 @@ class anno_scatterplot(anno_barplot):
 class anno_img(AnnotationBase):
 	"""
 		Annotate images.
+
+		Parameters
+		----------
+		border_width : int
+            width of border lines between images.
+		border_color : int
+            color of border lines. black:0, white:255.
+
 	"""
 	def __init__(
 		self,
 		df=None,
 		cmap=None,
 		colors=None,
+        border_width=1,
+		border_color=255,
 		text_kws=None,
 		height=None,
 		legend=True,
 		legend_kws=None,
 		**plot_kws
 	):
+		self.border_width = border_width
+		self.border_color = border_color
+
 		self.text_kws = text_kws if not text_kws is None else {}
 		self.plot_kws = plot_kws
 		super().__init__(
@@ -1109,46 +1122,53 @@ class anno_img(AnnotationBase):
 
 	def _set_default_plot_kws(self, plot_kws):
 		self.plot_kws = plot_kws if plot_kws is not None else {}
-		# self.plot_kws.setdefault("showfliers", False)
 
 	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
 		self.colors = None
 
 	def _check_cmap(self, cmap):
-		self.cmap = None
+		self.cmap = None 
 
-	def _add_border(self, img, width=1, color=0):
+	def _add_border(self, img, width=1, color=0, axis=1):
 		w = width
-		bordered_img = np.pad(img, pad_width=((w, w), (w, w), (0, 0)), 
+		if axis == 1:
+			pad_width = ((0, 0), (w, w), (0, 0))
+		else:
+			pad_width = ((w, w), (0, 0), (0, 0))
+
+		bordered_img = np.pad(img, pad_width=pad_width, 
 						mode='constant', constant_values=color)
 		return bordered_img
 
 
 
-	def plot(self, ax=None, axis=1, width=1):
+	def plot(self, ax=None, axis=1):
 		import matplotlib.image as mpimg
 		if ax is None:
 			ax = plt.gca()
 		imgfiles = list(self.plot_data.iloc[:,0])
 		img_h = mpimg.imread(imgfiles[0]).shape[1]
 		if axis==1:
-			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), width=width) \
+			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), 
+											width=self.border_width, color=self.border_color, axis=axis) \
 						   for imgfile in imgfiles]))
 		else:
-			imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), width=width) \
+			imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), 
+											width=self.border_width, color=self.border_color, axis=axis) \
 						   for imgfile in imgfiles]))
 
 		if axis==1:
-			extent = [0, self.nrows, 0, img_h+2*width]
+			extent = [0, self.nrows, 0, img_h]
 		else:
-			extent = [0, img_h+2*width, 0, self.nrows]
+			extent = [0, img_h, 0, self.nrows]
 
 		ax.imshow(imgs, aspect='auto', extent=extent, cmap=self.cmap, **self.plot_kws)
 
 		if axis==1:
-			ax.invert_yaxis()
+			#ax.invert_yaxis()
+			pass
 		else:
-			ax.invert_xaxis()
+			ax.invert_yaxis()
 
 		ax.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False)
 		ax.tick_params(bottom=False, left=False, right=False, top=False)
