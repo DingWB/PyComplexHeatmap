@@ -1170,6 +1170,7 @@ class anno_img(AnnotationBase):
 			else:
 				extent = [0, img_h, self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2]
 		else:
+			self._check_imgfiles(imgfiles)
 			if axis==1:
 				imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), 
                                                 width=self.border_width, color=self.border_color, axis=axis) \
