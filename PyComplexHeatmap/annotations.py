@@ -1093,7 +1093,7 @@ class anno_img(AnnotationBase):
 		df=None,
 		cmap=None,
 		colors=None,
-        border_width=1,
+		border_width=1,
 		border_color=255,
 		height=None,
 		legend=True,
