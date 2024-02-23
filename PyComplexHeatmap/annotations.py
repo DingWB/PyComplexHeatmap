@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib
 import matplotlib.pylab as plt
+import matplotlib.image as mpimg
 from .utils import mm2inch
 from .utils import (
 	_calculate_luminance,
@@ -1155,7 +1156,6 @@ class anno_img(AnnotationBase):
 				f"The image size of {imgfile} differs. Reference: ({height}, {width}), Current image: {img.shape[:2]}"
 
 	def plot(self, ax=None, axis=1):
-		import matplotlib.image as mpimg
 		if ax is None:
 			ax = plt.gca()
 		imgfiles = list(self.plot_data.iloc[:,0])
