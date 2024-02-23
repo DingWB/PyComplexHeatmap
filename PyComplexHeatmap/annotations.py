@@ -1154,8 +1154,6 @@ class anno_img(AnnotationBase):
 			assert img.shape[:2] == (height, width), \
 				f"The image size of {imgfile} differs. Reference: ({height}, {width}), Current image: {img.shape[:2]}"
 
-		w = width
-
 	def plot(self, ax=None, axis=1):
 		import matplotlib.image as mpimg
 		if ax is None:
