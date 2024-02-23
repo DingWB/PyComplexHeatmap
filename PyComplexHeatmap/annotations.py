@@ -1084,9 +1084,14 @@ class anno_img(AnnotationBase):
 	Parameters
 	----------
 	border_width : int
-		width of border lines between images (0-256?).
+		width of border lines between images (0-256?). Ignored when merge is True.
 	border_color : int
-		color of border lines. black:0, white:255.
+		color of border lines. black:0, white:255. Ignored when merge is True.
+	merge: bool
+		whether to merge the same clusters into one and show image only once.
+	merge_width: float
+        width of image when merge is True
+		whether to merge the same clusters into one and show image only once.
 	"""
 	def __init__(
 		self,
@@ -1095,6 +1100,8 @@ class anno_img(AnnotationBase):
 		colors=None,
 		border_width=1,
 		border_color=255,
+        merge=False,
+        merge_width=1,
 		height=None,
 		legend=True,
 		legend_kws=None,
@@ -1102,6 +1109,8 @@ class anno_img(AnnotationBase):
 	):
 		self.border_width = border_width
 		self.border_color = border_color
+		self.merge = merge
+		self.merge_width = merge_width
 
 		self.plot_kws = plot_kws
 		super().__init__(
@@ -1137,6 +1146,13 @@ class anno_img(AnnotationBase):
 						mode='constant', constant_values=color)
 		return bordered_img
 
+	def _check_imgfiles(self, imgfiles):
+		first_image = mpimg.imread(imgfiles[0])
+		height, width = first_image.shape[:2]
+		for imgfile in imgfiles[1:]:
+			img = mpimg.imread(imgfile)
+			assert img.shape[:2] == (height, width), \
+				f"The image size of {imgfile} differs. Reference: ({height}, {width}), Current image: {img.shape[:2]}"
 
 	def plot(self, ax=None, axis=1):
 		import matplotlib.image as mpimg
@@ -1144,26 +1160,29 @@ class anno_img(AnnotationBase):
 			ax = plt.gca()
 		imgfiles = list(self.plot_data.iloc[:,0])
 		img_h = mpimg.imread(imgfiles[0]).shape[1]
-		if axis==1:
-			imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), 
-											width=self.border_width, color=self.border_color, axis=axis) \
-						   for imgfile in imgfiles]))
+		if self.merge:
+			assert all(imgfile == imgfiles[0] for imgfile in imgfiles), "Not all file names in the list are identical"
+			imgs = mpimg.imread(imgfiles[0])
+			if axis==1:
+				extent = [self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2, 0, img_h]
+			else:
+				extent = [0, img_h, self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2]
 		else:
-			imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), 
-											width=self.border_width, color=self.border_color, axis=axis) \
-						   for imgfile in imgfiles]))
-
-		if axis==1:
-			extent = [0, self.nrows, 0, img_h]
-		else:
-			extent = [0, img_h, 0, self.nrows]
+			self._check_imgfiles(imgfiles)
+			if axis==1:
+				imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), 
+                                                width=self.border_width, color=self.border_color, axis=axis) \
+                            for imgfile in imgfiles]))
+				extent = [0, self.nrows, 0, img_h]
+			else:
+				imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), 
+                                                width=self.border_width, color=self.border_color, axis=axis) \
+                            for imgfile in imgfiles]))
+				extent = [0, img_h, 0, self.nrows]
 
 		ax.imshow(imgs, aspect='auto', extent=extent, cmap=self.cmap, **self.plot_kws)
 
-		if axis==1:
-			#ax.invert_yaxis()
-			pass
-		else:
+		if axis==0:
 			ax.invert_yaxis()
 
 		ax.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False)
