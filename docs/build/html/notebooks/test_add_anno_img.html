@@ -328,7 +328,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -353,7 +353,7 @@
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -365,7 +365,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -387,7 +387,42 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+            <span class="n">Groups</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
+            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#verbose=0 will turn off the log.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
+        <span class="n">col_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Paired&#39;</span><span class="p">},</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+        <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Features&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_test_add_anno_img_3_0.png" src="../_images/notebooks_test_add_anno_img_3_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -416,15 +451,8 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_3_0.png" src="../_images/notebooks_test_add_anno_img_3_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -440,13 +468,6 @@
         <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;meth2&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_4_0.png" src="../_images/notebooks_test_add_anno_img_4_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
