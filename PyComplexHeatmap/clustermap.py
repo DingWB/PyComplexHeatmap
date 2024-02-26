@@ -575,19 +575,34 @@ def plot_heatmap(
 	mask = _check_mask(data, mask)
 	plot_data = np.ma.masked_where(np.asarray(mask), plot_data)
 	# Get good names for the rows and columns
+	xtickevery=1
+	if isinstance(xticklabels,int):
+		xtickevery=xticklabels
+		xticklabels=True
+
 	if xticklabels is False:
 		xticks = []
 		xticklabels = []
-	else:
+	elif xticklabels=='auto':
 		xticks = "auto"
 		xticklabels = _index_to_ticklabels(data.columns)
+	else: #True
+		xticklabels = _index_to_ticklabels(data.columns)
+		xticks, xticklabels = _skip_ticks(xticklabels, xtickevery)
 
+	ytickevery = 1
+	if isinstance(yticklabels, int):
+		ytickevery = yticklabels
+		yticklabels = True
 	if yticklabels is False:
 		yticks = []
 		yticklabels = []
-	else:
+	elif yticklabels=='auto':
 		yticks = "auto"
 		yticklabels = _index_to_ticklabels(data.index)
+	else:
+		yticklabels = _index_to_ticklabels(data.index)
+		yticks, yticklabels = _skip_ticks(yticklabels, ytickevery)
 
 	# Determine good default values for the colormapping
 	calc_data = plot_data.astype(float).filled(np.nan)
@@ -807,7 +822,6 @@ class DendrogramPlotter(object):
 
 	def _calculate_linkage_fastcluster(self):
 		import fastcluster
-
 		# Fastcluster has a memory-saving vectorized version, but only
 		# with certain linkage methods, and mostly with euclidean metric
 		# vector_methods = ('single', 'centroid', 'median', 'ward')
@@ -1139,11 +1153,14 @@ class ClusterMapPlotter:
 		rasterized would be automatically set to True to speed up the plotting.
 	kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,
 		annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
-		and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+		,xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
 		If annot is True, the values of data will be plotted on the top of heatmap,
 		if annot is a dataframe, then the custom values will be plotted on heatmap,
 		fmt should be set to None if dtype of annot is str. For documentation of
 		custom annot, see https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation
+		xticklabels/yticklabels will be shown automatically, if the width/height is too small
+		to display all xticklabels, not all ticklabels will be shown (to avoid overlap).
+		To force display all ticklabels, set xticklabels/yticklabels to True.
 
 	Returns
 	-------
@@ -1300,6 +1317,9 @@ class ClusterMapPlotter:
 			data2d = self.standard_scale(data, standard_scale)
 		self.kwargs.setdefault("vmin", np.nanmin(data2d))
 		self.kwargs.setdefault("vmax", np.nanmax(data2d))
+		self.kwargs.setdefault('xticklabels',"auto")
+		self.kwargs.setdefault('yticklabels', "auto")
+
 		self.mask = _check_mask(data2d, mask)
 		if self.rasterized == 'auto':
 			if max(data2d.shape[0], data2d.shape[1]) > 5000:
@@ -1652,7 +1672,7 @@ class ClusterMapPlotter:
 			]  # self.data2d.iloc[:, xind].columns.tolist()
 			return None
 		if isinstance(self.row_split, int) and self.row_cluster:
-			self.calculate_row_dendrograms(self.data2d)
+			self.calculate_row_dendrograms(self.data2d) #generate self.dendrogram_row
 			row_clusters = (
 				pd.Series(
 					hierarchy.fcluster(
@@ -1682,7 +1702,7 @@ class ClusterMapPlotter:
 				self.row_split_order == 'cluster_between_groups'
 			):
 				self.cal_rowd_between_groups(row_clusters)
-				self.row_split_dendrogram = self.dendrogram_row
+				self.row_split_dendrogram = self.dendrogram_row #dendrogram between groups
 				row_split_order = self.dendrogram_row.dendrogram["ivl"]
 			else:
 				row_split_order=self.row_split_order
@@ -1694,7 +1714,7 @@ class ClusterMapPlotter:
 			raise TypeError("row_split must be integar or dataframe or series")
 
 		self.row_order = []
-		self.dendrogram_rows = []
+		self.dendrogram_rows = [] #store DendrogramPlotter object for all row clusters
 		for i, cluster in enumerate(self.row_clusters):
 			rows = self.row_clusters[cluster]
 			if len(rows) <= 1 and isinstance(self.row_split_order,(list,np.ndarray)):
@@ -1766,7 +1786,7 @@ class ClusterMapPlotter:
 			cols = self.col_clusters[cluster]
 			if len(cols) <= 1 and isinstance(self.col_split_order,(list,np.ndarray)):
 				self.col_order.append(cols)
-				self.dendrogram_cols.append(None)
+				self.dendrogram_cols.append(None) #only one column
 				continue
 			if self.col_cluster:
 				self.calculate_col_dendrograms(self.data2d.loc[:, cols])
@@ -1778,7 +1798,6 @@ class ClusterMapPlotter:
 	def plot_dendrograms(self, row_order, col_order):
 		rcmap = self.tree_kws.pop("row_cmap", None)
 		ccmap = self.tree_kws.pop("col_cmap", None)
-		tree_kws = self.tree_kws.copy()
 
 		if (
 			self.row_split_order == 'cluster_between_groups' and
@@ -1787,7 +1806,7 @@ class ClusterMapPlotter:
 			self.row_split_dendrogram.plot(
 				ax=self.ax_row_dendrogram,
 				gap_pixel=self.row_split_gap_pixel,
-				tree_kws=tree_kws)
+				tree_kws=self.tree_kws.copy())
 
 		elif self.row_cluster and self.row_dendrogram:
 			if self.left_annotation is None:
@@ -1803,7 +1822,7 @@ class ClusterMapPlotter:
 				subplot_spec=gs,
 				height_ratios=[len(rows) for rows in row_order],
 				# width_ratios=width_ratios,
-			)
+			) #add another column of axes (on the left) to plot self.row_split_dendrogram
 			self.ax_row_dendrogram_axes = []
 			for i in range(len(row_order)):
 				ax1 = self.ax_row_dendrogram.figure.add_subplot(
@@ -1813,12 +1832,14 @@ class ClusterMapPlotter:
 				self.ax_row_dendrogram_axes.append(ax1)
 
 			try:
+				n=len(self.dendrogram_rows)
+				tree_kws = self.tree_kws.copy()
 				if rcmap is None:
 					if 'colors' not in self.tree_kws:
 						color = 'black'
 					else:
 						color = self.tree_kws['colors']
-					colors = color * len(self.dendrogram_rows)
+					colors = [color] * n
 				else:
 					colors = [
 						get_colormap(rcmap)(i) for i in range(len(self.dendrogram_rows))
@@ -1830,11 +1851,11 @@ class ClusterMapPlotter:
 						continue
 					tree_kws["colors"] = [color] * len(dendrogram_row.dendrogram["ivl"])
 					dendrogram_row.plot(ax=ax_row_dendrogram, tree_kws=tree_kws)
-			except:
+			except: #self.dendrogram_rows does not existed, because row_split is None
 				self.dendrogram_row.plot(
 					ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
 				)
-			if ncols > 1 and self.row_split_dendrogram:
+			if ncols > 1 and self.row_split_dendrogram: #plot extra parent self.row_split_dendrogram
 				if 'colors' not in self.tree_kws:
 					color = 'black'
 				else:
@@ -1857,13 +1878,13 @@ class ClusterMapPlotter:
 			self.col_split_dendrogram.plot(
 				ax=self.ax_col_dendrogram,
 				gap_pixel=self.col_split_gap_pixel,
-				tree_kws=tree_kws)
+				tree_kws=self.tree_kws.copy())
 		elif self.col_cluster and self.col_dendrogram:
 			if self.top_annotation is None:
 				gs = self.gs[0, 1]
 			else:
 				gs = self.top_gs[0, 0]
-			nrows = 2 if len(col_order) > 1 and self.col_split_dendrogram else 1
+			nrows = 2 if len(col_order) > 1 and self.col_split_dendrogram else 1 #how many rows in col_dendrogram_ax
 			# height_ratios = None if nrows == 1 else [1, 2]
 			self.col_dendrogram_gs = matplotlib.gridspec.GridSpecFromSubplotSpec(
 				nrows,
@@ -1883,15 +1904,17 @@ class ClusterMapPlotter:
 				self.ax_col_dendrogram_axes.append(ax1)
 
 			try:
+				n=len(self.dendrogram_cols)
+				tree_kws = self.tree_kws.copy()
 				if ccmap is None:
-					if 'colors' not in self.tree_kws:
+					if 'colors' not in tree_kws:
 						color = 'black'
 					else:
-						color = self.tree_kws['colors']
-					colors = color * len(self.dendrogram_rows)
+						color = tree_kws['colors']
+					colors = [color] *n
 				else:
 					colors = [
-						get_colormap(ccmap)(i) for i in range(len(self.dendrogram_cols))
+						get_colormap(ccmap)(i) for i in range(n)
 					]
 				for ax_col_dendrogram, dendrogram_col, color in zip(
 					self.ax_col_dendrogram_axes, self.dendrogram_cols, colors
@@ -1998,8 +2021,6 @@ class ClusterMapPlotter:
 					cmap=self.cmap,
 					mask=self.mask.loc[rows, cols],
 					rasterized=self.rasterized,
-					xticklabels="auto",
-					yticklabels="auto",
 					annot=annot1,
 					**self.kwargs
 				)

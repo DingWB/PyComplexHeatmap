@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.annotations &mdash; PyComplexHeatmap 1.6.6.dev0+gf4b3edd.d20240216 documentation</title>
+  <title>PyComplexHeatmap.annotations &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=41df45d4"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=8d1f2db9"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -119,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Diverging">Diverging</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
 </ul>
@@ -330,6 +331,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">mm2inch</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
 	<span class="n">_calculate_luminance</span><span class="p">,</span>
@@ -1404,23 +1406,29 @@
 
 <div class="viewcode-block" id="anno_img"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img">[docs]</a><span class="k">class</span> <span class="nc">anno_img</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Annotate images.</span>
+<span class="sd">	Annotate images.</span>
 
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		border_width : int</span>
-<span class="sd">            width of border lines between images (0-256?).</span>
-<span class="sd">		border_color : int</span>
-<span class="sd">            color of border lines. black:0, white:255.</span>
-
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	border_width : int</span>
+<span class="sd">		width of border lines between images (0-256?). Ignored when merge is True.</span>
+<span class="sd">	border_color : int</span>
+<span class="sd">		color of border lines. black:0, white:255. Ignored when merge is True.</span>
+<span class="sd">	merge: bool</span>
+<span class="sd">		whether to merge the same clusters into one and show image only once.</span>
+<span class="sd">	merge_width: float</span>
+<span class="sd">        width of image when merge is True</span>
+<span class="sd">		whether to merge the same clusters into one and show image only once.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
 		<span class="bp">self</span><span class="p">,</span>
 		<span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">border_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+		<span class="n">border_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 		<span class="n">border_color</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+        <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">merge_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 		<span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1428,6 +1436,8 @@
 	<span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">=</span> <span class="n">border_width</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">border_color</span> <span class="o">=</span> <span class="n">border_color</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">merge_width</span> <span class="o">=</span> <span class="n">merge_width</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span> <span class="o">=</span> <span class="n">plot_kws</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -1463,33 +1473,42 @@
 						<span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 		<span class="k">return</span> <span class="n">bordered_img</span>
 
+	<span class="k">def</span> <span class="nf">_check_imgfiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imgfiles</span><span class="p">):</span>
+		<span class="n">first_image</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">first_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+			<span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfile</span><span class="p">)</span>
+			<span class="k">assert</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> \
+				<span class="sa">f</span><span class="s2">&quot;The image size of </span><span class="si">{</span><span class="n">imgfile</span><span class="si">}</span><span class="s2"> differs. Reference: (</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">), Current image: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <div class="viewcode-block" id="anno_img.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-		<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
 		<span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 		<span class="n">imgfiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
 		<span class="n">img_h</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-		<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-			<span class="n">imgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_border</span><span class="p">(</span><span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfile</span><span class="p">),</span> 
-											<span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> \
-						   <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">]))</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">:</span>
+			<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">imgfile</span> <span class="o">==</span> <span class="n">imgfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">),</span> <span class="s2">&quot;Not all file names in the list are identical&quot;</span>
+			<span class="n">imgs</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+			<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+				<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">merge_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">merge_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">]</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">merge_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">merge_width</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="n">imgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_border</span><span class="p">(</span><span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfile</span><span class="p">),</span> 
-											<span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> \
-						   <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">]))</span>
-
-		<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-			<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">]</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_check_imgfiles</span><span class="p">(</span><span class="n">imgfiles</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+				<span class="n">imgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_border</span><span class="p">(</span><span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfile</span><span class="p">),</span> 
+                                                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> \
+                            <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">]))</span>
+				<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">]</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">imgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_border</span><span class="p">(</span><span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgfile</span><span class="p">),</span> 
+                                                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> \
+                            <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">imgfiles</span><span class="p">]))</span>
+				<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">img_h</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">]</span>
 
 		<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgs</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">)</span>
 
-		<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-			<span class="c1">#ax.invert_yaxis()</span>
-			<span class="k">pass</span>
-		<span class="k">else</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">axis</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
 			<span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
 
 		<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelright</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labeltop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

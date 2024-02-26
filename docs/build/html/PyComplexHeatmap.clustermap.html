@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.6.6.dev0+gf4b3edd.d20240216 documentation</title>
+  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=41df45d4"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8d1f2db9"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/js/rtd_search_config.js"></script>
@@ -122,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
 </ul>
@@ -443,11 +444,14 @@ See ax.xaxis.label.get_bbox_patch().properties() for more information.</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is auto, when the number of rows or number of cols &gt; 5000,
 rasterized would be automatically set to True to speed up the plotting.</p></li>
 <li><p><strong>kwargs</strong> (<em class="hover">kws passed to plot_heatmap</em><em>, </em><em class="hover">including vmin</em><em>, </em><em class="hover">vmax</em><em>,</em><em class="hover">center</em><em>,</em><em class="hover">robust</em><em>,</em>) – annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
-and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+,xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
 If annot is True, the values of data will be plotted on the top of heatmap,
 if annot is a dataframe, then the custom values will be plotted on heatmap,
 fmt should be set to None if dtype of annot is str. For documentation of
-custom annot, see <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation</a></p></li>
+custom annot, see <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Custom-annotation</a>
+xticklabels/yticklabels will be shown automatically, if the width/height is too small
+to display all xticklabels, not all ticklabels will be shown (to avoid overlap).
+To force display all ticklabels, set xticklabels/yticklabels to True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

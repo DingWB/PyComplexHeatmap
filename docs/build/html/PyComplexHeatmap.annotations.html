@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.annotations module &mdash; PyComplexHeatmap 1.6.6.dev0+gf4b3edd.d20240216 documentation</title>
+  <title>PyComplexHeatmap.annotations module &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=41df45d4"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8d1f2db9"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/js/rtd_search_config.js"></script>
@@ -122,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
 </ul>
@@ -557,17 +558,20 @@ width and other arguments passed to plt.boxplot.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_img">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_img" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">plot_kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_img" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PyComplexHeatmap.annotations.AnnotationBase" title="PyComplexHeatmap.annotations.AnnotationBase"><code class="xref py py-class hover docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a></p>
-<blockquote>
-<div><p>Annotate images.</p>
-<p>border_width : int</p>
-</div></blockquote>
-<dl class="simple">
-<dt>width of border lines between images (0-256?).</dt><dd><p>border_color : int</p>
+<p>Annotate images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>border_width</strong> (<em class="hover">int</em>) – width of border lines between images (0-256?). Ignored when merge is True.</p></li>
+<li><p><strong>border_color</strong> (<em class="hover">int</em>) – color of border lines. black:0, white:255. Ignored when merge is True.</p></li>
+<li><p><strong>merge</strong> (<em class="hover">bool</em>) – whether to merge the same clusters into one and show image only once.</p></li>
+<li><p><strong>merge_width</strong> (<em class="hover">float</em>) – </p></li>
+<li><p><strong>True</strong> (<em class="hover">width</em><em> of </em><em class="hover">image when merge is</em>) – whether to merge the same clusters into one and show image only once.</p></li>
+</ul>
 </dd>
 </dl>
-<p>color of border lines. black:0, white:255.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_img.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_img.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_img.plot" title="Permalink to this definition">¶</a></dt>
