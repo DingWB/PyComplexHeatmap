@@ -1027,6 +1027,7 @@ class ClusterMapPlotter:
 		chebyshev, canberra, braycurtis, mahalanobis, kulsinski et.al.
 		centroid, median, ward. see scipy.cluster.hierarchy.linkage or
 		https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.distance.pdist.html
+		Please try metric='canberra' if there are two columns having the same values.
 	col_cluster_method :str
 		same as row_cluster_method
 	col_cluster_metric :str
