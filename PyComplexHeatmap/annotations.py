@@ -844,10 +844,10 @@ class anno_barplot(anno_boxplot):
 	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
 		col_list = self.df.columns.tolist()
 		self.color_dict = {}
-		if len(col_list) >= 2:  # more than two columns, colored by columns names
+		if self.ncols >= 2:  # more than two columns, colored by columns names
 			self.colors = [
 				get_colormap(self.cmap)(col_list.index(v)) for v in self.df.columns
-			]
+			] #list
 			for v, color in zip(col_list, self.colors):
 				self.color_dict[v] = color
 		else:  # only one column, colored by cols[0] values (float)
@@ -870,22 +870,27 @@ class anno_barplot(anno_boxplot):
 			self.color_dict = None
 
 	def _check_colors(self, colors):
-		if not isinstance(colors, (list, str)):
-			raise TypeError("colors must be list of string for barplot if provided !")
+		self.colors = colors
+		col_list = self.df.columns.tolist()
+		if not isinstance(colors, (list, str, dict, tuple)):
+			raise TypeError("colors must be list of string,list, tuple or dict")
 		if type(colors) == str:
-			self.colors = [colors] * self.nrows
-		elif self.ncols > 1 and type(colors) == list and len(colors) == self.ncols:
-			self.colors = colors
-		# elif self.ncols == 1 and type(colors)==list and len(colors)!=self.nrows:
-		#     raise ValueError("If there is only one column in df,colors must have the same length as df.index for barplot!")
+			colors = {label: colors for label in col_list}
+		elif isinstance(colors,(list,tuple)):
+			assert len(colors) == self.ncols, "length of colors should match length of df.columns"
+			colors = {
+				label: color
+				for label, color in zip(col_list, colors)
+			}
 		else:
-			raise ValueError(
-				"the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!"
-			)
+			assert isinstance(colors, dict)
+			keys=list(colors.keys())
+			for key in keys:
+				if key not in col_list:
+					del colors[key]
+		self.color_dict = colors
 
 	def _calculate_cmap(self):
-		# cc_list = list(self.color_dict.keys())  # column values
-		# self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 		self.cmap = None
 		self.set_legend(False)
 
@@ -909,14 +914,12 @@ class anno_barplot(anno_boxplot):
 		grid = plot_kws.pop("grid", False)
 		if grid:
 			ax.grid(linestyle="--", zorder=-10)
-		# bar_ct = ax.bar(x=list(range(1, self.nrows + 1,1)),
-		#                 height=self.plot_data.values,**self.plot_kws)
-		if type(self.colors) == list:
-			colors = self.colors
-		else:  # dict
-			# bad_value_color = matplotlib.colors.rgb2hex(get_colormap(self.cmap).get_bad())
-			# colors = [[self.colors.get(v, bad_value_color) for v in self.plot_data.iloc[:, 0].values]]
+		if self.ncols ==1 and not self.cmap is None: # only one columns, use cmap
 			colors = [[self.colors(v) for v in self.plot_data.iloc[:, 0].values]]
+		else: # self.ncols ==1: #cmap is None,use color_dict
+			assert not self.color_dict is None
+			colors=[self.color_dict[col] for col in self.plot_data.columns]
+
 		base_coordinates = [0] * self.plot_data.shape[0]
 		for col, color in zip(self.plot_data.columns, colors):
 			if axis == 1:
@@ -1194,6 +1197,7 @@ class anno_img(AnnotationBase):
 class anno_lineplot(anno_barplot):
 	"""
 	Annotate lineplot, all arguments are included in AnnotationBase,
+		parameter grid control whether to show grid (default is True),
 		other arguments passed to plt.plot, including linewidth, marker and so on.
 	"""
 
@@ -1224,7 +1228,7 @@ class anno_lineplot(anno_barplot):
 	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
 		col_list = self.df.columns.tolist()
 		self.color_dict = {}
-		self.colors = [get_colormap(self.cmap)(col_list.index(v)) for v in self.df.columns]
+		self.colors = [get_colormap(self.cmap)(col_list.index(v)) for v in col_list]
 		for v, color in zip(col_list, self.colors):
 			self.color_dict[v] = color
 
