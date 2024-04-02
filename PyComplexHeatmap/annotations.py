@@ -1229,15 +1229,24 @@ class anno_lineplot(anno_barplot):
 			self.color_dict[v] = color
 
 	def _check_colors(self, colors):
-		if not isinstance(colors, (list, str)):
-			raise TypeError("colors must be list of string or list")
+		self.colors = colors
+		if not isinstance(colors, (list, str, dict, tuple)):
+			raise TypeError("colors must be list of string,list, tuple or dict")
 		if type(colors) == str:
-			self.colors = [colors] * self.ncols
-		elif type(colors) == list and len(colors) == self.ncols:
-			self.colors = colors
+			colors = {label: colors for label in self.df.columns.tolist()}
+		if isinstance(colors,(list,tuple)):
+			assert len(colors) == self.ncols
+			colors = {
+				label: color
+				for label, color in zip(self.df.columns.tolist(), colors)
+			}
+		if not isinstance(colors, dict):
+			raise TypeError("colors must be a dict!")
+		if len(colors) >= self.ncols:
+			self.color_dict = colors
 		else:
-			raise ValueError(
-				"the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!"
+			raise TypeError(
+				"The length of `colors` is not consistent with the shape of the input data"
 			)
 
 	def _calculate_cmap(self):
@@ -1259,7 +1268,8 @@ class anno_lineplot(anno_barplot):
 		grid = plot_kws.pop("grid", False)
 		if grid:
 			ax.grid(linestyle="--", zorder=-10)
-		for col, color in zip(self.plot_data.columns, self.colors):
+		for col in self.color_dict:
+			color=self.color_dict[col]
 			if axis == 1:
 				ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.plot(
