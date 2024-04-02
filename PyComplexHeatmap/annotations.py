@@ -194,18 +194,19 @@ class AnnotationBase:
 		self.colors = None
 
 	def _check_colors(self, colors):
+		assert isinstance(colors,(str,list,dict,tuple))
 		if isinstance(colors, str):
-			colors = {label: colors for label in self.df.iloc[:, 0].unique()}
-		if isinstance(colors, list):
+			color_dict = {label: colors for label in self.df.iloc[:, 0].unique()}
+		elif isinstance(colors, (list,tuple)):
 			assert len(colors) == self.df.iloc[:, 0].nunique()
-			colors = {
+			color_dict = {
 				label: color
 				for label, color in zip(self.df.iloc[:, 0].unique(), colors)
 			}
-		if not isinstance(colors, dict):
-			raise TypeError("colors must be a dict!")
-		if len(colors) >= self.df.iloc[:, 0].nunique():
-			self.colors = colors
+		else:
+			color_dict=colors.copy()
+		if len(color_dict) >= self.df.iloc[:, 0].nunique():
+			self.colors = color_dict
 		else:
 			raise TypeError(
 				"The length of `colors` is not consistent with the shape of the input data"
@@ -733,7 +734,7 @@ class anno_boxplot(AnnotationBase):
 
 	def _check_colors(self, colors):
 		if type(colors) == str:
-			self.colors = colors
+			self.colors = colors.copy()
 		else:
 			raise TypeError(
 				"Boxplot only support one string as colors now, if more colors are wanted, cmap can be specified."
@@ -875,20 +876,21 @@ class anno_barplot(anno_boxplot):
 		if not isinstance(colors, (list, str, dict, tuple)):
 			raise TypeError("colors must be list of string,list, tuple or dict")
 		if type(colors) == str:
-			colors = {label: colors for label in col_list}
+			color_dict = {label: colors for label in col_list}
 		elif isinstance(colors,(list,tuple)):
 			assert len(colors) == self.ncols, "length of colors should match length of df.columns"
-			colors = {
+			color_dict = {
 				label: color
 				for label, color in zip(col_list, colors)
 			}
 		else:
 			assert isinstance(colors, dict)
-			keys=list(colors.keys())
+			color_dict=colors.copy()
+			keys=list(color_dict.keys())
 			for key in keys:
 				if key not in col_list:
-					del colors[key]
-		self.color_dict = colors
+					del color_dict[key]
+		self.color_dict = color_dict
 
 	def _calculate_cmap(self):
 		self.cmap = None
