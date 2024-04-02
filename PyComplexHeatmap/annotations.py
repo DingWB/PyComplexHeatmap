@@ -216,9 +216,7 @@ class AnnotationBase:
 		col = self.df.columns.tolist()[0]
 		cc_list = list(self.color_dict.keys())  # column values
 		self.df[col] = self.df[col].map({v: cc_list.index(v) for v in cc_list})
-		self.cmap = matplotlib.colors.ListedColormap(
-			[self.color_dict[k] for k in cc_list]
-		)
+		self.cmap = matplotlib.colors.ListedColormap([self.color_dict[k] for k in cc_list])
 		self.plot_kws.setdefault("vmax", get_colormap(self.cmap).N - 1)
 		self.plot_kws.setdefault("vmin", 0)
 
@@ -1193,7 +1191,113 @@ class anno_img(AnnotationBase):
 		self.fig = self.ax.figure
 		return self.ax
 
+class anno_lineplot(anno_barplot):
+	"""
+	Annotate lineplot, all arguments are included in AnnotationBase,
+		other arguments passed to plt.plot, including linewidth, marker and so on.
+	"""
 
+	def _check_df(self, df):
+		if isinstance(df, pd.Series):
+			self.df = df.to_frame(name=df.name)
+		elif isinstance(df, pd.DataFrame):
+			self.df = df
+		else:
+			raise TypeError("df must be a pandas DataFrame or Series.")
+
+	def _set_default_plot_kws(self, plot_kws):
+		self.plot_kws = plot_kws if plot_kws is not None else {}
+		self.plot_kws.setdefault("grid", True)
+		self.plot_kws.setdefault("zorder", 10)
+		self.plot_kws.setdefault("linewidth", 1)
+
+	def _check_cmap(self, cmap):
+		self.cmap = "Set1"
+		if cmap == "auto":
+			pass
+		elif type(cmap) == str:
+			self.cmap = cmap
+		else:
+			print("WARNING: cmap for scatterplot is not a string!")
+			self.cmap = cmap
+
+	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
+		col_list = self.df.columns.tolist()
+		self.color_dict = {}
+		self.colors = [get_colormap(self.cmap)(col_list.index(v)) for v in self.df.columns]
+		for v, color in zip(col_list, self.colors):
+			self.color_dict[v] = color
+
+	def _check_colors(self, colors):
+		if not isinstance(colors, (list, str)):
+			raise TypeError("colors must be list of string or list")
+		if type(colors) == str:
+			self.colors = [colors] * self.ncols
+		elif type(colors) == list and len(colors) == self.ncols:
+			self.colors = colors
+		else:
+			raise ValueError(
+				"the length of colors is not correct, If there are more than one column in df,colors must have the same length as df.columns for barplot!"
+			)
+
+	def _calculate_cmap(self):
+		self.cmap = None
+		self.set_legend(False)
+
+	def _type_specific_params(self):
+		pass
+		# Max = self.df.values.max()
+		# Min = self.df.values.min()
+		# self.gap = Max - Min
+		# self.ylim = [Min - 0.2 * self.gap, Max + 0.2 * self.gap]
+
+	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
+		if ax is None:
+			ax = plt.gca()
+		fig = ax.figure
+		plot_kws = self.plot_kws.copy()
+		grid = plot_kws.pop("grid", False)
+		if grid:
+			ax.grid(linestyle="--", zorder=-10)
+		for col, color in zip(self.plot_data.columns, self.colors):
+			if axis == 1:
+				ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
+				ax.plot(
+					np.arange(0.5, self.nrows, 1),
+					self.plot_data[col].values,
+					color=color,
+					**plot_kws
+				)
+			else:
+				ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
+				ax.plot(
+					self.plot_data[col].values,
+                    np.arange(0.5, self.nrows, 1),
+					color=color,
+					**plot_kws
+				)
+		if axis == 0:
+			ax.tick_params(
+				axis="both",
+				which="both",
+				left=False,
+				right=False,
+				labelleft=False,
+				labelright=False,
+			)
+			ax.invert_xaxis()
+		else:
+			ax.tick_params(
+				axis="both",
+				which="both",
+				top=False,
+				bottom=False,
+				labeltop=False,
+				labelbottom=False,
+			)
+		self.fig = fig
+		self.ax = ax
+		return self.ax
 # =============================================================================
 class HeatmapAnnotation:
 	"""
