@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>&lt;no title&gt; &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/rtd_sphinx_search.min.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=161b7e8c" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -191,6 +193,10 @@
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_side"><code class="docutils literal notranslate"><span class="pre">anno_label.set_side()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot.plot()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
 </ul>
@@ -328,7 +334,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -337,7 +343,7 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
@@ -349,11 +355,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.6.dev15+gd9f20b3
+1.6.6
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -365,7 +371,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -387,7 +393,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
@@ -400,10 +406,10 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">col_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Paired&#39;</span><span class="p">},</span>
         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
@@ -421,8 +427,8 @@
 <img alt="../_images/notebooks_test_add_anno_img_3_0.png" src="../_images/notebooks_test_add_anno_img_3_0.png" />
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -451,8 +457,15 @@
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_test_add_anno_img_4_0.png" src="../_images/notebooks_test_add_anno_img_4_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -469,6 +482,593 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_test_add_anno_img_5_0.png" src="../_images/notebooks_test_add_anno_img_5_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;~/Downloads/pyComplexHeatmap_test_2.csv&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>C4</th>
+      <th>C5</th>
+      <th>C6</th>
+      <th>C7</th>
+      <th>C8</th>
+      <th>C9</th>
+      <th>C10</th>
+      <th>...</th>
+      <th>C35</th>
+      <th>C36</th>
+      <th>C37</th>
+      <th>C38</th>
+      <th>C39</th>
+      <th>C40</th>
+      <th>C41</th>
+      <th>C42</th>
+      <th>C43</th>
+      <th>C44</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A1</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+    </tr>
+    <tr>
+      <th>A2</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.111111</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.444444</td>
+      <td>0.222222</td>
+      <td>0.388889</td>
+      <td>0.611111</td>
+      <td>0.277778</td>
+      <td>0.888889</td>
+      <td>0.611111</td>
+      <td>0.944444</td>
+      <td>0.555556</td>
+      <td>0.277778</td>
+    </tr>
+    <tr>
+      <th>A3</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.250000</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>0.750000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.500000</td>
+      <td>1.000000</td>
+      <td>0.750000</td>
+      <td>0.250000</td>
+    </tr>
+    <tr>
+      <th>A4</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.625000</td>
+      <td>0.000000</td>
+      <td>0.625000</td>
+      <td>0.625000</td>
+      <td>0.375000</td>
+      <td>0.750000</td>
+      <td>0.625000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.375000</td>
+    </tr>
+    <tr>
+      <th>A5</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>A6</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.600000</td>
+      <td>0.100000</td>
+      <td>0.300000</td>
+      <td>0.300000</td>
+      <td>0.100000</td>
+      <td>0.100000</td>
+      <td>0.700000</td>
+      <td>0.700000</td>
+      <td>0.300000</td>
+      <td>0.600000</td>
+    </tr>
+    <tr>
+      <th>A7</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.250000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>A8</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.2</td>
+      <td>0.000000</td>
+      <td>0.60000</td>
+      <td>0.800000</td>
+      <td>0.80</td>
+      <td>0.800000</td>
+      <td>0.400000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.200000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.800000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.200000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>A9</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.4</td>
+      <td>0.000000</td>
+      <td>0.60000</td>
+      <td>0.440000</td>
+      <td>0.72</td>
+      <td>0.800000</td>
+      <td>0.460000</td>
+      <td>...</td>
+      <td>0.100000</td>
+      <td>0.040000</td>
+      <td>0.000000</td>
+      <td>0.080000</td>
+      <td>0.560000</td>
+      <td>0.020000</td>
+      <td>0.040000</td>
+      <td>0.020000</td>
+      <td>0.240000</td>
+      <td>0.040000</td>
+    </tr>
+    <tr>
+      <th>A10</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>A11</th>
+      <td>0.000000</td>
+      <td>0.357143</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.02381</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.023810</td>
+      <td>0.023810</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.357143</td>
+      <td>0.071429</td>
+      <td>0.571429</td>
+      <td>0.214286</td>
+      <td>0.452381</td>
+      <td>0.023810</td>
+      <td>0.166667</td>
+      <td>0.380952</td>
+      <td>0.309524</td>
+    </tr>
+    <tr>
+      <th>A12</th>
+      <td>0.062500</td>
+      <td>0.062500</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.031250</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.250000</td>
+      <td>0.312500</td>
+      <td>0.218750</td>
+      <td>0.531250</td>
+      <td>0.156250</td>
+      <td>0.687500</td>
+      <td>0.343750</td>
+      <td>0.750000</td>
+      <td>0.437500</td>
+      <td>0.343750</td>
+    </tr>
+    <tr>
+      <th>A13</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>...</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+    </tr>
+    <tr>
+      <th>A14</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>1.000000</td>
+      <td>1.00</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>A15</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.076923</td>
+      <td>0.615385</td>
+      <td>0.384615</td>
+      <td>0.076923</td>
+      <td>0.538462</td>
+      <td>0.076923</td>
+      <td>0.076923</td>
+      <td>0.307692</td>
+      <td>0.153846</td>
+    </tr>
+    <tr>
+      <th>A16</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.666667</td>
+      <td>0.000000</td>
+      <td>0.666667</td>
+      <td>0.000000</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+    </tr>
+    <tr>
+      <th>A17</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.2</td>
+      <td>0.150000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.100000</td>
+      <td>0.250000</td>
+      <td>0.900000</td>
+      <td>0.700000</td>
+      <td>0.250000</td>
+      <td>0.700000</td>
+      <td>0.550000</td>
+      <td>0.300000</td>
+      <td>0.350000</td>
+      <td>0.550000</td>
+    </tr>
+    <tr>
+      <th>A18</th>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.166667</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.166667</td>
+      <td>1.000000</td>
+      <td>0.166667</td>
+      <td>0.000000</td>
+      <td>0.833333</td>
+    </tr>
+    <tr>
+      <th>A19</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+    </tr>
+  </tbody>
+</table>
+<p>19 rows × 44 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                       <span class="n">row_split</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                       <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">col_split</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                       <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="c1"># row_cluster_method=&quot;average&quot;, row_cluster_metric=&quot;correlation&quot;,</span>
+                       <span class="c1"># col_cluster_method=&quot;average&quot;, col_cluster_metric=&quot;correlation&quot;,</span>
+                       <span class="n">row_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span> <span class="n">row_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+                       <span class="n">col_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span> <span class="n">col_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">,</span> <span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span>
+                       <span class="n">linewidths</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span><span class="n">xticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+                       <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdPu&#39;</span><span class="p">,</span> <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting plotting..
+Starting calculating row orders..
+Reordering rows..
+Starting calculating col orders..
+Reordering cols..
+Plotting matrix..
+Collecting legends..
+Plotting legends..
+Estimated legend width: 7.5 mm
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_test_add_anno_img_7_1.png" src="../_images/notebooks_test_add_anno_img_7_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.10.1
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

@@ -20,7 +20,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="PyComplexHeatmap",
 	use_scm_version=True,  # {'version_scheme': 'python-simplified-semver',"local_scheme": "no-local-version"},
-	setup_requires=['setuptools_scm'],
+	setup_requires=['setuptools_scm','fastcluster'],
     description="A Python package to plot complex heatmap",
     # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
     # long_description_content_type='text/markdown',
