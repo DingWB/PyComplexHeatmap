@@ -337,7 +337,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -358,11 +358,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.8.dev1+g69cbd3f.d20240402
+1.6.8.dev3+g3464c20.d20240402
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -376,7 +376,7 @@
 <section id="Generate-dataset">
 <h1>Generate dataset<a class="headerlink" href="#Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -401,7 +401,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -451,7 +451,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.3451952846528115 3.2215352328090376
+-2.2878412761108042 3.319818576030662
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -465,7 +465,7 @@
 <section id="Add-float-annotations-on-the-top-of-heatmap-cells">
 <h1>Add float annotations on the top of heatmap cells<a class="headerlink" href="#Add-float-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -518,35 +518,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E -1.696709
-sample2  GroupA  C  E  1.089581
-sample3  GroupA  C  E  0.698097
-sample4  GroupA  D  E  0.708344
-sample5  GroupA  D  E  1.420147
-sample1    -1.037449
-sample2    -0.748965
-sample3    -0.743595
-sample4    -0.506438
-sample5    -0.164261
-sample6    -0.007195
-sample7     0.286176
-sample8    -0.659448
-sample9     0.392965
-sample10    0.570205
+sample1  GroupA  C  E -0.173452
+sample2  GroupA  C  E  0.030738
+sample3  GroupA  C  E  0.672537
+sample4  GroupA  D  E -0.754620
+sample5  GroupA  D  E  0.227946
+sample1    -0.242283
+sample2    -0.166664
+sample3    -0.237313
+sample4     0.161208
+sample5    -0.277258
+sample6    -0.895071
+sample7     0.466484
+sample8     0.077774
+sample9     0.087801
+sample10   -0.089004
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1  1.485447  1.371650 -0.034325 -0.578835  1.348437 -0.735569  1.345709
-Fea2  0.454825 -1.047293       NaN  1.968196  0.203054 -0.980137 -0.417960
-Fea3 -0.149148  1.062986 -1.321621  0.528665 -0.351210 -0.511230 -1.339104
-Fea4  0.889407 -0.587115 -0.729689  0.565959  0.008018  0.317829 -0.653500
-Fea5 -0.878419 -1.773683 -1.058665 -1.013163  0.510766 -2.018913 -1.521881
+Fea1 -0.009495  0.768139  0.305425  0.860848 -0.609606  1.347844  1.439450
+Fea2  2.238492  0.361938       NaN  0.214823 -0.680054 -0.438574  0.143623
+Fea3  0.403314  1.140831  0.856145  0.816742 -0.701565  0.794205  0.846479
+Fea4 -1.700455 -1.464689  0.242577  0.063012  0.647590 -0.102534  1.575816
+Fea5 -0.866923  0.190053  0.924862 -1.053652  0.862045 -0.335294  2.251953
 
        sample8   sample9  sample10
-Fea1 -0.322903 -1.041790 -0.168847
-Fea2 -0.222222  0.099919  0.642299
-Fea3 -0.893827  0.542078  1.241481
-Fea4  0.847322 -0.064075  0.935405
-Fea5 -0.582270  0.434824  0.219179
+Fea1 -0.112007  0.116833 -1.194269
+Fea2  0.097461 -0.701043 -0.552874
+Fea3  1.144592  1.429742  1.051163
+Fea4 -0.266559  1.048000 -0.457748
+Fea5  0.214800 -0.487174  0.050134
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -561,15 +561,15 @@ Fea5 -0.582270  0.434824  0.219179
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea19&#39;, &#39;Fea15&#39;, &#39;Fea21&#39;, &#39;Fea22&#39;, &#39;Fea27&#39;, &#39;Fea16&#39;, &#39;Fea25&#39;, &#39;Fea17&#39;, &#39;Fea23&#39;, &#39;Fea18&#39;, &#39;Fea20&#39;, &#39;Fea26&#39;, &#39;Fea28&#39;, &#39;Fea24&#39;, &#39;Fea29&#39;, &#39;Fea30&#39;], [&#39;Fea3&#39;, &#39;Fea6&#39;, &#39;Fea12&#39;, &#39;Fea10&#39;, &#39;Fea8&#39;, &#39;Fea14&#39;, &#39;Fea5&#39;, &#39;Fea2&#39;, &#39;Fea11&#39;, &#39;Fea1&#39;, &#39;Fea13&#39;, &#39;Fea7&#39;, &#39;Fea4&#39;, &#39;Fea9&#39;]]
-[[&#39;sample4&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample1&#39;, &#39;sample2&#39;], [&#39;sample8&#39;, &#39;sample9&#39;, &#39;sample10&#39;, &#39;sample6&#39;, &#39;sample7&#39;]]
+[[&#39;Fea18&#39;, &#39;Fea24&#39;, &#39;Fea25&#39;, &#39;Fea29&#39;, &#39;Fea26&#39;, &#39;Fea23&#39;, &#39;Fea30&#39;, &#39;Fea20&#39;, &#39;Fea16&#39;, &#39;Fea22&#39;, &#39;Fea15&#39;, &#39;Fea19&#39;, &#39;Fea28&#39;, &#39;Fea17&#39;, &#39;Fea21&#39;, &#39;Fea27&#39;], [&#39;Fea2&#39;, &#39;Fea8&#39;, &#39;Fea1&#39;, &#39;Fea14&#39;, &#39;Fea3&#39;, &#39;Fea6&#39;, &#39;Fea9&#39;, &#39;Fea13&#39;, &#39;Fea5&#39;, &#39;Fea12&#39;, &#39;Fea7&#39;, &#39;Fea10&#39;, &#39;Fea4&#39;, &#39;Fea11&#39;]]
+[[&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample4&#39;], [&#39;sample9&#39;, &#39;sample10&#39;, &#39;sample6&#39;, &#39;sample7&#39;, &#39;sample8&#39;]]
 </pre></div></div>
 </div>
 </section>
 <section id="Only-plot-the-annotations">
 <h1>Only plot the annotations<a class="headerlink" href="#Only-plot-the-annotations" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -609,103 +609,103 @@ Fea5 -0.582270  0.434824  0.219179
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  0.321640
-sample2    AAAA1  C -1.038647
-sample3    AAAA1  C -0.734371
-sample4    AAAA1  D  0.040403
-sample5    AAAA1  D -0.723560
-sample6   BBBBB2  D  0.092446
-sample7   BBBBB2  G  0.281794
-sample8   BBBBB2  G  2.075940
-sample9   BBBBB2  G -2.100323
-sample10  BBBBB2  G -0.859334
+sample1    AAAA1  C  0.433256
+sample2    AAAA1  C -1.278772
+sample3    AAAA1  C -0.060916
+sample4    AAAA1  D -1.428092
+sample5    AAAA1  D  0.939357
+sample6   BBBBB2  D  0.597667
+sample7   BBBBB2  G  0.298868
+sample8   BBBBB2  G  0.239568
+sample9   BBBBB2  G -0.545678
+sample10  BBBBB2  G -1.540938
             Gene1     Gene2     Gene3     Gene4
-sample1  0.765774  0.679462  0.315895 -0.515302
-sample2 -0.167159 -0.978971 -0.444040  0.570994
-sample3 -0.291006 -0.810001  0.999813 -0.603598
-sample4  0.651235  0.146312 -0.095101 -0.436489
-sample5 -1.595583  0.386435  1.878431 -1.869463
+sample1  0.994794 -0.636698 -1.077636  1.337641
+sample2  1.061657  0.011141  1.669969 -2.689998
+sample3  0.021968  0.321340 -0.450779 -0.601312
+sample4  1.757795  0.448119  1.900428  0.228996
+sample5  0.090278 -0.160190  0.007859  1.171372
            Scatter
-sample1   1.279975
-sample2   5.500828
-sample3   8.644464
-sample4   4.075414
-sample5   5.075723
-sample6   8.623029
-sample7   4.047880
-sample8   4.117735
-sample9   8.512434
-sample10  2.423394
+sample1   4.668070
+sample2   8.684276
+sample3   1.871037
+sample4   5.503990
+sample5   3.057645
+sample6   4.756537
+sample7   1.349505
+sample8   2.948658
+sample9   4.096994
+sample10  8.328267
               TMB1      TMB2
-sample1   1.426908  2.630548
-sample2   9.887331  3.933549
-sample3   3.072487  1.632694
-sample4   8.902607  9.886276
-sample5   8.221935  7.284627
-sample6   0.238539  8.948669
-sample7   1.965353  1.299552
-sample8   8.083047  1.452171
-sample9   8.298869  5.767310
-sample10  6.202890  0.090084
+sample1   8.274426  9.385540
+sample2   0.194411  9.686809
+sample3   3.891934  2.500207
+sample4   6.964855  4.203801
+sample5   9.659708  0.212580
+sample6   0.568624  2.921585
+sample7   9.445102  8.849949
+sample8   8.238619  8.698016
+sample9   5.510233  3.089460
+sample10  0.066992  6.925631
               T1-A      T1-B
-sample1   9.209520  0.834625
-sample2   9.065552  0.174802
-sample3   3.630599  3.615340
-sample4   4.401170  7.080872
-sample5   5.959877  2.017805
-sample6   6.978917  6.272529
-sample7   8.942451  6.248852
-sample8   7.969745  6.917526
-sample9   1.246851  6.672410
-sample10  0.491636  5.941811
+sample1   6.186413  6.869701
+sample2   1.621395  6.049876
+sample3   0.605046  7.492203
+sample4   2.879893  7.284831
+sample5   5.441874  9.325703
+sample6   3.570096  7.978352
+sample7   3.078694  1.763193
+sample8   5.550864  7.545964
+sample9   9.583576  2.908576
+sample10  1.262887  2.164782
               T2-A      T2-B
-sample1   1.639727  3.035443
-sample2   0.721079  1.993728
-sample3   4.439086  3.818759
-sample4   2.645852  2.281435
-sample5   6.005668  4.472230
-sample6   4.712603  8.912966
-sample7   1.349998  9.286758
-sample8   0.313427  2.838102
-sample9   5.730197  9.393180
-sample10  5.372726  7.988560
+sample1   4.767082  5.718107
+sample2   1.276521  4.793046
+sample3   5.316330  1.834570
+sample4   1.471672  7.604766
+sample5   1.948667  7.694080
+sample6   0.120288  5.530863
+sample7   7.981720  7.419996
+sample8   0.784267  6.758943
+sample9   8.703518  2.485781
+sample10  5.032052  9.374894
               T3-A      T3-B
-sample1   3.496187  9.044725
-sample2   3.568643  4.711988
-sample3   9.047442  0.223376
-sample4   5.833848  4.883914
-sample5   2.538150  1.780791
-sample6        NaN  4.443953
-sample7   2.525389  6.035730
-sample8   4.443626  7.703936
-sample9   0.531363  0.120942
-sample10  4.919925  2.962589
+sample1   8.409942  0.658562
+sample2   9.201387  9.332290
+sample3   7.550309  6.431030
+sample4   8.620530  1.191772
+sample5   1.342955  5.365144
+sample6        NaN  4.277081
+sample7   1.349781  9.700692
+sample8   1.608676  5.673750
+sample9   7.583705  5.126767
+sample10  7.112511  4.371028
                 T4
-sample1   0.908596
-sample2   2.416785
-sample3   7.263693
-sample4   1.614847
-sample5   8.667123
-sample6   4.587082
-sample7   3.123506
+sample1   0.943860
+sample2   7.031169
+sample3   7.442180
+sample4   8.301981
+sample5   8.413761
+sample6   4.161270
+sample7   1.776508
 sample8        NaN
-sample9   7.495973
-sample10  6.479961
+sample9   7.216837
+sample10  9.974346
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
             <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
-            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span> <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
-            <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">),</span>
-            <span class="n">Line</span><span class="o">=</span><span class="n">anno_lineplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;orangered&#39;</span><span class="p">,</span><span class="s1">&#39;yellowgreen&#39;</span><span class="p">],</span>
-                              <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span>
+            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span> <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
+            <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
+            <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">Line</span><span class="o">=</span><span class="n">anno_lineplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;T2-B&#39;</span><span class="p">:</span><span class="s1">&#39;orangered&#39;</span><span class="p">,</span><span class="s1">&#39;T2-A&#39;</span><span class="p">:</span><span class="s1">&#39;yellowgreen&#39;</span><span class="p">},</span>
+                              <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1">#colors=[&#39;orangered&#39;,&#39;yellowgreen&#39;]</span>
             <span class="n">TMB_bar</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">),</span>
             <span class="n">Bar1</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar1</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">),</span>
             <span class="n">Bar4</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
@@ -737,7 +737,7 @@ Collecting annotation legends..
 <section id="Change-orentation-to-down-and-add-extra-space">
 <h1>Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space<a class="headerlink" href="#Change-orentation-to-down-and-add-extra-space" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -780,7 +780,7 @@ Starting plotting HeatmapAnnotations
 <section id="Change-orentation-to-the-left">
 <h1>Change orentation to the left<a class="headerlink" href="#Change-orentation-to-the-left" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -830,7 +830,7 @@ Legend too long, generating a new column..
 <section id="Change-orentation-to-the-right">
 <h1>Change orentation to the right<a class="headerlink" href="#Change-orentation-to-the-right" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -881,7 +881,7 @@ Legend too long, generating a new column..
 <h1>Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code><a class="headerlink" href="#Changing-orientation-using-parameter-orientation" title="Permalink to this heading">¶</a></h1>
 <p>By Default, if there is no <code class="docutils literal notranslate"><span class="pre">anno_label</span></code> in the annotation, the oriention would be determined by parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -924,7 +924,7 @@ Legend too long, generating a new column..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -1011,7 +1011,7 @@ Legend too long, generating a new column..
 <section id="clsuter-within-groups:-col_split=*,-col_cluster=True">
 <h2>clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code><a class="headerlink" href="#clsuter-within-groups:-col_split=*,-col_cluster=True" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
@@ -1047,7 +1047,7 @@ Legend too long, generating a new column..
 <section id="cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">
 <h2>cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code><a class="headerlink" href="#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -1078,7 +1078,7 @@ Legend too long, generating a new column..
 <section id="cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">
 <h2>cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code><a class="headerlink" href="#cluster_within_groups-&&-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -1105,7 +1105,7 @@ Legend too long, generating a new column..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># `label_kws` in `HeatmapAnnotation` control the heatmap annotaiton labels</span>
@@ -1151,7 +1151,7 @@ Legend too long, generating a new column..
 <section id="Custom-annotation">
 <h1>Custom annotation<a class="headerlink" href="#Custom-annotation" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annot</span><span class="o">=</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;∗∗∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;∗∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1181,7 +1181,7 @@ Legend too long, generating a new column..
 <section id="Custom-linkage">
 <h1>Custom linkage<a class="headerlink" href="#Custom-linkage" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fastcluster</span>
@@ -1208,15 +1208,15 @@ Legend too long, generating a new column..
 <div class="highlight"><pre>
 df_heatmap shape: (30, 10)
 linkage shape: (9, 4)
- [[ 2.          6.         15.99628463  2.        ]
- [ 3.          8.         17.76455913  2.        ]
- [ 0.          9.         19.21801691  2.        ]
- [ 4.          7.         19.4965257   2.        ]
- [10.         12.         20.50486409  4.        ]
- [ 1.          5.         21.33010875  2.        ]
- [11.         13.         21.55697435  4.        ]
- [14.         15.         21.65961768  6.        ]
- [16.         17.         22.68694088 10.        ]]
+ [[ 3.          5.         18.15516497  2.        ]
+ [ 2.         10.         19.6837284   3.        ]
+ [ 1.          8.         19.71493114  2.        ]
+ [ 4.          9.         19.94872376  2.        ]
+ [12.         13.         21.06530606  4.        ]
+ [ 7.         11.         21.57503852  4.        ]
+ [14.         15.         21.89116173  8.        ]
+ [ 0.          6.         22.04975148  2.        ]
+ [16.         17.         22.71293027 10.        ]]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1227,7 +1227,7 @@ linkage shape: (9, 4)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
@@ -1255,7 +1255,7 @@ linkage shape: (9, 4)
 <section id="Image-annotation">
 <h1>Image annotation<a class="headerlink" href="#Image-annotation" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;AAAA1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;BBBBB2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -1306,7 +1306,7 @@ sample10  1.jpeg
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -1355,7 +1355,7 @@ Collecting annotation legends..
 <li><p>parula</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyComplexHeatmap.utils</span> <span class="kn">import</span> <span class="n">get_colormap</span>
@@ -1363,7 +1363,7 @@ Collecting annotation legends..
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1399,7 +1399,7 @@ Collecting annotation legends..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Sequential&#39;</span><span class="p">,</span>
@@ -1421,7 +1421,7 @@ Collecting annotation legends..
 <li><p>cmap50</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get_colormap(&quot;cmap50&quot;) # 50 different colors</span>
@@ -1429,7 +1429,7 @@ Collecting annotation legends..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Qualitative&#39;</span><span class="p">,</span>
@@ -1449,7 +1449,7 @@ Collecting annotation legends..
 <h2>How to use the Build-in cmap?<a class="headerlink" href="#How-to-use-the-Build-in-cmap?" title="Permalink to this heading">¶</a></h2>
 <p>Just set cmap=”custom_cmap”</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
@@ -1486,7 +1486,7 @@ Collecting annotation legends..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -1516,7 +1516,7 @@ Collecting annotation legends..
 <h1>How to force display all row/col ticklabels?<a class="headerlink" href="#How-to-force-display-all-row/col-ticklabels?" title="Permalink to this heading">¶</a></h1>
 <p>When the height or width is not big enough to display all xticklabels and yticklabels, some ticklabels will be hidden to avoid overlapping. For example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -1542,7 +1542,7 @@ Collecting annotation legends..
 </div>
 <p>To force display all ticklabels no matter whether the height or width is big enough, set parameters <code class="docutils literal notranslate"><span class="pre">xticklabels/yticklabels</span></code> to True:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
