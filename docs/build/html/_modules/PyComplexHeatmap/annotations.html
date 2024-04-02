@@ -1154,7 +1154,7 @@
 	<span class="k">def</span> <span class="nf">_set_default_plot_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_kws</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span> <span class="o">=</span> <span class="n">plot_kws</span> <span class="k">if</span> <span class="n">plot_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;zorder&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 		<span class="c1"># self.plot_kws.setdefault(&#39;width&#39;, 0.7)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;align&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)</span>
@@ -1224,7 +1224,7 @@
 
 	<span class="k">def</span> <span class="nf">_calculate_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="kc">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">set_legend</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+		<span class="c1"># self.set_legend(False)</span>
 
 	<span class="k">def</span> <span class="nf">_type_specific_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -1543,7 +1543,7 @@
 
 	<span class="k">def</span> <span class="nf">_set_default_plot_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_kws</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span> <span class="o">=</span> <span class="n">plot_kws</span> <span class="k">if</span> <span class="n">plot_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;zorder&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;linewidth&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -1563,31 +1563,6 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">)(</span><span class="n">col_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">]</span>
 		<span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">col_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
-
-	<span class="k">def</span> <span class="nf">_check_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
-		<span class="n">col_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;colors must be list of string,list, tuple or dict&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">}</span>
-		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
-			<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
-				<span class="n">label</span><span class="p">:</span> <span class="n">color</span>
-				<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">col_list</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-			<span class="n">keys</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-			<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-				<span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
-					<span class="k">del</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="n">colors</span>
-
-	<span class="k">def</span> <span class="nf">_calculate_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="kc">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">set_legend</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
 	<span class="k">def</span> <span class="nf">_type_specific_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">pass</span>

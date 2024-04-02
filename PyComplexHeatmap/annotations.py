@@ -715,7 +715,7 @@ class anno_boxplot(AnnotationBase):
 		self.plot_kws.setdefault("showfliers", False)
 		self.plot_kws.setdefault("edgecolor", "black")
 		self.plot_kws.setdefault("medianlinecolor", "black")
-		self.plot_kws.setdefault("grid", True)
+		self.plot_kws.setdefault("grid", False)
 		self.plot_kws.setdefault("zorder", 10)
 		self.plot_kws.setdefault("widths", 0.5)
 
@@ -822,7 +822,7 @@ class anno_barplot(anno_boxplot):
 	def _set_default_plot_kws(self, plot_kws):
 		self.plot_kws = plot_kws if plot_kws is not None else {}
 		self.plot_kws.setdefault("edgecolor", "black")
-		self.plot_kws.setdefault("grid", True)
+		self.plot_kws.setdefault("grid", False)
 		self.plot_kws.setdefault("zorder", 10)
 		# self.plot_kws.setdefault('width', 0.7)
 		self.plot_kws.setdefault("align", "center")
@@ -987,7 +987,7 @@ class anno_scatterplot(anno_barplot):
 
 	def _set_default_plot_kws(self, plot_kws):
 		self.plot_kws = plot_kws if plot_kws is not None else {}
-		self.plot_kws.setdefault("grid", True)
+		self.plot_kws.setdefault("grid", False)
 		self.plot_kws.setdefault("zorder", 10)
 		self.plot_kws.setdefault("linewidths", 0)
 		self.plot_kws.setdefault("edgecolors", "black")
@@ -1211,7 +1211,7 @@ class anno_lineplot(anno_barplot):
 
 	def _set_default_plot_kws(self, plot_kws):
 		self.plot_kws = plot_kws if plot_kws is not None else {}
-		self.plot_kws.setdefault("grid", True)
+		self.plot_kws.setdefault("grid", False)
 		self.plot_kws.setdefault("zorder", 10)
 		self.plot_kws.setdefault("linewidth", 1)
 
