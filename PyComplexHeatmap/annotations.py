@@ -892,7 +892,7 @@ class anno_barplot(anno_boxplot):
 
 	def _calculate_cmap(self):
 		self.cmap = None
-		self.set_legend(False)
+		# self.set_legend(False)
 
 	def _type_specific_params(self):
 		if self.ncols > 1:
@@ -1231,31 +1231,6 @@ class anno_lineplot(anno_barplot):
 		self.colors = [get_colormap(self.cmap)(col_list.index(v)) for v in col_list]
 		for v, color in zip(col_list, self.colors):
 			self.color_dict[v] = color
-
-	def _check_colors(self, colors):
-		self.colors = colors
-		col_list = self.df.columns.tolist()
-		if not isinstance(colors, (list, str, dict, tuple)):
-			raise TypeError("colors must be list of string,list, tuple or dict")
-		if type(colors) == str:
-			colors = {label: colors for label in col_list}
-		elif isinstance(colors,(list,tuple)):
-			assert len(colors) == self.ncols
-			colors = {
-				label: color
-				for label, color in zip(col_list, colors)
-			}
-		else:
-			assert isinstance(colors, dict)
-			keys=list(colors.keys())
-			for key in keys:
-				if key not in col_list:
-					del colors[key]
-		self.color_dict = colors
-
-	def _calculate_cmap(self):
-		self.cmap = None
-		self.set_legend(False)
 
 	def _type_specific_params(self):
 		pass
