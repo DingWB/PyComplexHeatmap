@@ -1230,24 +1230,24 @@ class anno_lineplot(anno_barplot):
 
 	def _check_colors(self, colors):
 		self.colors = colors
+		col_list = self.df.columns.tolist()
 		if not isinstance(colors, (list, str, dict, tuple)):
 			raise TypeError("colors must be list of string,list, tuple or dict")
 		if type(colors) == str:
-			colors = {label: colors for label in self.df.columns.tolist()}
-		if isinstance(colors,(list,tuple)):
+			colors = {label: colors for label in col_list}
+		elif isinstance(colors,(list,tuple)):
 			assert len(colors) == self.ncols
 			colors = {
 				label: color
-				for label, color in zip(self.df.columns.tolist(), colors)
+				for label, color in zip(col_list, colors)
 			}
-		if not isinstance(colors, dict):
-			raise TypeError("colors must be a dict!")
-		if len(colors) >= self.ncols:
-			self.color_dict = colors
 		else:
-			raise TypeError(
-				"The length of `colors` is not consistent with the shape of the input data"
-			)
+			assert isinstance(colors, dict)
+			keys=list(colors.keys())
+			for key in keys:
+				if key not in col_list:
+					del colors[key]
+		self.color_dict = colors
 
 	def _calculate_cmap(self):
 		self.cmap = None
