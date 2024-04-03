@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_usage.html">Advanced Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html">Generate dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Add-float-annotations-on-the-top-of-heatmap-cells">Add float annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
@@ -139,9 +139,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html">Modifying labels</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-yticklabels_kws">Modifying the heatmap annotations labels and xticklabels, yticklabels using <code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> using <code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html">Modifying Kwargs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-in-heatmap">Control gap in heatmap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -526,18 +532,19 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="kc">None</span>
 
 	<span class="k">def</span> <span class="nf">_check_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+		<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,(</span><span class="nb">str</span><span class="p">,</span><span class="nb">list</span><span class="p">,</span><span class="nb">dict</span><span class="p">,</span><span class="nb">tuple</span><span class="p">))</span>
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()}</span>
-		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+			<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()}</span>
+		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
 			<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span>
 				<span class="n">label</span><span class="p">:</span> <span class="n">color</span>
 				<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="n">colors</span><span class="p">)</span>
 			<span class="p">}</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;colors must be a dict!&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">():</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">color_dict</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_dict</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">color_dict</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
 				<span class="s2">&quot;The length of `colors` is not consistent with the shape of the input data&quot;</span>
@@ -1047,7 +1054,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;showfliers&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;medianlinecolor&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;zorder&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;widths&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 
@@ -1065,7 +1072,7 @@
 
 	<span class="k">def</span> <span class="nf">_check_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
 		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
 				<span class="s2">&quot;Boxplot only support one string as colors now, if more colors are wanted, cmap can be specified.&quot;</span>
@@ -1207,20 +1214,21 @@
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
 			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;colors must be list of string,list, tuple or dict&quot;</span><span class="p">)</span>
 		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">}</span>
+			<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">}</span>
 		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
 			<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">,</span> <span class="s2">&quot;length of colors should match length of df.columns&quot;</span>
-			<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span>
 				<span class="n">label</span><span class="p">:</span> <span class="n">color</span>
 				<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">col_list</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
 			<span class="p">}</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-			<span class="n">keys</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+			<span class="n">color_dict</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+			<span class="n">keys</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">color_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 			<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
 				<span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
-					<span class="k">del</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="n">colors</span>
+					<span class="k">del</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="n">color_dict</span>
 
 	<span class="k">def</span> <span class="nf">_calculate_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1319,7 +1327,7 @@
 
 	<span class="k">def</span> <span class="nf">_set_default_plot_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_kws</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span> <span class="o">=</span> <span class="n">plot_kws</span> <span class="k">if</span> <span class="n">plot_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;zorder&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;linewidths&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;edgecolors&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>

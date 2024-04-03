@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modifying labels &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
+  <title>Modifying Kwargs &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -107,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html">Generate dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-float-annotations-on-the-top-of-heatmap-cells">Add float annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
@@ -145,9 +145,15 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Modifying labels</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-yticklabels_kws">Modifying the heatmap annotations labels and xticklabels, yticklabels using <code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> using <code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modifying Kwargs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Control-gap-in-heatmap">Control gap in heatmap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -326,7 +332,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../kwargs.html">Kwargs</a></li>
-      <li class="breadcrumb-item active">Modifying labels</li>
+      <li class="breadcrumb-item active">Modifying Kwargs</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/kwargs.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -336,8 +342,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Modifying-labels">
-<h1>Modifying labels<a class="headerlink" href="#Modifying-labels" title="Permalink to this heading">¶</a></h1>
+  <section id="Modifying-Kwargs">
+<h1>Modifying Kwargs<a class="headerlink" href="#Modifying-Kwargs" title="Permalink to this heading">¶</a></h1>
 <p>Heatmap annotation labels &amp; figure legend label &amp; xlabel &amp; ylabel For all parameters, please see: <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap/wiki/Parameters/">https://github.com/DingWB/PyComplexHeatmap/wiki/Parameters/</a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -399,8 +405,8 @@
 </pre></div>
 </div>
 </div>
-<section id="Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-yticklabels_kws">
-<h2>Modifying the heatmap annotations labels and xticklabels, yticklabels using <code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code><a class="headerlink" href="#Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-yticklabels_kws" title="Permalink to this heading">¶</a></h2>
+<section id="label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels">
+<h2><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels<a class="headerlink" href="#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels" title="Permalink to this heading">¶</a></h2>
 <p>for more parameters of label_kws, see <code class="docutils literal notranslate"><span class="pre">ax.yaxis.label.properties()</span></code> for more parameters of ticklabels_kws,see <code class="docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.tick_params</span></code> for more parameters for [x/y]_ticklabels_kws, see: <code class="docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.tick_params</span></code> or ?<code class="docutils literal notranslate"><span class="pre">ax.tick_params</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -447,8 +453,8 @@
 </div>
 </div>
 </section>
-<section id="Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">
-<h2>Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> using <code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code><a class="headerlink" href="#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws" title="Permalink to this heading">¶</a></h2>
+<section id="xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel">
+<h2><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code><a class="headerlink" href="#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel" title="Permalink to this heading">¶</a></h2>
 <p>xlabel_kws:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">fontfamily</span><span class="p">,</span><span class="n">fontname</span><span class="p">,</span><span class="n">fontproperties</span><span class="p">,</span><span class="n">fontsize</span><span class="p">,</span><span class="n">fontstyle</span><span class="p">,</span><span class="n">fontweight</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">rasterized</span><span class="p">,</span>
 <span class="n">rotation</span><span class="p">,</span><span class="n">rotation_mode</span><span class="p">(</span><span class="n">default</span><span class="p">,</span><span class="n">anchor</span><span class="p">),</span><span class="n">visible</span><span class="p">,</span> <span class="n">zorder</span><span class="p">,</span><span class="n">verticalalignment</span><span class="p">,</span><span class="n">horizontalalignment</span>
@@ -506,6 +512,43 @@
 <img alt="../_images/notebooks_kwargs_7_0.png" src="../_images/notebooks_kwargs_7_0.png" />
 </div>
 </div>
+</section>
+<section id="Control-gap-in-heatmap">
+<h2>Control gap in heatmap<a class="headerlink" href="#Control-gap-in-heatmap" title="Permalink to this heading">¶</a></h2>
+<section id="hgap-and-wgap-for-HeatmapAnnotation">
+<h3><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code><a class="headerlink" href="#hgap-and-wgap-for-HeatmapAnnotation" title="Permalink to this heading">¶</a></h3>
+<p>control the gap between two rows/columns of column annotations (axis=1) or row annotations (axis=0), unit is mm</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(4, 8))
+col_ha = HeatmapAnnotation(
+            label=anno_label(df.AB, merge=True,rotation=15),
+            AB=anno_simple(df.AB,add_text=True),
+            Exp=anno_boxplot(df_box, cmap=&#39;turbo&#39;),
+            Scatter=anno_scatterplot(df_scatter,legend=True),
+            Line=anno_lineplot(df_bar2),
+            TMB_bar=anno_barplot(df_bar,legend=True,cmap=&#39;Set1&#39;),
+            legend=True,axis=1,
+            hgap=4) #hgap controls the gap between two rows of column annotation (axis=1), if axis=0, please use wgap
+plt.show()
+</pre></div>
+</div>
+<p>See: <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Only-plot-the-annotations">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Only-plot-the-annotations</a> <img alt="example" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_10_1.png" /></p>
+</section>
+<section id="subplot_gap">
+<h3><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code><a class="headerlink" href="#subplot_gap" title="Permalink to this heading">¶</a></h3>
+<p>controls the gap between main heatmap and column or row annotations</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(6, 8))
+cm = ClusterMapPlotter(
+            data=,...
+            subplot_gap=8)
+plt.show()
+</pre></div>
+</div>
+<p>See example: <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells</a> <img alt="example2" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_7_1.png" /></p>
+</section>
+<section id="row_split_gap-and-col_split_gap">
+<h3><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code><a class="headerlink" href="#row_split_gap-and-col_split_gap" title="Permalink to this heading">¶</a></h3>
+<p>controls the gap between row_split and col_split</p>
+</section>
 </section>
 </section>
 

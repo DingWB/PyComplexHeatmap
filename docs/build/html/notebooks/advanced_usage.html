@@ -107,7 +107,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Generate dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Add-selected-rows-labels">Add selected rows labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Add-float-annotations-on-the-top-of-heatmap-cells">Add float annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Only-plot-the-annotations">Only plot the annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Change-orentation-to-the-left">Change orentation to the left</a></li>
@@ -145,9 +145,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kwargs.html">Modifying labels</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kwargs.html#Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels-using-label_kws,-xticklabels_kws-and-yticklabels_kws">Modifying the heatmap annotations labels and xticklabels, yticklabels using <code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kwargs.html#Modifying-xlabel-and-ylabel-using-xlabel_kws-and-ylabel_kws">Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> using <code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html">Modifying Kwargs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#Control-gap-in-heatmap">Control gap in heatmap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -451,7 +457,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.3922796080405453 2.7339942573307243
+-2.8128154541237245 3.059497749468173
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -462,10 +468,10 @@
 </div>
 </div>
 </section>
-<section id="Add-float-annotations-on-the-top-of-heatmap-cells">
-<h1>Add float annotations on the top of heatmap cells<a class="headerlink" href="#Add-float-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
+<section id="Add-annotations-on-the-top-of-heatmap-cells">
+<h1>Add annotations on the top of heatmap cells<a class="headerlink" href="#Add-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -505,7 +511,8 @@
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
             <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
-            <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
+            <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+            <span class="n">subplot_gap</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="c1">#subplot_gap controls the gap between main heatmap and column or row annotations</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">row_order</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">col_order</span><span class="p">)</span>
@@ -518,35 +525,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E  1.466779
-sample2  GroupA  C  E -1.718396
-sample3  GroupA  C  E -1.125512
-sample4  GroupA  D  E -1.178352
-sample5  GroupA  D  E  0.531655
-sample1    -0.515284
-sample2     0.825404
-sample3    -0.316972
-sample4     0.154741
-sample5    -0.295485
-sample6     0.162797
-sample7     0.140349
-sample8     0.638760
-sample9    -0.580469
-sample10    0.206190
+sample1  GroupA  C  E  1.070554
+sample2  GroupA  C  E -0.699900
+sample3  GroupA  C  E  0.564358
+sample4  GroupA  D  E -0.222922
+sample5  GroupA  D  E -0.775000
+sample1    -0.397484
+sample2     0.043833
+sample3    -0.484222
+sample4    -0.623762
+sample5     0.192473
+sample6    -0.506431
+sample7     0.190169
+sample8     0.651481
+sample9    -0.282857
+sample10    0.034382
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1  0.796799 -1.788291  0.068638 -0.578946 -0.270417 -1.581699 -0.265769
-Fea2  0.056618  0.008253       NaN -0.085056  0.790266 -0.762829 -0.391138
-Fea3 -1.070503  0.758421  0.296909  2.523378 -0.942157 -0.285012 -0.944490
-Fea4  0.062063 -0.202870 -0.530697  0.961247  0.589622  0.220465  1.406571
-Fea5  1.192260 -1.801859  2.469447 -0.681066 -0.312350  0.804042  1.204672
+Fea1 -0.207191 -0.625649 -0.190573 -0.099252  0.107807 -0.109979  0.383814
+Fea2 -0.777959  0.491460       NaN -1.891745  0.889688  1.773089 -0.558828
+Fea3  0.091887 -0.794012  0.423875  0.748341  0.170488 -0.964597  0.748254
+Fea4 -0.828591  0.222934  0.760275  1.283599  0.544905  0.065134  0.437128
+Fea5 -0.073309 -0.166070 -0.390153 -0.663141 -0.402735  0.077258  0.926534
 
        sample8   sample9  sample10
-Fea1  1.052278 -0.002042  1.521627
-Fea2 -0.733355 -0.136040 -0.148320
-Fea3 -0.152711 -1.423008  0.674255
-Fea4  0.437936  0.162535 -1.117242
-Fea5 -1.842967 -1.321190 -0.985391
+Fea1  0.534213  1.077944  0.404512
+Fea2 -1.175162 -0.872471  0.927196
+Fea3 -0.332673 -0.168806 -1.046517
+Fea4 -0.746831  0.867016  0.691734
+Fea5 -0.809962  0.594026  0.891046
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -561,8 +568,8 @@ Fea5 -1.842967 -1.321190 -0.985391
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea28&#39;, &#39;Fea16&#39;, &#39;Fea18&#39;, &#39;Fea26&#39;, &#39;Fea30&#39;, &#39;Fea19&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea21&#39;, &#39;Fea27&#39;, &#39;Fea15&#39;, &#39;Fea17&#39;, &#39;Fea20&#39;, &#39;Fea23&#39;, &#39;Fea24&#39;, &#39;Fea25&#39;], [&#39;Fea3&#39;, &#39;Fea5&#39;, &#39;Fea8&#39;, &#39;Fea9&#39;, &#39;Fea14&#39;, &#39;Fea10&#39;, &#39;Fea4&#39;, &#39;Fea12&#39;, &#39;Fea1&#39;, &#39;Fea6&#39;, &#39;Fea11&#39;, &#39;Fea13&#39;, &#39;Fea2&#39;, &#39;Fea7&#39;]]
-[[&#39;sample1&#39;, &#39;sample3&#39;, &#39;sample4&#39;, &#39;sample2&#39;, &#39;sample5&#39;], [&#39;sample10&#39;, &#39;sample6&#39;, &#39;sample7&#39;, &#39;sample8&#39;, &#39;sample9&#39;]]
+[[&#39;Fea23&#39;, &#39;Fea27&#39;, &#39;Fea17&#39;, &#39;Fea21&#39;, &#39;Fea25&#39;, &#39;Fea16&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea18&#39;, &#39;Fea26&#39;, &#39;Fea19&#39;, &#39;Fea20&#39;, &#39;Fea24&#39;, &#39;Fea28&#39;, &#39;Fea15&#39;, &#39;Fea30&#39;], [&#39;Fea10&#39;, &#39;Fea11&#39;, &#39;Fea4&#39;, &#39;Fea9&#39;, &#39;Fea12&#39;, &#39;Fea14&#39;, &#39;Fea3&#39;, &#39;Fea7&#39;, &#39;Fea1&#39;, &#39;Fea5&#39;, &#39;Fea13&#39;, &#39;Fea2&#39;, &#39;Fea6&#39;, &#39;Fea8&#39;]]
+[[&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample4&#39;], [&#39;sample10&#39;, &#39;sample8&#39;, &#39;sample9&#39;, &#39;sample6&#39;, &#39;sample7&#39;]]
 </pre></div></div>
 </div>
 </section>
