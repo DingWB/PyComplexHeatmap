@@ -96,14 +96,14 @@ def dotHeatmap2d(
 	# s
 	s = kwargs.pop("s", None)
 	if s is None:
-		df["S"] = scale(df["Value"].abs().values)
+		df["S"] = scale(df["Value"].abs().values,vmin=vmin, vmax=vmax)
 	else:
 		if isinstance(s, pd.DataFrame):
 			s = s.reindex(index=row_labels, columns=col_labels).stack().reset_index()
 			s.columns = ["Row", "Col", "Value"]
 			# print(s.shape)
 			# print(s.head())
-			df["S"] = scale(s.Value.abs().values)
+			df["S"] = scale(s.Value.abs().values,vmin=vmin, vmax=vmax)
 			# df['S'] = s.Value.values
 		elif isinstance(s, (int, float)):
 			df["S"] = s
