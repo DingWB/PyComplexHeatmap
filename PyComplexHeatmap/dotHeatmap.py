@@ -175,7 +175,8 @@ def dotHeatmap2d(
 	if c_ready and type(cmap) == str:
 		kwargs["cmap"] = cmap
 		for mk in df.Markers.unique():
-			df1 = df.query("Markers==@mk").copy()
+			# df1 = df.query("Markers==@mk").copy()
+			df1 = df.loc[df.Markers==mk].copy()
 			if df1.shape[0] == 0:
 				continue
 			kwargs["marker"] = mk
@@ -188,7 +189,8 @@ def dotHeatmap2d(
 			)  # vmax=vmax,vmin=vmin,
 	elif type(cmap) == dict and not hue is None:
 		for h in cmap:  # key are hue, values are cmap
-			df1 = df.query("Hue==@h").copy()
+			# df1 = df.query("Hue==@h").copy()
+			df1 = df.loc[df['Hue']==h].copy()
 			if df1.shape[0] == 0:
 				continue
 			if isinstance(colors, str):
@@ -202,7 +204,8 @@ def dotHeatmap2d(
 			#     print(locals())
 			kwargs["cmap"] = cmap[h]
 			for mk in df1.Markers.unique():
-				df2 = df1.query("Markers==@mk").copy()
+				# df2 = df1.query("Markers==@mk").copy()
+				df2 = df1.loc[df1.Markers==mk].copy()
 				kwargs["marker"] = mk
 				ax.scatter(
 					x=df2.X.values,
