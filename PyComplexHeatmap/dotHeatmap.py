@@ -113,7 +113,6 @@ def dotHeatmap2d(
 		hue = hue.reindex(index=row_labels, columns=col_labels).stack().reset_index()
 		hue.columns = ["Row", "Col", "Value"]
 		df.insert(2, "Hue", hue.Value.values)
-
 	# marker
 	marker = kwargs.pop("marker", "o")
 	if isinstance(marker, pd.DataFrame):
@@ -168,7 +167,6 @@ def dotHeatmap2d(
 
 		df["C"] = df["Hue"].map(color_dict)
 		c_ready = True
-
 	kwargs.setdefault(
 		"norm", matplotlib.colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
 	)
@@ -415,8 +413,6 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					raise ValueError("when marker is a dict, hue must not be None")
 				self.kwargs["marker"] = self.marker
 
-		# print(data.head())
-		# print(data2d.head())
 		if 'vmin' not in self.kwargs:
 			self.vmin = np.nanmin(data2d.values)
 			self.kwargs.setdefault("vmin", self.vmin)
