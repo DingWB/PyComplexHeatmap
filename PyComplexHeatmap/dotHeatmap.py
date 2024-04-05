@@ -190,7 +190,7 @@ def dotHeatmap2d(
 	elif type(cmap) == dict and not hue is None:
 		for h in cmap:  # key are hue, values are cmap
 			# df1 = df.query("Hue==@h").copy()
-			df1 = df.loc[df['Hue']==h].copy()
+			df1 = df.loc[df.Hue==h].copy()
 			if df1.shape[0] == 0:
 				continue
 			if isinstance(colors, str):
