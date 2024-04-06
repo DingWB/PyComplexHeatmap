@@ -664,6 +664,7 @@
 		<span class="n">color_legend_kws</span><span class="o">=</span><span class="p">{},</span>
 		<span class="n">cmap_legend_kws</span><span class="o">=</span><span class="p">{},</span>
 		<span class="n">dot_legend_kws</span><span class="o">=</span><span class="p">{},</span>
+		<span class="n">dot_legend_marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
 		<span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
 		<span class="n">value_na</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 		<span class="n">hue_na</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
@@ -691,6 +692,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap_legend_kws</span> <span class="o">=</span> <span class="n">cmap_legend_kws</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">spines</span> <span class="o">=</span> <span class="n">spines</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_kws</span> <span class="o">=</span> <span class="n">dot_legend_kws</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="n">dot_legend_marker</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">max_s</span><span class="o">=</span><span class="n">max_s</span>
 
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -950,7 +952,7 @@
 				<span class="n">ms</span> <span class="o">=</span> <span class="p">{}</span>
 				<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]:</span>
 					<span class="n">k</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">smax</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-					<span class="n">markers1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;o&quot;</span>
+					<span class="n">markers1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_marker</span>
 					<span class="n">ms</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>  <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">max_s</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
 					<span class="c1"># ms[k] = np.sqrt(f * max_s * self.alpha)</span>
 				<span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>

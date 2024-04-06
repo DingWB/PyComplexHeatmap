@@ -325,6 +325,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		color_legend_kws={},
 		cmap_legend_kws={},
 		dot_legend_kws={},
+		dot_legend_marker="o",
 		aggfunc=np.mean,
 		value_na=0,
 		hue_na="NA",
@@ -352,6 +353,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		self.cmap_legend_kws = cmap_legend_kws
 		self.spines = spines
 		self.dot_legend_kws = dot_legend_kws
+		self.dot_legend_marker=dot_legend_marker
 		self.max_s=max_s
 
 		super().__init__(**kwargs)
@@ -611,7 +613,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				ms = {}
 				for f in [1, 0.8, 0.6, 0.4, 0.2]:
 					k = str(round(f * self.smax, 2))
-					markers1[k] = "o"
+					markers1[k] = self.dot_legend_marker
 					ms[k] = f  * np.sqrt(max_s) * self.alpha
 					# ms[k] = np.sqrt(f * max_s * self.alpha)
 				title = self.s if not self.s is None else self.value
