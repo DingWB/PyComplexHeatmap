@@ -31,7 +31,7 @@ def dotHeatmap2d(
 	ax=None,
 	colors=None,
 	cmap=None,
-	ratio=None,
+	max_s=None,
 	spines=False,
 	**kwargs
 ):
@@ -85,16 +85,22 @@ def dotHeatmap2d(
 	df["Value"] = data.Value.values
 	del data
 
-	if ratio is None:
+	if max_s is None: #passed from DotClustermapPlotter, not None
+		#The unit of size for the s parameter is squared points. This means
+		# that the area of the marker is specified in points squared.
+		# A point in this context is a unit of measure in typography,
+		# equal to 1/72 of an inch. Therefore, if you specify s=100,
+		# each marker's area will be 100 points squared, not its width or height.
 		w, h = (
 			ax.get_window_extent().width / ax.figure.dpi,
 			ax.get_window_extent().height / ax.figure.dpi,
-		)
+		) #unit is inch
 		r = min(w * 72 / len(col_labels), h * 72 / len(row_labels))
-		ratio = r**2
-
+		# r is the minimal of width and height for each scatter point, unit is point.
+		max_s = r**2
 	# s
 	s = kwargs.pop("s", None)
+	# print(s is None,vmin,vmax)
 	if s is None:
 		df["S"] = scale(df["Value"].abs().values,vmin=vmin, vmax=vmax)
 	else:
@@ -103,7 +109,7 @@ def dotHeatmap2d(
 			s.columns = ["Row", "Col", "Value"]
 			# print(s.shape)
 			# print(s.head())
-			df["S"] = scale(s.Value.abs().values,vmin=vmin, vmax=vmax)
+			df["S"] = scale(s.Value.abs().values) #scale to 0-1
 			# df['S'] = s.Value.values
 		elif isinstance(s, (int, float)):
 			df["S"] = s
@@ -170,6 +176,8 @@ def dotHeatmap2d(
 	kwargs.setdefault(
 		"norm", matplotlib.colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
 	)
+
+	# print(f"max_s: {max_s}",df.S.min(),df.S.max()) #min and max S should be 0,1
 	if c_ready and type(cmap) == str:
 		kwargs["cmap"] = cmap
 		for mk in df.Markers.unique():
@@ -181,7 +189,7 @@ def dotHeatmap2d(
 			ax.scatter(
 				x=df1.X.values,
 				y=df1.Y.values,
-				s=df1.S * ratio,
+				s=df1.S * max_s,
 				c=df1.C.values,
 				**kwargs
 			)  # vmax=vmax,vmin=vmin,
@@ -208,7 +216,7 @@ def dotHeatmap2d(
 				ax.scatter(
 					x=df2.X.values,
 					y=df2.Y.values,
-					s=df2.S * ratio,
+					s=df2.S * max_s,
 					c=df2.C.values,
 					**kwargs
 				)  #
@@ -265,8 +273,6 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		If marker is a string, it should be a marker to control the markers of scatter (dot).
 		marker could also be a name of the column from data.columns.tolist()
 		If marker is a dict, the keys should be the values from data[hue].values, and values should be marker.
-	alpha: float [0,1]
-		coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.
 	colors :dict.
 		Keys should be the values from data[hue].values, and values should be color.
 		It will be only used to control the colors of markers in figure legend.
@@ -294,10 +300,12 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)
 	spines: bool
 		Whether show spines of the axes or not [False]
-	ratio: float
-		the size of dot will be multipled by ratio.
+	max_s: float
+		max size of the dot in scatter, default is None, will be inferred automatically.
+	alpha: float [0,1]
+		coefficient to scale the size of dot in figure legend, valid for marker and dot in legend.
 	kwargs :dict
-		Other kwargs passed to ClusterMapPlotter and dotHeatmap2d, such as ratio, vmin, vmax.
+		Other kwargs passed to ClusterMapPlotter and dotHeatmap2d, such as max_s, vmin, vmax.
 
 	Returns
 	-------
@@ -323,7 +331,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		s_na=0,
 		c_na=0,
 		spines=False,
-		ratio=None,
+		max_s=None,
 		**kwargs
 	):
 		kwargs["data"] = data
@@ -344,7 +352,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		self.cmap_legend_kws = cmap_legend_kws
 		self.spines = spines
 		self.dot_legend_kws = dot_legend_kws
-		self.ratio=ratio
+		self.max_s=max_s
 
 		super().__init__(**kwargs)
 
@@ -436,16 +444,32 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		nrows = len(row_order)
 		ncols = len(col_order)
 
-		if self.ratio is None:
+		ratio=self.kwargs.pop('ratio',None)
+		if not ratio is None:
+			print("Warning: ratio is deprecated, please use max_s instead")
+		if self.max_s is None:
+			self.max_s = ratio
+
+		if self.max_s is None:
+			# The unit of size for the s parameter is squared points. This means
+			# that the area of the marker is specified in points squared.
+			# A point in this context is a unit of measure in typography,
+			# equal to 1/72 of an inch. Therefore, if you specify s=100,
+			# each marker's area will be 100 points squared, not its width or height.
 			w, h = (
 				self.ax_heatmap.get_window_extent().width / self.ax_heatmap.figure.dpi,
 				self.ax_heatmap.get_window_extent().height / self.ax_heatmap.figure.dpi,
-			)
+			) # unit is inch
 			r = min(w * 72 / self.data2d.shape[1], h * 72 / self.data2d.shape[0])
-			ratio = r ** 2
+			# r is the minimal of width and height for each scatter point, unit is point.
+			max_s = r ** 2
+			if self.verbose >= 1:
+				print(f"Inferred max_s (max size of scatter point) is: {max_s}")
 		else:
-			ratio = self.ratio
-		self.kwargs['ratio'] = ratio
+			max_s = self.max_s
+			if self.verbose >= 1:
+				print(f"Using user provided max_s: {max_s}")
+		self.kwargs['max_s'] = max_s
 		self.col_split_gap_pixel = self.col_split_gap * mm2inch * self.ax.figure.dpi
 		self.wspace = (
 			(self.col_split_gap_pixel * ncols)
@@ -568,16 +592,16 @@ class DotClustermapPlotter(ClusterMapPlotter):
 			#     ax.get_window_extent().height / ax.figure.dpi,
 			# )
 			# r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))
-			ratio=self.kwargs['ratio']
+			max_s=self.kwargs['max_s']
 			if type(marker) == dict and not self.hue is None:
 				self.legend_list.append(
 					[
-						(marker, self.kwargs.get("colors", None), np.sqrt(ratio) * self.alpha),
+						(marker, self.kwargs.get("colors", None), np.sqrt(max_s) * self.alpha),
 						self.hue,
 						self.dot_legend_kws,
 						len(marker),
 						"markers",
-					]
+					] #size of s in scatter equal to marker_size**2
 				)  # markersize is r*0.8
 			# dot size legend:
 			if type(self.s) == str:
@@ -588,8 +612,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				for f in [1, 0.8, 0.6, 0.4, 0.2]:
 					k = str(round(f * self.smax, 2))
 					markers1[k] = "o"
-					ms[k] = f  * np.sqrt(ratio) * self.alpha
-					# ms[k] = np.sqrt(f * ratio * self.alpha)
+					ms[k] = f  * np.sqrt(max_s) * self.alpha
+					# ms[k] = np.sqrt(f * max_s * self.alpha)
 				title = self.s if not self.s is None else self.value
 				self.legend_list.append(
 					[

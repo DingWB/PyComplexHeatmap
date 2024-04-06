@@ -154,6 +154,7 @@
 <li class="toctree-l4"><a class="reference internal" href="kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
 </ul>
 </li>
 </ul>
@@ -364,7 +365,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.8.dev9+gebbf9f8.d20240402
+1.6.10.dev1+g3668078.d20240406
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -427,7 +428,9 @@
             <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
-            <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                             <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+                            <span class="p">),</span> <span class="c1">#visible in arrowprops can control whether to show the arrow</span>
             <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">EF</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">EF</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -457,7 +460,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.8128154541237245 3.059497749468173
+-2.789979015553567 2.5172096917072593
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -471,7 +474,7 @@
 <section id="Add-annotations-on-the-top-of-heatmap-cells">
 <h1>Add annotations on the top of heatmap cells<a class="headerlink" href="#Add-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -525,35 +528,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E  1.070554
-sample2  GroupA  C  E -0.699900
-sample3  GroupA  C  E  0.564358
-sample4  GroupA  D  E -0.222922
-sample5  GroupA  D  E -0.775000
-sample1    -0.397484
-sample2     0.043833
-sample3    -0.484222
-sample4    -0.623762
-sample5     0.192473
-sample6    -0.506431
-sample7     0.190169
-sample8     0.651481
-sample9    -0.282857
-sample10    0.034382
+sample1  GroupA  C  E -2.263637
+sample2  GroupA  C  E -0.089850
+sample3  GroupA  C  E -1.311745
+sample4  GroupA  D  E  0.624921
+sample5  GroupA  D  E -1.303700
+sample1    -0.004428
+sample2    -0.153135
+sample3     0.017353
+sample4    -0.034429
+sample5    -0.331087
+sample6    -0.051017
+sample7     0.539600
+sample8     0.883322
+sample9     0.159110
+sample10    0.669955
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1 -0.207191 -0.625649 -0.190573 -0.099252  0.107807 -0.109979  0.383814
-Fea2 -0.777959  0.491460       NaN -1.891745  0.889688  1.773089 -0.558828
-Fea3  0.091887 -0.794012  0.423875  0.748341  0.170488 -0.964597  0.748254
-Fea4 -0.828591  0.222934  0.760275  1.283599  0.544905  0.065134  0.437128
-Fea5 -0.073309 -0.166070 -0.390153 -0.663141 -0.402735  0.077258  0.926534
+Fea1 -1.433210 -0.087691 -1.006784  0.087285  0.104664  1.239472  1.006559
+Fea2  0.719248 -0.230982       NaN  0.569831 -1.611190  0.967670 -1.740537
+Fea3 -0.003511  0.025127 -1.364430  1.098820 -0.561817  1.514299 -0.790288
+Fea4 -0.860578 -1.859102 -1.383681 -0.182065 -0.866338  1.033305 -0.515119
+Fea5  0.028658  1.268281  0.847846 -1.230703 -0.686614  0.949899 -0.077411
 
        sample8   sample9  sample10
-Fea1  0.534213  1.077944  0.404512
-Fea2 -1.175162 -0.872471  0.927196
-Fea3 -0.332673 -0.168806 -1.046517
-Fea4 -0.746831  0.867016  0.691734
-Fea5 -0.809962  0.594026  0.891046
+Fea1 -1.426038  0.477469  0.360798
+Fea2  0.478831 -0.716047 -0.083210
+Fea3  2.069791 -0.011914  1.107961
+Fea4  0.047941 -0.380695  0.568194
+Fea5  0.088048  0.262221  1.370447
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -568,8 +571,8 @@ Fea5 -0.809962  0.594026  0.891046
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea23&#39;, &#39;Fea27&#39;, &#39;Fea17&#39;, &#39;Fea21&#39;, &#39;Fea25&#39;, &#39;Fea16&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea18&#39;, &#39;Fea26&#39;, &#39;Fea19&#39;, &#39;Fea20&#39;, &#39;Fea24&#39;, &#39;Fea28&#39;, &#39;Fea15&#39;, &#39;Fea30&#39;], [&#39;Fea10&#39;, &#39;Fea11&#39;, &#39;Fea4&#39;, &#39;Fea9&#39;, &#39;Fea12&#39;, &#39;Fea14&#39;, &#39;Fea3&#39;, &#39;Fea7&#39;, &#39;Fea1&#39;, &#39;Fea5&#39;, &#39;Fea13&#39;, &#39;Fea2&#39;, &#39;Fea6&#39;, &#39;Fea8&#39;]]
-[[&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample4&#39;], [&#39;sample10&#39;, &#39;sample8&#39;, &#39;sample9&#39;, &#39;sample6&#39;, &#39;sample7&#39;]]
+[[&#39;Fea20&#39;, &#39;Fea23&#39;, &#39;Fea15&#39;, &#39;Fea25&#39;, &#39;Fea28&#39;, &#39;Fea27&#39;, &#39;Fea21&#39;, &#39;Fea30&#39;, &#39;Fea18&#39;, &#39;Fea22&#39;, &#39;Fea17&#39;, &#39;Fea19&#39;, &#39;Fea16&#39;, &#39;Fea29&#39;, &#39;Fea24&#39;, &#39;Fea26&#39;], [&#39;Fea6&#39;, &#39;Fea5&#39;, &#39;Fea13&#39;, &#39;Fea7&#39;, &#39;Fea4&#39;, &#39;Fea11&#39;, &#39;Fea3&#39;, &#39;Fea8&#39;, &#39;Fea10&#39;, &#39;Fea2&#39;, &#39;Fea14&#39;, &#39;Fea1&#39;, &#39;Fea9&#39;, &#39;Fea12&#39;]]
+[[&#39;sample2&#39;, &#39;sample1&#39;, &#39;sample5&#39;, &#39;sample3&#39;, &#39;sample4&#39;], [&#39;sample7&#39;, &#39;sample9&#39;, &#39;sample8&#39;, &#39;sample6&#39;, &#39;sample10&#39;]]
 </pre></div></div>
 </div>
 </section>
@@ -616,88 +619,88 @@ Fea5 -0.809962  0.594026  0.891046
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  0.331981
-sample2    AAAA1  C -0.180977
-sample3    AAAA1  C  0.200994
-sample4    AAAA1  D  1.937411
-sample5    AAAA1  D  0.687755
-sample6   BBBBB2  D -1.110735
-sample7   BBBBB2  G  0.768647
-sample8   BBBBB2  G -0.010206
-sample9   BBBBB2  G  1.043266
-sample10  BBBBB2  G  0.722602
+sample1    AAAA1  C  0.200859
+sample2    AAAA1  C  0.353033
+sample3    AAAA1  C  1.172416
+sample4    AAAA1  D  1.638380
+sample5    AAAA1  D -0.943875
+sample6   BBBBB2  D -0.039223
+sample7   BBBBB2  G -0.323801
+sample8   BBBBB2  G  0.619081
+sample9   BBBBB2  G -1.105883
+sample10  BBBBB2  G  0.283315
             Gene1     Gene2     Gene3     Gene4
-sample1 -1.880314  0.559509  0.169461 -1.150272
-sample2  1.852287 -1.550741 -0.430236  0.106129
-sample3  0.374510  0.525569 -2.087459  1.255954
-sample4 -1.822967 -0.991702  0.715877 -1.237726
-sample5 -0.551668 -1.385481 -0.267626 -1.266019
+sample1  2.700561  0.902863 -0.290811 -0.009767
+sample2 -0.631252  0.421921  0.102913  0.187916
+sample3 -0.760687 -0.704043  1.525429 -0.318682
+sample4 -1.210213 -0.771506 -0.558127  1.523490
+sample5 -1.069395  0.019877 -0.787864  0.990998
            Scatter
-sample1   4.659584
-sample2   5.749833
-sample3   5.138717
-sample4   7.469944
-sample5   1.993612
-sample6   0.591032
-sample7   3.131566
-sample8   8.811348
-sample9   1.527524
-sample10  5.137574
+sample1   1.874636
+sample2   3.848164
+sample3   3.903004
+sample4   7.394619
+sample5   8.295607
+sample6   5.017548
+sample7   3.954733
+sample8   3.629213
+sample9   5.168074
+sample10  6.258033
               TMB1      TMB2
-sample1   6.796904  2.803695
-sample2   6.574642  2.514294
-sample3   2.807331  8.736264
-sample4   6.672179  7.369024
-sample5   9.164252  7.581861
-sample6   7.803216  6.272810
-sample7   7.629476  5.921342
-sample8   4.701880  5.556404
-sample9   1.279670  0.845049
-sample10  4.499879  6.899443
+sample1   1.501860  5.878666
+sample2   7.595490  7.907354
+sample3   1.465883  7.170007
+sample4   0.605048  2.891350
+sample5   1.672297  3.388442
+sample6   3.550420  1.474775
+sample7   0.007730  2.540927
+sample8   1.676624  7.493871
+sample9   4.158091  5.060985
+sample10  5.747162  1.374502
               T1-A      T1-B
-sample1   1.785336  3.335342
-sample2   6.086618  7.539884
-sample3   3.148104  7.012752
-sample4   1.589705  6.235781
-sample5   1.319431  8.429112
-sample6   5.831846  2.135995
-sample7   0.371118  0.980572
-sample8   1.546975  4.878409
-sample9   9.472130  1.124343
-sample10  0.363317  9.289727
+sample1   6.203564  9.724723
+sample2   4.950393  1.446957
+sample3   0.535964  8.530196
+sample4   2.119663  5.780722
+sample5   8.698790  3.212737
+sample6   5.815392  9.826680
+sample7   8.990554  1.531081
+sample8   0.593275  4.720764
+sample9   5.211480  4.968815
+sample10  2.090697  9.104865
               T2-A      T2-B
-sample1   3.474448  9.309916
-sample2   5.965458  4.690165
-sample3   7.022360  4.654084
-sample4   7.262354  3.073136
-sample5   5.057936  9.226083
-sample6   7.936141  4.180150
-sample7   5.556149  7.010758
-sample8   3.217734  2.201593
-sample9   8.297354  0.863654
-sample10  4.471435  0.543009
+sample1   5.310093  1.827704
+sample2   3.568812  3.108676
+sample3   2.599068  9.772967
+sample4   2.185394  4.663265
+sample5   0.802481  8.257776
+sample6   6.501796  9.709847
+sample7   1.156134  2.600661
+sample8   0.490220  7.717218
+sample9   1.878770  2.556704
+sample10  2.129061  4.822311
               T3-A      T3-B
-sample1   7.132438  0.010302
-sample2   8.676694  4.084852
-sample3   7.610532  5.157682
-sample4   7.860479  4.002654
-sample5   1.068162  8.955904
-sample6        NaN  5.039523
-sample7   9.056464  3.799555
-sample8   6.336269  8.900634
-sample9   2.484381  1.605938
-sample10  7.361588  8.929571
+sample1   6.293379  3.301495
+sample2   2.441109  6.811690
+sample3   7.212827  5.516747
+sample4   7.971238  5.653476
+sample5   6.966823  0.035254
+sample6        NaN  4.337347
+sample7   0.189764  4.355503
+sample8   3.532178  6.271212
+sample9   0.010659  2.833614
+sample10  1.150007  9.503087
                 T4
-sample1   6.554712
-sample2   5.891890
-sample3   3.432093
-sample4   0.251200
-sample5   4.223998
-sample6   3.284908
-sample7   0.128797
+sample1   0.640612
+sample2   9.776956
+sample3   4.906307
+sample4   8.197704
+sample5   1.470980
+sample6   1.063476
+sample7   9.283533
 sample8        NaN
-sample9   1.703020
-sample10  7.195867
+sample9   9.708282
+sample10  8.624086
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1215,15 +1218,15 @@ Legend too long, generating a new column..
 <div class="highlight"><pre>
 df_heatmap shape: (30, 10)
 linkage shape: (9, 4)
- [[ 5.          7.         17.35736787  2.        ]
- [ 3.          6.         18.02642008  2.        ]
- [ 1.          4.         19.38015266  2.        ]
- [ 8.         10.         19.71470769  3.        ]
- [ 9.         11.         20.10246451  3.        ]
- [ 2.         14.         20.54621873  4.        ]
- [ 0.         15.         21.14613731  5.        ]
- [12.         13.         22.04670714  5.        ]
- [16.         17.         22.4150953  10.        ]]
+ [[ 6.          8.         18.07899014  2.        ]
+ [ 0.          4.         19.03610675  2.        ]
+ [ 1.          2.         19.65990653  2.        ]
+ [10.         11.         20.01426258  4.        ]
+ [ 5.          7.         20.706682    2.        ]
+ [ 3.          9.         21.47903901  2.        ]
+ [12.         13.         21.69343794  6.        ]
+ [14.         16.         22.70041136  8.        ]
+ [15.         17.         23.02932238 10.        ]]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

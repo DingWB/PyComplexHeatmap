@@ -20,7 +20,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "1.6.6.dev18+gff88e37.d20240226\n"
+      "1.6.10.dev1+g3668078.d20240406\n"
      ]
     }
    ],
@@ -296,6 +296,27 @@
    "source": [
     "#### `row_split_gap` and `col_split_gap`\n",
     "controls the gap between row_split and col_split"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "db048293-1623-4c29-9e92-6bc0db685839",
+   "metadata": {},
+   "source": [
+    "### How to remove arrow in anno_label"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7d9ebf44-384d-4135-b14a-893a31c702ed",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "label=anno_label(df.AB, merge=True,rotation=10,\n",
+    "             arrowprops = dict(visible=False,)\n",
+    "            ), #visible in arrowprops can control whether to show the arrow\n",
+    "# In addition to visible, there are lots of other parameters, please see matplotlib.patches.FancyArrowPatch for more information"
    ]
   }
  ],

@@ -148,6 +148,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
 </ul>
 </li>
 </ul>
@@ -864,7 +865,10 @@
 		<span class="p">)</span>
 		<span class="c1"># arrow: -&gt;, from text to point.</span>
 		<span class="c1"># self.plot_kws.setdefault(&#39;transform_rotates_text&#39;, False)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">,</span> <span class="n">arrowprops</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">,</span> <span class="p">{})</span>
+		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arrowprops</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s1">&#39;arrowprops&#39;</span><span class="p">]:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s1">&#39;arrowprops&#39;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">arrowprops</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;rotation_mode&quot;</span><span class="p">,</span> <span class="s2">&quot;anchor&quot;</span><span class="p">)</span></div>
 
 	<span class="k">def</span> <span class="nf">_calculate_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># add self.color_dict (each col is a dict)</span>

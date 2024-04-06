@@ -154,6 +154,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
 </ul>
 </li>
 </ul>
@@ -367,7 +368,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.6.dev18+gff88e37.d20240226
+1.6.10.dev1+g3668078.d20240406
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -549,6 +550,20 @@ plt.show()
 <h3><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code><a class="headerlink" href="#row_split_gap-and-col_split_gap" title="Permalink to this heading">¶</a></h3>
 <p>controls the gap between row_split and col_split</p>
 </section>
+</section>
+<section id="How-to-remove-arrow-in-anno_label">
+<h2>How to remove arrow in anno_label<a class="headerlink" href="#How-to-remove-arrow-in-anno_label" title="Permalink to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+             <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+            <span class="p">),</span> <span class="c1">#visible in arrowprops can control whether to show the arrow</span>
+<span class="c1"># In addition to visible, there are lots of other parameters, please see matplotlib.patches.FancyArrowPatch for more information</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
