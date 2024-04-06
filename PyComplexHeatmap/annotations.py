@@ -526,7 +526,10 @@ class anno_label(AnnotationBase):
 		)
 		# arrow: ->, from text to point.
 		# self.plot_kws.setdefault('transform_rotates_text', False)
-		self.plot_kws.setdefault("arrowprops", arrowprops)
+		self.plot_kws.setdefault("arrowprops", {})
+		for k in arrowprops:
+			if k not in self.plot_kws['arrowprops']:
+				self.plot_kws['arrowprops'][k]=arrowprops[k]
 		self.plot_kws.setdefault("rotation_mode", "anchor")
 
 	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
