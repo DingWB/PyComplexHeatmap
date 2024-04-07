@@ -523,6 +523,7 @@ class anno_label(AnnotationBase):
 			patchA=None,
 			patchB=None,
 			connectionstyle=None,
+			linewidth=0.5
 		)
 		# arrow: ->, from text to point.
 		# self.plot_kws.setdefault('transform_rotates_text', False)
