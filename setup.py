@@ -20,7 +20,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="PyComplexHeatmap",
 	use_scm_version=True,  # {'version_scheme': 'python-simplified-semver',"local_scheme": "no-local-version"},
-	setup_requires=['setuptools_scm','fastcluster'],
+	setup_requires=['setuptools_scm'],
     description="A Python package to plot complex heatmap",
     # long_description="#PyComplexHeatmap\n##Documentation:https://dingwb.github.io/PyComplexHeatmap/build/html/index.html",
     # long_description_content_type='text/markdown',
@@ -28,7 +28,7 @@ setup(
     author_email="ding.wu.bin.gm@gmail.com",
     url="https://github.com/DingWB/PyComplexHeatmap",
     packages=["PyComplexHeatmap"],  # src
-    # install_requires=['matplotlib>=3.3.1','pandas'],
+    install_requires=["matplotlib<3.8.0","numpy","pandas>=1.3.5", "scipy","fastcluster"],
     include_package_data=True,
 )
 # rm -rf dist && rm -rf PyComplexHeatmap/PyComplexHeatmap.egg-info/
