@@ -459,7 +459,7 @@ class anno_label(AnnotationBase):
 		frac=0.2,
 		majority=True,
 		adjust_color=True,
-		luminance=0.5,
+		luminance=0.8,
 		height=None,
 		legend=False,
 		legend_kws=None,
