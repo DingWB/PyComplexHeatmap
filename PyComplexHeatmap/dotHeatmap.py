@@ -56,7 +56,7 @@ def dotHeatmap2d(
 	cmap : str of dict
 		control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 		If `cmap` is a str (such as 'Set1'), the parameter `colors` will overwrite the colors of dots.
-		If `cmap` wisas a dict, then this paramter will overwrite the `colors`, and colors can only control the
+		If `cmap` was a dict, then this paramter will overwrite the `colors`, and colors can only control the
 		colors for markers.
 	s : int, float, or dataframe
 		control the sizes of dot.
@@ -199,15 +199,6 @@ def dotHeatmap2d(
 			df1 = df.loc[df.Hue==h].copy()
 			if df1.shape[0] == 0:
 				continue
-			if isinstance(colors, str):
-				df1["C"] = colors
-			elif isinstance(kwargs.get("c", None), str):
-				df1["C"] = kwargs.get("c", None)
-			else:
-				df1["C"] = df1.S.values
-				# print(df1.C.describe())
-			# if pd.isna(df1.C.iloc[0]):
-			#     print(locals())
 			kwargs["cmap"] = cmap[h]
 			for mk in df1.Markers.unique():
 				# df2 = df1.query("Markers==@mk").copy()
