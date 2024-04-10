@@ -66,7 +66,7 @@ Click the picuture to view the source code.
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#Change-orentation-to-the-left">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/gene_enrichment_analysis.html#Plot">
                 <img src="../../images/gallery12.png" title="Plot only the annotation with different orientations" align="center">
             </a>
         </td>
