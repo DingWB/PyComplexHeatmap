@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
+  <title>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -29,6 +29,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="oncoPrint" href="../oncoPrint.html" />
+    <link rel="prev" title="Load an example brain networks dataset from seaborn" href="dotHeatmap.html" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
      crossorigin="anonymous"></script>
 
@@ -54,7 +56,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#how-to-install">How to install?</a></li>
@@ -80,7 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
 </ul>
@@ -95,11 +97,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Read-data">Read data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Plot">Plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#How-to-select-marker:">How to select marker:</a></li>
 </ul>
 </li>
 </ul>
@@ -337,9 +339,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+          <li class="breadcrumb-item"><a href="../dotHeatmap.html">dotHeatmap</a></li>
+      <li class="breadcrumb-item active">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/test_add_anno_img.ipynb" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/gene_enrichment_analysis.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -347,17 +350,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="nbinput docutils container">
+  <section id="Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap">
+<h1>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap<a class="headerlink" href="#Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap" title="Permalink to this heading">¶</a></h1>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ps.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
@@ -369,152 +382,38 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.6.6
+1.7.1.dev4+g71c725a.d20240410
 </pre></div></div>
 </div>
+<section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
+<h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
+<h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
+</h3><p><img alt="5c8159586c5b4734ba16b27479c2b5be" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="e1efb8b2a9584fa4970eb3b2da83cd09" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+<h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
+</h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
+</section>
+<section id="Read-data">
+<h2>Read data<a class="headerlink" href="#Read-data" title="Permalink to this heading">¶</a></h2>
+<p>In this example dataset, we have 2 groups and 3 different cell types in each group, and we have already gotten the GO Biological Process (BP), Molecular Function (MF) and KEGG Pathway enrichment result using R package <strong>clusterProfiler</strong> and merged the results into one matrix.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans serif&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span>
-<span class="c1"># set pdf.fonttype to 42</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;enrichment_analysis_dotHeatmap.pickle&quot;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data1</span><span class="p">,</span><span class="n">df_row</span><span class="p">,</span><span class="n">df_col</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_box</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gene&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
-<span class="n">df_box</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_bar</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;TMB2&#39;</span><span class="p">])</span>
-<span class="n">df_bar</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_scatter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Scatter&#39;</span><span class="p">])</span>
-<span class="n">df_scatter</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fea&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G1&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;G5&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
-<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
-            <span class="n">Groups</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
-            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#verbose=0 will turn off the log.</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">row_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span><span class="s1">&#39;Paired&#39;</span><span class="p">},</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-        <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
-        <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Features&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_3_0.png" src="../_images/notebooks_test_add_anno_img_3_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-
-<span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fea&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
-        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;parula&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Features&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Samples&quot;</span><span class="p">)</span>
-<span class="c1"># plt.savefig(&quot;example0.pdf&quot;, bbox_inches=&#39;tight&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_4_0.png" src="../_images/notebooks_test_add_anno_img_4_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
-        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">yticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;meth2&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_5_0.png" src="../_images/notebooks_test_add_anno_img_5_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;~/Downloads/pyComplexHeatmap_test_2.csv&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">data</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -536,510 +435,554 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>C1</th>
-      <th>C2</th>
-      <th>C3</th>
-      <th>C4</th>
-      <th>C5</th>
-      <th>C6</th>
-      <th>C7</th>
-      <th>C8</th>
-      <th>C9</th>
-      <th>C10</th>
-      <th>...</th>
-      <th>C35</th>
-      <th>C36</th>
-      <th>C37</th>
-      <th>C38</th>
-      <th>C39</th>
-      <th>C40</th>
-      <th>C41</th>
-      <th>C42</th>
-      <th>C43</th>
-      <th>C44</th>
+      <th>ID</th>
+      <th>Description</th>
+      <th>GeneRatio</th>
+      <th>p.adjust</th>
+      <th>Count</th>
+      <th>Group</th>
+      <th>CellType</th>
+      <th>EnrichedCategory</th>
+      <th>-log10(p.adjust)</th>
+      <th>ColID</th>
+      <th>RowID</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>A1</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.250000</td>
+      <th>0</th>
+      <td>GO:0003779</td>
+      <td>actin binding</td>
+      <td>0.044949</td>
+      <td>2.453212e-41</td>
+      <td>186</td>
+      <td>Group2</td>
+      <td>CT1</td>
+      <td>MF</td>
+      <td>40.610265</td>
+      <td>Group2-CT1</td>
+      <td>MF||actin binding</td>
     </tr>
     <tr>
-      <th>A2</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.111111</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.444444</td>
-      <td>0.222222</td>
-      <td>0.388889</td>
-      <td>0.611111</td>
-      <td>0.277778</td>
-      <td>0.888889</td>
-      <td>0.611111</td>
-      <td>0.944444</td>
-      <td>0.555556</td>
-      <td>0.277778</td>
+      <th>1</th>
+      <td>GO:0030695</td>
+      <td>GTPase regulator activity</td>
+      <td>0.043016</td>
+      <td>6.744023e-40</td>
+      <td>178</td>
+      <td>Group2</td>
+      <td>CT1</td>
+      <td>MF</td>
+      <td>39.171081</td>
+      <td>Group2-CT1</td>
+      <td>MF||GTPase regulator activity</td>
     </tr>
     <tr>
-      <th>A3</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.250000</td>
-      <td>0.500000</td>
-      <td>0.000000</td>
-      <td>0.750000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.500000</td>
-      <td>1.000000</td>
-      <td>0.750000</td>
-      <td>0.250000</td>
+      <th>2</th>
+      <td>GO:0060589</td>
+      <td>nucleoside-triphosphatase regulator activity</td>
+      <td>0.043016</td>
+      <td>6.744023e-40</td>
+      <td>178</td>
+      <td>Group2</td>
+      <td>CT1</td>
+      <td>MF</td>
+      <td>39.171081</td>
+      <td>Group2-CT1</td>
+      <td>MF||nucleoside-triphosphatase regulator activity</td>
     </tr>
     <tr>
-      <th>A4</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.625000</td>
-      <td>0.000000</td>
-      <td>0.625000</td>
-      <td>0.625000</td>
-      <td>0.375000</td>
-      <td>0.750000</td>
-      <td>0.625000</td>
-      <td>0.250000</td>
-      <td>0.250000</td>
-      <td>0.375000</td>
+      <th>3</th>
+      <td>GO:0005201</td>
+      <td>extracellular matrix structural constituent</td>
+      <td>0.021266</td>
+      <td>5.810239e-35</td>
+      <td>88</td>
+      <td>Group2</td>
+      <td>CT1</td>
+      <td>MF</td>
+      <td>34.235806</td>
+      <td>Group2-CT1</td>
+      <td>MF||extracellular matrix structural constituent</td>
     </tr>
     <tr>
-      <th>A5</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
-      <td>0.500000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
+      <th>4</th>
+      <td>GO:0050839</td>
+      <td>cell adhesion molecule binding</td>
+      <td>0.031899</td>
+      <td>1.612420e-31</td>
+      <td>132</td>
+      <td>Group2</td>
+      <td>CT1</td>
+      <td>MF</td>
+      <td>30.792522</td>
+      <td>Group2-CT1</td>
+      <td>MF||cell adhesion molecule binding</td>
     </tr>
     <tr>
-      <th>A6</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>...</th>
       <td>...</td>
-      <td>0.600000</td>
-      <td>0.100000</td>
-      <td>0.300000</td>
-      <td>0.300000</td>
-      <td>0.100000</td>
-      <td>0.100000</td>
-      <td>0.700000</td>
-      <td>0.700000</td>
-      <td>0.300000</td>
-      <td>0.600000</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>A7</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.250000</td>
-      <td>0.000000</td>
+      <th>840</th>
+      <td>GO:0050905</td>
+      <td>neuromuscular process</td>
+      <td>0.010454</td>
+      <td>1.224335e-07</td>
+      <td>122</td>
+      <td>Group2</td>
+      <td>CT2</td>
+      <td>BP</td>
+      <td>6.912100</td>
+      <td>Group2-CT2</td>
+      <td>BP||neuromuscular process</td>
     </tr>
     <tr>
-      <th>A8</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.2</td>
-      <td>0.000000</td>
-      <td>0.60000</td>
-      <td>0.800000</td>
-      <td>0.80</td>
-      <td>0.800000</td>
-      <td>0.400000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.200000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.800000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.200000</td>
-      <td>0.000000</td>
+      <th>1205</th>
+      <td>GO:0030534</td>
+      <td>adult behavior</td>
+      <td>0.009426</td>
+      <td>6.028861e-06</td>
+      <td>110</td>
+      <td>Group2</td>
+      <td>CT2</td>
+      <td>BP</td>
+      <td>5.219765</td>
+      <td>Group2-CT2</td>
+      <td>BP||adult behavior</td>
     </tr>
     <tr>
-      <th>A9</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.4</td>
-      <td>0.000000</td>
-      <td>0.60000</td>
-      <td>0.440000</td>
-      <td>0.72</td>
-      <td>0.800000</td>
-      <td>0.460000</td>
-      <td>...</td>
-      <td>0.100000</td>
-      <td>0.040000</td>
-      <td>0.000000</td>
-      <td>0.080000</td>
-      <td>0.560000</td>
-      <td>0.020000</td>
-      <td>0.040000</td>
-      <td>0.020000</td>
-      <td>0.240000</td>
-      <td>0.040000</td>
+      <th>1558</th>
+      <td>GO:0035019</td>
+      <td>somatic stem cell population maintenance</td>
+      <td>0.004799</td>
+      <td>6.029991e-05</td>
+      <td>56</td>
+      <td>Group2</td>
+      <td>CT2</td>
+      <td>BP</td>
+      <td>4.219683</td>
+      <td>Group2-CT2</td>
+      <td>BP||somatic stem cell population maintenance</td>
     </tr>
     <tr>
-      <th>A10</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.000000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.500000</td>
+      <th>1746</th>
+      <td>GO:0019827</td>
+      <td>stem cell population maintenance</td>
+      <td>0.009854</td>
+      <td>1.467128e-04</td>
+      <td>115</td>
+      <td>Group2</td>
+      <td>CT2</td>
+      <td>BP</td>
+      <td>3.833532</td>
+      <td>Group2-CT2</td>
+      <td>BP||stem cell population maintenance</td>
     </tr>
     <tr>
-      <th>A11</th>
-      <td>0.000000</td>
-      <td>0.357143</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.02381</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.023810</td>
-      <td>0.023810</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.357143</td>
-      <td>0.071429</td>
-      <td>0.571429</td>
-      <td>0.214286</td>
-      <td>0.452381</td>
-      <td>0.023810</td>
-      <td>0.166667</td>
-      <td>0.380952</td>
-      <td>0.309524</td>
-    </tr>
-    <tr>
-      <th>A12</th>
-      <td>0.062500</td>
-      <td>0.062500</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.031250</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.250000</td>
-      <td>0.312500</td>
-      <td>0.218750</td>
-      <td>0.531250</td>
-      <td>0.156250</td>
-      <td>0.687500</td>
-      <td>0.343750</td>
-      <td>0.750000</td>
-      <td>0.437500</td>
-      <td>0.343750</td>
-    </tr>
-    <tr>
-      <th>A13</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.333333</td>
-      <td>0.333333</td>
-      <td>...</td>
-      <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.000000</td>
-      <td>0.333333</td>
-      <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.666667</td>
-      <td>0.333333</td>
-    </tr>
-    <tr>
-      <th>A14</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>1.000000</td>
-      <td>1.00</td>
-      <td>0.500000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>A15</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.076923</td>
-      <td>0.615385</td>
-      <td>0.384615</td>
-      <td>0.076923</td>
-      <td>0.538462</td>
-      <td>0.076923</td>
-      <td>0.076923</td>
-      <td>0.307692</td>
-      <td>0.153846</td>
-    </tr>
-    <tr>
-      <th>A16</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.666667</td>
-      <td>0.000000</td>
-      <td>0.666667</td>
-      <td>0.000000</td>
-      <td>0.666667</td>
-      <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.333333</td>
-    </tr>
-    <tr>
-      <th>A17</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.2</td>
-      <td>0.150000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.100000</td>
-      <td>0.250000</td>
-      <td>0.900000</td>
-      <td>0.700000</td>
-      <td>0.250000</td>
-      <td>0.700000</td>
-      <td>0.550000</td>
-      <td>0.300000</td>
-      <td>0.350000</td>
-      <td>0.550000</td>
-    </tr>
-    <tr>
-      <th>A18</th>
-      <td>0.333333</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.166667</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.333333</td>
-      <td>0.000000</td>
-      <td>0.166667</td>
-      <td>1.000000</td>
-      <td>0.166667</td>
-      <td>0.000000</td>
-      <td>0.833333</td>
-    </tr>
-    <tr>
-      <th>A19</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.00000</td>
-      <td>0.000000</td>
-      <td>0.00</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
-      <td>0.500000</td>
+      <th>2999</th>
+      <td>GO:0021953</td>
+      <td>central nervous system neuron differentiation</td>
+      <td>0.008997</td>
+      <td>9.138960e-03</td>
+      <td>105</td>
+      <td>Group2</td>
+      <td>CT2</td>
+      <td>BP</td>
+      <td>2.039103</td>
+      <td>Group2-CT2</td>
+      <td>BP||central nervous system neuron differentiation</td>
     </tr>
   </tbody>
 </table>
-<p>19 rows × 44 columns</p>
+<p>139 rows × 11 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                       <span class="n">row_split</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                       <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                       <span class="n">col_split</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                       <span class="n">col_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                       <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="c1"># row_cluster_method=&quot;average&quot;, row_cluster_metric=&quot;correlation&quot;,</span>
-                       <span class="c1"># col_cluster_method=&quot;average&quot;, col_cluster_metric=&quot;correlation&quot;,</span>
-                       <span class="n">row_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span> <span class="n">row_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
-                       <span class="n">col_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span> <span class="n">col_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">,</span> <span class="s1">&#39;col_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Dark2&#39;</span><span class="p">},</span>
-                       <span class="n">linewidths</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span><span class="n">xticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
-                       <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdPu&#39;</span><span class="p">,</span> <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>EnrichedCategory</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <th>RowID</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MF||actin binding</th>
+      <td>MF</td>
+      <td>actin binding</td>
+    </tr>
+    <tr>
+      <th>MF||GTPase regulator activity</th>
+      <td>MF</td>
+      <td>GTPase regulator activity</td>
+    </tr>
+    <tr>
+      <th>MF||nucleoside-triphosphatase regulator activity</th>
+      <td>MF</td>
+      <td>nucleoside-triphosphatase regulator activity</td>
+    </tr>
+    <tr>
+      <th>MF||extracellular matrix structural constituent</th>
+      <td>MF</td>
+      <td>extracellular matrix structural constituent</td>
+    </tr>
+    <tr>
+      <th>MF||cell adhesion molecule binding</th>
+      <td>MF</td>
+      <td>cell adhesion molecule binding</td>
+    </tr>
+    <tr>
+      <th>MF||metal ion transmembrane transporter activity</th>
+      <td>MF</td>
+      <td>metal ion transmembrane transporter activity</td>
+    </tr>
+    <tr>
+      <th>MF||monoatomic ion channel activity</th>
+      <td>MF</td>
+      <td>monoatomic ion channel activity</td>
+    </tr>
+    <tr>
+      <th>MF||monoatomic ion gated channel activity</th>
+      <td>MF</td>
+      <td>monoatomic ion gated channel activity</td>
+    </tr>
+    <tr>
+      <th>MF||gated channel activity</th>
+      <td>MF</td>
+      <td>gated channel activity</td>
+    </tr>
+    <tr>
+      <th>MF||calmodulin binding</th>
+      <td>MF</td>
+      <td>calmodulin binding</td>
+    </tr>
+    <tr>
+      <th>MF||transmembrane receptor protein kinase activity</th>
+      <td>MF</td>
+      <td>transmembrane receptor protein kinase activity</td>
+    </tr>
+    <tr>
+      <th>BP||cell-substrate adhesion</th>
+      <td>BP</td>
+      <td>cell-substrate adhesion</td>
+    </tr>
+    <tr>
+      <th>BP||extracellular structure organization</th>
+      <td>BP</td>
+      <td>extracellular structure organization</td>
+    </tr>
+    <tr>
+      <th>BP||extracellular matrix organization</th>
+      <td>BP</td>
+      <td>extracellular matrix organization</td>
+    </tr>
+    <tr>
+      <th>BP||external encapsulating structure organization</th>
+      <td>BP</td>
+      <td>external encapsulating structure organization</td>
+    </tr>
+    <tr>
+      <th>BP||axon guidance</th>
+      <td>BP</td>
+      <td>axon guidance</td>
+    </tr>
+    <tr>
+      <th>BP||locomotory behavior</th>
+      <td>BP</td>
+      <td>locomotory behavior</td>
+    </tr>
+    <tr>
+      <th>BP||adult behavior</th>
+      <td>BP</td>
+      <td>adult behavior</td>
+    </tr>
+    <tr>
+      <th>BP||fat cell differentiation</th>
+      <td>BP</td>
+      <td>fat cell differentiation</td>
+    </tr>
+    <tr>
+      <th>BP||neuromuscular process</th>
+      <td>BP</td>
+      <td>neuromuscular process</td>
+    </tr>
+    <tr>
+      <th>BP||central nervous system neuron differentiation</th>
+      <td>BP</td>
+      <td>central nervous system neuron differentiation</td>
+    </tr>
+    <tr>
+      <th>BP||central nervous system neuron development</th>
+      <td>BP</td>
+      <td>central nervous system neuron development</td>
+    </tr>
+    <tr>
+      <th>BP||stem cell population maintenance</th>
+      <td>BP</td>
+      <td>stem cell population maintenance</td>
+    </tr>
+    <tr>
+      <th>BP||somatic stem cell population maintenance</th>
+      <td>BP</td>
+      <td>somatic stem cell population maintenance</td>
+    </tr>
+    <tr>
+      <th>KEGG||Amphetamine addiction</th>
+      <td>KEGG</td>
+      <td>Amphetamine addiction</td>
+    </tr>
+    <tr>
+      <th>KEGG||Calcium signaling pathway</th>
+      <td>KEGG</td>
+      <td>Calcium signaling pathway</td>
+    </tr>
+    <tr>
+      <th>KEGG||Cocaine addiction</th>
+      <td>KEGG</td>
+      <td>Cocaine addiction</td>
+    </tr>
+    <tr>
+      <th>MF||cytokine activity</th>
+      <td>MF</td>
+      <td>cytokine activity</td>
+    </tr>
+    <tr>
+      <th>KEGG||Cytokine-cytokine receptor interaction</th>
+      <td>KEGG</td>
+      <td>Cytokine-cytokine receptor interaction</td>
+    </tr>
+    <tr>
+      <th>KEGG||Neuroactive ligand-receptor interaction</th>
+      <td>KEGG</td>
+      <td>Neuroactive ligand-receptor interaction</td>
+    </tr>
+    <tr>
+      <th>KEGG||Cytoskeleton in muscle cells</th>
+      <td>KEGG</td>
+      <td>Cytoskeleton in muscle cells</td>
+    </tr>
+    <tr>
+      <th>KEGG||ECM-receptor interaction</th>
+      <td>KEGG</td>
+      <td>ECM-receptor interaction</td>
+    </tr>
+    <tr>
+      <th>KEGG||Viral protein interaction with cytokine and cytokine receptor</th>
+      <td>KEGG</td>
+      <td>Viral protein interaction with cytokine and cy...</td>
+    </tr>
+    <tr>
+      <th>KEGG||Focal adhesion</th>
+      <td>KEGG</td>
+      <td>Focal adhesion</td>
+    </tr>
+    <tr>
+      <th>KEGG||Axon guidance</th>
+      <td>KEGG</td>
+      <td>Axon guidance</td>
+    </tr>
+    <tr>
+      <th>KEGG||Systemic lupus erythematosus</th>
+      <td>KEGG</td>
+      <td>Systemic lupus erythematosus</td>
+    </tr>
+    <tr>
+      <th>KEGG||ATP-dependent chromatin remodeling</th>
+      <td>KEGG</td>
+      <td>ATP-dependent chromatin remodeling</td>
+    </tr>
+    <tr>
+      <th>MF||methylation-dependent protein binding</th>
+      <td>MF</td>
+      <td>methylation-dependent protein binding</td>
+    </tr>
+    <tr>
+      <th>MF||methylated histone binding</th>
+      <td>MF</td>
+      <td>methylated histone binding</td>
+    </tr>
+    <tr>
+      <th>MF||modification-dependent protein binding</th>
+      <td>MF</td>
+      <td>modification-dependent protein binding</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Group</th>
+      <th>CellType</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Group2-CT1</th>
+      <td>Group2</td>
+      <td>CT1</td>
+    </tr>
+    <tr>
+      <th>Group1-CT2</th>
+      <td>Group1</td>
+      <td>CT2</td>
+    </tr>
+    <tr>
+      <th>Group1-CT3</th>
+      <td>Group1</td>
+      <td>CT3</td>
+    </tr>
+    <tr>
+      <th>Group2-CT3</th>
+      <td>Group2</td>
+      <td>CT3</td>
+    </tr>
+    <tr>
+      <th>Group1-CT4</th>
+      <td>Group1</td>
+      <td>CT4</td>
+    </tr>
+    <tr>
+      <th>Group1-CT1</th>
+      <td>Group1</td>
+      <td>CT1</td>
+    </tr>
+    <tr>
+      <th>Group2-CT2</th>
+      <td>Group2</td>
+      <td>CT2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Plot">
+<h2>Plot<a class="headerlink" href="#Plot" title="Permalink to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                          <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">EnrichedCategory</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span><span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)),</span>
+                          <span class="n">Category</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">EnrichedCategory</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
+                                           <span class="n">add_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">),</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+<span class="n">right_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                          <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                           <span class="n">colors</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">EnrichedCategory</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+                                          <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">luminance</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                           <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">},</span>
+                            <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+                           <span class="n">Group</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">Group</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Group1&#39;</span><span class="p">:</span><span class="s1">&#39;yellowgreen&#39;</span><span class="p">,</span><span class="s1">&#39;Group2&#39;</span><span class="p">:</span><span class="s1">&#39;orange&#39;</span><span class="p">}),</span>
+                           <span class="n">CellClass</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_col</span><span class="o">.</span><span class="n">CellType</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                 <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">),</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span><span class="s1">&#39;left&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">DotClustermapPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ColID&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;RowID&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-log10(p.adjust)&#39;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;-log10(p.adjust)&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;GeneRatio&#39;</span><span class="p">,</span>
+                          <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Group1&#39;</span><span class="p">:</span><span class="s1">&#39;Greens&#39;</span><span class="p">,</span><span class="s1">&#39;Group2&#39;</span><span class="p">:</span><span class="s1">&#39;OrRd&#39;</span><span class="p">},</span>
+                          <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span><span class="n">vmax</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e-10</span><span class="p">),</span>
+                          <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Group1&#39;</span><span class="p">:</span><span class="s1">&#39;yellowgreen&#39;</span><span class="p">,</span><span class="s1">&#39;Group2&#39;</span><span class="p">:</span><span class="s1">&#39;orange&#39;</span><span class="p">},</span>
+                          <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Group1&#39;</span><span class="p">:</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="s1">&#39;Group2&#39;</span><span class="p">:</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">ast$&#39;</span><span class="p">},</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">col_names_side</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span><span class="c1">#row_names_side=&#39;right&#39;,</span>
+                          <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;labelsize&#39;</span><span class="p">:</span><span class="mi">14</span><span class="p">},</span>
+                          <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">left_annotation</span><span class="o">=</span><span class="n">left_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">right_ha</span><span class="p">,</span>
+                          <span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">EnrichedCategory</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Group</span><span class="p">,</span><span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                          <span class="c1">#dot_legend_marker=&#39;*&#39;,</span>
+                          <span class="c1"># xlabel=Group,xlabel_side=&quot;top&quot;,</span>
+                          <span class="c1"># xlabel_kws=dict(labelpad=8,fontweight=&#39;bold&#39;),</span>
+                          <span class="c1"># xlabel_bbox_kws=dict(facecolor=facecolor)</span>
+                         <span class="p">)</span>
+<span class="c1"># cm.ax_heatmap.grid(which=&#39;minor&#39;,color=&#39;black&#39;,linestyle=&#39;--&#39;,linewidth=1)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># for side in [&quot;top&quot;, &quot;left&quot;, &quot;bottom&quot;]:</span>
+    <span class="c1">#     ax.spines[side].set_visible(True)</span>
+    <span class="c1">#     ax.spines[side].set_color(&#39;grey&#39;)</span>
+    <span class="c1">#     ax.spines[side].set_linewidth(1)</span>
+    <span class="c1">#     ax.spines[side].set_linestyle(&#39;--&#39;)</span>
+<span class="c1"># plt.savefig(f&quot;cell_class_dotHeatmap.pdf&quot;,bbox_inches=&#39;tight&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1055,48 +998,34 @@ Reordering rows..
 Starting calculating col orders..
 Reordering cols..
 Plotting matrix..
+Inferred max_s (max size of scatter point) is: 106.46754159267321
 Collecting legends..
 Plotting legends..
-Estimated legend width: 7.5 mm
+Estimated legend width: 23.6375 mm
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_test_add_anno_img_7_1.png" src="../_images/notebooks_test_add_anno_img_7_1.png" />
+<img alt="../_images/notebooks_gene_enrichment_analysis_13_1.png" src="../_images/notebooks_gene_enrichment_analysis_13_1.png" />
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-1.10.1
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
+<h4><p>In this example, we used two different kinds of markers and cmap to indicate Group1 and Group2, rows are split by category of enriched terms, sizes of dot/marker indicates gene ratio (The ratio of genes annotated by the GO term in your list to the total number of genes in your list).</p>
+</h4></section>
+<section id="How-to-select-marker:">
+<h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
+<p><img alt="a00e84fc22ac484289e168a39e1ade44" class="no-scaled-link" src="https://i.stack.imgur.com/NkAzy.png" style="width: 800px;" /></p>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dotHeatmap.html" class="btn btn-neutral float-left" title="Load an example brain networks dataset from seaborn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../oncoPrint.html" class="btn btn-neutral float-right" title="oncoPrint" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

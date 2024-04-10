@@ -91,6 +91,13 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
@@ -395,7 +402,7 @@
 <span class="sd">	cmap : str of dict</span>
 <span class="sd">		control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.</span>
 <span class="sd">		If `cmap` is a str (such as &#39;Set1&#39;), the parameter `colors` will overwrite the colors of dots.</span>
-<span class="sd">		If `cmap` wisas a dict, then this paramter will overwrite the `colors`, and colors can only control the</span>
+<span class="sd">		If `cmap` was a dict, then this paramter will overwrite the `colors`, and colors can only control the</span>
 <span class="sd">		colors for markers.</span>
 <span class="sd">	s : int, float, or dataframe</span>
 <span class="sd">		control the sizes of dot.</span>
@@ -538,15 +545,6 @@
 			<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Hue</span><span class="o">==</span><span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 			<span class="k">if</span> <span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 				<span class="k">continue</span>
-			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-				<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span>
-			<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">str</span><span class="p">):</span>
-				<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">values</span>
-				<span class="c1"># print(df1.C.describe())</span>
-			<span class="c1"># if pd.isna(df1.C.iloc[0]):</span>
-			<span class="c1">#     print(locals())</span>
 			<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
 			<span class="k">for</span> <span class="n">mk</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">Markers</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
 				<span class="c1"># df2 = df1.query(&quot;Markers==@mk&quot;).copy()</span>

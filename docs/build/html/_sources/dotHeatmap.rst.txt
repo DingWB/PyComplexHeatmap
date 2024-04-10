@@ -5,3 +5,4 @@ dotHeatmap
    :caption: Contents:
 
    notebooks/dotHeatmap.ipynb
+   notebooks/gene_enrichment_analysis.ipynb

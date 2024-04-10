@@ -94,6 +94,13 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="oncoPrint.html">oncoPrint</a><ul>
@@ -431,7 +438,7 @@ aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggf
 the parameter <cite>c</cite>.</p></li>
 <li><p><strong>cmap</strong> (<em class="hover">str</em><em> of </em><em class="hover">dict</em>) – control the colormap of the dot, if cmap is a dict, keys should be the values from hue dataframe.
 If <cite>cmap</cite> is a str (such as ‘Set1’), the parameter <cite>colors</cite> will overwrite the colors of dots.
-If <cite>cmap</cite> wisas a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the
+If <cite>cmap</cite> was a dict, then this paramter will overwrite the <cite>colors</cite>, and colors can only control the
 colors for markers.</p></li>
 <li><p><strong>s</strong> (<em class="hover">int</em><em>, </em><em class="hover">float</em><em>, or </em><em class="hover">dataframe</em>) – control the sizes of dot.</p></li>
 <li><p><strong>c</strong> (<em class="hover">dataframe</em><em>, or </em><em class="hover">str</em>) – control the colors of dots.</p></li>

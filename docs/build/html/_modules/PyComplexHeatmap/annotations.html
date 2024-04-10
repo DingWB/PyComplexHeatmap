@@ -91,6 +91,13 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../oncoPrint.html">oncoPrint</a><ul>
@@ -798,7 +805,7 @@
 		<span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 		<span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-		<span class="n">luminance</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+		<span class="n">luminance</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
 		<span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -862,6 +869,7 @@
 			<span class="n">patchA</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			<span class="n">patchB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			<span class="n">connectionstyle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span>
 		<span class="p">)</span>
 		<span class="c1"># arrow: -&gt;, from text to point.</span>
 		<span class="c1"># self.plot_kws.setdefault(&#39;transform_rotates_text&#39;, False)</span>
