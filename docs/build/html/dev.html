@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Developers &mdash; PyComplexHeatmap 1.6.6.dev15+gd9f20b3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=161b7e8c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8d1f2db9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/js/rtd_search_config.js"></script>
+        <script src="_static/js/rtd_sphinx_search.min.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Understand the layout:" href="notebooks/dev.html" />
+    <link rel="prev" title="Gallery" href="gallery.html" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#how-to-install">How to install?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/get_started.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/get_started.html#2.-Plot-heatmap-annotations">2. Plot heatmap annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/get_started.html#3.-Plot-the-heatmap-with-rows-and-columns-split">3. Plot the heatmap with rows and columns split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/get_started.html#4.-Plot-the-annotations-along-side-with-main-heatmap">4. Plot the annotations along side with main heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clustermap.html">Clustermap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/clustermap.html">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/clustermap.html#Plotting-annotations">Plotting annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/clustermap.html#Only-plot-the-row/column-annotation">Only plot the row/column annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/clustermap.html#anno_label:">anno_label:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/clustermap.html#anno_simple:">anno_simple:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/clustermap.html#To-add-a-annotation-quickly,-you-just-need-a-dataframe">To add a annotation quickly, you just need a dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/clustermap.html#Plot-the-figure-and-legend-separately">Plot the figure and legend separately</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/dotHeatmap.html#Dot-Clustermap">Dot Clustermap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oncoPrint.html">oncoPrint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html">Generate dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-linkage">Custom linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Image-annotation">Image annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_examples.html">More Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kwargs.html">Kwargs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html">1. Understand the layout:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PyComplexHeatmap.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase"><code class="docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.update_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.show_ticklabels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot"><code class="docutils literal notranslate"><span class="pre">anno_barplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_barplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img"><code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot"><code class="docutils literal notranslate"><span class="pre">anno_img.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label"><code class="docutils literal notranslate"><span class="pre">anno_label</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_label.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.plot"><code class="docutils literal notranslate"><span class="pre">anno_label.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws"><code class="docutils literal notranslate"><span class="pre">anno_label.set_plot_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_side"><code class="docutils literal notranslate"><span class="pre">anno_label.set_side()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.post_processing()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_xy_labels"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_xy_labels()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.get_coords()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite"><code class="docutils literal notranslate"><span class="pre">composite()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d"><code class="docutils literal notranslate"><span class="pre">dotHeatmap2d()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.example.html">PyComplexHeatmap.example module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example0"><code class="docutils literal notranslate"><span class="pre">clustermap_example0()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.example.html#PyComplexHeatmap.example.clustermap_example1"><code class="docutils literal notranslate"><span class="pre">clustermap_example1()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.example.html#PyComplexHeatmap.example.get_kycg_example_data"><code class="docutils literal notranslate"><span class="pre">get_kycg_example_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html">PyComplexHeatmap.oncoPrint module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoprint"><code class="docutils literal notranslate"><span class="pre">oncoprint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap"><code class="docutils literal notranslate"><span class="pre">get_colormap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">For Developers</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/dev.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="for-developers">
+<h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/dev.html">1. Understand the layout:</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gallery.html" class="btn btn-neutral float-left" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/dev.html" class="btn btn-neutral float-right" title="1. Understand the layout:" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRB2NBWG05"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VRB2NBWG05', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

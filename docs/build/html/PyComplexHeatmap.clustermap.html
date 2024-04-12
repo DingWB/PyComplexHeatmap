@@ -149,21 +149,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html">Modifying Kwargs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#Control-gap-in-heatmap">Control gap in heatmap</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html">1. Understand the layout:</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="PyComplexHeatmap.html">PyComplexHeatmap package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="PyComplexHeatmap.html#submodules">Submodules</a><ul class="current">
@@ -450,17 +451,26 @@ For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</
 <li><p><strong>yticklabels_kws</strong> (<em class="hover">dict</em>) – the same as xticklabels_kws.</p></li>
 <li><p><strong>xlabel</strong> (<em class="hover">str</em>) – default is None (no xlabel would be shown).</p></li>
 <li><p><strong>ylabel</strong> (<em class="hover">str</em>) – default is None (no ylabel would be shown).</p></li>
-<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
+<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – <p>alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
 fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 zorder,verticalalignment,horizontalalignment.
-See ax.xaxis.label.properties()
-or matplotlib.axis.XAxis.label.properties() for detail.</p></li>
+See ax.xaxis.label.properties(), for example:</p>
+<blockquote>
+<div><p>cm=ClusterMapPlotter(<a href="#id1"><span class="problematic" id="id2">**</span></a><a href="#id3"><span class="problematic" id="id4">*</span></a>), print(cm.ax.xaxis.label.properties())</p>
+</div></blockquote>
+<p>or matplotlib.axis.XAxis.label.properties() for detail.</p>
+</p></li>
 <li><p><strong>ylabel_kws</strong> (<em class="hover">dict</em>) – sams as xlabel_kws</p></li>
 <li><p><strong>xlabel_side</strong> (<em class="hover">str</em>) – bottom or top, default is bottom,</p></li>
 <li><p><strong>ylabel_side</strong> (<em class="hover">str</em>) – left or right, default is left</p></li>
-<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
+<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – <p>alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
 linestyle, linewidth,rasterized,visible,width.
-See ax.xaxis.label.get_bbox_patch().properties() for more information.</p></li>
+See ax.xaxis.label.get_bbox_patch().properties() for more information.
+For example:</p>
+<blockquote>
+<div><p>cm=ClusterMapPlotter(<a href="#id5"><span class="problematic" id="id6">**</span></a><a href="#id7"><span class="problematic" id="id8">*</span></a>), print(cm.ax.xaxis.label.get_bbox_patch().properties())</p>
+</div></blockquote>
+</p></li>
 <li><p><strong>ylabel_bbox_kws</strong> (<em class="hover">dict</em>) – same as xlabel_bbox_kws</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is auto, when the number of rows or number of cols &gt; 5000,
 rasterized would be automatically set to True to speed up the plotting.</p></li>

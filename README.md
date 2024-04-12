@@ -64,8 +64,8 @@ Click picture to view the source code
 <table>
     <tr style="height: 500px">
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">
-            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/advanced_usage.html#3.-Test-the-row-/-col-orders-&-add-selected-rows-labels">
-                <img src="docs/images/gallery1.jpg" title="Heatmap with annotations" align="center" width="250px">
+            <a href="https://dingwb.github.io/PyComplexHeatmap/build/html/notebooks/kwargs.html#Control-gap-&-pad-in-heatmap">
+                <img src="docs/images/gallery1.png" title="kwargs, gap and pad" align="center" width="250px">
             </a>
         </td>
         <td style="width:33%; background-color:white;text-align:center; vertical-align:middle">

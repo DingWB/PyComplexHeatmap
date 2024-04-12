@@ -146,21 +146,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html">Modifying Kwargs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-in-heatmap">Control gap in heatmap</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html">1. Understand the layout:</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComplexHeatmap</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../PyComplexHeatmap.html#submodules">Submodules</a><ul>
@@ -1481,7 +1482,8 @@
 <span class="sd">		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,</span>
 <span class="sd">		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,</span>
 <span class="sd">		zorder,verticalalignment,horizontalalignment.</span>
-<span class="sd">		See ax.xaxis.label.properties()</span>
+<span class="sd">		See ax.xaxis.label.properties(), for example:</span>
+<span class="sd">				cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())</span>
 <span class="sd">		or matplotlib.axis.XAxis.label.properties() for detail.</span>
 <span class="sd">	ylabel_kws: dict</span>
 <span class="sd">		sams as xlabel_kws</span>
@@ -1493,6 +1495,8 @@
 <span class="sd">		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,</span>
 <span class="sd">		linestyle, linewidth,rasterized,visible,width.</span>
 <span class="sd">		See ax.xaxis.label.get_bbox_patch().properties() for more information.</span>
+<span class="sd">		For example:</span>
+<span class="sd">			cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
 <span class="sd">	ylabel_bbox_kws: dict</span>
 <span class="sd">		same as xlabel_bbox_kws</span>
 <span class="sd">	rasterized :bool</span>
@@ -2498,6 +2502,12 @@
 				<span class="n">labelpad</span> <span class="o">=</span> <span class="n">xticklabel_h</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>  <span class="c1"># points; pixel to points: 1 point == fig.dpi/72. pixels</span>
 			<span class="k">else</span><span class="p">:</span>
 				<span class="n">labelpad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;labelpad&#39;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="s1">&#39;position&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="p">:</span>
+				<span class="n">ax_heatmap_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span>
+				<span class="n">ax_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span>
+				<span class="n">pos_x</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">ax_heatmap_box</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span><span class="n">ax_heatmap_box</span><span class="o">.</span><span class="n">x1</span><span class="p">])</span><span class="o">-</span><span class="n">ax_box</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span> <span class="o">/</span> <span class="n">ax_box</span><span class="o">.</span><span class="n">width</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,(</span><span class="n">pos_x</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
 			<span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;verticalalignment&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="n">labelpad</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">labelpad</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="p">)</span>
@@ -2517,6 +2527,11 @@
 				<span class="n">labelpad</span> <span class="o">=</span> <span class="n">yticklabel_w</span> <span class="o">*</span> <span class="mi">72</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>  <span class="c1"># points; pixel to points: 1 point == fig.dpi/72. pixels</span>
 			<span class="k">else</span><span class="p">:</span>
 				<span class="n">labelpad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylabel_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;labelpad&#39;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="s1">&#39;position&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlabel_kws</span><span class="p">:</span>
+				<span class="n">ax_heatmap_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span>
+				<span class="n">ax_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span>
+				<span class="n">pos_y</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">ax_heatmap_box</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span><span class="n">ax_heatmap_box</span><span class="o">.</span><span class="n">y1</span><span class="p">])</span><span class="o">-</span><span class="n">ax_box</span><span class="o">.</span><span class="n">y0</span><span class="p">)</span> <span class="o">/</span> <span class="n">ax_box</span><span class="o">.</span><span class="n">height</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ylabel_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="n">pos_y</span><span class="p">))</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ylabel_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;horizontalalignment&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="n">labelpad</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">labelpad</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylabel_kws</span><span class="p">)</span>

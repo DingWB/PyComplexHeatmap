@@ -20,6 +20,7 @@ PyComplexHeatmap
    more_examples
    kwargs
    gallery
+   dev
    modules
    citation
 

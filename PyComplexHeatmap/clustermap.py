@@ -1135,7 +1135,8 @@ class ClusterMapPlotter:
 		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
 		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 		zorder,verticalalignment,horizontalalignment.
-		See ax.xaxis.label.properties()
+		See ax.xaxis.label.properties(), for example:
+				cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())
 		or matplotlib.axis.XAxis.label.properties() for detail.
 	ylabel_kws: dict
 		sams as xlabel_kws
@@ -1147,6 +1148,8 @@ class ClusterMapPlotter:
 		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
 		linestyle, linewidth,rasterized,visible,width.
 		See ax.xaxis.label.get_bbox_patch().properties() for more information.
+		For example:
+			cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())
 	ylabel_bbox_kws: dict
 		same as xlabel_bbox_kws
 	rasterized :bool
@@ -2152,6 +2155,12 @@ class ClusterMapPlotter:
 				labelpad = xticklabel_h * 72 / self.ax.figure.dpi  # points; pixel to points: 1 point == fig.dpi/72. pixels
 			else:
 				labelpad = self.xlabel_kws.pop('labelpad')
+			if 'position' not in self.xlabel_kws:
+				ax_heatmap_box = self.ax_heatmap.get_window_extent()
+				ax_box = self.ax.get_window_extent()
+				pos_x=(np.mean([ax_heatmap_box.x0,ax_heatmap_box.x1])-ax_box.x0) / ax_box.width
+				self.xlabel_kws.setdefault('position',(pos_x,0))
+
 			self.xlabel_kws.setdefault("verticalalignment", "center")
 			self.ax.set_xlabel(self.xlabel, labelpad=labelpad + self.ax.xaxis.labelpad)
 			self.ax.xaxis.label.update(self.xlabel_kws)
@@ -2171,6 +2180,11 @@ class ClusterMapPlotter:
 				labelpad = yticklabel_w * 72 / self.ax.figure.dpi  # points; pixel to points: 1 point == fig.dpi/72. pixels
 			else:
 				labelpad = self.ylabel_kws.pop('labelpad')
+			if 'position' not in self.xlabel_kws:
+				ax_heatmap_box = self.ax_heatmap.get_window_extent()
+				ax_box = self.ax.get_window_extent()
+				pos_y=(np.mean([ax_heatmap_box.y0,ax_heatmap_box.y1])-ax_box.y0) / ax_box.height
+				self.ylabel_kws.setdefault('position',(0,pos_y))
 			self.ylabel_kws.setdefault("horizontalalignment", "center")
 			self.ax.set_ylabel(self.ylabel, labelpad=labelpad + self.ax.yaxis.labelpad)
 			self.ax.yaxis.label.update(self.ylabel_kws)
