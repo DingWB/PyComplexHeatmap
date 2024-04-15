@@ -352,7 +352,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -373,11 +373,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.7.1.dev4+g71c725a.d20240410
+1.6.6.dev15+gd9f20b3
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -391,7 +391,7 @@
 <section id="Generate-dataset">
 <h1>Generate dataset<a class="headerlink" href="#Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -416,7 +416,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -468,7 +468,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--3.4073487350130525 2.6758571183713555
+-2.259323481554901 3.3307664641494927
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -482,7 +482,7 @@
 <section id="Add-annotations-on-the-top-of-heatmap-cells">
 <h1>Add annotations on the top of heatmap cells<a class="headerlink" href="#Add-annotations-on-the-top-of-heatmap-cells" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -506,7 +506,8 @@
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
             <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
             <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;boxstyle&#39;</span><span class="p">:</span><span class="s1">&#39;Circle&#39;</span><span class="p">,</span><span class="s1">&#39;edgecolor&#39;</span><span class="p">:</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="s1">&#39;fill&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">},</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+                           <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">),</span>
             <span class="n">EF</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">EF</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">legend_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;frameon&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">}),</span>
             <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -544,35 +545,35 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E -0.741479
-sample2  GroupA  C  E -0.927047
-sample3  GroupA  C  E  1.181704
-sample4  GroupA  D  E  2.014954
-sample5  GroupA  D  E  1.507642
-sample1    -0.260589
-sample2     1.208373
-sample3     0.801186
-sample4    -0.094950
-sample5     0.061606
-sample6    -0.127254
-sample7     0.283929
-sample8     0.553753
-sample9    -0.606465
-sample10   -0.342454
+sample1  GroupA  C  E -1.404085
+sample2  GroupA  C  E  2.081411
+sample3  GroupA  C  E -1.594949
+sample4  GroupA  D  E  0.392642
+sample5  GroupA  D  E -0.150321
+sample1    -0.229885
+sample2    -0.210195
+sample3    -1.032791
+sample4     0.051215
+sample5     0.261465
+sample6     0.836030
+sample7     0.519891
+sample8     0.742360
+sample9     0.617504
+sample10    0.606197
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1 -1.396798  1.538594  1.636379 -0.471237 -0.350211  0.148919  1.519041
-Fea2  1.212278  0.411684       NaN -0.738573  0.063737 -0.683420 -0.319572
-Fea3  0.197384 -0.801732 -0.048978  0.968712  1.336794 -1.011183  0.793455
-Fea4 -1.369651  2.166660 -1.102926 -1.015806  0.812368 -0.965429 -1.170754
-Fea5 -1.175011 -1.951289  1.249382 -0.487812 -0.727877  0.955663 -0.070821
+Fea1  0.941453 -0.140686  1.285091  1.118367  1.214946  1.967923 -0.853248
+Fea2  0.691451 -0.561863       NaN -0.045189  0.303610 -0.324130  0.240718
+Fea3 -1.378372  0.142337 -0.405770  0.274505  0.171325  0.526213 -0.119409
+Fea4  0.212045  1.515978 -1.051057 -0.124523 -0.378586 -0.320444 -0.064873
+Fea5  0.078289 -1.476870  0.360113 -0.705353  1.079402  1.284584 -1.341059
 
        sample8   sample9  sample10
-Fea1  1.814991  1.428748 -0.210751
-Fea2 -1.142986  0.172592 -1.184984
-Fea3  0.583458 -0.114781  0.881121
-Fea4 -0.900173  0.347176  0.859567
-Fea5  0.554951 -0.835507 -1.351887
+Fea1  0.751814 -0.163439 -1.038006
+Fea2 -0.120816 -1.820074 -2.259323
+Fea3 -0.757637 -0.451777 -0.057090
+Fea4  0.817372 -0.082246 -0.293083
+Fea5  0.831747  0.489009 -1.258670
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -587,8 +588,8 @@ Fea5  0.554951 -0.835507 -1.351887
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea16&#39;, &#39;Fea27&#39;, &#39;Fea20&#39;, &#39;Fea18&#39;, &#39;Fea24&#39;, &#39;Fea25&#39;, &#39;Fea15&#39;, &#39;Fea28&#39;, &#39;Fea19&#39;, &#39;Fea21&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea17&#39;, &#39;Fea30&#39;, &#39;Fea23&#39;, &#39;Fea26&#39;], [&#39;Fea2&#39;, &#39;Fea7&#39;, &#39;Fea13&#39;, &#39;Fea5&#39;, &#39;Fea12&#39;, &#39;Fea1&#39;, &#39;Fea8&#39;, &#39;Fea11&#39;, &#39;Fea14&#39;, &#39;Fea3&#39;, &#39;Fea6&#39;, &#39;Fea10&#39;, &#39;Fea4&#39;, &#39;Fea9&#39;]]
-[[&#39;sample3&#39;, &#39;sample1&#39;, &#39;sample4&#39;, &#39;sample2&#39;, &#39;sample5&#39;], [&#39;sample6&#39;, &#39;sample8&#39;, &#39;sample9&#39;, &#39;sample7&#39;, &#39;sample10&#39;]]
+[[&#39;Fea19&#39;, &#39;Fea25&#39;, &#39;Fea18&#39;, &#39;Fea27&#39;, &#39;Fea29&#39;, &#39;Fea22&#39;, &#39;Fea24&#39;, &#39;Fea30&#39;, &#39;Fea20&#39;, &#39;Fea17&#39;, &#39;Fea26&#39;, &#39;Fea21&#39;, &#39;Fea23&#39;, &#39;Fea15&#39;, &#39;Fea16&#39;, &#39;Fea28&#39;], [&#39;Fea9&#39;, &#39;Fea3&#39;, &#39;Fea10&#39;, &#39;Fea11&#39;, &#39;Fea1&#39;, &#39;Fea5&#39;, &#39;Fea7&#39;, &#39;Fea2&#39;, &#39;Fea8&#39;, &#39;Fea4&#39;, &#39;Fea14&#39;, &#39;Fea13&#39;, &#39;Fea6&#39;, &#39;Fea12&#39;]]
+[[&#39;sample4&#39;, &#39;sample5&#39;, &#39;sample2&#39;, &#39;sample1&#39;, &#39;sample3&#39;], [&#39;sample6&#39;, &#39;sample8&#39;, &#39;sample7&#39;, &#39;sample9&#39;, &#39;sample10&#39;]]
 </pre></div></div>
 </div>
 </section>

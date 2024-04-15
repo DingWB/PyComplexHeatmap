@@ -104,13 +104,11 @@ def dotHeatmap2d(
 	if s is None:
 		df["S"] = scale(df["Value"].abs().values,vmin=vmin, vmax=vmax)
 	else:
-		if isinstance(s, pd.DataFrame):
+		if isinstance(s, pd.DataFrame): # s is already normalized globally
 			s = s.reindex(index=row_labels, columns=col_labels).stack().reset_index()
 			s.columns = ["Row", "Col", "Value"]
-			# print(s.shape)
-			# print(s.head())
-			df["S"] = scale(s.Value.abs().values) #scale to 0-1
-			# df['S'] = s.Value.values
+			# df["S"] = scale(s.Value.abs().values) #scale to 0-1
+			df['S'] = s.Value.values
 		elif isinstance(s, (int, float)):
 			df["S"] = s
 
@@ -364,7 +362,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 			if isinstance(self.s, (int, float)):
 				self.kwargs["s"] = self.s
 				self.smax=self.s
-				self.smin=self.s
+				self.smin=None
 			elif isinstance(self.s, str):
 				self.kwargs["s"] = data.pivot_table(
 					index=self.y, columns=self.x, values=self.s, aggfunc=self.aggfunc
@@ -379,6 +377,11 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				self.smax = np.nanmax(self.kwargs["s"].values)
 			else:
 				raise ValueError("s must be a str, int or float!")
+
+			if not self.smin is None: #s is a dataframe, perform standard normalization.
+				delta=self.smax-self.smin
+				self.kwargs["s"]=self.kwargs["s"].applymap(lambda x:(x-self.smin)/delta)
+
 		# c
 		if not self.c is None:
 			if isinstance(self.c,pd.Series):
