@@ -2221,6 +2221,7 @@ class ClusterMapPlotter:
 			# )
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
+			self.legend_kws.setdefault("center", self.kwargs.get('center',None))
 			self.legend_list.append([self.cmap, self.label, self.legend_kws, 4, "cmap"])
 			if len(self.yticklabels) > 0 and self.row_names_side == "right":
 				max_yticklabel_w = max(

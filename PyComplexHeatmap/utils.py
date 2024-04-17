@@ -512,10 +512,17 @@ def plot_cmap_legend(
 	vmin = cbar_kws.pop("vmin", 0)
 	# print(vmin,vmax,'vmax,vmin')
 	cax.set_ylim([vmin, vmax])
-	cbar_kws.setdefault("ticks", [vmin, (vmax + vmin) / 2, vmax])
-	m = plt.cm.ScalarMappable(
-		norm=matplotlib.colors.Normalize(vmin=vmin, vmax=vmax), cmap=cmap
-	)
+	vcenter= (vmax + vmin) / 2
+	center=cbar_kws.pop("center",None)
+	if center is None:
+		cbar_kws.setdefault("ticks", [vmin, vcenter, vmax])
+		m = plt.cm.ScalarMappable(
+			norm=matplotlib.colors.Normalize(vmin=vmin, vmax=vmax), cmap=cmap
+		)
+	else:
+		m = plt.cm.ScalarMappable(
+			norm=matplotlib.colors.CenteredNorm(vcenter=center), cmap=cmap
+		)
 	cax.yaxis.set_label_position(label_side)
 	cax.yaxis.set_ticks_position(label_side)
 	cbar = ax.figure.colorbar(m, cax=cax, **cbar_kws)  # use_gridspec=True
