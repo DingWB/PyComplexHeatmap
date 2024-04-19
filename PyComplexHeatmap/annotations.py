@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import matplotlib
 import matplotlib.pylab as plt
-import matplotlib.image as mpimg
 from .utils import mm2inch
 from .utils import (
 	_calculate_luminance,
@@ -111,6 +110,8 @@ class AnnotationBase:
 		self.plot_kws = {} if plot_kws is None else plot_kws
 		self.plot_kws.setdefault("zorder", 10)
 
+	def set_orientation(self, orientation):
+		self.orientation = orientation
 	def update_plot_kws(self, plot_kws):
 		self.plot_kws.update(plot_kws)
 
@@ -144,7 +145,6 @@ class AnnotationBase:
 			# ax.yaxis.labelpad = self.labelpad
 			subplot_ax.yaxis.set_visible(False)
 			subplot_ax.xaxis.label.set_visible(False)
-			# subplot_ax.invert_yaxis()
 
 	def _check_cmap(self, cmap):
 		if cmap == "auto":
@@ -222,7 +222,11 @@ class AnnotationBase:
 		self.plot_kws.setdefault("vmin", 0)
 
 	def _type_specific_params(self):
-		pass
+		if self.ylim is None:
+			Max = np.nanmax(self.df.values)
+			Min = np.nanmin(self.df.values)
+			gap = Max - Min
+			self.ylim = [Min - 0.02 * gap, Max + 0.02 * gap]
 
 	def reorder(self, idx):
 		# Before plotting, df needs to be reordered according to the new clustered order.
@@ -330,6 +334,8 @@ class anno_simple(AnnotationBase):
 			[self.color_dict[k] for k in cc_list]
 		)
 
+	def _type_specific_params(self):
+		pass
 	def plot(self, ax=None, axis=1):
 		if hasattr(self.cmap, "N"):
 			vmax = self.cmap.N - 1
@@ -348,11 +354,6 @@ class anno_simple(AnnotationBase):
 		else:
 			mat = self.plot_data.values
 		matrix = mat.reshape(1, -1) if axis == 1 else mat.reshape(-1, 1)
-		# xlabel = None if axis == 1 else self.label
-		# ylabel = self.label if axis == 1 else None
-
-		# ax1 = heatmap(matrix, cmap=self.cmap, cbar=False, ax=ax, xlabel=xlabel, ylabel=ylabel,
-		#               xticklabels=False, yticklabels=False, **self.plot_kws)
 		ax1 = plot_heatmap(
 			matrix,
 			cmap=self.cmap,
@@ -360,9 +361,7 @@ class anno_simple(AnnotationBase):
 			xticklabels=False,
 			yticklabels=False,
 			**self.plot_kws
-		)
-		# if axis==0:
-		#     ax1.invert_yaxis()
+		) #y will be inverted inside plot_heatmap
 		ax.tick_params(
 			axis="both",
 			which="both",
@@ -437,12 +436,13 @@ class anno_label(AnnotationBase):
 		the color will be replaced with black. [0.5]
 	relpos: tuple
 		relpos passed to arrowprops in plt.annotate, tuple (x,y) means the arrow start point position relative to the
-		 label. default is (0, 0) if self.side == 'top' else (0, 1) for columns labels, (1, 1) if self.side == 'left'
+		 label. default is (0, 0) if self.orientation == 'top' else (0, 1) for columns labels, (1, 1) if self.orientation == 'left'
 		 else (0, 0) for rows labels.
 	plot_kws: dict
 		passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
 		more information about arrowprops could be found in
-		matplotlib.patches.FancyArrowPatch
+		matplotlib.patches.FancyArrowPatch. For example, to remove arrow, just set
+		arrowprops = dict(visible=False,)
 
 	Returns
 	----------
@@ -487,24 +487,22 @@ class anno_label(AnnotationBase):
 	def _height(self, height):
 		return 4 if height is None else height
 
-	def set_side(self, side):
-		self.side = side
-
 	def set_plot_kws(self, axis):
 		shrink = 1  # 1 * mm2inch * 72  # 1mm -> points
 		if axis == 1:  # columns
-			relpos = (
-				(0, 0) if self.side == "top" else (0, 1)
-			)  # position to anchor, x: left -> right, y: down -> top
-			rotation = 90 if self.side == "top" else -90
+			# relpos = (
+			# 	(0, 0) if self.orientation == "up" else (0, 0)
+			# )  # position to anchor, x: left -> right, y: down -> top
+			relpos =(0,0)
+			rotation = 90 if self.orientation == "up" else -90
 			ha = "left"
 			va = "center"
 		else:
 			relpos = (
-				(1, 1) if self.side == "left" else (0, 0)
-			)  # (1, 1) if self.side == 'left' else (0, 0)
+				(1, 1) if self.orientation == "left" else (0, 0)
+			)  # (1, 1) if self.orientation == 'left' else (0, 0)
 			rotation = 0
-			ha = "right" if self.side == "left" else "left"
+			ha = "right" if self.orientation == "left" else "left"
 			va = "center"
 		# relpos: The exact starting point position of the arrow is defined by relpos. It's a tuple of relative
 		# coordinates of the text box, where (0, 0) is the lower left corner and (1, 1) is the upper right corner.
@@ -557,21 +555,23 @@ class anno_label(AnnotationBase):
 			[self.color_dict[k] for k in cc_list]
 		)
 
+	def _type_specific_params(self):
+		pass
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		self.axis = axis
-		if self.side is None:
+		if self.orientation is None:
 			ax_index = ax.figure.axes.index(ax)
 			ax_n = len(ax.figure.axes)
 			i = ax_index / ax_n
 			if axis == 1 and i <= 0.5:
-				side = "top"
+				orientation = "up"
 			elif axis == 1:
-				side = "bottom"
+				orientation = "down"
 			elif axis == 0 and i <= 0.5:
-				side = "left"
+				orientation = "left"
 			else:
-				side = "right"
-			self.side = side
+				orientation = "right"
+			self.orientation = orientation
 		self.set_plot_kws(axis)
 		if (
 			self.merge
@@ -587,67 +587,53 @@ class anno_label(AnnotationBase):
 		# labels are the merged labels, ticks are the merged mean x coordinates.
 
 		n = len(ticks)
-		text_height = (
-			self.height * mm2inch * ax.figure.dpi
-		)  # convert height (mm) to inch and to pixels.
-		# print(ax.figure.dpi,text_height)
-		text_y = text_height
-		if self.side == "bottom" or self.side == "left":
-			# when axis=0, there is an invertion for the x axes.
-			text_y = -1 * text_y
-			# bottom, y coordinate for text should be smaller than arrow start position (offset pixels)
-			# left, x coordinate for text should be smaller than arrow start pos.
-		# x,y are the coordinates where arrow starting from and x1,y1 is the end coordinates (text).
+		arrow_height = self.height * mm2inch * ax.figure.dpi # convert height (mm) to inch and to pixels.
+		text_y =  arrow_height
 		if axis == 1:
+			if self.orientation == "down":
+				# ax.invert_yaxis() # top -> bottom
+				text_y = -1 * arrow_height
 			ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-			x = ticks  # coordinate for the labels (text).
-			y = [0] * n if self.side == "top" else [1] * n  # position for line start on axes
+			x = ticks  # coordinate for the arrow start point
+			y = [0] * n if self.orientation == "up" else [1] * n  # position for line start on axes
 			if self.extend:
-				extend_pos = np.linspace(0, 1, n + 1)
-				x1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
-				y1 = (
-					[1 + text_y / ax.figure.get_window_extent().height] * n
-					if self.side == "top"
-					else [text_y / ax.figure.get_window_extent().height] * n
-				)
+				extend_pos = np.linspace(0, 1, n + 1) #0,0.1,0.2,...0.9,1
+				x1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)] #coordinates for text: 0.05,0.15..
+				y1 = [1] * n if self.orientation == "up" else [0] * n
 			else:
-				x1 = [0] * n
-				y1 = [text_y] * n
+				x1 = [0] * n #offset pixels
+				y1 = [text_y] * n #offset pixels
 		else:
-			# ax.invert_yaxis()
+			if self.orientation == "left":
+				# ax.invert_xaxis() # right -> left, will not affect ax.get_xaxis_transform()
+				text_y = -1 * arrow_height
 			ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
-			labels=labels[::-1] #20231116, fix bug for right anno_label when extend=True
-			y = ticks[::-1] #Nov 16, fix bug for reverted right anno_label when extend=True
-			x = [1] * n if self.side == "left" else [0] * n #side=left, x axis <---
-			if self.extend:
-				extend_pos = np.linspace(0, 1, n + 1)
+			y=ticks
+			x = [1] * n if self.orientation == "left" else [0] * n #coordinate for start point, side=left, x axis <---
+			if self.extend: #ax.transAxes
+				# extend_pos = np.linspace(0, 1, n + 1)
+				extend_pos = np.linspace(1,0, n + 1) #y, top -> bottom
 				y1 = [(extend_pos[i] + extend_pos[i - 1]) / 2 for i in range(1, n + 1)]
-				x1 = (
-					[1 + text_y / ax.figure.get_window_extent().width] * n
-					if self.side == "right"
-					else [0 + text_y / ax.figure.get_window_extent().width] * n
-				)
-			else:
+				x1 = [1] * n if self.orientation == "right" else [0] * n
+			else: #offset pixels
 				y1 = [0] * n #vertical distance related to point (anno_simple)
 				x1 = [text_y] * n #horizonal distance related to point (anno_simple)
 		# angleA is the angle for the data point (clockwise), B is for text.
 		# https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
 		xycoords = ax.get_xaxis_transform() if axis == 1 else ax.get_yaxis_transform()
-		# get_xaxis_transform: x is data coordinates,y is between [0,1]
+		# get_xaxis_transform: x is data coordinates,y is between [0,1], will not be affected by invert_xaxis()
 		if self.extend:
-			text_xycoords = (
-				ax.transAxes
-			)
+			text_xycoords = ax.transAxes #relative coordinates
 		else:
 			text_xycoords = "offset pixels"
 		if self.plot_kws["arrowprops"]["connectionstyle"] is None:
-			arm_height = text_height * self.frac
+			arm_height = arrow_height * self.frac
 			rad = 2  # arm_height / 10
-			if axis == 1 and self.side == "top":
+			if axis == 1 and self.orientation == "up":
 				angleA, angleB = (self.plot_kws["rotation"] - 180, 90)
-			elif axis == 1 and self.side == "bottom":
+			elif axis == 1 and self.orientation == "down":
 				angleA, angleB = (180 + self.plot_kws["rotation"], -90)
-			elif axis == 0 and self.side == "left":
+			elif axis == 0 and self.orientation == "left":
 				angleA, angleB = (self.plot_kws["rotation"], -180)
 			else:
 				angleA, angleB = (self.plot_kws["rotation"] - 180, 0)
@@ -666,28 +652,14 @@ class anno_label(AnnotationBase):
 			self.plot_kws["arrowprops"]["color"] = color
 			annotated_text = ax.annotate(
 				text=t,
-				xy=(x_0, y_0),
-				xytext=(x_1, y_1),
+				xy=(x_0, y_0), #The point (x, y) to annotate
+				xytext=(x_1, y_1), #The position (x, y) to place the text at. The coordinate system is determined by textcoords.
 				xycoords=xycoords,
 				textcoords=text_xycoords,
 				color=color,
 				**self.plot_kws
 			)  # unit for shrinkA is point (1 point = 1/72 inches)
 			self.annotated_texts.append(annotated_text)
-		# _draw_figure(ax.figure)
-		# print('anno_label:',self.label_width,ax.get_window_extent().height,ax.get_window_extent().width)
-		# ax.tick_params(
-		#     axis="both",
-		#     which="both",
-		#     left=False,
-		#     right=False,
-		#     top=False,
-		#     bottom=False,
-		#     labeltop=False,
-		#     labelbottom=False,
-		#     labelleft=False,
-		#     labelright=False,
-		# )
 		ax.set_axis_off()
 		self.ax = ax
 		self.fig = self.ax.figure
@@ -706,7 +678,7 @@ class anno_boxplot(AnnotationBase):
 	"""
 		annotate boxplots, all arguments are included in AnnotationBase,
 		plot_kws for anno_boxplot include showfliers, edgecolor, grid, medianlinecolor
-		width and other arguments passed to plt.boxplot.
+		width,zorder and other arguments passed to plt.boxplot.
 
 	Parameters
 	----------
@@ -748,10 +720,6 @@ class anno_boxplot(AnnotationBase):
 		self.set_legend(False)
 		self.cmap = None
 
-	def _type_specific_params(self):
-		gap = self.df.max().max() - self.df.min().min()
-		self.ylim = [self.df.min().min() - 0.02 * gap, self.df.max().max() + 0.02 * gap]
-
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		fig = ax.figure
 		if self.colors is None:  # calculate colors based on cmap
@@ -769,18 +737,16 @@ class anno_boxplot(AnnotationBase):
 		# bp = ax.boxplot(self.plot_data.T.values, patch_artist=True,**self.plot_kws)
 		if axis == 1:
 			vert = True
-		else:
-			vert = False
-		if axis == 1:
 			ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
 		else:
+			vert = False
 			ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
 		# bp = self.plot_data.T.boxplot(ax=ax, patch_artist=True,vert=vert,return_type='dict',**self.plot_kws)
 		bp = ax.boxplot(
 			x=self.plot_data.T.values,
 			positions=np.arange(0.5, self.nrows, 1),
 			patch_artist=True,
-			vert=vert,
+			vert=vert, #If True, draws vertical boxes. If False, draw horizontal boxes
 			**plot_kws
 		)
 		if grid:
@@ -792,6 +758,7 @@ class anno_boxplot(AnnotationBase):
 			median_line.set_color(mlinecolor)
 		if axis == 1:
 			ax.set_xlim(0, self.nrows)
+			ax.set_ylim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -802,6 +769,7 @@ class anno_boxplot(AnnotationBase):
 			)
 		else:
 			ax.set_ylim(0, self.nrows)
+			ax.set_xlim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -810,7 +778,8 @@ class anno_boxplot(AnnotationBase):
 				labelleft=False,
 				labelright=False,
 			)
-			ax.invert_xaxis()
+			# if self.orientation=='left':
+			# 	ax.invert_xaxis()
 		self.fig = fig
 		self.ax = ax
 		return self.ax
@@ -820,7 +789,7 @@ class anno_boxplot(AnnotationBase):
 class anno_barplot(anno_boxplot):
 	"""
 	Annotate barplot, all arguments are included in AnnotationBase,
-		plot_kws for anno_boxplot include edgecolor, grid,
+		plot_kws for anno_boxplot include edgecolor, grid,align,zorder,
 		and other arguments passed to plt.barplot.
 	"""
 
@@ -901,16 +870,15 @@ class anno_barplot(anno_boxplot):
 		# self.set_legend(False)
 
 	def _type_specific_params(self):
+		if self.ylim is None:
+			Max = np.nanmax(self.df.values)
+			Min = np.nanmin(self.df.values)
+			gap = Max - Min
+			self.ylim = [Min - 0.02 * gap, Max + 0.02 * gap]
 		if self.ncols > 1:
-			Max = self.df.max().max()
-			Min = self.df.min().min()
 			self.stacked = True
 		else:
-			Max = self.df.values.max()
-			Min = self.df.values.min()
 			self.stacked = False
-		gap = Max - Min
-		self.ylim = [Min - 0.02 * gap, Max + 0.02 * gap]
 
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		if ax is None:
@@ -937,6 +905,8 @@ class anno_barplot(anno_boxplot):
 					color=color,
 					**plot_kws
 				)
+				ax.set_xlim(0, self.nrows)
+				ax.set_ylim(*self.ylim)
 			else:
 				ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.barh(
@@ -946,6 +916,8 @@ class anno_barplot(anno_boxplot):
 					color=color,
 					**plot_kws
 				)
+				ax.set_ylim(0, self.nrows)
+				ax.set_xlim(*self.ylim)
 			base_coordinates = self.plot_data[col].values + base_coordinates
 		# for patch in ax.patches:
 		#     patch.set_edgecolor(edgecolor)
@@ -958,7 +930,8 @@ class anno_barplot(anno_boxplot):
 				labelleft=False,
 				labelright=False,
 			)
-			ax.invert_xaxis()
+			# if self.orientation == 'left':
+			# 	ax.invert_xaxis()
 		else:
 			ax.tick_params(
 				axis="both",
@@ -977,7 +950,7 @@ class anno_barplot(anno_boxplot):
 class anno_scatterplot(anno_barplot):
 	"""
 	Annotate scatterplot, all arguments are included in AnnotationBase,
-		plot_kws for anno_boxplot include linewidths, grid, edgecolors
+		plot_kws for anno_scatterplot include linewidths, grid, edgecolors
 		and other arguments passed to plt.scatter.
 	"""
 
@@ -1023,10 +996,11 @@ class anno_scatterplot(anno_barplot):
 		self.set_legend(False)
 
 	def _type_specific_params(self):
-		Max = self.df.values.max()
-		Min = self.df.values.min()
+		Max = np.nanmax(self.df.values)
+		Min = np.nanmin(self.df.values)
 		self.gap = Max - Min
-		self.ylim = [Min - 0.2 * self.gap, Max + 0.2 * self.gap]
+		if self.ylim is None:
+			self.ylim = [Min - 0.02 * self.gap, Max + 0.02 * self.gap]
 
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		if ax is None:
@@ -1062,6 +1036,8 @@ class anno_scatterplot(anno_barplot):
 		s = self.plot_kws.get("s", self.s)
 		scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **plot_kws)
 		if axis == 0:
+			ax.set_xlim(0, self.nrows)
+			ax.set_ylim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -1070,8 +1046,11 @@ class anno_scatterplot(anno_barplot):
 				labelleft=False,
 				labelright=False,
 			)
-			ax.invert_xaxis()
+			# if self.orientation == 'left':
+			# 	ax.invert_xaxis()
 		else:
+			ax.set_ylim(0, self.nrows)
+			ax.set_xlim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -1100,6 +1079,10 @@ class anno_img(AnnotationBase):
 	merge_width: float
         width of image when merge is True
 		whether to merge the same clusters into one and show image only once.
+	rotate: int
+		Rotate the input images
+	mode: str
+		all possible mode to convert, between "L", "RGB" and "CMYK", 'RGBA', default is RGBA
 	"""
 	def __init__(
 		self,
@@ -1110,24 +1093,21 @@ class anno_img(AnnotationBase):
 		border_color=255,
         merge=False,
         merge_width=1,
-		height=None,
-		legend=True,
-		legend_kws=None,
+		rotate=None,
+		mode='RGBA',
 		**plot_kws
 	):
 		self.border_width = border_width
 		self.border_color = border_color
 		self.merge = merge
 		self.merge_width = merge_width
-
+		self.rotate=rotate
+		self.mode=mode
 		self.plot_kws = plot_kws
 		super().__init__(
 			df=df,
 			cmap=cmap,
 			colors=colors,
-			height=height,
-			legend=legend,
-			legend_kws=legend_kws,
 			**plot_kws
 		)
 
@@ -1143,6 +1123,34 @@ class anno_img(AnnotationBase):
 	def _check_cmap(self, cmap):
 		self.cmap = None 
 
+	def read_img(self,img_path=None,shape=None):
+		#import matplotlib.image as mpimg  # mpimg.imread
+		import PIL
+		import requests
+		from io import BytesIO
+		if pd.isna(img_path):
+			if shape is None:
+				return None
+			else:
+				new_shape=tuple([shape[1],shape[0]]+list(shape[2:]))
+				# print(shape, new_shape,type(shape), 'here')
+				return np.full(new_shape, self.border_color)
+		if os.path.exists(img_path):
+			image = PIL.Image.open(img_path) #mpimg.imread(img_path)
+		else: #remote file
+			response = requests.get(img_path)
+			# Open the image from bytes
+			image = PIL.Image.open(BytesIO(response.content))
+		if image.mode != self.mode:
+			image = image.convert(self.mode)
+		if not shape is None:
+			image=image.resize(shape[:2]) #width, height
+		if not self.rotate is None:
+			image=image.rotate(self.rotate)
+		# Convert the image to an array if needed
+		image = np.array(image)
+		return image
+
 	def _add_border(self, img, width=1, color=0, axis=1):
 		w = width
 		if axis == 1:
@@ -1154,48 +1162,68 @@ class anno_img(AnnotationBase):
 						mode='constant', constant_values=color)
 		return bordered_img
 
-	def _check_imgfiles(self, imgfiles):
-		first_image = mpimg.imread(imgfiles[0])
-		height, width = first_image.shape[:2]
-		for imgfile in imgfiles[1:]:
-			img = mpimg.imread(imgfile)
-			assert img.shape[:2] == (height, width), \
-				f"The image size of {imgfile} differs. Reference: ({height}, {width}), Current image: {img.shape[:2]}"
-
+	def _type_specific_params(self):
+		pass
 	def plot(self, ax=None, axis=1):
 		if ax is None:
 			ax = plt.gca()
-		imgfiles = list(self.plot_data.iloc[:,0])
-		img_h = mpimg.imread(imgfiles[0]).shape[1]
-		if self.merge:
-			assert all(imgfile == imgfiles[0] for imgfile in imgfiles), "Not all file names in the list are identical"
-			imgs = mpimg.imread(imgfiles[0])
-			if axis==1:
-				extent = [self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2, 0, img_h]
-			else:
-				extent = [0, img_h, self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2]
+		if axis==1:
+			imgfiles = list(self.plot_data.iloc[:,0]) #[::-1] #fix bug for the inverted yaxis
 		else:
-			self._check_imgfiles(imgfiles)
-			if axis==1:
-				imgs = np.hstack(tuple([self._add_border(mpimg.imread(imgfile), 
-                                                width=self.border_width, color=self.border_color, axis=axis) \
-                            for imgfile in imgfiles]))
-				extent = [0, self.nrows, 0, img_h]
+			imgfiles = list(self.plot_data.iloc[:, 0])[::-1]
+		imgs = [self.read_img(img_path=imgfile) for imgfile in imgfiles]
+		shapes = [img.shape for img in imgs if not img is None]  # (height,width, channel)
+		if len(set(shapes)) > 1 or len(shapes) != len(imgs):  # None is in imgs
+			# resize the images to make sure all images have the same height and wdith
+			if len(shapes)>1:
+				shape = np.min(np.vstack(shapes), axis=0)  # height,width, channel; height, width,*channel
 			else:
-				imgs = np.vstack(tuple([self._add_border(mpimg.imread(imgfile), 
+				shape=shapes[0]
+			new_shape = tuple([shape[1], shape[0]] + list(shape[2:]))
+			imgs = [self.read_img(img_path=imgfile, shape=new_shape) for imgfile in imgfiles]
+			shapes = [img.shape for img in imgs]
+		# for img in imgs:
+		# 	print(img.shape)
+		img_shape = shapes[0]
+		img_h = img_shape[0]  # shape: height,width, channel
+		img_w = img_shape[1]
+		if self.merge:
+			origin = 'upper'
+			assert self.plot_data.iloc[:,0].dropna().nunique()==1, "Not all file names in the list are identical"
+			imgs = imgs[0]
+			if axis==1: #columns annotation
+				extent = [self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2, 0, img_h]
+				# floats (left, right, bottom, top), optional
+				# The bounding box in data coordinates that the image will fill
+			else:
+				extent = [0, img_w, self.nrows/2-self.merge_width/2, self.nrows/2+self.merge_width/2]
+		else:
+			if axis==1:
+				imgs = np.hstack(tuple([self._add_border(img,width=self.border_width,
+														 color=self.border_color, axis=axis) \
+                            for img in imgs]))
+				extent = [0, self.nrows, 0, img_h]
+				origin='upper'
+			else: #axis=0
+				# ax.invert_yaxis()  # y is shared, invert has no effect (only useful when anno_img on the most right side, main axes of sharey)
+				# in default, if orientation=='right', x direction is: left -> right, orient='left', right -> left
+				origin = 'lower'
+				if self.orientation=='left':
+					# ax.invert_xaxis() # no effect
+					ax.set_xlim(img_w,0)
+				# else:
+				# 	# ax.set_ylim(self.nrows,0)
+				imgs = np.vstack(tuple([self._add_border(img,
                                                 width=self.border_width, color=self.border_color, axis=axis) \
-                            for imgfile in imgfiles]))
-				extent = [0, img_h, 0, self.nrows]
-
+                            for img in imgs[::-1]])) #bottom -> up? to invert: up -> bottom
+				extent = [0,img_w, 0, self.nrows]
+		self.plot_kws.setdefault('origin',origin)
 		ax.imshow(imgs, aspect='auto', extent=extent, cmap=self.cmap, **self.plot_kws)
-
-		if axis==0:
-			ax.invert_yaxis()
-
-		ax.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False)
-		ax.tick_params(bottom=False, left=False, right=False, top=False)
+		ax.tick_params(axis='both',which='both',labelbottom=False, labelleft=False,
+								labelright=False, labeltop=False,
+					   			bottom=False, left=False,
+								right=False, top=False)
 		# ax.set_axis_off()
-
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
@@ -1238,13 +1266,6 @@ class anno_lineplot(anno_barplot):
 		for v, color in zip(col_list, self.colors):
 			self.color_dict[v] = color
 
-	def _type_specific_params(self):
-		pass
-		# Max = self.df.values.max()
-		# Min = self.df.values.min()
-		# self.gap = Max - Min
-		# self.ylim = [Min - 0.2 * self.gap, Max + 0.2 * self.gap]
-
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		if ax is None:
 			ax = plt.gca()
@@ -1263,6 +1284,8 @@ class anno_lineplot(anno_barplot):
 					color=color,
 					**plot_kws
 				)
+				ax.set_xlim(0, self.nrows)
+				ax.set_ylim(*self.ylim)
 			else:
 				ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.plot(
@@ -1271,6 +1294,8 @@ class anno_lineplot(anno_barplot):
 					color=color,
 					**plot_kws
 				)
+				ax.set_ylim(0, self.nrows)
+				ax.set_xlim(*self.ylim)
 		if axis == 0:
 			ax.tick_params(
 				axis="both",
@@ -1280,7 +1305,8 @@ class anno_lineplot(anno_barplot):
 				labelleft=False,
 				labelright=False,
 			)
-			ax.invert_xaxis()
+			# if self.orientation == 'left':
+			# 	ax.invert_xaxis()
 		else:
 			ax.tick_params(
 				axis="both",
@@ -1290,6 +1316,8 @@ class anno_lineplot(anno_barplot):
 				labeltop=False,
 				labelbottom=False,
 			)
+			# if self.orientation=='down':
+			# 	ax.invert_yaxis()
 		self.fig = fig
 		self.ax = ax
 		return self.ax
@@ -1425,12 +1453,6 @@ class HeatmapAnnotation:
 		self.rasterized = rasterized
 		self.orientation = orientation
 		self.plot = plot
-		self.mapping_dict = {
-			"up": "top",
-			"down": "bottom",
-			"left": "left",
-			"right": "right",
-		}
 		if colors is None:
 			self._check_cmap(cmap)
 			self.colors = None
@@ -1533,6 +1555,7 @@ class HeatmapAnnotation:
 					self.df[col], legend=self.legend.get(col, False), **plot_kws
 				)
 				anno1.set_label(col)
+				anno1.set_orientation(self.orientation)
 				self.annotations.append(anno1)
 		elif len(self.args) > 0:
 			# print(self.args)
@@ -1574,9 +1597,8 @@ class HeatmapAnnotation:
 							self.orientation = "left"
 						elif self.axis == 0:
 							self.orientation = "right"
-					if type(ann) == anno_label:
-						ann.set_side(self.mapping_dict[self.orientation])
 				self.labels.append(arg)
+				ann.set_orientation(self.orientation)
 
 	def _set_orentation(self, orientation):
 		if self.orientation is None:
@@ -1645,7 +1667,7 @@ class HeatmapAnnotation:
 				self.axes[i, 0].yaxis.set_label_position(self.label_side)
 				self.axes[i, 0].yaxis.label.update(self.label_kws)
 				# self.axes[i, -1].yaxis.tick_right()  # ticks
-				if type(self.annotations[i]) != anno_simple:
+				if type(self.annotations[i]) not in [anno_simple,anno_img]:
 					self.axes[i, -1].yaxis.set_visible(True)
 					self.axes[i, -1].tick_params(
 						axis="y", which="both", right=True, labelright=True
@@ -1668,7 +1690,7 @@ class HeatmapAnnotation:
 				self.axes[i, -1].yaxis.set_label_position(self.label_side)
 				self.axes[i, -1].yaxis.label.update(self.label_kws)
 				# self.axes[i, 0].yaxis.tick_left()  # ticks
-				if type(self.annotations[i]) != anno_simple:
+				if type(self.annotations[i]) not in [anno_simple,anno_img]:
 					self.axes[i, 0].yaxis.set_visible(True)
 					self.axes[i, 0].tick_params(
 						axis="y", which="both", left=True, labelleft=True
@@ -1677,7 +1699,7 @@ class HeatmapAnnotation:
 		elif self.axis == 0 and self.label_side == "top":
 			self.ax.xaxis.tick_bottom()
 			for j in range(self.axes.shape[1]):
-				self.axes[0, j].xaxis.set_visible(True)
+				self.axes[0, j].xaxis.set_visible(True) #0, the top axes
 				self.axes[0, j].xaxis.label.set_visible(True)
 				self.axes[0, j].tick_params(
 					axis="x",
@@ -1691,8 +1713,8 @@ class HeatmapAnnotation:
 				self.axes[0, j].xaxis.set_label_position(self.label_side)
 				self.axes[0, j].xaxis.label.update(self.label_kws)
 				# self.axes[-1, j].xaxis.tick_bottom()  # ticks
-				if type(self.annotations[j]) != anno_simple:
-					self.axes[-1, j].xaxis.set_visible(True)
+				if type(self.annotations[j]) not in [anno_simple,anno_img]:
+					self.axes[-1, j].xaxis.set_visible(True) # show ticks
 					self.axes[-1, j].tick_params(
 						axis="x", which="both", bottom=True, labelbottom=True
 					)
@@ -1714,7 +1736,7 @@ class HeatmapAnnotation:
 				self.axes[-1, j].xaxis.set_label_position(self.label_side)
 				self.axes[-1, j].xaxis.label.update(self.label_kws)
 				# self.axes[0, j].xaxis.tick_top()  # ticks
-				if type(self.annotations[j]) != anno_simple:
+				if type(self.annotations[j]) not in [anno_simple,anno_img]:
 					self.axes[0, j].xaxis.set_visible(True)
 					self.axes[0, j].tick_params(
 						axis="x", which="both", top=True, labeltop=True
@@ -1878,17 +1900,15 @@ class HeatmapAnnotation:
 		self.axes = np.empty(shape=(nrows, ncols), dtype=object)
 		self.fig = self.ax.figure
 		self.ax.set_axis_off()
-		# self.ax.margins(x=0, y=0)
-		for j, idx in enumerate(idxs):
-			for i, ann in enumerate(self.annotations):
-				# print(i,j,ann.label)
+		for j, idx in enumerate(idxs): # columns if axis=1, rows if axis=0
+			for i, ann in enumerate(self.annotations): #rows for axis=1, columns if axis=0
 				# axis=1: left -> right, axis=0: bottom -> top.
-				# idx=idx[::-1] if self.axis==0 else idx #1 for cols, 0 for rows.
 				ann.reorder(idx)
 				gs = self.gs[i, j] if self.axis == 1 else self.gs[j, i]
-				sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
-				sharey = self.axes[i, 0] if self.axis == 1 else self.axes[j, 0]
-				# sharex,sharey=None,None
+				# sharex = self.axes[0, j] if self.axis == 1 else self.axes[0, i]
+				# sharey = self.axes[i, 0] if self.axis == 1 else self.axes[j, 0]
+				sharex = self.axes[0, j] if self.axis == 1 else None
+				sharey = None if self.axis == 1 else self.axes[j, 0]
 				ax1 = self.ax.figure.add_subplot(gs, sharex=sharex, sharey=sharey)
 				if self.axis == 1:
 					ax1.set_xlim([0, len(idx)])
@@ -1917,7 +1937,7 @@ class HeatmapAnnotation:
 					self.ax.spines["left"].set_visible(False)
 					self.ax.spines["right"].set_visible(False)
 					self.axes[j, i] = ax1
-					if self.orientation == "right":
+					if self.orientation == "left":
 						ax1.invert_xaxis()
 
 		self.set_axes_kws()

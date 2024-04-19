@@ -678,7 +678,7 @@ def plot_heatmap(
 	# Set the axis limits
 	ax.set(xlim=(0, data.shape[1]), ylim=(0, data.shape[0]))
 	# Invert the y axis to show the plot in matrix form
-	ax.invert_yaxis()  # from top to bottom
+	ax.invert_yaxis()  # from top to bottom, left to right
 
 	# Add row and column labels
 	if isinstance(xticks, str) and xticks == "auto":
@@ -850,9 +850,8 @@ class DendrogramPlotter(object):
 				warnings.warn(msg)
 		return self._calculate_linkage_scipy()
 
-	def calculate_dendrogram(
-		self,
-	):  # Z (linkage) shape = (n,4), then dendrogram icoord shape = (n,4)
+	def calculate_dendrogram(self,):
+		# Z (linkage) shape = (n,4), then dendrogram icoord shape = (n,4)
 		return hierarchy.dendrogram(
 			self.linkage,
 			no_plot=True,
@@ -960,16 +959,15 @@ class DendrogramPlotter(object):
 		#     ax.scatter(self.root_x, root_y,c='red',s=1)
 		# else:
 		#     ax.scatter(root_y,self.root_x, c='red', s=1)
-		if self.axis==0:
-			ax.invert_yaxis()  # 20230227 fix the bug for inverse order of row dendrogram
 
-		if self.rotate:  # horizontal; in default, no rotate
+		if self.rotate:  # if axis==0, rotate should be set to True
 			ax.yaxis.set_ticks_position("right")
 			ax.set_ylim(0, self.icoord_max)
 			ax.set_xlim(0, root_y)
-			ax.invert_xaxis()
-			ax.invert_yaxis()
-		else:  # vertical
+			# before rotate: left -> right, bottom -> top
+			ax.invert_xaxis() # right -> left, root on the left, leaf on the right.
+			ax.invert_yaxis() # top -> bottom, consistent with heatmap pcolormesh
+		else:  # vertical,  left -> right, bototom -> top. y for leaf is 0, y_root is larger.
 			ax.set_xlim(0, self.icoord_max)
 			ax.set_ylim(0, root_y)
 		despine(ax=ax, bottom=True, left=True)
@@ -2046,8 +2044,6 @@ class ClusterMapPlotter:
 		# ax.set_xticks(ticks=np.arange(1, self.nrows + 1, 1), labels=self.plot_data.index.tolist())
 		self.ax_heatmap.yaxis.set_tick_params(**self.yticklabels_kws)
 		self.ax_heatmap.xaxis.set_tick_params(**self.xticklabels_kws)
-		# self.ax_heatmap.tick_params(axis='both', which='both',
-		#                             left=False, right=False, top=False, bottom=False)
 		self.yticklabels = []
 		self.xticklabels = []
 		if (
