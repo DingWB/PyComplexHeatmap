@@ -223,10 +223,10 @@ class AnnotationBase:
 
 	def _type_specific_params(self):
 		if self.ylim is None:
-			Max = np.nanmax(self.df.values)
-			Min = np.nanmin(self.df.values)
+			Max = np.nanmax(self.df.sum(axis=1).values)
+			Min = np.nanmin(self.df.sum(axis=1).values)
 			gap = Max - Min
-			self.ylim = [Min - 0.02 * gap, Max + 0.02 * gap]
+			self.ylim = [Min - 0.05 * gap, Max + 0.05 * gap]
 
 	def reorder(self, idx):
 		# Before plotting, df needs to be reordered according to the new clustered order.
@@ -557,6 +557,7 @@ class anno_label(AnnotationBase):
 
 	def _type_specific_params(self):
 		pass
+
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		self.axis = axis
 		if self.orientation is None:
@@ -871,10 +872,10 @@ class anno_barplot(anno_boxplot):
 
 	def _type_specific_params(self):
 		if self.ylim is None:
-			Max = np.nanmax(self.df.values)
-			Min = np.nanmin(self.df.values)
+			Max = np.nanmax(self.df.sum(axis=1).values)
+			Min = np.nanmin(self.df.sum(axis=1).values)
 			gap = Max - Min
-			self.ylim = [Min - 0.02 * gap, Max + 0.02 * gap]
+			self.ylim = [Min - 0.05 * gap, Max + 0.05 * gap]
 		if self.ncols > 1:
 			self.stacked = True
 		else:
@@ -996,11 +997,11 @@ class anno_scatterplot(anno_barplot):
 		self.set_legend(False)
 
 	def _type_specific_params(self):
-		Max = np.nanmax(self.df.values)
-		Min = np.nanmin(self.df.values)
+		Max = np.nanmax(self.df.sum(axis=1).values)
+		Min = np.nanmin(self.df.sum(axis=1).values)
 		self.gap = Max - Min
 		if self.ylim is None:
-			self.ylim = [Min - 0.02 * self.gap, Max + 0.02 * self.gap]
+			self.ylim = [Min - 0.05 * self.gap, Max + 0.05 * self.gap]
 
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		if ax is None:
