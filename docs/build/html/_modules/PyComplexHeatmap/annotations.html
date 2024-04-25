@@ -124,12 +124,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -155,6 +149,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
@@ -267,7 +267,9 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -503,7 +505,7 @@
 				<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span>
 				<span class="k">else</span><span class="p">:</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;cmap50&quot;</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;random50&quot;</span>
 			<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="nb">float</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;jet&quot;</span>
 			<span class="k">else</span><span class="p">:</span>
@@ -1853,7 +1855,7 @@
 					<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
 						<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span>
 					<span class="k">else</span><span class="p">:</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;cmap50&quot;</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;random50&quot;</span>
 				<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="nb">float</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;jet&quot;</span>
 				<span class="k">else</span><span class="p">:</span>

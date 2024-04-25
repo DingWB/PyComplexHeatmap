@@ -130,12 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -161,6 +155,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
@@ -273,7 +273,9 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -1356,176 +1358,6 @@ Collecting annotation legends..
 </div>
 </div>
 </section>
-<section id="Choosing-Build-in-colormap-in-PyComplexHeatmap">
-<h1>Choosing Build-in colormap in PyComplexHeatmap<a class="headerlink" href="#Choosing-Build-in-colormap-in-PyComplexHeatmap" title="Permalink to this heading">¶</a></h1>
-<section id="Diverging">
-<h2>Diverging<a class="headerlink" href="#Diverging" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>exp1</p></li>
-<li><p>exp2</p></li>
-<li><p>meth1</p></li>
-<li><p>meth2</p></li>
-<li><p>diverging1</p></li>
-<li><p>parula</p></li>
-</ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyComplexHeatmap.utils</span> <span class="kn">import</span> <span class="n">get_colormap</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">cmaps</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
-<span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">gradient</span><span class="p">,</span> <span class="n">gradient</span><span class="p">))</span>
-
-
-<span class="k">def</span> <span class="nf">plot_color_gradients</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">cmap_list</span><span class="p">):</span>
-    <span class="c1"># Create figure and adjust figure height to number of colormaps</span>
-    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmap_list</span><span class="p">)</span>
-    <span class="n">figh</span> <span class="o">=</span> <span class="mf">0.35</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">+</span> <span class="p">(</span><span class="n">nrows</span> <span class="o">+</span> <span class="p">(</span><span class="n">nrows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.22</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="n">figh</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.35</span> <span class="o">/</span> <span class="n">figh</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span> <span class="o">/</span> <span class="n">figh</span><span class="p">,</span>
-                        <span class="n">left</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s1"> colormaps&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">cmap_list</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-
-    <span class="c1"># Turn off *all* ticks &amp; spines, not just the ones with colormaps.</span>
-    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
-
-    <span class="c1"># Save colormap list for later.</span>
-    <span class="n">cmaps</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap_list</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Sequential&#39;</span><span class="p">,</span>
-                     <span class="p">[</span><span class="s1">&#39;exp1&#39;</span><span class="p">,</span> <span class="s1">&#39;exp2&#39;</span><span class="p">,</span> <span class="s1">&#39;meth1&#39;</span><span class="p">,</span> <span class="s1">&#39;meth2&#39;</span><span class="p">,</span> <span class="s1">&#39;diverging1&#39;</span><span class="p">,</span> <span class="s1">&#39;parula&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_41_0.png" src="../_images/notebooks_advanced_usage_41_0.png" />
-</div>
-</div>
-</section>
-<section id="Qualitative">
-<h2>Qualitative<a class="headerlink" href="#Qualitative" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>cmap50</p></li>
-</ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get_colormap(&quot;cmap50&quot;) # 50 different colors</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Qualitative&#39;</span><span class="p">,</span>
-                     <span class="p">[</span><span class="s1">&#39;cmap50&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_44_0.png" src="../_images/notebooks_advanced_usage_44_0.png" />
-</div>
-</div>
-</section>
-<section id="How-to-use-the-Build-in-cmap?">
-<h2>How to use the Build-in cmap?<a class="headerlink" href="#How-to-use-the-Build-in-cmap?" title="Permalink to this heading">¶</a></h2>
-<p>Just set cmap=”custom_cmap”</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-
-<span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fea&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
-        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;parula&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Features&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Samples&quot;</span><span class="p">)</span>
-<span class="c1"># plt.savefig(&quot;example0.pdf&quot;, bbox_inches=&#39;tight&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_46_0.png" src="../_images/notebooks_advanced_usage_46_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
-        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
-        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;meth2&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_47_0.png" src="../_images/notebooks_advanced_usage_47_0.png" />
-</div>
-</div>
-</section>
-</section>
 <section id="How-to-force-display-all-row/col-ticklabels?">
 <h1>How to force display all row/col ticklabels?<a class="headerlink" href="#How-to-force-display-all-row/col-ticklabels?" title="Permalink to this heading">¶</a></h1>
 <p>When the height or width is not big enough to display all xticklabels and yticklabels, some ticklabels will be hidden to avoid overlapping. For example:</p>
@@ -1551,7 +1383,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_49_0.png" src="../_images/notebooks_advanced_usage_49_0.png" />
+<img alt="../_images/notebooks_advanced_usage_38_0.png" src="../_images/notebooks_advanced_usage_38_0.png" />
 </div>
 </div>
 <p>To force display all ticklabels no matter whether the height or width is big enough, set parameters <code class="docutils literal notranslate"><span class="pre">xticklabels/yticklabels</span></code> to True:</p>
@@ -1578,7 +1410,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_51_0.png" src="../_images/notebooks_advanced_usage_51_0.png" />
+<img alt="../_images/notebooks_advanced_usage_40_0.png" src="../_images/notebooks_advanced_usage_40_0.png" />
 </div>
 </div>
 </section>

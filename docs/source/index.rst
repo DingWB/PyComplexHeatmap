@@ -19,6 +19,7 @@ PyComplexHeatmap
    advanced_usage
    more_examples
    kwargs
+   colormap
    gallery
    dev
    modules

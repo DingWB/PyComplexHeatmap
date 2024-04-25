@@ -124,12 +124,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -155,6 +149,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
@@ -267,7 +267,9 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -353,152 +355,221 @@
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span><span class="p">,</span> <span class="n">ListedColormap</span><span class="p">,</span> <span class="n">CSS4_COLORS</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_calculate_luminance</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">default_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
 
 <div class="viewcode-block" id="register_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap">[docs]</a><span class="k">def</span> <span class="nf">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="n">matplotlib</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">register_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="n">matplotlib</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="define_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap">[docs]</a><span class="k">def</span> <span class="nf">define_cmap</span><span class="p">():</span>
-    <span class="n">all_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
-    <span class="c1"># if &quot;binarize&quot; not in all_cmaps:</span>
-    <span class="c1">#     c = LinearSegmentedColormap.from_list(</span>
-    <span class="c1">#         &quot;binarize&quot;, [(0, &#39;lightgray&#39;), (1, &quot;black&quot;)]</span>
-    <span class="c1">#     )</span>
-    <span class="k">if</span> <span class="s2">&quot;exp1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-            <span class="s2">&quot;exp1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)]</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;exp2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-            <span class="s2">&quot;exp2&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#4A5EA0&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#F9FFB2&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#A42A26&quot;</span><span class="p">)]</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;meth1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-            <span class="s2">&quot;meth1&quot;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#282972&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;#36C4F2&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;#C1D62F&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="s2">&quot;#F9AD17&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="s2">&quot;#EC3024&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#7D1416&quot;</span><span class="p">),</span>
-            <span class="p">],</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;meth2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-            <span class="s2">&quot;meth2&quot;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#4B5DC6&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;#439CFE&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;#55B849&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;gold&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="s2">&quot;darkorange&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;tomato&quot;</span><span class="p">),</span>
-                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">),</span>
-            <span class="p">],</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;diverging1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-            <span class="s2">&quot;diverging1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#67a9cf&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#f7f7f7&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#ef8a62&quot;</span><span class="p">)]</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="n">all_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
+	<span class="c1"># if &quot;binarize&quot; not in all_cmaps:</span>
+	<span class="c1">#     c = LinearSegmentedColormap.from_list(</span>
+	<span class="c1">#         &quot;binarize&quot;, [(0, &#39;lightgray&#39;), (1, &quot;black&quot;)]</span>
+	<span class="c1">#     )</span>
+	<span class="k">if</span> <span class="s2">&quot;exp1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+			<span class="s2">&quot;exp1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)]</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s2">&quot;exp2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+			<span class="s2">&quot;exp2&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#4A5EA0&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#F9FFB2&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#A42A26&quot;</span><span class="p">)]</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s2">&quot;meth1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+			<span class="s2">&quot;meth1&quot;</span><span class="p">,</span>
+			<span class="p">[</span>
+				<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#282972&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;#36C4F2&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;#C1D62F&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="s2">&quot;#F9AD17&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="s2">&quot;#EC3024&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#7D1416&quot;</span><span class="p">),</span>
+			<span class="p">],</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s2">&quot;meth2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+			<span class="s2">&quot;meth2&quot;</span><span class="p">,</span>
+			<span class="p">[</span>
+				<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#4B5DC6&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;#439CFE&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;#55B849&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;gold&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="s2">&quot;darkorange&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;tomato&quot;</span><span class="p">),</span>
+				<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">),</span>
+			<span class="p">],</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s2">&quot;diverging1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+			<span class="s2">&quot;diverging1&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#67a9cf&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;#f7f7f7&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#ef8a62&quot;</span><span class="p">)]</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="s2">&quot;cmap50&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="p">:</span>
-            <span class="n">l</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
-                <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span>
-            <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">c</span>
-                    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;snow&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">&quot;gray&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span>
-                <span class="p">],</span>
-                <span class="mi">100</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="s2">&quot;cmap50&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s2">&quot;random50&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="p">:</span>
+			<span class="n">l</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+				<span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span>
+			<span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+					<span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;snow&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">&quot;gray&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">],</span>
+				<span class="mi">50</span><span class="p">),</span>
+			<span class="s2">&quot;random50&quot;</span><span class="p">,</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="s2">&quot;parula&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
-        <span class="n">cm_data</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mf">0.2081</span><span class="p">,</span> <span class="mf">0.1663</span><span class="p">,</span> <span class="mf">0.5292</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.2116238095</span><span class="p">,</span> <span class="mf">0.1897809524</span><span class="p">,</span> <span class="mf">0.5776761905</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.212252381</span><span class="p">,</span> <span class="mf">0.2137714286</span><span class="p">,</span> <span class="mf">0.6269714286</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.2081</span><span class="p">,</span> <span class="mf">0.2386</span><span class="p">,</span> <span class="mf">0.6770857143</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1959047619</span><span class="p">,</span> <span class="mf">0.2644571429</span><span class="p">,</span> <span class="mf">0.7279</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1707285714</span><span class="p">,</span> <span class="mf">0.2919380952</span><span class="p">,</span> <span class="mf">0.779247619</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1252714286</span><span class="p">,</span> <span class="mf">0.3242428571</span><span class="p">,</span> <span class="mf">0.8302714286</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0591333333</span><span class="p">,</span> <span class="mf">0.3598333333</span><span class="p">,</span> <span class="mf">0.8683333333</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0116952381</span><span class="p">,</span> <span class="mf">0.3875095238</span><span class="p">,</span> <span class="mf">0.8819571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0059571429</span><span class="p">,</span> <span class="mf">0.4086142857</span><span class="p">,</span> <span class="mf">0.8828428571</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0165142857</span><span class="p">,</span> <span class="mf">0.4266</span><span class="p">,</span> <span class="mf">0.8786333333</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.032852381</span><span class="p">,</span> <span class="mf">0.4430428571</span><span class="p">,</span> <span class="mf">0.8719571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0498142857</span><span class="p">,</span> <span class="mf">0.4585714286</span><span class="p">,</span> <span class="mf">0.8640571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0629333333</span><span class="p">,</span> <span class="mf">0.4736904762</span><span class="p">,</span> <span class="mf">0.8554380952</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0722666667</span><span class="p">,</span> <span class="mf">0.4886666667</span><span class="p">,</span> <span class="mf">0.8467</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0779428571</span><span class="p">,</span> <span class="mf">0.5039857143</span><span class="p">,</span> <span class="mf">0.8383714286</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.079347619</span><span class="p">,</span> <span class="mf">0.5200238095</span><span class="p">,</span> <span class="mf">0.8311809524</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0749428571</span><span class="p">,</span> <span class="mf">0.5375428571</span><span class="p">,</span> <span class="mf">0.8262714286</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0640571429</span><span class="p">,</span> <span class="mf">0.5569857143</span><span class="p">,</span> <span class="mf">0.8239571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0487714286</span><span class="p">,</span> <span class="mf">0.5772238095</span><span class="p">,</span> <span class="mf">0.8228285714</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0343428571</span><span class="p">,</span> <span class="mf">0.5965809524</span><span class="p">,</span> <span class="mf">0.819852381</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0265</span><span class="p">,</span> <span class="mf">0.6137</span><span class="p">,</span> <span class="mf">0.8135</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0238904762</span><span class="p">,</span> <span class="mf">0.6286619048</span><span class="p">,</span> <span class="mf">0.8037619048</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0230904762</span><span class="p">,</span> <span class="mf">0.6417857143</span><span class="p">,</span> <span class="mf">0.7912666667</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0227714286</span><span class="p">,</span> <span class="mf">0.6534857143</span><span class="p">,</span> <span class="mf">0.7767571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0266619048</span><span class="p">,</span> <span class="mf">0.6641952381</span><span class="p">,</span> <span class="mf">0.7607190476</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0383714286</span><span class="p">,</span> <span class="mf">0.6742714286</span><span class="p">,</span> <span class="mf">0.743552381</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0589714286</span><span class="p">,</span> <span class="mf">0.6837571429</span><span class="p">,</span> <span class="mf">0.7253857143</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.0843</span><span class="p">,</span> <span class="mf">0.6928333333</span><span class="p">,</span> <span class="mf">0.7061666667</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1132952381</span><span class="p">,</span> <span class="mf">0.7015</span><span class="p">,</span> <span class="mf">0.6858571429</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1452714286</span><span class="p">,</span> <span class="mf">0.7097571429</span><span class="p">,</span> <span class="mf">0.6646285714</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.1801333333</span><span class="p">,</span> <span class="mf">0.7176571429</span><span class="p">,</span> <span class="mf">0.6424333333</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.2178285714</span><span class="p">,</span> <span class="mf">0.7250428571</span><span class="p">,</span> <span class="mf">0.6192619048</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.2586428571</span><span class="p">,</span> <span class="mf">0.7317142857</span><span class="p">,</span> <span class="mf">0.5954285714</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.3021714286</span><span class="p">,</span> <span class="mf">0.7376047619</span><span class="p">,</span> <span class="mf">0.5711857143</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.3481666667</span><span class="p">,</span> <span class="mf">0.7424333333</span><span class="p">,</span> <span class="mf">0.5472666667</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.3952571429</span><span class="p">,</span> <span class="mf">0.7459</span><span class="p">,</span> <span class="mf">0.5244428571</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.4420095238</span><span class="p">,</span> <span class="mf">0.7480809524</span><span class="p">,</span> <span class="mf">0.5033142857</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.4871238095</span><span class="p">,</span> <span class="mf">0.7490619048</span><span class="p">,</span> <span class="mf">0.4839761905</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.5300285714</span><span class="p">,</span> <span class="mf">0.7491142857</span><span class="p">,</span> <span class="mf">0.4661142857</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.5708571429</span><span class="p">,</span> <span class="mf">0.7485190476</span><span class="p">,</span> <span class="mf">0.4493904762</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.609852381</span><span class="p">,</span> <span class="mf">0.7473142857</span><span class="p">,</span> <span class="mf">0.4336857143</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.6473</span><span class="p">,</span> <span class="mf">0.7456</span><span class="p">,</span> <span class="mf">0.4188</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.6834190476</span><span class="p">,</span> <span class="mf">0.7434761905</span><span class="p">,</span> <span class="mf">0.4044333333</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.7184095238</span><span class="p">,</span> <span class="mf">0.7411333333</span><span class="p">,</span> <span class="mf">0.3904761905</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.7524857143</span><span class="p">,</span> <span class="mf">0.7384</span><span class="p">,</span> <span class="mf">0.3768142857</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.7858428571</span><span class="p">,</span> <span class="mf">0.7355666667</span><span class="p">,</span> <span class="mf">0.3632714286</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.8185047619</span><span class="p">,</span> <span class="mf">0.7327333333</span><span class="p">,</span> <span class="mf">0.3497904762</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.8506571429</span><span class="p">,</span> <span class="mf">0.7299</span><span class="p">,</span> <span class="mf">0.3360285714</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.8824333333</span><span class="p">,</span> <span class="mf">0.7274333333</span><span class="p">,</span> <span class="mf">0.3217</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9139333333</span><span class="p">,</span> <span class="mf">0.7257857143</span><span class="p">,</span> <span class="mf">0.3062761905</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9449571429</span><span class="p">,</span> <span class="mf">0.7261142857</span><span class="p">,</span> <span class="mf">0.2886428571</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9738952381</span><span class="p">,</span> <span class="mf">0.7313952381</span><span class="p">,</span> <span class="mf">0.266647619</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9937714286</span><span class="p">,</span> <span class="mf">0.7454571429</span><span class="p">,</span> <span class="mf">0.240347619</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9990428571</span><span class="p">,</span> <span class="mf">0.7653142857</span><span class="p">,</span> <span class="mf">0.2164142857</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9955333333</span><span class="p">,</span> <span class="mf">0.7860571429</span><span class="p">,</span> <span class="mf">0.196652381</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.988</span><span class="p">,</span> <span class="mf">0.8066</span><span class="p">,</span> <span class="mf">0.1793666667</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9788571429</span><span class="p">,</span> <span class="mf">0.8271428571</span><span class="p">,</span> <span class="mf">0.1633142857</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9697</span><span class="p">,</span> <span class="mf">0.8481380952</span><span class="p">,</span> <span class="mf">0.147452381</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9625857143</span><span class="p">,</span> <span class="mf">0.8705142857</span><span class="p">,</span> <span class="mf">0.1309</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9588714286</span><span class="p">,</span> <span class="mf">0.8949</span><span class="p">,</span> <span class="mf">0.1132428571</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9598238095</span><span class="p">,</span> <span class="mf">0.9218333333</span><span class="p">,</span> <span class="mf">0.0948380952</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9661</span><span class="p">,</span> <span class="mf">0.9514428571</span><span class="p">,</span> <span class="mf">0.0755333333</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.9763</span><span class="p">,</span> <span class="mf">0.9831</span><span class="p">,</span> <span class="mf">0.0538</span><span class="p">],</span>
-        <span class="p">]</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;parula&quot;</span><span class="p">,</span> <span class="n">cm_data</span><span class="p">)</span>
-        <span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+	<span class="k">if</span> <span class="s2">&quot;random100&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="p">:</span>
+			<span class="n">l</span> <span class="o">=</span> <span class="n">_calculate_luminance</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+				<span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span>
+			<span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CSS4_COLORS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+					<span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;snow&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">&quot;gray&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">],</span>
+				<span class="mi">100</span><span class="p">),</span>
+			<span class="s2">&quot;random100&quot;</span><span class="p">,</span>
+		<span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="s2">&quot;parula&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+		<span class="n">cm_data</span> <span class="o">=</span> <span class="p">[</span>
+			<span class="p">[</span><span class="mf">0.2081</span><span class="p">,</span> <span class="mf">0.1663</span><span class="p">,</span> <span class="mf">0.5292</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.2116238095</span><span class="p">,</span> <span class="mf">0.1897809524</span><span class="p">,</span> <span class="mf">0.5776761905</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.212252381</span><span class="p">,</span> <span class="mf">0.2137714286</span><span class="p">,</span> <span class="mf">0.6269714286</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.2081</span><span class="p">,</span> <span class="mf">0.2386</span><span class="p">,</span> <span class="mf">0.6770857143</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1959047619</span><span class="p">,</span> <span class="mf">0.2644571429</span><span class="p">,</span> <span class="mf">0.7279</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1707285714</span><span class="p">,</span> <span class="mf">0.2919380952</span><span class="p">,</span> <span class="mf">0.779247619</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1252714286</span><span class="p">,</span> <span class="mf">0.3242428571</span><span class="p">,</span> <span class="mf">0.8302714286</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0591333333</span><span class="p">,</span> <span class="mf">0.3598333333</span><span class="p">,</span> <span class="mf">0.8683333333</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0116952381</span><span class="p">,</span> <span class="mf">0.3875095238</span><span class="p">,</span> <span class="mf">0.8819571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0059571429</span><span class="p">,</span> <span class="mf">0.4086142857</span><span class="p">,</span> <span class="mf">0.8828428571</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0165142857</span><span class="p">,</span> <span class="mf">0.4266</span><span class="p">,</span> <span class="mf">0.8786333333</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.032852381</span><span class="p">,</span> <span class="mf">0.4430428571</span><span class="p">,</span> <span class="mf">0.8719571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0498142857</span><span class="p">,</span> <span class="mf">0.4585714286</span><span class="p">,</span> <span class="mf">0.8640571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0629333333</span><span class="p">,</span> <span class="mf">0.4736904762</span><span class="p">,</span> <span class="mf">0.8554380952</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0722666667</span><span class="p">,</span> <span class="mf">0.4886666667</span><span class="p">,</span> <span class="mf">0.8467</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0779428571</span><span class="p">,</span> <span class="mf">0.5039857143</span><span class="p">,</span> <span class="mf">0.8383714286</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.079347619</span><span class="p">,</span> <span class="mf">0.5200238095</span><span class="p">,</span> <span class="mf">0.8311809524</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0749428571</span><span class="p">,</span> <span class="mf">0.5375428571</span><span class="p">,</span> <span class="mf">0.8262714286</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0640571429</span><span class="p">,</span> <span class="mf">0.5569857143</span><span class="p">,</span> <span class="mf">0.8239571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0487714286</span><span class="p">,</span> <span class="mf">0.5772238095</span><span class="p">,</span> <span class="mf">0.8228285714</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0343428571</span><span class="p">,</span> <span class="mf">0.5965809524</span><span class="p">,</span> <span class="mf">0.819852381</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0265</span><span class="p">,</span> <span class="mf">0.6137</span><span class="p">,</span> <span class="mf">0.8135</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0238904762</span><span class="p">,</span> <span class="mf">0.6286619048</span><span class="p">,</span> <span class="mf">0.8037619048</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0230904762</span><span class="p">,</span> <span class="mf">0.6417857143</span><span class="p">,</span> <span class="mf">0.7912666667</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0227714286</span><span class="p">,</span> <span class="mf">0.6534857143</span><span class="p">,</span> <span class="mf">0.7767571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0266619048</span><span class="p">,</span> <span class="mf">0.6641952381</span><span class="p">,</span> <span class="mf">0.7607190476</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0383714286</span><span class="p">,</span> <span class="mf">0.6742714286</span><span class="p">,</span> <span class="mf">0.743552381</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0589714286</span><span class="p">,</span> <span class="mf">0.6837571429</span><span class="p">,</span> <span class="mf">0.7253857143</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.0843</span><span class="p">,</span> <span class="mf">0.6928333333</span><span class="p">,</span> <span class="mf">0.7061666667</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1132952381</span><span class="p">,</span> <span class="mf">0.7015</span><span class="p">,</span> <span class="mf">0.6858571429</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1452714286</span><span class="p">,</span> <span class="mf">0.7097571429</span><span class="p">,</span> <span class="mf">0.6646285714</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.1801333333</span><span class="p">,</span> <span class="mf">0.7176571429</span><span class="p">,</span> <span class="mf">0.6424333333</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.2178285714</span><span class="p">,</span> <span class="mf">0.7250428571</span><span class="p">,</span> <span class="mf">0.6192619048</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.2586428571</span><span class="p">,</span> <span class="mf">0.7317142857</span><span class="p">,</span> <span class="mf">0.5954285714</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.3021714286</span><span class="p">,</span> <span class="mf">0.7376047619</span><span class="p">,</span> <span class="mf">0.5711857143</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.3481666667</span><span class="p">,</span> <span class="mf">0.7424333333</span><span class="p">,</span> <span class="mf">0.5472666667</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.3952571429</span><span class="p">,</span> <span class="mf">0.7459</span><span class="p">,</span> <span class="mf">0.5244428571</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.4420095238</span><span class="p">,</span> <span class="mf">0.7480809524</span><span class="p">,</span> <span class="mf">0.5033142857</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.4871238095</span><span class="p">,</span> <span class="mf">0.7490619048</span><span class="p">,</span> <span class="mf">0.4839761905</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.5300285714</span><span class="p">,</span> <span class="mf">0.7491142857</span><span class="p">,</span> <span class="mf">0.4661142857</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.5708571429</span><span class="p">,</span> <span class="mf">0.7485190476</span><span class="p">,</span> <span class="mf">0.4493904762</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.609852381</span><span class="p">,</span> <span class="mf">0.7473142857</span><span class="p">,</span> <span class="mf">0.4336857143</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.6473</span><span class="p">,</span> <span class="mf">0.7456</span><span class="p">,</span> <span class="mf">0.4188</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.6834190476</span><span class="p">,</span> <span class="mf">0.7434761905</span><span class="p">,</span> <span class="mf">0.4044333333</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.7184095238</span><span class="p">,</span> <span class="mf">0.7411333333</span><span class="p">,</span> <span class="mf">0.3904761905</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.7524857143</span><span class="p">,</span> <span class="mf">0.7384</span><span class="p">,</span> <span class="mf">0.3768142857</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.7858428571</span><span class="p">,</span> <span class="mf">0.7355666667</span><span class="p">,</span> <span class="mf">0.3632714286</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.8185047619</span><span class="p">,</span> <span class="mf">0.7327333333</span><span class="p">,</span> <span class="mf">0.3497904762</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.8506571429</span><span class="p">,</span> <span class="mf">0.7299</span><span class="p">,</span> <span class="mf">0.3360285714</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.8824333333</span><span class="p">,</span> <span class="mf">0.7274333333</span><span class="p">,</span> <span class="mf">0.3217</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9139333333</span><span class="p">,</span> <span class="mf">0.7257857143</span><span class="p">,</span> <span class="mf">0.3062761905</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9449571429</span><span class="p">,</span> <span class="mf">0.7261142857</span><span class="p">,</span> <span class="mf">0.2886428571</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9738952381</span><span class="p">,</span> <span class="mf">0.7313952381</span><span class="p">,</span> <span class="mf">0.266647619</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9937714286</span><span class="p">,</span> <span class="mf">0.7454571429</span><span class="p">,</span> <span class="mf">0.240347619</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9990428571</span><span class="p">,</span> <span class="mf">0.7653142857</span><span class="p">,</span> <span class="mf">0.2164142857</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9955333333</span><span class="p">,</span> <span class="mf">0.7860571429</span><span class="p">,</span> <span class="mf">0.196652381</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.988</span><span class="p">,</span> <span class="mf">0.8066</span><span class="p">,</span> <span class="mf">0.1793666667</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9788571429</span><span class="p">,</span> <span class="mf">0.8271428571</span><span class="p">,</span> <span class="mf">0.1633142857</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9697</span><span class="p">,</span> <span class="mf">0.8481380952</span><span class="p">,</span> <span class="mf">0.147452381</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9625857143</span><span class="p">,</span> <span class="mf">0.8705142857</span><span class="p">,</span> <span class="mf">0.1309</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9588714286</span><span class="p">,</span> <span class="mf">0.8949</span><span class="p">,</span> <span class="mf">0.1132428571</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9598238095</span><span class="p">,</span> <span class="mf">0.9218333333</span><span class="p">,</span> <span class="mf">0.0948380952</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9661</span><span class="p">,</span> <span class="mf">0.9514428571</span><span class="p">,</span> <span class="mf">0.0755333333</span><span class="p">],</span>
+			<span class="p">[</span><span class="mf">0.9763</span><span class="p">,</span> <span class="mf">0.9831</span><span class="p">,</span> <span class="mf">0.0538</span><span class="p">],</span>
+		<span class="p">]</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;parula&quot;</span><span class="p">,</span> <span class="n">cm_data</span><span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_palettable_colors"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors">[docs]</a><span class="k">def</span> <span class="nf">get_palettable_colors</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	category: sequential, diverging, qualitative</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">R</span><span class="o">=</span><span class="p">[]</span>
+	<span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;sequential&#39;</span><span class="p">,</span><span class="s1">&#39;diverging&#39;</span><span class="p">,</span><span class="s1">&#39;qualitative&#39;</span><span class="p">]:</span>
+		<span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">palettable</span><span class="p">):</span>
+			<span class="n">color_source</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">palettable</span><span class="p">,</span><span class="n">source</span><span class="p">)</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">color_source</span><span class="p">,</span><span class="n">category</span><span class="p">):</span>
+				<span class="k">continue</span>
+			<span class="n">color_category</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">color_source</span><span class="p">,</span><span class="n">category</span><span class="p">)</span>
+			<span class="n">color_names</span><span class="o">=</span><span class="p">[]</span>
+			<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">color_category</span><span class="p">):</span>
+				<span class="n">color</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">color_category</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+				<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="s1">&#39;mpl_colors&#39;</span><span class="p">):</span>
+					<span class="k">continue</span>
+				<span class="n">R</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">category</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">type</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">number</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">hex_colors</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">mpl_colors</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">mpl_colormap</span><span class="p">])</span>
+	<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;number&#39;</span><span class="p">,</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span><span class="s1">&#39;hex_colors&#39;</span><span class="p">,</span><span class="s1">&#39;mpl_colors&#39;</span><span class="p">,</span><span class="s1">&#39;mpl_colormap&#39;</span><span class="p">])</span>
+	<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;prefix&#39;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+	<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;prefix&#39;</span><span class="p">,</span><span class="s1">&#39;number&#39;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">max_n</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;prefix&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">number</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+	<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;max_n&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">prefix</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">max_n</span><span class="p">))</span>
+	<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">df</span><span class="o">.</span><span class="n">max_n</span><span class="p">]</span>
+	<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_r&#39;</span><span class="p">)</span>
+	<span class="n">mpl_colormaps</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mpl_colormap</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
+		<span class="n">cmap</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span>
+		<span class="n">mpl_colormaps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
+	<span class="n">df</span><span class="o">.</span><span class="n">mpl_colormap</span> <span class="o">=</span> <span class="n">mpl_colormaps</span>
+	<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span> <span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">default_cmaps</span><span class="p">)]</span>
+	<span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="register_palettable"><a class="viewcode-back" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable">[docs]</a><span class="k">def</span> <span class="nf">register_palettable</span><span class="p">():</span>
+	<span class="n">df</span><span class="o">=</span><span class="n">get_palettable_colors</span><span class="p">()</span>
+	<span class="n">all_cmaps</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
+
+	<span class="c1"># register qualitative colormap</span>
+	<span class="n">df1</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s1">&#39;qualitative&#39;</span><span class="p">]</span>
+	<span class="k">for</span> <span class="n">colors</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span> <span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">mpl_colors</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">df1</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
+		<span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+			<span class="k">continue</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+	<span class="c1"># register sequential and diverging colormap</span>
+	<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">category</span> <span class="o">!=</span> <span class="s1">&#39;qualitative&#39;</span><span class="p">]</span>
+	<span class="k">for</span> <span class="n">colors</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span> <span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">mpl_colors</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">df1</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
+		<span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">all_cmaps</span><span class="p">:</span>
+			<span class="k">continue</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+		<span class="n">register_cmap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
 
 <span class="n">define_cmap</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+	<span class="kn">import</span> <span class="nn">palettable</span>
+	<span class="n">register_palettable</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Please install palettable to enable palettable colormaps&quot;</span><span class="p">)</span>
+
 </pre></div>
 
            </div>

@@ -130,12 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -161,6 +155,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
@@ -273,7 +273,9 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -391,7 +393,7 @@
 <section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
 <h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
 <h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
-</h3><p><img alt="a0e51f0a0ca74f8fa717d32c68ba1bfb" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="44f2c59dfaa44584b3729a1f86a6f67f" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+</h3><p><img alt="8ded41cd65df42f5b21a267f68e13115" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="a472291d000347aaa32728de4d9a9cad" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
 <h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
 </h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
 </section>
@@ -1152,7 +1154,7 @@ Estimated legend width: 23.6375 mm
 </h4></section>
 <section id="How-to-select-marker:">
 <h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
-<p><img alt="90639b1e03264bb0a225d722b9cd5960" class="no-scaled-link" src="https://i.stack.imgur.com/NkAzy.png" style="width: 800px;" /></p>
+<p><img alt="2c7a90b19cae45968f24f4f8f9f6e9f9" class="no-scaled-link" src="https://i.stack.imgur.com/NkAzy.png" style="width: 800px;" /></p>
 </section>
 </section>
 

@@ -127,12 +127,6 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -158,6 +152,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
@@ -270,7 +270,9 @@
 </li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -358,8 +360,19 @@
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.colors.get_palettable_colors">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.colors.</span></span><span class="sig-name descname"><span class="pre">get_palettable_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/colors.html#get_palettable_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.colors.get_palettable_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>category: sequential, diverging, qualitative</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="PyComplexHeatmap.colors.register_cmap">
 <span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.colors.</span></span><span class="sig-name descname"><span class="pre">register_cmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/colors.html#register_cmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.colors.register_cmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyComplexHeatmap.colors.register_palettable">
+<span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.colors.</span></span><span class="sig-name descname"><span class="pre">register_palettable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/colors.html#register_palettable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.colors.register_palettable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>

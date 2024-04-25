@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Default matplotlib colormaps &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=161b7e8c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/js/rtd_search_config.js"></script>
+        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gallery" href="../gallery.html" />
+    <link rel="prev" title="colormap" href="../colormap.html" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#how-to-install">How to install?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#2.-Plot-heatmap-annotations">2. Plot heatmap annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#3.-Plot-the-heatmap-with-rows-and-columns-split">3. Plot the heatmap with rows and columns split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#4.-Plot-the-annotations-along-side-with-main-heatmap">4. Plot the annotations along side with main heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Plotting-annotations">Plotting annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Only-plot-the-row/column-annotation">Only plot the row/column annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_label:">anno_label:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_simple:">anno_simple:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#To-add-a-annotation-quickly,-you-just-need-a-dataframe">To add a annotation quickly, you just need a dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Plot-the-figure-and-legend-separately">Plot the figure and legend separately</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Clustermap">Dot Clustermap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../oncoPrint.html">oncoPrint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html">Generate dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-annotation">Custom annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-linkage">Custom linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Image-annotation">Image annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../more_examples.html">More Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Processing-the-data">Processing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../colormap.html">colormap</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html">Understand the layout:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Test-dendrogram">Test dendrogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_label">anno_label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_img">anno_img</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase"><code class="docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_orientation()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.update_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.show_ticklabels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot"><code class="docutils literal notranslate"><span class="pre">anno_barplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_barplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img"><code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot"><code class="docutils literal notranslate"><span class="pre">anno_img.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.read_img"><code class="docutils literal notranslate"><span class="pre">anno_img.read_img()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label"><code class="docutils literal notranslate"><span class="pre">anno_label</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_label.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.plot"><code class="docutils literal notranslate"><span class="pre">anno_label.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws"><code class="docutils literal notranslate"><span class="pre">anno_label.set_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.post_processing()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_xy_labels"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_xy_labels()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.get_coords()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite"><code class="docutils literal notranslate"><span class="pre">composite()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d"><code class="docutils literal notranslate"><span class="pre">dotHeatmap2d()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html">PyComplexHeatmap.oncoPrint module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoprint"><code class="docutils literal notranslate"><span class="pre">oncoprint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap"><code class="docutils literal notranslate"><span class="pre">get_colormap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../colormap.html">colormap</a></li>
+      <li class="breadcrumb-item active">Default matplotlib colormaps</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/colormap.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>Colormap in PyComplexHeatmap</p>
+<section id="Default-matplotlib-colormaps">
+<h1>Default matplotlib colormaps<a class="headerlink" href="#Default-matplotlib-colormaps" title="Permalink to this heading">¶</a></h1>
+<p><img alt="991fd88bfade4e10a5aa37d2b289b1c1" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_001.png" style="width: 600px;" /> <img alt="465091b857e847129d4a965ea32d8ccb" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_002.png" style="width: 600px;" /> <img alt="27d2259ab53a4fe4979aa83579a34f82" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_003.png" style="width: 600px;" /> <img alt="7a635173a9bd4eac918a2105eac14c7a" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_004.png" style="width: 600px;" /> <img alt="d7b3b7c7a66249f69b7cb7bdf116a9df" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_005.png" style="width: 600px;" /> <img alt="decd3f5c176248aea0d2f1258fc14db1" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_006.png" style="width: 600px;" /> <img alt="e38d5d2f82b74714ab0c353a71f80965" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_007.png" style="width: 600px;" /></p>
+</section>
+<section id="Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">
+<h1>Build-in colormaps (Not included in matplotlib default cmaps)<a class="headerlink" href="#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)" title="Permalink to this heading">¶</a></h1>
+<p>In addition to the above matplotlib colormaps, PyComplexHeatmap also provide colormaps from package <a class="reference external" href="https://jiffyclub.github.io/palettable/">palettable</a> (run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">palettable</span></code> before using palettable colormap). Users can use all those build-in colormaps after <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">PyComplexHeatmap</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap.colors</span> <span class="kn">import</span> <span class="n">get_palettable_colors</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.7.2.dev0+g8abf70a.d20240415
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">get_palettable_colors</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>category</th>
+      <th>prefix</th>
+      <th>name</th>
+      <th>type</th>
+      <th>number</th>
+      <th>max_n</th>
+      <th>colors</th>
+      <th>hex_colors</th>
+      <th>mpl_colors</th>
+      <th>mpl_colormap</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1094</th>
+      <td>sequential</td>
+      <td>Acton</td>
+      <td>Acton_20</td>
+      <td>sequential</td>
+      <td>20</td>
+      <td>20</td>
+      <td>[(46, 33, 77), (59, 45, 88), (74, 58, 101), (8...</td>
+      <td>[#2E214D, #3B2D58, #4A3A65, #594672, #6A527E, ...</td>
+      <td>[(0.1803921568627451, 0.12941176470588237, 0.3...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Acton</td>
+    </tr>
+    <tr>
+      <th>1095</th>
+      <td>sequential</td>
+      <td>Acton</td>
+      <td>Acton_20_r</td>
+      <td>sequential</td>
+      <td>20</td>
+      <td>20</td>
+      <td>[(230, 230, 240), (225, 216, 231), (219, 202, ...</td>
+      <td>[#E6E6F0, #E1D8E7, #DBCADD, #D7BDD4, #D5AFCB, ...</td>
+      <td>[(0.9019607843137255, 0.9019607843137255, 0.94...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Acton_r</td>
+    </tr>
+    <tr>
+      <th>272</th>
+      <td>sequential</td>
+      <td>Algae</td>
+      <td>Algae_20</td>
+      <td>sequential</td>
+      <td>20</td>
+      <td>20</td>
+      <td>[[215, 249, 208], [199, 237, 189], [181, 225, ...</td>
+      <td>[#D7F9D0, #C7EDBD, #B5E1A9, #A4D698, #92CB86, ...</td>
+      <td>[(0.8431372549019608, 0.9764705882352941, 0.81...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Algae</td>
+    </tr>
+    <tr>
+      <th>273</th>
+      <td>sequential</td>
+      <td>Algae</td>
+      <td>Algae_20_r</td>
+      <td>sequential</td>
+      <td>20</td>
+      <td>20</td>
+      <td>[[18, 36, 20], [22, 47, 29], [24, 59, 38], [26...</td>
+      <td>[#122414, #162F1D, #183B26, #1A472E, #1A5336, ...</td>
+      <td>[(0.07058823529411765, 0.1411764705882353, 0.0...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Algae_r</td>
+    </tr>
+    <tr>
+      <th>308</th>
+      <td>sequential</td>
+      <td>Amp</td>
+      <td>Amp_20</td>
+      <td>sequential</td>
+      <td>20</td>
+      <td>20</td>
+      <td>[[241, 237, 236], [234, 221, 218], [228, 205, ...</td>
+      <td>[#F1EDEC, #EADDDA, #E4CDC6, #DFBEB3, #DBAE9F, ...</td>
+      <td>[(0.9450980392156862, 0.9294117647058824, 0.92...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Amp</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2719</th>
+      <td>qualitative</td>
+      <td>Vivid</td>
+      <td>Vivid_10_r</td>
+      <td>qualitative</td>
+      <td>10</td>
+      <td>10</td>
+      <td>[[237, 100, 90], [118, 78, 159], [47, 138, 196...</td>
+      <td>[#ED645A, #764E9F, #2F8AC4, #DAA51B, #24796C, ...</td>
+      <td>[(0.9294117647058824, 0.39215686274509803, 0.3...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>Vivid_r</td>
+    </tr>
+    <tr>
+      <th>238</th>
+      <td>sequential</td>
+      <td>agGrnYl</td>
+      <td>agGrnYl_7</td>
+      <td>sequential</td>
+      <td>7</td>
+      <td>7</td>
+      <td>[[36, 86, 104], [15, 114, 121], [13, 143, 129]...</td>
+      <td>[#245668, #0F7279, #0D8F81, #39AB7E, #6EC574, ...</td>
+      <td>[(0.1411764705882353, 0.33725490196078434, 0.4...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>agGrnYl</td>
+    </tr>
+    <tr>
+      <th>239</th>
+      <td>sequential</td>
+      <td>agGrnYl</td>
+      <td>agGrnYl_7_r</td>
+      <td>sequential</td>
+      <td>7</td>
+      <td>7</td>
+      <td>[[237, 239, 93], [169, 220, 103], [110, 197, 1...</td>
+      <td>[#EDEF5D, #A9DC67, #6EC574, #39AB7E, #0D8F81, ...</td>
+      <td>[(0.9294117647058824, 0.9372549019607843, 0.36...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>agGrnYl_r</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>sequential</td>
+      <td>agSunset</td>
+      <td>agSunset_7</td>
+      <td>sequential</td>
+      <td>7</td>
+      <td>7</td>
+      <td>[[75, 41, 145], [135, 44, 162], [192, 54, 157]...</td>
+      <td>[#4B2991, #872CA2, #C0369D, #EA4F88, #FA7876, ...</td>
+      <td>[(0.29411764705882354, 0.1607843137254902, 0.5...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>agSunset</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>sequential</td>
+      <td>agSunset</td>
+      <td>agSunset_7_r</td>
+      <td>sequential</td>
+      <td>7</td>
+      <td>7</td>
+      <td>[[237, 217, 163], [246, 169, 122], [250, 120, ...</td>
+      <td>[#EDD9A3, #F6A97A, #FA7876, #EA4F88, #C0369D, ...</td>
+      <td>[(0.9294117647058824, 0.8509803921568627, 0.63...</td>
+      <td>&lt;matplotlib.colors.LinearSegmentedColormap obj...</td>
+      <td>agSunset_r</td>
+    </tr>
+  </tbody>
+</table>
+<p>186 rows × 11 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">cmaps</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">gradient</span><span class="p">,</span> <span class="n">gradient</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">plot_color_gradients</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">cmap_list</span><span class="p">):</span>
+    <span class="c1"># Create figure and adjust figure height to number of colormaps</span>
+    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmap_list</span><span class="p">)</span>
+    <span class="n">figh</span> <span class="o">=</span> <span class="mf">0.35</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">+</span> <span class="p">(</span><span class="n">nrows</span> <span class="o">+</span> <span class="p">(</span><span class="n">nrows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.22</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="n">figh</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.35</span> <span class="o">/</span> <span class="n">figh</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span> <span class="o">/</span> <span class="n">figh</span><span class="p">,</span>
+                        <span class="n">left</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s1"> colormaps&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">cmap_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">name</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span>
+        <span class="k">if</span> <span class="n">N</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+    <span class="c1"># Turn off *all* ticks &amp; spines, not just the ones with colormaps.</span>
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+    <span class="c1"># Save colormap list for later.</span>
+    <span class="n">cmaps</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Sequential&#39;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">category</span><span class="o">==</span><span class="s1">&#39;sequential&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)))]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;max_n&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mpl_colormap</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_colormap_6_0.png" src="../_images/notebooks_colormap_6_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Diverging&#39;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">category</span><span class="o">==</span><span class="s1">&#39;diverging&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)))]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;max_n&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mpl_colormap</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;parula&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_colormap_7_0.png" src="../_images/notebooks_colormap_7_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpl.colormaps[&#39;parula&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span><span class="p">,</span> <span class="n">ListedColormap</span>
+<span class="n">df1</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">category</span><span class="o">==</span><span class="s1">&#39;qualitative&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)))]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;max_n&#39;</span><span class="p">)</span>
+<span class="n">plot_color_gradients</span><span class="p">(</span><span class="s1">&#39;Qualitative&#39;</span><span class="p">,[</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+    <span class="n">df1</span><span class="o">.</span><span class="n">mpl_colors</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">df1</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;random50&#39;</span><span class="p">,</span><span class="s1">&#39;random100&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_colormap_9_0.png" src="../_images/notebooks_colormap_9_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpl.colormaps[&#39;random50&#39;]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="How-to-use-the-Build-in-cmap?">
+<h1>How to use the Build-in cmap?<a class="headerlink" href="#How-to-use-the-Build-in-cmap?" title="Permalink to this heading">¶</a></h1>
+<p>Just set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;custom_cmap&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code> or all kinds of annotation</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;GroupA&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;GroupB&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
+<span class="n">df_heatmap</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fea&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
+        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Vik&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Features&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Samples&quot;</span><span class="p">)</span>
+<span class="c1"># plt.savefig(&quot;example0.pdf&quot;, bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_colormap_12_0.png" src="../_images/notebooks_colormap_12_0.png" />
+</div>
+</div>
+<p>A suffix “_r” could be added to all cmap to reverse the colormap, for example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span>
+        <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+        <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RedYellowBlue_r&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span> <span class="c1">#PuOr_r,RdYlGn_r</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_colormap_14_0.png" src="../_images/notebooks_colormap_14_0.png" />
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../colormap.html" class="btn btn-neutral float-left" title="colormap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../gallery.html" class="btn btn-neutral float-right" title="Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRB2NBWG05"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VRB2NBWG05', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

@@ -29,7 +29,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Gallery" href="../gallery.html" />
+    <link rel="next" title="colormap" href="../colormap.html" />
     <link rel="prev" title="Kwargs" href="../kwargs.html" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
      crossorigin="anonymous"></script>
@@ -130,12 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-annotation">Custom annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-linkage">Custom linkage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Image-annotation">Image annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Choosing-Build-in-colormap-in-PyComplexHeatmap">Choosing Build-in colormap in PyComplexHeatmap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#Diverging">Diverging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#Qualitative">Qualitative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
 </ul>
 </li>
@@ -161,6 +155,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
@@ -273,7 +273,9 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
@@ -588,7 +590,7 @@
 </pre></div>
 </div>
 </div>
-<p><img alt="41be8d13fdd047a6b420dc6aa2d8b24c" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 800px;" /></p>
+<p><img alt="3f4474838e5f47fc82ad1d8cfb43fa0d" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 800px;" /></p>
 <section id="hgap-and-wgap-for-HeatmapAnnotation">
 <h2><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code><a class="headerlink" href="#hgap-and-wgap-for-HeatmapAnnotation" title="Permalink to this heading">¶</a></h2>
 <p>control the gap between two rows/columns of column annotations (axis=1) or row annotations (axis=0), unit is mm</p>
@@ -644,7 +646,7 @@ plt.show()
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../kwargs.html" class="btn btn-neutral float-left" title="Kwargs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../gallery.html" class="btn btn-neutral float-right" title="Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../colormap.html" class="btn btn-neutral float-right" title="colormap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
