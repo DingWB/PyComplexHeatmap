@@ -872,11 +872,14 @@ def plot_legend_list(
 					kws=legend_kws,
 				)
 				lgd_col_max_width = 0
-			L_width = L.get_window_extent().width
-			if L_width > lgd_col_max_width:
-				lgd_col_max_width = L_width
-			f = L.get_window_extent().height / ax.figure.get_window_extent().height
-			cbars.append(L)
+			if not L is None:
+				L_width = L.get_window_extent().width
+				if L_width > lgd_col_max_width:
+					lgd_col_max_width = L_width
+				f = L.get_window_extent().height / ax.figure.get_window_extent().height
+				cbars.append(L)
+			else:
+				f=0
 		elif lgd_t == "markers":
 			legend_kws["bbox_to_anchor"] = (
 				leg_pos.x0,
