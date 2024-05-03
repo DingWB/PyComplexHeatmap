@@ -879,6 +879,7 @@ def plot_legend_list(
 				f = L.get_window_extent().height / ax.figure.get_window_extent().height
 				cbars.append(L)
 			else:
+				print("Warning: height is too small so that the legend could not be plotted.")
 				f=0
 		elif lgd_t == "markers":
 			legend_kws["bbox_to_anchor"] = (

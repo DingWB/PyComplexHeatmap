@@ -711,7 +711,7 @@ class anno_boxplot(AnnotationBase):
 
 	def _check_colors(self, colors):
 		if type(colors) == str:
-			self.colors = colors.copy()
+			self.colors = colors
 		else:
 			raise TypeError(
 				"Boxplot only support one string as colors now, if more colors are wanted, cmap can be specified."
