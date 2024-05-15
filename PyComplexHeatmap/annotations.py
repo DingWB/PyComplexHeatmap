@@ -223,8 +223,8 @@ class AnnotationBase:
 
 	def _type_specific_params(self):
 		if self.ylim is None:
-			Max = np.nanmax(self.df.sum(axis=1).values)
-			Min = np.nanmin(self.df.sum(axis=1).values)
+			Max = np.nanmax(self.df.values)
+			Min = np.nanmin(self.df.values)
 			gap = Max - Min
 			self.ylim = [Min - 0.05 * gap, Max + 0.05 * gap]
 
@@ -490,10 +490,9 @@ class anno_label(AnnotationBase):
 	def set_plot_kws(self, axis):
 		shrink = 1  # 1 * mm2inch * 72  # 1mm -> points
 		if axis == 1:  # columns
-			# relpos = (
-			# 	(0, 0) if self.orientation == "up" else (0, 0)
-			# )  # position to anchor, x: left -> right, y: down -> top
-			relpos =(0,0)
+			relpos = (
+				(0, 0) if self.orientation == "up" else (0, 1)
+			)  # position to anchor, x: left -> right, y: down -> top
 			rotation = 90 if self.orientation == "up" else -90
 			ha = "left"
 			va = "center"
@@ -871,15 +870,15 @@ class anno_barplot(anno_boxplot):
 		# self.set_legend(False)
 
 	def _type_specific_params(self):
-		if self.ylim is None:
-			Max = np.nanmax(self.df.sum(axis=1).values)
-			Min = np.nanmin(self.df.sum(axis=1).values)
-			gap = Max - Min
-			self.ylim = [Min - 0.05 * gap, Max + 0.05 * gap]
 		if self.ncols > 1:
 			self.stacked = True
 		else:
 			self.stacked = False
+		if self.ylim is None:
+			Max = np.nanmax(self.df.sum(axis=1).values) if self.stacked else np.nanmax(self.df.values)
+			Min = np.nanmin(self.df.sum(axis=1).values) if self.stacked else np.nanmin(self.df.values)
+			gap = Max - Min
+			self.ylim = [Min - 0.05 * gap, Max + 0.05 * gap]
 
 	def plot(self, ax=None, axis=1):  # add self.gs,self.fig,self.ax,self.axes
 		if ax is None:
@@ -897,7 +896,7 @@ class anno_barplot(anno_boxplot):
 
 		base_coordinates = [0] * self.plot_data.shape[0]
 		for col, color in zip(self.plot_data.columns, colors):
-			if axis == 1:
+			if axis == 1: #columns annotations
 				ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.bar(
 					x=np.arange(0.5, self.nrows, 1),
@@ -997,8 +996,8 @@ class anno_scatterplot(anno_barplot):
 		self.set_legend(False)
 
 	def _type_specific_params(self):
-		Max = np.nanmax(self.df.sum(axis=1).values)
-		Min = np.nanmin(self.df.sum(axis=1).values)
+		Max = np.nanmax(self.df.values)
+		Min = np.nanmin(self.df.values)
 		self.gap = Max - Min
 		if self.ylim is None:
 			self.ylim = [Min - 0.05 * self.gap, Max + 0.05 * self.gap]
@@ -1036,9 +1035,9 @@ class anno_scatterplot(anno_barplot):
 		c = self.plot_kws.get("c", colors)
 		s = self.plot_kws.get("s", self.s)
 		scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **plot_kws)
-		if axis == 0:
-			ax.set_xlim(0, self.nrows)
-			ax.set_ylim(*self.ylim)
+		if axis == 0: #row annotations
+			ax.set_ylim(0, self.nrows)
+			ax.set_xlim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -1049,9 +1048,9 @@ class anno_scatterplot(anno_barplot):
 			)
 			# if self.orientation == 'left':
 			# 	ax.invert_xaxis()
-		else:
-			ax.set_ylim(0, self.nrows)
-			ax.set_xlim(*self.ylim)
+		else: #columns annotations
+			ax.set_xlim(0, self.nrows)
+			ax.set_ylim(*self.ylim)
 			ax.tick_params(
 				axis="both",
 				which="both",
@@ -1563,7 +1562,7 @@ class HeatmapAnnotation:
 			self.labels = []
 			for arg in self.args:
 				# print(arg)
-				ann = self.args[arg]
+				ann = self.args[arg] # Series, anno_* or DataFrame
 				if type(ann) == list or isinstance(ann, np.ndarray):
 					ann = pd.Series(ann).to_frame(name=arg)
 				elif isinstance(ann, pd.Series):
@@ -1598,8 +1597,8 @@ class HeatmapAnnotation:
 							self.orientation = "left"
 						elif self.axis == 0:
 							self.orientation = "right"
+					ann.set_orientation(self.orientation)
 				self.labels.append(arg)
-				ann.set_orientation(self.orientation)
 
 	def _set_orentation(self, orientation):
 		if self.orientation is None:
