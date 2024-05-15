@@ -1222,11 +1222,15 @@
 					<span class="n">kws</span><span class="o">=</span><span class="n">legend_kws</span><span class="p">,</span>
 				<span class="p">)</span>
 				<span class="n">lgd_col_max_width</span> <span class="o">=</span> <span class="mi">0</span>
-			<span class="n">L_width</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
-			<span class="k">if</span> <span class="n">L_width</span> <span class="o">&gt;</span> <span class="n">lgd_col_max_width</span><span class="p">:</span>
-				<span class="n">lgd_col_max_width</span> <span class="o">=</span> <span class="n">L_width</span>
-			<span class="n">f</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span>
-			<span class="n">cbars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="n">L</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">L_width</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
+				<span class="k">if</span> <span class="n">L_width</span> <span class="o">&gt;</span> <span class="n">lgd_col_max_width</span><span class="p">:</span>
+					<span class="n">lgd_col_max_width</span> <span class="o">=</span> <span class="n">L_width</span>
+				<span class="n">f</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span>
+				<span class="n">cbars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: height is too small so that the legend could not be plotted.&quot;</span><span class="p">)</span>
+				<span class="n">f</span><span class="o">=</span><span class="mi">0</span>
 		<span class="k">elif</span> <span class="n">lgd_t</span> <span class="o">==</span> <span class="s2">&quot;markers&quot;</span><span class="p">:</span>
 			<span class="n">legend_kws</span><span class="p">[</span><span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
 				<span class="n">leg_pos</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span>
