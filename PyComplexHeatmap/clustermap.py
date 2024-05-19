@@ -2500,7 +2500,20 @@ def composite(
 		legend_width=legend_width,
 		verbose=verbose
 	)
-	ax.set_axis_off()
+	# ax.set_axis_off()
+	despine(ax=ax, left=True, bottom=True, top=True, right=True)
+	ax.tick_params(
+		axis="both",
+		which="both",
+		left=False,
+		right=False,
+		labelleft=False,
+		labelright=False,
+		top=False,
+		bottom=False,
+		labeltop=False,
+		labelbottom=False,
+	)
 	# import pdb;
 	# pdb.set_trace()
 	return ax, legend_axes
