@@ -400,7 +400,7 @@ class anno_simple(AnnotationBase):
 			color = self.text_kws.pop("color", None)
 			for x0, y0, t in zip(x, y, labels):
 				# print(t,self.color_dict)
-				lum = _calculate_luminance(self.color_dict[t])
+				lum = _calculate_luminance(self.color_dict.get(t,'black'))
 				if color is None:
 					text_color = "black" if lum > 0.408 else "white"
 				else:
@@ -743,7 +743,7 @@ class anno_boxplot(AnnotationBase):
 			ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
 		# bp = self.plot_data.T.boxplot(ax=ax, patch_artist=True,vert=vert,return_type='dict',**self.plot_kws)
 		bp = ax.boxplot(
-			x=self.plot_data.T.values,
+			x=self.plot_data.T.values, #shape=(n_fea,n_samples)
 			positions=np.arange(0.5, self.nrows, 1),
 			patch_artist=True,
 			vert=vert, #If True, draws vertical boxes. If False, draw horizontal boxes
@@ -1012,9 +1012,9 @@ class anno_scatterplot(anno_barplot):
 			ax.grid(linestyle="--", zorder=-10)
 		values = self.plot_data.iloc[:, 0].values
 		if self.colors is None:
-			colors = values
+			colors = self.plot_data.iloc[:, 0].dropna().values
 		else:  # self.colors is a string
-			colors = [self.colors] * self.plot_data.shape[0]
+			colors = [self.colors] * self.plot_data.dropna().shape[0]
 		if axis == 1:
 			spu = (
 				ax.get_window_extent().height * 72 / self.gap / fig.dpi
@@ -1023,15 +1023,30 @@ class anno_scatterplot(anno_barplot):
 			spu = (
 				ax.get_window_extent().width * 72 / self.gap / fig.dpi
 			)  # size per unit
-		self.s = (values - values.min() + self.gap * 0.1) * spu  # fontsize
+		value_min=np.nanmin(values)
+		self.s = [(v - value_min + self.gap * 0.1) * spu for v in values if not pd.isna(v)]  # fontsize
 		if axis == 1:
 			ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
-			x = np.arange(0.5, self.nrows, 1)
-			y = values
+			# x = np.arange(0.5, self.nrows, 1)
+			# y = values
+			y = []
+			x=[]
+			for x1,y1 in zip(np.arange(0.5, self.nrows, 1),values):
+				if pd.isna(y1):
+					continue
+				x.append(x1)
+				y.append(y1)
 		else:
 			ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
-			y = np.arange(0.5, self.nrows, 1)
-			x = values
+			# y = np.arange(0.5, self.nrows, 1)
+			# x = values
+			y = []
+			x = []
+			for x1, y1 in zip(np.arange(0.5, self.nrows, 1), values):
+				if pd.isna(y1):
+					continue
+				y.append(x1)
+				x.append(y1)
 		c = self.plot_kws.get("c", colors)
 		s = self.plot_kws.get("s", self.s)
 		scatter_ax = ax.scatter(x=x, y=y, c=c, s=s, cmap=self.cmap, **plot_kws)

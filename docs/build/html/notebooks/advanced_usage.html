@@ -355,7 +355,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -364,7 +364,7 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
@@ -380,7 +380,7 @@
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -394,7 +394,7 @@
 <section id="Generate-dataset">
 <h1>Generate dataset<a class="headerlink" href="#Generate-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generate example dataset (random)</span>
@@ -414,6 +414,121 @@
 <span class="n">df_heatmap</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 </pre></div>
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add a missing value to sample4</span>
+<span class="n">df_heatmap</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Fea4&#39;</span><span class="p">,</span><span class="s1">&#39;sample4&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df_box</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;sample4&#39;</span><span class="p">,</span><span class="s1">&#39;Gene4&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df_box</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Gene1</th>
+      <th>Gene2</th>
+      <th>Gene3</th>
+      <th>Gene4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>sample1</th>
+      <td>0.937116</td>
+      <td>-0.659179</td>
+      <td>0.993593</td>
+      <td>0.360544</td>
+    </tr>
+    <tr>
+      <th>sample2</th>
+      <td>-0.394269</td>
+      <td>1.791282</td>
+      <td>-1.010142</td>
+      <td>0.285398</td>
+    </tr>
+    <tr>
+      <th>sample3</th>
+      <td>0.977632</td>
+      <td>0.132738</td>
+      <td>1.268063</td>
+      <td>-0.277091</td>
+    </tr>
+    <tr>
+      <th>sample4</th>
+      <td>0.305219</td>
+      <td>0.672865</td>
+      <td>-0.752159</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>sample5</th>
+      <td>0.970590</td>
+      <td>0.457063</td>
+      <td>-0.553519</td>
+      <td>-1.662811</td>
+    </tr>
+    <tr>
+      <th>sample6</th>
+      <td>0.011837</td>
+      <td>0.241685</td>
+      <td>1.338704</td>
+      <td>2.635701</td>
+    </tr>
+    <tr>
+      <th>sample7</th>
+      <td>1.626443</td>
+      <td>-2.745594</td>
+      <td>0.943023</td>
+      <td>0.720122</td>
+    </tr>
+    <tr>
+      <th>sample8</th>
+      <td>-0.427041</td>
+      <td>1.827228</td>
+      <td>0.966434</td>
+      <td>-0.489118</td>
+    </tr>
+    <tr>
+      <th>sample9</th>
+      <td>0.153926</td>
+      <td>2.525007</td>
+      <td>0.238636</td>
+      <td>0.794864</td>
+    </tr>
+    <tr>
+      <th>sample10</th>
+      <td>-0.727978</td>
+      <td>-1.166851</td>
+      <td>-0.447444</td>
+      <td>0.617625</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 </section>
 <section id="Add-selected-rows-labels">
@@ -472,14 +587,14 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.841146986434118 2.963602491747271
+-2.157102610311511 3.146611797285471
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_5_1.png" src="../_images/notebooks_advanced_usage_5_1.png" />
+<img alt="../_images/notebooks_advanced_usage_6_1.png" src="../_images/notebooks_advanced_usage_6_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -503,9 +618,9 @@
 <span class="n">df_rows</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_rows</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;A&#39;</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Fea&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span><span class="o">&gt;=</span><span class="mi">15</span> <span class="k">else</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
 
 <span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
-            <span class="n">S4</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+            <span class="n">S4</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
                        <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                       <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">}),</span>
+                       <span class="n">text_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;gold&#39;</span><span class="p">}),</span>
             <span class="c1"># Scatter=anno_scatterplot(df_heatmap.sample4.apply(lambda x:round(x,2)),</span>
             <span class="c1">#                  height=10),</span>
             <span class="n">Test</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
@@ -539,7 +654,7 @@
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="c1">#legend_hpad=10,legend_vpad=5,</span>
-            <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+            <span class="n">annot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
             <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
             <span class="n">yticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span><span class="c1">#subplot_gap=8</span>
 <span class="p">)</span>
@@ -557,42 +672,46 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
              AB CD EF         F
-sample1  GroupA  C  E  1.359333
-sample2  GroupA  C  E  0.673350
-sample3  GroupA  C  E  0.573111
-sample4  GroupA  D  E  1.594789
-sample5  GroupA  D  E  0.695960
-sample1     0.162435
-sample2     0.518630
-sample3     0.235127
-sample4    -0.234441
-sample5     0.031434
-sample6     0.197249
-sample7     0.507195
-sample8    -0.013606
-sample9     0.211822
-sample10    0.599622
+sample1  GroupA  C  E -0.614358
+sample2  GroupA  C  E -0.839341
+sample3  GroupA  C  E -0.662721
+sample4  GroupA  D  E -0.790221
+sample5  GroupA  D  E -0.493761
+sample1     0.408019
+sample2     0.168067
+sample3     0.525335
+sample4     0.075308
+sample5    -0.197169
+sample6     1.056982
+sample7     0.135998
+sample8     0.469376
+sample9     0.928108
+sample10   -0.431162
 dtype: float64
        sample1   sample2   sample3   sample4   sample5   sample6   sample7  \
-Fea1 -1.638870  1.703967 -0.918811  0.494026  0.756221  2.386187 -0.212185
-Fea2 -0.979801  0.845706       NaN  1.002549  0.542421  0.096501 -0.370826
-Fea3  1.592067 -0.591746  0.722351  0.231625  1.520455 -1.207800 -0.233693
-Fea4  0.901509 -0.051300  2.028302 -0.192058  1.225769  0.604959 -0.689764
-Fea5  0.708731  0.851517  0.515662  1.720032  1.407376  0.133108  0.051944
+Fea1 -0.386262 -0.747538  3.146612  0.125124  0.083387  1.116405 -1.004282
+Fea2 -0.486237 -0.476054       NaN  0.177784  0.409425 -1.251351  0.701073
+Fea3 -1.592208  0.284530 -0.641056  0.067149  0.151046  1.794066  1.039195
+Fea4  0.374896 -0.201405 -0.361317       NaN -0.658287 -0.068381  0.663917
+Fea5  0.416785 -1.020254  0.800936  1.876053 -1.667613  0.403258 -0.363652
 
        sample8   sample9  sample10
-Fea1 -1.268140  0.746568  0.535884
-Fea2 -2.142260  0.158881  0.507312
-Fea3  1.167731 -0.674437  0.471352
-Fea4  0.089417  0.433203  0.759589
-Fea5  0.909808 -0.042368  1.285386
+Fea1 -0.842383 -1.503472  0.350436
+Fea2  0.931635 -0.121572 -0.425884
+Fea3 -0.997284  0.303254 -0.206570
+Fea4  0.470683 -0.420773  0.377552
+Fea5  2.009610 -0.781804  0.227924
+Incresing ncol
+Incresing ncol
+More than 3 cols is not supported
+Legend too long, generating a new column..
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_7_1.png" src="../_images/notebooks_advanced_usage_7_1.png" />
+<img alt="../_images/notebooks_advanced_usage_8_1.png" src="../_images/notebooks_advanced_usage_8_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -600,8 +719,8 @@ Fea5  0.909808 -0.042368  1.285386
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[&#39;Fea24&#39;, &#39;Fea27&#39;, &#39;Fea25&#39;, &#39;Fea19&#39;, &#39;Fea17&#39;, &#39;Fea20&#39;, &#39;Fea28&#39;, &#39;Fea15&#39;, &#39;Fea30&#39;, &#39;Fea21&#39;, &#39;Fea18&#39;, &#39;Fea26&#39;, &#39;Fea22&#39;, &#39;Fea29&#39;, &#39;Fea16&#39;, &#39;Fea23&#39;], [&#39;Fea11&#39;, &#39;Fea6&#39;, &#39;Fea3&#39;, &#39;Fea5&#39;, &#39;Fea13&#39;, &#39;Fea10&#39;, &#39;Fea14&#39;, &#39;Fea12&#39;, &#39;Fea4&#39;, &#39;Fea8&#39;, &#39;Fea1&#39;, &#39;Fea2&#39;, &#39;Fea7&#39;, &#39;Fea9&#39;]]
-[[&#39;sample3&#39;, &#39;sample2&#39;, &#39;sample4&#39;, &#39;sample1&#39;, &#39;sample5&#39;], [&#39;sample10&#39;, &#39;sample8&#39;, &#39;sample7&#39;, &#39;sample6&#39;, &#39;sample9&#39;]]
+[[&#39;Fea21&#39;, &#39;Fea28&#39;, &#39;Fea22&#39;, &#39;Fea18&#39;, &#39;Fea20&#39;, &#39;Fea24&#39;, &#39;Fea23&#39;, &#39;Fea29&#39;, &#39;Fea30&#39;, &#39;Fea16&#39;, &#39;Fea17&#39;, &#39;Fea15&#39;, &#39;Fea19&#39;, &#39;Fea25&#39;, &#39;Fea26&#39;, &#39;Fea27&#39;], [&#39;Fea3&#39;, &#39;Fea14&#39;, &#39;Fea2&#39;, &#39;Fea6&#39;, &#39;Fea10&#39;, &#39;Fea5&#39;, &#39;Fea7&#39;, &#39;Fea11&#39;, &#39;Fea1&#39;, &#39;Fea9&#39;, &#39;Fea8&#39;, &#39;Fea13&#39;, &#39;Fea4&#39;, &#39;Fea12&#39;]]
+[[&#39;sample2&#39;, &#39;sample4&#39;, &#39;sample5&#39;, &#39;sample1&#39;, &#39;sample3&#39;], [&#39;sample6&#39;, &#39;sample7&#39;, &#39;sample10&#39;, &#39;sample8&#39;, &#39;sample9&#39;]]
 </pre></div></div>
 </div>
 </section>
@@ -648,88 +767,88 @@ Fea5  0.909808 -0.042368  1.285386
 <div class="output_area docutils container">
 <div class="highlight"><pre>
               AB CD         F
-sample1    AAAA1  C  0.561830
-sample2    AAAA1  C  1.190230
-sample3    AAAA1  C -1.037999
-sample4    AAAA1  D -0.864624
-sample5    AAAA1  D  0.058628
-sample6   BBBBB2  D -0.471962
-sample7   BBBBB2  G  1.616311
-sample8   BBBBB2  G -0.694068
-sample9   BBBBB2  G -0.076148
-sample10  BBBBB2  G -0.678641
+sample1    AAAA1  C -0.628801
+sample2    AAAA1  C -0.471743
+sample3    AAAA1  C  1.378939
+sample4    AAAA1  D -1.358253
+sample5    AAAA1  D -0.949613
+sample6   BBBBB2  D  1.827132
+sample7   BBBBB2  G -0.123428
+sample8   BBBBB2  G  1.021989
+sample9   BBBBB2  G  0.021776
+sample10  BBBBB2  G -1.996311
             Gene1     Gene2     Gene3     Gene4
-sample1 -0.108970  0.211873 -0.861336  0.231905
-sample2 -1.346625  2.313254  0.769587  0.938315
-sample3  0.072325  0.594893 -0.091583  1.439816
-sample4 -0.952795 -1.598662  1.601822 -0.711043
-sample5 -2.586671 -1.632116 -0.031570  0.718017
+sample1  0.756943  0.354781  1.315364 -0.295363
+sample2  0.048050 -0.471359  0.909457 -0.786999
+sample3  0.813793  0.203979 -0.192814  0.418301
+sample4 -0.837142  0.300875 -1.660542 -0.042986
+sample5 -0.053601 -1.146917 -1.651060  0.059610
            Scatter
-sample1   4.128744
-sample2   7.015310
-sample3   9.697119
-sample4   4.667460
-sample5   0.895213
-sample6   3.182440
-sample7   0.762704
-sample8   7.823300
-sample9   2.139492
-sample10  4.199849
+sample1   2.754609
+sample2   7.546330
+sample3   5.001308
+sample4   3.583745
+sample5   8.063068
+sample6   8.089742
+sample7   1.375767
+sample8   5.853665
+sample9   8.286384
+sample10  9.701266
               TMB1      TMB2
-sample1   3.049894  3.867514
-sample2   4.276663  7.153284
-sample3   8.745125  0.982555
-sample4   9.040780  0.102069
-sample5   6.795501  1.757955
-sample6   1.870505  8.039675
-sample7   8.611679  5.432728
-sample8   5.492601  3.655242
-sample9   6.329426  5.280377
-sample10  3.735996  4.702057
+sample1   4.893003  8.770648
+sample2   8.925622  6.414844
+sample3   3.213431  8.582558
+sample4   1.503275  8.772106
+sample5   9.639222  1.647602
+sample6   3.739074  0.922816
+sample7   3.709650  1.554092
+sample8   0.374346  2.562452
+sample9   2.052861  6.630201
+sample10  2.573990  2.847553
               T1-A      T1-B
-sample1   4.027052  1.898113
-sample2   4.716303  6.759929
-sample3   8.872626  4.844979
-sample4   9.976796  9.891648
-sample5   2.002251  7.995493
-sample6   3.098494  3.759760
-sample7   8.741471  9.169132
-sample8   8.701163  0.995998
-sample9   2.715762  4.713960
-sample10  2.282135  4.343671
+sample1   8.436938  7.242035
+sample2   1.477571  4.254771
+sample3   9.611541  2.476151
+sample4   9.425951  9.751565
+sample5   9.416579  0.061610
+sample6   4.388932  6.368750
+sample7   1.428166  7.151330
+sample8   1.318476  9.605671
+sample9   3.736573  6.464686
+sample10  2.331431  6.605041
               T2-A      T2-B
-sample1   5.001836  4.760201
-sample2   9.591058  2.217995
-sample3   8.651985  1.140812
-sample4   0.341724  2.707339
-sample5   6.498835  7.176536
-sample6   8.034366  0.873179
-sample7   0.737890  4.719715
-sample8   4.663181  9.545489
-sample9   1.994544  0.592395
-sample10  5.048697  5.828347
+sample1   3.783960  2.957807
+sample2   1.625074  5.166459
+sample3   4.652160  1.693286
+sample4   6.777819  2.753625
+sample5   6.400330  0.617894
+sample6   8.555954  0.036077
+sample7   6.440199  6.607320
+sample8   4.358980  7.246066
+sample9   4.722942  8.483010
+sample10  1.197058  3.646293
               T3-A      T3-B
-sample1   8.250023  7.695190
-sample2   7.427352  7.232584
-sample3   1.639271  3.136855
-sample4   2.509525  6.604048
-sample5   8.516577  1.797553
-sample6        NaN  0.577125
-sample7   1.097564  2.364357
-sample8   4.217994  5.165383
-sample9   1.714098  0.742806
-sample10  2.208820  6.916109
+sample1   5.549605  6.350561
+sample2   9.214486  1.069634
+sample3   8.418769  5.679212
+sample4   1.422777  0.529066
+sample5   0.239824  0.703062
+sample6        NaN  0.899577
+sample7   4.400180  8.500522
+sample8   8.342229  7.086959
+sample9   1.981770  8.579189
+sample10  5.102739  9.717843
                 T4
-sample1   0.569048
-sample2   2.123255
-sample3   5.196347
-sample4   9.781175
-sample5   0.217832
-sample6   4.569524
-sample7   8.653918
+sample1   3.855571
+sample2   1.621486
+sample3   1.073019
+sample4   3.624113
+sample5   8.126340
+sample6   2.194274
+sample7   8.637156
 sample8        NaN
-sample9   8.640406
-sample10  8.815233
+sample9   0.675029
+sample10  4.213269
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -769,7 +888,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_10_1.png" src="../_images/notebooks_advanced_usage_10_1.png" />
+<img alt="../_images/notebooks_advanced_usage_11_1.png" src="../_images/notebooks_advanced_usage_11_1.png" />
 </div>
 </div>
 </section>
@@ -812,7 +931,7 @@ Starting plotting HeatmapAnnotations
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_12_1.png" src="../_images/notebooks_advanced_usage_12_1.png" />
+<img alt="../_images/notebooks_advanced_usage_13_1.png" src="../_images/notebooks_advanced_usage_13_1.png" />
 </div>
 </div>
 </section>
@@ -862,7 +981,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_14_1.png" src="../_images/notebooks_advanced_usage_14_1.png" />
+<img alt="../_images/notebooks_advanced_usage_15_1.png" src="../_images/notebooks_advanced_usage_15_1.png" />
 </div>
 </div>
 </section>
@@ -879,7 +998,7 @@ Legend too long, generating a new column..
             <span class="n">Bar4</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
             <span class="n">Bar2</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar2</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">),</span>
             <span class="n">Bar3</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar3</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">),</span>
-            <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">),</span>
+            <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">},</span>
                            <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -912,7 +1031,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_16_1.png" src="../_images/notebooks_advanced_usage_16_1.png" />
+<img alt="../_images/notebooks_advanced_usage_17_1.png" src="../_images/notebooks_advanced_usage_17_1.png" />
 </div>
 </div>
 </section>
@@ -959,7 +1078,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_18_1.png" src="../_images/notebooks_advanced_usage_18_1.png" />
+<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1004,7 +1123,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
+<img alt="../_images/notebooks_advanced_usage_20_1.png" src="../_images/notebooks_advanced_usage_20_1.png" />
 </div>
 </div>
 </section>
@@ -1079,7 +1198,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_23_0.png" src="../_images/notebooks_advanced_usage_23_0.png" />
+<img alt="../_images/notebooks_advanced_usage_24_0.png" src="../_images/notebooks_advanced_usage_24_0.png" />
 </div>
 </div>
 </section>
@@ -1110,7 +1229,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_25_0.png" src="../_images/notebooks_advanced_usage_25_0.png" />
+<img alt="../_images/notebooks_advanced_usage_26_0.png" src="../_images/notebooks_advanced_usage_26_0.png" />
 </div>
 </div>
 </section>
@@ -1140,7 +1259,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_27_0.png" src="../_images/notebooks_advanced_usage_27_0.png" />
+<img alt="../_images/notebooks_advanced_usage_28_0.png" src="../_images/notebooks_advanced_usage_28_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1182,7 +1301,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_28_0.png" src="../_images/notebooks_advanced_usage_28_0.png" />
+<img alt="../_images/notebooks_advanced_usage_29_0.png" src="../_images/notebooks_advanced_usage_29_0.png" />
 </div>
 </div>
 </section>
@@ -1195,10 +1314,10 @@ Legend too long, generating a new column..
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annot</span><span class="o">=</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;∗∗∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;∗∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;∗&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 <span class="c1"># To make asterisk located at center in vertical, use ∗ ASTERISK OPERATOR. instead of normal *; see: https://unicode-explorer.com/c/2217</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">df_heatmap</span><span class="p">,</span> <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span>
-        <span class="n">annot</span><span class="o">=</span><span class="n">annot</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;fontname&#39;</span><span class="p">:</span><span class="s1">&#39;Courier&#39;</span><span class="p">},</span>
+        <span class="n">annot</span><span class="o">=</span><span class="n">annot</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="s1">&#39;fontname&#39;</span><span class="p">:</span><span class="s1">&#39;Courier&#39;</span><span class="p">},</span>
         <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">Groups</span><span class="p">,</span> <span class="n">col_split_order</span><span class="o">=</span><span class="s2">&quot;cluster_between_groups&quot;</span><span class="p">,</span>
         <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span>
@@ -1213,7 +1332,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_30_0.png" src="../_images/notebooks_advanced_usage_30_0.png" />
+<img alt="../_images/notebooks_advanced_usage_31_0.png" src="../_images/notebooks_advanced_usage_31_0.png" />
 </div>
 </div>
 </section>
@@ -1247,22 +1366,22 @@ Legend too long, generating a new column..
 <div class="highlight"><pre>
 df_heatmap shape: (30, 10)
 linkage shape: (9, 4)
- [[ 5.          8.         17.34095476  2.        ]
- [ 4.          9.         18.19555603  2.        ]
- [ 2.          3.         18.80024577  2.        ]
- [ 1.         12.         19.26230098  3.        ]
- [ 0.          7.         19.33131847  2.        ]
- [ 6.         10.         20.61761495  3.        ]
- [11.         13.         20.6462514   5.        ]
- [14.         16.         21.4101873   7.        ]
- [15.         17.         22.52653894 10.        ]]
+ [[ 4.          6.         15.40288166  2.        ]
+ [ 1.          8.         17.1016286   2.        ]
+ [ 0.          7.         19.49104337  2.        ]
+ [10.         11.         20.37365479  4.        ]
+ [ 9.         12.         20.65737736  3.        ]
+ [ 3.         13.         20.89835218  5.        ]
+ [ 5.         14.         21.36727801  4.        ]
+ [ 2.         16.         22.07293992  5.        ]
+ [15.         17.         22.50688917 10.        ]]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_32_1.png" src="../_images/notebooks_advanced_usage_32_1.png" />
+<img alt="../_images/notebooks_advanced_usage_33_1.png" src="../_images/notebooks_advanced_usage_33_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1287,7 +1406,7 @@ linkage shape: (9, 4)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_33_0.png" src="../_images/notebooks_advanced_usage_33_0.png" />
+<img alt="../_images/notebooks_advanced_usage_34_0.png" src="../_images/notebooks_advanced_usage_34_0.png" />
 </div>
 </div>
 </section>
@@ -1363,7 +1482,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_36_1.png" src="../_images/notebooks_advanced_usage_36_1.png" />
+<img alt="../_images/notebooks_advanced_usage_37_1.png" src="../_images/notebooks_advanced_usage_37_1.png" />
 </div>
 </div>
 </section>
@@ -1392,7 +1511,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_38_0.png" src="../_images/notebooks_advanced_usage_38_0.png" />
+<img alt="../_images/notebooks_advanced_usage_39_0.png" src="../_images/notebooks_advanced_usage_39_0.png" />
 </div>
 </div>
 <p>To force display all ticklabels no matter whether the height or width is big enough, set parameters <code class="docutils literal notranslate"><span class="pre">xticklabels/yticklabels</span></code> to True:</p>
@@ -1419,7 +1538,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_40_0.png" src="../_images/notebooks_advanced_usage_40_0.png" />
+<img alt="../_images/notebooks_advanced_usage_41_0.png" src="../_images/notebooks_advanced_usage_41_0.png" />
 </div>
 </div>
 </section>

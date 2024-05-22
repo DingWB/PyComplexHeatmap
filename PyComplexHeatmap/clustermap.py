@@ -1990,7 +1990,7 @@ class ClusterMapPlotter:
 
 		annot = self.kwargs.pop("annot", None)
 		if annot is None or annot is False:
-			pass
+			annot=None
 		else:
 			if isinstance(annot, bool):
 				annot_data = self.data2d
