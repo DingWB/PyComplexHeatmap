@@ -48,7 +48,7 @@ pip install --upgrade PyComplexHeatmap
 pip install git+https://github.com/DingWB/PyComplexHeatmap
 ```
 if you have installed it previously and want to update it, please run 
-`pip uninstall PyComplexHeatmap`
+`pip uninstall -y PyComplexHeatmap`
 and install from github again
 OR
 ```shell

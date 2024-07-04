@@ -364,10 +364,11 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -377,6 +378,7 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 1.7.2.dev0+g8abf70a.d20240415
+3.7.3
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -458,73 +460,73 @@
   <tbody>
     <tr>
       <th>sample1</th>
-      <td>0.937116</td>
-      <td>-0.659179</td>
-      <td>0.993593</td>
-      <td>0.360544</td>
+      <td>0.555469</td>
+      <td>1.199811</td>
+      <td>1.260068</td>
+      <td>0.345621</td>
     </tr>
     <tr>
       <th>sample2</th>
-      <td>-0.394269</td>
-      <td>1.791282</td>
-      <td>-1.010142</td>
-      <td>0.285398</td>
+      <td>2.723945</td>
+      <td>-0.144740</td>
+      <td>1.463373</td>
+      <td>-0.615586</td>
     </tr>
     <tr>
       <th>sample3</th>
-      <td>0.977632</td>
-      <td>0.132738</td>
-      <td>1.268063</td>
-      <td>-0.277091</td>
+      <td>0.509378</td>
+      <td>0.711570</td>
+      <td>-0.171623</td>
+      <td>-0.477583</td>
     </tr>
     <tr>
       <th>sample4</th>
-      <td>0.305219</td>
-      <td>0.672865</td>
-      <td>-0.752159</td>
+      <td>0.279437</td>
+      <td>-0.495680</td>
+      <td>1.220878</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>sample5</th>
-      <td>0.970590</td>
-      <td>0.457063</td>
-      <td>-0.553519</td>
-      <td>-1.662811</td>
+      <td>0.153478</td>
+      <td>0.772733</td>
+      <td>-2.392615</td>
+      <td>1.224668</td>
     </tr>
     <tr>
       <th>sample6</th>
-      <td>0.011837</td>
-      <td>0.241685</td>
-      <td>1.338704</td>
-      <td>2.635701</td>
+      <td>0.974703</td>
+      <td>2.411871</td>
+      <td>-0.051852</td>
+      <td>1.043987</td>
     </tr>
     <tr>
       <th>sample7</th>
-      <td>1.626443</td>
-      <td>-2.745594</td>
-      <td>0.943023</td>
-      <td>0.720122</td>
+      <td>-2.208437</td>
+      <td>-0.504746</td>
+      <td>0.376940</td>
+      <td>-0.208456</td>
     </tr>
     <tr>
       <th>sample8</th>
-      <td>-0.427041</td>
-      <td>1.827228</td>
-      <td>0.966434</td>
-      <td>-0.489118</td>
+      <td>-1.850758</td>
+      <td>-0.660640</td>
+      <td>-0.130282</td>
+      <td>1.080571</td>
     </tr>
     <tr>
       <th>sample9</th>
-      <td>0.153926</td>
-      <td>2.525007</td>
-      <td>0.238636</td>
-      <td>0.794864</td>
+      <td>0.451069</td>
+      <td>-1.312496</td>
+      <td>-1.322708</td>
+      <td>-0.870063</td>
     </tr>
     <tr>
       <th>sample10</th>
-      <td>-0.727978</td>
-      <td>-1.166851</td>
-      <td>-0.447444</td>
-      <td>0.617625</td>
+      <td>-0.183063</td>
+      <td>-0.055576</td>
+      <td>-0.919140</td>
+      <td>-1.276465</td>
     </tr>
   </tbody>
 </table>
@@ -534,7 +536,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -575,7 +577,10 @@
         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
         <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+        <span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">grid_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="c1"># for ax in cm.top_annotation.axes[-1,:]:</span>
+<span class="c1">#     ax.cla()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;example0.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span><span class="n">cm</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">],</span><span class="n">cm</span><span class="o">.</span><span class="n">legend_kws</span><span class="p">)</span>
@@ -587,7 +592,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.157102610311511 3.146611797285471
+-2.609120853824764 2.8329048783121054
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -603,6 +608,49 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 -2.2 2.3 {&#39;vmin&#39;: -2.2, &#39;vmax&#39;: 2.3, &#39;center&#39;: None}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[&lt;Axes: &gt;, &lt;Axes: &gt;],
+       [&lt;Axes: &gt;, &lt;Axes: &gt;]], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">get_tick_params</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;rotation&#39;: 90,
+ &#39;left&#39;: True,
+ &#39;right&#39;: False,
+ &#39;labelleft&#39;: False,
+ &#39;labelright&#39;: False,
+ &#39;gridOn&#39;: False,
+ &#39;labelcolor&#39;: &#39;blue&#39;,
+ &#39;labelsize&#39;: 14,
+ &#39;grid_color&#39;: &#39;red&#39;}
 </pre></div></div>
 </div>
 </section>
@@ -711,7 +759,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_8_1.png" src="../_images/notebooks_advanced_usage_8_1.png" />
+<img alt="../_images/notebooks_advanced_usage_10_1.png" src="../_images/notebooks_advanced_usage_10_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -888,7 +936,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_11_1.png" src="../_images/notebooks_advanced_usage_11_1.png" />
+<img alt="../_images/notebooks_advanced_usage_13_1.png" src="../_images/notebooks_advanced_usage_13_1.png" />
 </div>
 </div>
 </section>
@@ -931,7 +979,7 @@ Starting plotting HeatmapAnnotations
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_13_1.png" src="../_images/notebooks_advanced_usage_13_1.png" />
+<img alt="../_images/notebooks_advanced_usage_15_1.png" src="../_images/notebooks_advanced_usage_15_1.png" />
 </div>
 </div>
 </section>
@@ -981,7 +1029,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_15_1.png" src="../_images/notebooks_advanced_usage_15_1.png" />
+<img alt="../_images/notebooks_advanced_usage_17_1.png" src="../_images/notebooks_advanced_usage_17_1.png" />
 </div>
 </div>
 </section>
@@ -1031,7 +1079,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_17_1.png" src="../_images/notebooks_advanced_usage_17_1.png" />
+<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
 </div>
 </div>
 </section>
@@ -1078,7 +1126,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_19_1.png" src="../_images/notebooks_advanced_usage_19_1.png" />
+<img alt="../_images/notebooks_advanced_usage_21_1.png" src="../_images/notebooks_advanced_usage_21_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1123,7 +1171,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_20_1.png" src="../_images/notebooks_advanced_usage_20_1.png" />
+<img alt="../_images/notebooks_advanced_usage_22_1.png" src="../_images/notebooks_advanced_usage_22_1.png" />
 </div>
 </div>
 </section>
@@ -1198,7 +1246,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_24_0.png" src="../_images/notebooks_advanced_usage_24_0.png" />
+<img alt="../_images/notebooks_advanced_usage_26_0.png" src="../_images/notebooks_advanced_usage_26_0.png" />
 </div>
 </div>
 </section>
@@ -1229,7 +1277,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_26_0.png" src="../_images/notebooks_advanced_usage_26_0.png" />
+<img alt="../_images/notebooks_advanced_usage_28_0.png" src="../_images/notebooks_advanced_usage_28_0.png" />
 </div>
 </div>
 </section>
@@ -1259,7 +1307,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_28_0.png" src="../_images/notebooks_advanced_usage_28_0.png" />
+<img alt="../_images/notebooks_advanced_usage_30_0.png" src="../_images/notebooks_advanced_usage_30_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1301,7 +1349,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_29_0.png" src="../_images/notebooks_advanced_usage_29_0.png" />
+<img alt="../_images/notebooks_advanced_usage_31_0.png" src="../_images/notebooks_advanced_usage_31_0.png" />
 </div>
 </div>
 </section>
@@ -1332,7 +1380,7 @@ Legend too long, generating a new column..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_31_0.png" src="../_images/notebooks_advanced_usage_31_0.png" />
+<img alt="../_images/notebooks_advanced_usage_33_0.png" src="../_images/notebooks_advanced_usage_33_0.png" />
 </div>
 </div>
 </section>
@@ -1381,7 +1429,7 @@ linkage shape: (9, 4)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_33_1.png" src="../_images/notebooks_advanced_usage_33_1.png" />
+<img alt="../_images/notebooks_advanced_usage_35_1.png" src="../_images/notebooks_advanced_usage_35_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1406,7 +1454,7 @@ linkage shape: (9, 4)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_34_0.png" src="../_images/notebooks_advanced_usage_34_0.png" />
+<img alt="../_images/notebooks_advanced_usage_36_0.png" src="../_images/notebooks_advanced_usage_36_0.png" />
 </div>
 </div>
 </section>
@@ -1482,7 +1530,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_37_1.png" src="../_images/notebooks_advanced_usage_37_1.png" />
+<img alt="../_images/notebooks_advanced_usage_39_1.png" src="../_images/notebooks_advanced_usage_39_1.png" />
 </div>
 </div>
 </section>
@@ -1511,7 +1559,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_39_0.png" src="../_images/notebooks_advanced_usage_39_0.png" />
+<img alt="../_images/notebooks_advanced_usage_41_0.png" src="../_images/notebooks_advanced_usage_41_0.png" />
 </div>
 </div>
 <p>To force display all ticklabels no matter whether the height or width is big enough, set parameters <code class="docutils literal notranslate"><span class="pre">xticklabels/yticklabels</span></code> to True:</p>
@@ -1538,7 +1586,7 @@ Collecting annotation legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_advanced_usage_41_0.png" src="../_images/notebooks_advanced_usage_41_0.png" />
+<img alt="../_images/notebooks_advanced_usage_43_0.png" src="../_images/notebooks_advanced_usage_43_0.png" />
 </div>
 </div>
 </section>
