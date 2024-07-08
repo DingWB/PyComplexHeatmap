@@ -63,16 +63,70 @@ def define_cmap():
 		)
 		register_cmap(c)
 
+	if "nature3_1" not in all_cmaps:
+		colors = ['#BF1D2D','#262626','#293890']
+		c = ListedColormap(colors,"nature3_1")
+		register_cmap(c)
+
+	if "nature3_2" not in all_cmaps:
+		colors = ['#F1B656','#397FC7','#040676']
+		c = ListedColormap(colors,"nature3_2")
+		register_cmap(c)
+
+	if "nature3_3" not in all_cmaps:
+		colors = ['#2C91E0','#3ABF99','#F0A73A']
+		c = ListedColormap(colors,"nature3_3")
+		register_cmap(c)
+
+	if "nature4_1" not in all_cmaps:
+		colors = ['#DE582B','#1868B2','#018A67','#F3A332']
+		c = ListedColormap(colors,"nature4_1")
+		register_cmap(c)
+
+	if "nature4_2" not in all_cmaps:
+		colors = ['#32037D','#7C1A97','#C94E65','#D9995B']
+		c = ListedColormap(colors,"nature4_2")
+		register_cmap(c)
+
+	if "nature4_3" not in all_cmaps:
+		colors = ['#015493','#019092','#999999','#F4A99B']
+		c = ListedColormap(colors,"nature4_3")
+		register_cmap(c)
+
+	if "nature4_4" not in all_cmaps:
+		colors = ['#2F2D54','#9193B4','#BD9AAD','#E8D2B3']
+		c = ListedColormap(colors,"nature4_4")
+		register_cmap(c)
+
+	if "nature5_1" not in all_cmaps:
+		colors = ['#60966D','#5B3660','#FFC839','#E90F44','#63ADEE']
+		c = ListedColormap(colors,"nature5_1")
+		register_cmap(c)
+
+	if "nature5_2" not in all_cmaps:
+		colors = ['#ABC6E4','#C39398','#FCDABA','#A7D2BA','#D0CADE']
+		c = ListedColormap(colors,"nature5_2")
+		register_cmap(c)
+
+	if "nature6_1" not in all_cmaps:
+		colors = ['#C72228','#F98F34','#0C4E9B','#F5867F','#FFBC80','#6B98C4']
+		c = ListedColormap(colors,"nature6_1")
+		register_cmap(c)
+
+	if "nature6_2" not in all_cmaps:
+		colors = ['#3B549D','#D3272B','#6BBC46','#9EAAD1','#F29091','#B4DEA2']
+		c = ListedColormap(colors,"nature6_2")
+		register_cmap(c)
+
 	if "random50" not in all_cmaps:
 		colors = []
 		for c in CSS4_COLORS:
 			l = _calculate_luminance(c)
 			if l > 0.25 and l < 0.8:
 				colors.append(c)
+		# colors=[c for c in CSS4_COLORS.keys() if c not in ["white", "snow"] and "gray" not in c]
 		c = ListedColormap(
-			random.sample([c for c in CSS4_COLORS.keys()
-					if c not in ["white", "snow"] and "gray" not in c],
-				50),
+			random.sample(colors,50),
 			"random50",
 		)
 		register_cmap(c)
@@ -83,10 +137,9 @@ def define_cmap():
 			l = _calculate_luminance(c)
 			if l > 0.25 and l < 0.8:
 				colors.append(c)
+		# colors=[c for c in CSS4_COLORS.keys() if c not in ["white", "snow"] and "gray" not in c]
 		c = ListedColormap(
-			random.sample([c for c in CSS4_COLORS.keys()
-					if c not in ["white", "snow"] and "gray" not in c],
-				100),
+			random.sample(colors,100),
 			"random100",
 		)
 		register_cmap(c)
@@ -213,7 +266,11 @@ def register_palettable():
 		c = LinearSegmentedColormap.from_list(name, colors)
 		register_cmap(c)
 
-define_cmap()
+try:
+	define_cmap()
+except:
+	print("Register cmap failed!")
+
 try:
 	import palettable
 	register_palettable()
