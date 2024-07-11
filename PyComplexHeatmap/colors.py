@@ -132,12 +132,12 @@ def define_cmap():
 		register_cmap(c)
 
 	if "random100" not in all_cmaps:
-		colors = []
-		for c in CSS4_COLORS:
-			l = _calculate_luminance(c)
-			if l > 0.25 and l < 0.8:
-				colors.append(c)
-		# colors=[c for c in CSS4_COLORS.keys() if c not in ["white", "snow"] and "gray" not in c]
+		# colors = []
+		# for c in CSS4_COLORS:
+		# 	l = _calculate_luminance(c)
+		# 	if l > 0.25 and l < 0.8:
+		# 		colors.append(c)
+		colors=[c for c in CSS4_COLORS.keys() if c not in ["white", "snow"] and "gray" not in c]
 		c = ListedColormap(
 			random.sample(colors,100),
 			"random100",
