@@ -357,7 +357,7 @@
   <section id="Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap">
 <h1>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap<a class="headerlink" href="#Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -390,10 +390,18 @@
 1.7.2.dev0+g8abf70a.d20240415
 </pre></div></div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyComplexHeatmap.colors</span> <span class="kn">import</span> <span class="n">define_cmap</span>
+</pre></div>
+</div>
+</div>
 <section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
 <h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
 <h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
-</h3><p><img alt="8fbefc682d3745d7bd0400a64901c29a" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="42b6e03fe5b945fe8e42ef3e225682bd" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+</h3><p><img alt="9fa766fc6c724e4a98d601949ec7c348" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="dc9619c3b7fd4fd3a9fce36f5d781c34" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
 <h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
 </h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
 </section>
@@ -401,7 +409,7 @@
 <h2>Read data<a class="headerlink" href="#Read-data" title="Permalink to this heading">¶</a></h2>
 <p>In this example dataset, we have 2 groups and 3 different cell types in each group, and we have already gotten the GO Biological Process (BP), Molecular Function (MF) and KEGG Pathway enrichment result using R package <strong>clusterProfiler</strong> and merged the results into one matrix.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../data/enrichment_analysis_dotHeatmap.pickle&quot;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -410,7 +418,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span>
@@ -418,7 +426,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -614,7 +622,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
@@ -622,7 +630,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -859,7 +867,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
@@ -867,7 +875,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -937,7 +945,7 @@
 <section id="Plot">
 <h2>Plot<a class="headerlink" href="#Plot" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_min</span><span class="p">,</span><span class="n">s_max</span><span class="o">=</span><span class="n">data1</span><span class="o">.</span><span class="n">GeneRatio</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">data1</span><span class="o">.</span><span class="n">GeneRatio</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -945,7 +953,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data1</span><span class="o">.</span><span class="n">GeneRatio</span><span class="o">==</span><span class="n">s_min</span><span class="p">]</span>
@@ -953,7 +961,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1008,7 +1016,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data1</span><span class="o">.</span><span class="n">GeneRatio</span><span class="o">==</span><span class="n">s_max</span><span class="p">]</span>
@@ -1016,7 +1024,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1071,7 +1079,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1115,8 +1123,8 @@
                          <span class="p">)</span>
 <span class="c1"># cm.ax_heatmap.grid(which=&#39;minor&#39;,color=&#39;black&#39;,linestyle=&#39;--&#39;,linewidth=1)</span>
 <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">():</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-    <span class="c1"># for side in [&quot;top&quot;, &quot;left&quot;, &quot;bottom&quot;]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="c1"># which can also be set to major</span>
+    <span class="c1"># for side in [&quot;top&quot;, &quot;left&quot;, &quot;bottom&quot;]: # to show the spines</span>
     <span class="c1">#     ax.spines[side].set_visible(True)</span>
     <span class="c1">#     ax.spines[side].set_color(&#39;grey&#39;)</span>
     <span class="c1">#     ax.spines[side].set_linewidth(1)</span>
@@ -1147,14 +1155,14 @@ Estimated legend width: 23.6375 mm
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_gene_enrichment_analysis_16_1.png" src="../_images/notebooks_gene_enrichment_analysis_16_1.png" />
+<img alt="../_images/notebooks_gene_enrichment_analysis_17_1.png" src="../_images/notebooks_gene_enrichment_analysis_17_1.png" />
 </div>
 </div>
 <h4><p>In this example, we used two different kinds of markers and cmap to indicate Group1 and Group2, rows are split by category of enriched terms, sizes of dot/marker indicates gene ratio (The ratio of genes annotated by the GO term in your list to the total number of genes in your list).</p>
 </h4></section>
 <section id="How-to-select-marker:">
 <h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
-<p><img alt="b6d1e0ba0f86433183816e9cf7c6f080" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
+<p><img alt="2f26862a18f94223ab3f2ec554406ceb" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
 </section>
 </section>
 
