@@ -356,8 +356,8 @@
              
   <section id="Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap">
 <h1>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap<a class="headerlink" href="#Visualizing-gene-set-enrichment-analysis-results-(clusterProfiler)-using-dotHeatmap" title="Permalink to this heading">¶</a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -375,20 +375,12 @@
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="c1"># print(PyComplexHeatmap.__version__)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-1.7.2.dev0+g8abf70a.d20240415
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -401,7 +393,7 @@
 <section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
 <h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
 <h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
-</h3><p><img alt="9fa766fc6c724e4a98d601949ec7c348" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="dc9619c3b7fd4fd3a9fce36f5d781c34" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+</h3><p><img alt="d691cc8d8efc49bfa227b60982bf5b34" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="baa44a65ca044f2183f9b2e684ed40c3" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
 <h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
 </h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
 </section>
@@ -1162,7 +1154,7 @@ Estimated legend width: 23.6375 mm
 </h4></section>
 <section id="How-to-select-marker:">
 <h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
-<p><img alt="2f26862a18f94223ab3f2ec554406ceb" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
+<p><img alt="e38a39da02e0425b8e78e180db49b920" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
 </section>
 </section>
 

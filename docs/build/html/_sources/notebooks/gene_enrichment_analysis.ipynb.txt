@@ -10,20 +10,12 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 2,
    "id": "c561cb2a-b7b0-45fb-85d9-8cc8bd0d569c",
    "metadata": {
     "tags": []
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "1.7.2.dev0+g8abf70a.d20240415\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "import os,sys\n",
     "import matplotlib.pylab as plt\n",
@@ -40,9 +32,9 @@
     "mpl.rcParams['figure.dpi'] = 80\n",
     "mpl.rcParams['savefig.dpi']=300\n",
     "import pickle\n",
-    "sys.path.append(os.path.expanduser(\"~/Projects/Github/PyComplexHeatmap\"))\n",
+    "# sys.path.append(os.path.expanduser(\"~/Projects/Github/PyComplexHeatmap\"))\n",
     "import PyComplexHeatmap\n",
-    "print(PyComplexHeatmap.__version__)\n",
+    "# print(PyComplexHeatmap.__version__)\n",
     "from PyComplexHeatmap import *"
    ]
   },
