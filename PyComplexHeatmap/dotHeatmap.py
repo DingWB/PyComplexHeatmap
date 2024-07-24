@@ -385,7 +385,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		# c
 		if not self.c is None:
 			if isinstance(self.c,pd.Series):
-				self.kwargs["s"] = data.assign(GivenC=self.s).pivot_table(
+				self.kwargs["c"] = data.assign(GivenC=self.c).pivot_table(
 					index=self.y, columns=self.x, values='GivenC', aggfunc=self.aggfunc
 				).fillna(self.c_na)
 
