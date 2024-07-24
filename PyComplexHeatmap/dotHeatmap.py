@@ -289,6 +289,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)
 	spines: bool
 		Whether show spines of the axes or not [False]
+	grid: None or str
+		major, minor or None.
 	max_s: float
 		max size of the dot in scatter, default is None, will be inferred automatically.
 	alpha: float [0,1]
@@ -321,6 +323,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		s_na=0,
 		c_na=0,
 		spines=False,
+		grid='minor',
 		max_s=None,
 		**kwargs
 	):
@@ -341,6 +344,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		self.color_legend_kws = color_legend_kws
 		self.cmap_legend_kws = cmap_legend_kws
 		self.spines = spines
+		self.grid=grid
 		self.dot_legend_kws = dot_legend_kws
 		self.dot_legend_marker=dot_legend_marker
 		self.max_s=max_s
@@ -384,7 +388,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
 		# c
 		if not self.c is None:
-			if isinstance(self.c,pd.Series):
+			if isinstance(self.c,pd.Series): #could be Hex colors.
 				try:
 					self.kwargs["c"] = data.assign(GivenC=self.c).pivot(
 						index=self.y, columns=self.x, values='GivenC').fillna(self.c_na)
@@ -641,6 +645,10 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		if not self.spines:
 			for ax in self.heatmap_axes.ravel():
 				despine(ax=ax, left=True, bottom=True, right=True, top=True)
+		if not self.grid is None:
+			for ax in self.heatmap_axes.ravel():
+				ax.grid(axis='both', which=self.grid, color='black', linestyle='dashdot',
+						alpha=0.1)  # which can also be set to major
 
 
 if __name__ == "__main__":
