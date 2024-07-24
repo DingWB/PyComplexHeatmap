@@ -385,9 +385,13 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		# c
 		if not self.c is None:
 			if isinstance(self.c,pd.Series):
-				self.kwargs["c"] = data.assign(GivenC=self.c).pivot_table(
-					index=self.y, columns=self.x, values='GivenC', aggfunc=self.aggfunc
-				).fillna(self.c_na)
+				try:
+					self.kwargs["c"] = data.assign(GivenC=self.c).pivot(
+						index=self.y, columns=self.x, values='GivenC').fillna(self.c_na)
+				except:
+					self.kwargs["c"] = data.assign(GivenC=self.c).pivot_table(
+						index=self.y, columns=self.x, values='GivenC', aggfunc=self.aggfunc
+					).fillna(self.c_na)
 
 			elif type(self.c)==str and self.c in data.columns:  # column name from data.columns
 				self.kwargs["c"] = data.pivot_table(
