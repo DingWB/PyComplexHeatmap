@@ -322,6 +322,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		hue_na="NA",
 		s_na=0,
 		c_na=0,
+		x_order=None,
+		y_order=None,
 		spines=False,
 		grid='minor',
 		max_s=None,
@@ -330,6 +332,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		kwargs["data"] = data
 		self.x = x
 		self.y = y
+		self.x_order=x_order
+		self.y_order=y_order
 		self.value = value
 		self.hue = hue
 		self.s = s
@@ -356,6 +360,10 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		data2d = data.pivot_table(
 			index=self.y, columns=self.x, values=self.value, aggfunc=self.aggfunc
 		).fillna(self.value_na)
+		if not self.y_order is None:
+			data2d=data2d.reindex(index=self.y_order)
+		if not self.x_order is None:
+			data2d=data2d.reindex(columns=self.x_order)
 		# hue
 		if not self.hue is None:
 			self.kwargs["hue"] = data.pivot(
