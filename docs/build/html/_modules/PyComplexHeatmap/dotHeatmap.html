@@ -634,11 +634,15 @@
 <span class="sd">		used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.s,aggfunc=self.aggfunc).fillna(self.s_na)</span>
 <span class="sd">	c_na : float, int or str</span>
 <span class="sd">		used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.c,aggfunc=self.aggfunc).fillna(self.c_na)</span>
+<span class="sd">	x[y]_order: list</span>
+<span class="sd">		use together with row[col]_cluster=False, to force order the dot heatmap as given by x[y]_order.</span>
 <span class="sd">	aggfunc : function</span>
 <span class="sd">		when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.</span>
 <span class="sd">		aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)</span>
 <span class="sd">	spines: bool</span>
 <span class="sd">		Whether show spines of the axes or not [False]</span>
+<span class="sd">	grid: None or str</span>
+<span class="sd">		major, minor or None.</span>
 <span class="sd">	max_s: float</span>
 <span class="sd">		max size of the dot in scatter, default is None, will be inferred automatically.</span>
 <span class="sd">	alpha: float [0,1]</span>
@@ -670,13 +674,18 @@
 		<span class="n">hue_na</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
 		<span class="n">s_na</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 		<span class="n">c_na</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+		<span class="n">x_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">y_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+		<span class="n">grid</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span>
 		<span class="n">max_s</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">kwargs</span>
 	<span class="p">):</span>
 		<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">x_order</span><span class="o">=</span><span class="n">x_order</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">y_order</span><span class="o">=</span><span class="n">y_order</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
@@ -691,6 +700,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">color_legend_kws</span> <span class="o">=</span> <span class="n">color_legend_kws</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap_legend_kws</span> <span class="o">=</span> <span class="n">cmap_legend_kws</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">spines</span> <span class="o">=</span> <span class="n">spines</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_kws</span> <span class="o">=</span> <span class="n">dot_legend_kws</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="n">dot_legend_marker</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">max_s</span><span class="o">=</span><span class="n">max_s</span>
@@ -702,6 +712,10 @@
 		<span class="n">data2d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
 			<span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggfunc</span>
 		<span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_na</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">data2d</span><span class="o">=</span><span class="n">data2d</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_order</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">data2d</span><span class="o">=</span><span class="n">data2d</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_order</span><span class="p">)</span>
 		<span class="c1"># hue</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;hue&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
@@ -734,10 +748,14 @@
 
 		<span class="c1"># c</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GivenC</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-					<span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;GivenC&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggfunc</span>
-				<span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c_na</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span> <span class="c1">#could be Hex colors.</span>
+				<span class="k">try</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GivenC</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
+						<span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;GivenC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c_na</span><span class="p">)</span>
+				<span class="k">except</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GivenC</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+						<span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;GivenC&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggfunc</span>
+					<span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c_na</span><span class="p">)</span>
 
 			<span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>  <span class="c1"># column name from data.columns</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
@@ -986,7 +1004,11 @@
 <div class="viewcode-block" id="DotClustermapPlotter.post_processing"><a class="viewcode-back" href="../../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing">[docs]</a>	<span class="k">def</span> <span class="nf">post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spines</span><span class="p">:</span>
 			<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">():</span>
-				<span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+				<span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">():</span>
+				<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">,</span>
+						<span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># which can also be set to major</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

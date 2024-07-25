@@ -284,6 +284,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.s,aggfunc=self.aggfunc).fillna(self.s_na)
 	c_na : float, int or str
 		used to fill na for data.pivot_table(index=self.y,columns=self.x,values=self.c,aggfunc=self.aggfunc).fillna(self.c_na)
+	x[y]_order: list
+		use together with row[col]_cluster=False, to force order the dot heatmap as given by x[y]_order.
 	aggfunc : function
 		when there are multiple values for the same x and y, using aggfunc (default is np.mean) to aggregate them.
 		aggfunc will be called in data.pivot(index=y,columns=x,values=value,aggfunc=aggfunc)

@@ -10,7 +10,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 4,
    "id": "c561cb2a-b7b0-45fb-85d9-8cc8bd0d569c",
    "metadata": {
     "tags": []
@@ -36,16 +36,6 @@
     "import PyComplexHeatmap\n",
     "# print(PyComplexHeatmap.__version__)\n",
     "from PyComplexHeatmap import *"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "ba333b48-0e57-4212-8450-a9e1b9f1fa65",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "from PyComplexHeatmap.colors import define_cmap"
    ]
   },
   {
@@ -100,7 +90,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "id": "1f3df03d-1afa-498f-8836-6effe637e4a3",
    "metadata": {},
    "outputs": [],
@@ -111,7 +101,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 6,
    "id": "0193269d-bcd8-40d8-8502-47578bf949a4",
    "metadata": {},
    "outputs": [
@@ -352,7 +342,7 @@
        "[139 rows x 11 columns]"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -363,7 +353,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 7,
    "id": "d044d66d-b03a-47d0-8293-831511a123f2",
    "metadata": {},
    "outputs": [
@@ -690,7 +680,7 @@
        "MF||modification-dependent protein binding                     modification-dependent protein binding  "
       ]
      },
-     "execution_count": 8,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -701,7 +691,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 8,
    "id": "09a179b5-8f11-4fed-948e-057c6164a546",
    "metadata": {},
    "outputs": [
@@ -781,7 +771,7 @@
        "Group2-CT2  Group2      CT2"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -800,7 +790,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 9,
    "id": "dfe2066e-c57a-43e4-a5a1-8a000cd6c92e",
    "metadata": {},
    "outputs": [],
@@ -810,7 +800,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 10,
    "id": "3448e960-ac07-480b-85f0-8325f78935a9",
    "metadata": {},
    "outputs": [
@@ -878,7 +868,7 @@
        "3074  Group2-CT3  BP||central nervous system neuron development  "
       ]
      },
-     "execution_count": 11,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -889,7 +879,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 11,
    "id": "f380c96f-daf8-42ae-a73b-363af3076805",
    "metadata": {},
    "outputs": [
@@ -957,7 +947,7 @@
        "1  BP||fat cell differentiation  "
       ]
      },
-     "execution_count": 12,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -968,7 +958,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 14,
    "id": "8683f2d4-cea6-445f-ae32-cbfdb835b2ee",
    "metadata": {
     "tags": []
@@ -1042,8 +1032,8 @@
     "                          # xlabel_bbox_kws=dict(facecolor=facecolor)\n",
     "                         )\n",
     "# cm.ax_heatmap.grid(which='minor',color='black',linestyle='--',linewidth=1)\n",
-    "for ax in cm.heatmap_axes.ravel():\n",
-    "    ax.grid(axis='both',which='minor',color='black',linestyle='dashdot',alpha=0.1) # which can also be set to major\n",
+    "# for ax in cm.heatmap_axes.ravel():\n",
+    "#     ax.grid(axis='both',which='minor',color='black',linestyle='dashdot',alpha=0.1) # which can also be set to major\n",
     "    # for side in [\"top\", \"left\", \"bottom\"]: # to show the spines\n",
     "    #     ax.spines[side].set_visible(True)\n",
     "    #     ax.spines[side].set_color('grey')\n",
