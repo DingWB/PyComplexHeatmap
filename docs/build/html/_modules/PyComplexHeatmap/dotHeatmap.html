@@ -383,6 +383,7 @@
 	<span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 	<span class="n">max_s</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 	<span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+	<span class="n">c_na</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
 	<span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
@@ -485,49 +486,27 @@
 		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;marker must be string, dataframe or dict&quot;</span><span class="p">)</span>
 
 	<span class="c1"># colors</span>
-	<span class="n">c_ready</span> <span class="o">=</span> <span class="kc">False</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-		<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span>
-		<span class="n">c_ready</span> <span class="o">=</span> <span class="kc">True</span>
-	<span class="k">elif</span> <span class="s2">&quot;c&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>  <span class="c1"># c: dataframe or color, optional</span>
+	<span class="k">if</span> <span class="s2">&quot;c&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>  <span class="c1"># c: dataframe or color, optional</span>
 		<span class="n">c</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 			<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">row_labels</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_labels</span><span class="p">)</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 			<span class="n">c</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Row&quot;</span><span class="p">,</span> <span class="s2">&quot;Col&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">]</span>
 			<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">values</span>
-		<span class="k">else</span><span class="p">:</span>  <span class="c1"># str</span>
+		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># str</span>
 			<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
-		<span class="n">c_ready</span> <span class="o">=</span> <span class="kc">True</span>
-	<span class="k">elif</span> <span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-		<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>  <span class="c1"># scale(data[&#39;Value&#39;].values,vmin=vmin, vmax=vmax)</span>
-		<span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
-		<span class="n">c_ready</span> <span class="o">=</span> <span class="kc">True</span>
-	<span class="k">elif</span> <span class="ow">not</span> <span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-		<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># keys are categorical values from hue, values are colors.</span>
-		<span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># using cmap</span>
-			<span class="n">col_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Hue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-			<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
-				<span class="n">color_dict</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">(</span>
-					<span class="n">get_colormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)(</span><span class="n">col_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-				<span class="p">)</span>
-		<span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-			<span class="n">color_dict</span> <span class="o">=</span> <span class="n">colors</span>
-		<span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-			<span class="n">col_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Hue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-			<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
-				<span class="n">color_dict</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;colors must be string or dict&quot;</span><span class="p">)</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;c must be DataFrame or str!, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+		<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-		<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Hue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">color_dict</span><span class="p">)</span>
-		<span class="n">c_ready</span> <span class="o">=</span> <span class="kc">True</span>
 	<span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
 		<span class="s2">&quot;norm&quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 	<span class="p">)</span>
-
-	<span class="c1"># print(f&quot;max_s: {max_s}&quot;,df.S.min(),df.S.max()) #min and max S should be 0,1</span>
-	<span class="k">if</span> <span class="n">c_ready</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-		<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span>
+	<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span>
+	<span class="k">if</span> <span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="c1">#plot using c</span>
 		<span class="k">for</span> <span class="n">mk</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">Markers</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
 			<span class="c1"># df1 = df.query(&quot;Markers==@mk&quot;).copy()</span>
 			<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Markers</span><span class="o">==</span><span class="n">mk</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -541,26 +520,37 @@
 				<span class="n">c</span><span class="o">=</span><span class="n">df1</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
 				<span class="o">**</span><span class="n">kwargs</span>
 			<span class="p">)</span>  <span class="c1"># vmax=vmax,vmin=vmin,</span>
-	<span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-		<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">cmap</span><span class="p">:</span>  <span class="c1"># key are hue, values are cmap</span>
-			<span class="c1"># df1 = df.query(&quot;Hue==@h&quot;).copy()</span>
-			<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Hue</span><span class="o">==</span><span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-			<span class="k">if</span> <span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-				<span class="k">continue</span>
-			<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
-			<span class="k">for</span> <span class="n">mk</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">Markers</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
-				<span class="c1"># df2 = df1.query(&quot;Markers==@mk&quot;).copy()</span>
-				<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df1</span><span class="o">.</span><span class="n">Markers</span><span class="o">==</span><span class="n">mk</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-				<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;marker&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mk</span>
-				<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-					<span class="n">x</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-					<span class="n">y</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-					<span class="n">s</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">S</span> <span class="o">*</span> <span class="n">max_s</span><span class="p">,</span>
-					<span class="n">c</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-					<span class="o">**</span><span class="n">kwargs</span>
-				<span class="p">)</span>  <span class="c1">#</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cmap must be string or dict&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span> <span class="c1">#hue not None</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">cmap</span><span class="p">:</span>  <span class="c1"># key are hue, values are cmap</span>
+				<span class="c1"># df1 = df.query(&quot;Hue==@h&quot;).copy()</span>
+				<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Hue</span> <span class="o">==</span> <span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+					<span class="k">continue</span>
+				<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+				<span class="k">for</span> <span class="n">mk</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">Markers</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+					<span class="c1"># df2 = df1.query(&quot;Markers==@mk&quot;).copy()</span>
+					<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df1</span><span class="o">.</span><span class="n">Markers</span> <span class="o">==</span> <span class="n">mk</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;marker&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mk</span>
+					<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+						<span class="n">x</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+						<span class="n">y</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+						<span class="n">s</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">S</span> <span class="o">*</span> <span class="n">max_s</span><span class="p">,</span>
+						<span class="n">c</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+						<span class="o">**</span><span class="n">kwargs</span>
+					<span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span> <span class="c1">#colors is dict &amp; cmap is str</span>
+			<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span><span class="nb">dict</span><span class="p">)</span>
+			<span class="n">df</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Hue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">c_na</span><span class="p">)</span>
+			<span class="n">norm</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;norm&#39;</span><span class="p">)</span> <span class="c1">#not color values are provided, remove norm parameter</span>
+			<span class="n">cmap</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">)</span>
+			<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+				<span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+				<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+				<span class="n">s</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">S</span> <span class="o">*</span> <span class="n">max_s</span><span class="p">,</span>
+				<span class="n">c</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+				<span class="o">**</span><span class="n">kwargs</span>
+			<span class="p">)</span>
 
 	<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_labels</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">])</span>
 	<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_labels</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
@@ -681,6 +671,8 @@
 		<span class="n">max_s</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">kwargs</span>
 	<span class="p">):</span>
+		<span class="c1"># if not hue is None:</span>
+		<span class="c1"># 	assert isinstance(kwargs.get(&#39;colors&#39;,None), dict) or isinstance(kwargs.get(&#39;cmap&#39;,None),dict),&quot;when hue is provided, colors or cmap must be a dict&quot;</span>
 		<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
@@ -875,7 +867,7 @@
 				<span class="c1"># print(kwargs)</span>
 				<span class="n">dotHeatmap2d</span><span class="p">(</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">],</span>
-					<span class="n">cmap</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">),</span>
+					<span class="n">cmap</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">),</span> <span class="c1">#default cmap is defined in ClusterMapPlotter</span>
 					<span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span>
 					<span class="n">spines</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">spines</span><span class="p">,</span>
 					<span class="o">**</span><span class="n">kwargs</span>
@@ -914,64 +906,58 @@
 				<span class="k">if</span> <span class="n">annotation</span><span class="o">.</span><span class="n">label_max_width</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_max_width</span><span class="p">:</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">label_max_width</span> <span class="o">=</span> <span class="n">annotation</span><span class="o">.</span><span class="n">label_max_width</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="p">:</span>
-			<span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1">#</span>
-				<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{}</span>
-				<span class="n">col_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;hue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-				<span class="c1"># print(col_list,self.kwargs[&#39;hue&#39;])</span>
-				<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
-					<span class="n">color_dict</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">(</span>
-						<span class="n">get_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">)(</span><span class="n">col_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+				<span class="c1"># marker legend</span>
+				<span class="n">marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;marker&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+				<span class="n">max_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_s&#39;</span><span class="p">]</span>
+				<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+						<span class="p">[</span>
+							<span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">max_s</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">),</span>
+							<span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="p">,</span>
+							<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_kws</span><span class="p">,</span>
+							<span class="nb">len</span><span class="p">(</span><span class="n">marker</span><span class="p">),</span>
+							<span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+						<span class="p">]</span>  <span class="c1"># size of s in scatter equal to marker_size**2</span>
+					<span class="p">)</span>  <span class="c1"># markersize is r*0.8</span>
+				<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+						<span class="p">[</span>
+							<span class="n">colors</span><span class="p">,</span>
+							<span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="p">,</span>
+							<span class="bp">self</span><span class="o">.</span><span class="n">color_legend_kws</span><span class="p">,</span>
+							<span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">),</span>
+							<span class="s2">&quot;color_dict&quot;</span><span class="p">,</span>
+						<span class="p">]</span>
 					<span class="p">)</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-					<span class="p">[</span>
-						<span class="n">color_dict</span><span class="p">,</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="p">,</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">color_legend_kws</span><span class="p">,</span>
-						<span class="nb">len</span><span class="p">(</span><span class="n">color_dict</span><span class="p">),</span>
-						<span class="s2">&quot;color_dict&quot;</span><span class="p">,</span>
-					<span class="p">]</span>
-				<span class="p">)</span>
-			<span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span>
-			<span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-			<span class="n">cmap_legend_kws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-			<span class="c1"># cmap_legend_kws[&quot;vmax&quot;] = self.kwargs.get(&#39;vmax&#39;,1)</span>
-			<span class="c1"># cmap_legend_kws[&quot;vmin&quot;] = self.kwargs.get(&#39;vmin&#39;,0)</span>
-			<span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmin&#39;</span><span class="p">))</span>  <span class="c1"># round(vmin, 2))</span>
-			<span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmax&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmax&#39;</span><span class="p">))</span>  <span class="c1"># round(vmax, 2))</span>
-			<span class="k">if</span> <span class="p">(</span>
-				<span class="ow">not</span> <span class="n">cmap</span> <span class="ow">is</span> <span class="kc">None</span>
-				<span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span>
-				<span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span>
-				<span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span>
-			<span class="p">):</span>
-				<span class="c1"># print(cmap_legend_kws)</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">cmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">cmap_legend_kws</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
-			<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-				<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cmap</span><span class="p">:</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">cmap</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">k</span><span class="p">,</span> <span class="n">cmap_legend_kws</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
-			<span class="n">marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;marker&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-			<span class="c1"># ax = self.heatmap_axes[0, 0]</span>
-			<span class="c1"># w, h = (</span>
-			<span class="c1">#     ax.get_window_extent().width / ax.figure.dpi,</span>
-			<span class="c1">#     ax.get_window_extent().height / ax.figure.dpi,</span>
-			<span class="c1"># )</span>
-			<span class="c1"># r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))</span>
-			<span class="n">max_s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_s&#39;</span><span class="p">]</span>
-			<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-					<span class="p">[</span>
-						<span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">max_s</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">),</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="p">,</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">dot_legend_kws</span><span class="p">,</span>
-						<span class="nb">len</span><span class="p">(</span><span class="n">marker</span><span class="p">),</span>
-						<span class="s2">&quot;markers&quot;</span><span class="p">,</span>
-					<span class="p">]</span> <span class="c1">#size of s in scatter equal to marker_size**2</span>
-				<span class="p">)</span>  <span class="c1"># markersize is r*0.8</span>
+
+				<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1">#</span>
+					<span class="n">cmap_legend_kws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+					<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">:</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">key</span><span class="p">,</span> <span class="n">cmap_legend_kws</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
+			<span class="k">else</span><span class="p">:</span> <span class="c1"># hue is None</span>
+				<span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span>
+				<span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+				<span class="n">cmap_legend_kws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+				<span class="c1"># cmap_legend_kws[&quot;vmax&quot;] = self.kwargs.get(&#39;vmax&#39;,1)</span>
+				<span class="c1"># cmap_legend_kws[&quot;vmin&quot;] = self.kwargs.get(&#39;vmin&#39;,0)</span>
+				<span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmin&#39;</span><span class="p">))</span>  <span class="c1"># round(vmin, 2))</span>
+				<span class="n">cmap_legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmax&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmax&#39;</span><span class="p">))</span>  <span class="c1"># round(vmax, 2))</span>
+				<span class="k">if</span> <span class="p">(</span>
+					<span class="ow">not</span> <span class="n">cmap</span> <span class="ow">is</span> <span class="kc">None</span>
+					<span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span>
+					<span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span>
+					<span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span>
+				<span class="p">):</span>
+					<span class="c1"># print(cmap_legend_kws)</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">cmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">cmap_legend_kws</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
 			<span class="c1"># dot size legend:</span>
 			<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
 				<span class="c1"># s=self.kwargs.get(&#39;s&#39;,None)</span>
 				<span class="c1"># colors=self.kwargs.get(&#39;colors&#39;,None)</span>
 				<span class="n">markers1</span> <span class="o">=</span> <span class="p">{}</span>
+				<span class="n">max_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_s&#39;</span><span class="p">]</span>
 				<span class="n">ms</span> <span class="o">=</span> <span class="p">{}</span>
 				<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]:</span>
 					<span class="n">k</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">smax</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>

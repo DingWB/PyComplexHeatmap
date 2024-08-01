@@ -33,6 +33,7 @@ def dotHeatmap2d(
 	cmap=None,
 	max_s=None,
 	spines=False,
+	c_na='black',
 	**kwargs
 ):
 	"""
@@ -135,49 +136,27 @@ def dotHeatmap2d(
 		raise ValueError("marker must be string, dataframe or dict")
 
 	# colors
-	c_ready = False
-	if not colors is None and isinstance(colors, str):
-		df["C"] = colors
-		c_ready = True
-	elif "c" in kwargs:  # c: dataframe or color, optional
+	if "c" in kwargs:  # c: dataframe or color, optional
 		c = kwargs.pop("c")
 		if isinstance(c, pd.DataFrame):
 			c = c.reindex(index=row_labels, columns=col_labels).stack().reset_index()
 			c.columns = ["Row", "Col", "Value"]
 			df["C"] = c.Value.values
-		else:  # str
+		elif isinstance(c, str):  # str
 			df["C"] = c
-		c_ready = True
-	elif hue is None:
-		df["C"] = df.S.tolist()  # scale(data['Value'].values,vmin=vmin, vmax=vmax)
-		kwargs.setdefault("cmap", cmap)
-		c_ready = True
-	elif not hue is None and isinstance(cmap, str):
-		color_dict = {}  # keys are categorical values from hue, values are colors.
-		if colors is None:  # using cmap
-			col_list = df["Hue"].value_counts().index.tolist()
-			for c in col_list:
-				color_dict[c] = matplotlib.colors.to_hex(
-					get_colormap(cmap)(col_list.index(c))
-				)
-		elif type(colors) == dict:
-			color_dict = colors
-		elif type(colors) == str:
-			col_list = df["Hue"].value_counts().index.tolist()
-			for c in col_list:
-				color_dict[c] = colors
 		else:
-			raise ValueError("colors must be string or dict")
+			raise ValueError(f"c must be DataFrame or str!, got {type(c)}: {c}")
+	elif isinstance(colors, str):
+		df["C"] = colors
+	else:
+		df["C"] = df.S.tolist()
 
-		df["C"] = df["Hue"].map(color_dict)
-		c_ready = True
 	kwargs.setdefault(
 		"norm", matplotlib.colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
 	)
-
-	# print(f"max_s: {max_s}",df.S.min(),df.S.max()) #min and max S should be 0,1
-	if c_ready and type(cmap) == str:
-		kwargs["cmap"] = cmap
+	kwargs["cmap"] = cmap
+	if hue is None:
+		#plot using c
 		for mk in df.Markers.unique():
 			# df1 = df.query("Markers==@mk").copy()
 			df1 = df.loc[df.Markers==mk].copy()
@@ -191,26 +170,37 @@ def dotHeatmap2d(
 				c=df1.C.values,
 				**kwargs
 			)  # vmax=vmax,vmin=vmin,
-	elif type(cmap) == dict and not hue is None:
-		for h in cmap:  # key are hue, values are cmap
-			# df1 = df.query("Hue==@h").copy()
-			df1 = df.loc[df.Hue==h].copy()
-			if df1.shape[0] == 0:
-				continue
-			kwargs["cmap"] = cmap[h]
-			for mk in df1.Markers.unique():
-				# df2 = df1.query("Markers==@mk").copy()
-				df2 = df1.loc[df1.Markers==mk].copy()
-				kwargs["marker"] = mk
-				ax.scatter(
-					x=df2.X.values,
-					y=df2.Y.values,
-					s=df2.S * max_s,
-					c=df2.C.values,
-					**kwargs
-				)  #
-	else:
-		raise ValueError("cmap must be string or dict")
+	else: #hue not None
+		if isinstance(cmap,dict):
+			for h in cmap:  # key are hue, values are cmap
+				# df1 = df.query("Hue==@h").copy()
+				df1 = df.loc[df.Hue == h].copy()
+				if df1.shape[0] == 0:
+					continue
+				kwargs["cmap"] = cmap[h]
+				for mk in df1.Markers.unique():
+					# df2 = df1.query("Markers==@mk").copy()
+					df2 = df1.loc[df1.Markers == mk].copy()
+					kwargs["marker"] = mk
+					ax.scatter(
+						x=df2.X.values,
+						y=df2.Y.values,
+						s=df2.S * max_s,
+						c=df2.C.values,
+						**kwargs
+					)
+		else: #colors is dict & cmap is str
+			assert isinstance(colors,dict)
+			df["C"] = df["Hue"].map(colors).fillna(c_na)
+			norm=kwargs.pop('norm') #not color values are provided, remove norm parameter
+			cmap=kwargs.pop('cmap')
+			ax.scatter(
+				x=df.X.values,
+				y=df.Y.values,
+				s=df.S * max_s,
+				c=df.C.values,
+				**kwargs
+			)
 
 	ax.set_ylim([0.5, len(row_labels) + 0.5])
 	ax.set_xlim(0.5, len(col_labels) + 0.5)
@@ -331,6 +321,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		max_s=None,
 		**kwargs
 	):
+		# if not hue is None:
+		# 	assert isinstance(kwargs.get('colors',None), dict) or isinstance(kwargs.get('cmap',None),dict),"when hue is provided, colors or cmap must be a dict"
 		kwargs["data"] = data
 		self.x = x
 		self.y = y
@@ -525,7 +517,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				# print(kwargs)
 				dotHeatmap2d(
 					self.data2d.loc[rows, cols],
-					cmap=kwargs.pop("cmap", self.cmap),
+					cmap=kwargs.pop("cmap", self.cmap), #default cmap is defined in ClusterMapPlotter
 					ax=ax1,
 					spines=self.spines,
 					**kwargs
@@ -564,64 +556,58 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				if annotation.label_max_width > self.label_max_width:
 					self.label_max_width = annotation.label_max_width
 		if self.legend:
-			if (isinstance(self.cmap, str) and not self.hue is None and self.c is None):  #
-				color_dict = {}
-				col_list = self.kwargs["hue"].unstack().value_counts().index.tolist()
-				# print(col_list,self.kwargs['hue'])
-				for c in col_list:
-					color_dict[c] = matplotlib.colors.to_hex(
-						get_colormap(self.cmap)(col_list.index(c))
+			if not self.hue is None:
+				colors = self.kwargs.get("colors", None)
+				# marker legend
+				marker = self.kwargs.get("marker", None)
+				max_s = self.kwargs['max_s']
+				if type(marker) == dict:
+					self.legend_list.append(
+						[
+							(marker, colors, np.sqrt(max_s) * self.alpha),
+							self.hue,
+							self.dot_legend_kws,
+							len(marker),
+							"markers",
+						]  # size of s in scatter equal to marker_size**2
+					)  # markersize is r*0.8
+				elif isinstance(colors,dict):
+					self.legend_list.append(
+						[
+							colors,
+							self.hue,
+							self.color_legend_kws,
+							len(colors),
+							"color_dict",
+						]
 					)
-				self.legend_list.append(
-					[
-						color_dict,
-						self.hue,
-						self.color_legend_kws,
-						len(color_dict),
-						"color_dict",
-					]
-				)
-			cmap = self.cmap
-			c = self.kwargs.get("c", None)
-			cmap_legend_kws = self.cmap_legend_kws.copy()
-			# cmap_legend_kws["vmax"] = self.kwargs.get('vmax',1)
-			# cmap_legend_kws["vmin"] = self.kwargs.get('vmin',0)
-			cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
-			cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
-			if (
-				not cmap is None
-				and type(cmap) == str
-				and not c is None
-				and type(c) != str
-			):
-				# print(cmap_legend_kws)
-				self.legend_list.append([cmap, self.value, cmap_legend_kws, 4, "cmap"])
-			if type(cmap) == dict:
-				for k in cmap:
-					self.legend_list.append([cmap[k], k, cmap_legend_kws, 4, "cmap"])
-			marker = self.kwargs.get("marker", None)
-			# ax = self.heatmap_axes[0, 0]
-			# w, h = (
-			#     ax.get_window_extent().width / ax.figure.dpi,
-			#     ax.get_window_extent().height / ax.figure.dpi,
-			# )
-			# r = min(w * 72 / len(self.col_order[0]), h * 72 / len(self.row_order[0]))
-			max_s=self.kwargs['max_s']
-			if type(marker) == dict and not self.hue is None:
-				self.legend_list.append(
-					[
-						(marker, self.kwargs.get("colors", None), np.sqrt(max_s) * self.alpha),
-						self.hue,
-						self.dot_legend_kws,
-						len(marker),
-						"markers",
-					] #size of s in scatter equal to marker_size**2
-				)  # markersize is r*0.8
+
+				if isinstance(self.cmap, dict):  #
+					cmap_legend_kws = self.cmap_legend_kws.copy()
+					for key in self.cmap:
+						self.legend_list.append([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
+			else: # hue is None
+				cmap = self.cmap
+				c = self.kwargs.get("c", None)
+				cmap_legend_kws = self.cmap_legend_kws.copy()
+				# cmap_legend_kws["vmax"] = self.kwargs.get('vmax',1)
+				# cmap_legend_kws["vmin"] = self.kwargs.get('vmin',0)
+				cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
+				cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
+				if (
+					not cmap is None
+					and type(cmap) == str
+					and not c is None
+					and type(c) != str
+				):
+					# print(cmap_legend_kws)
+					self.legend_list.append([cmap, self.value, cmap_legend_kws, 4, "cmap"])
 			# dot size legend:
 			if type(self.s) == str:
 				# s=self.kwargs.get('s',None)
 				# colors=self.kwargs.get('colors',None)
 				markers1 = {}
+				max_s = self.kwargs['max_s']
 				ms = {}
 				for f in [1, 0.8, 0.6, 0.4, 0.2]:
 					k = str(round(f * self.smax, 2))
