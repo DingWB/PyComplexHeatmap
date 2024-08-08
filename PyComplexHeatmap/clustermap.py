@@ -1298,7 +1298,7 @@ class ClusterMapPlotter:
 				else:
 					self.plot_legends(ax=self.ax)
 
-		self.post_processing()
+			self.post_processing()
 
 	def _define_kws(self, xticklabels_kws, yticklabels_kws):
 		self.yticklabels_kws = {} if yticklabels_kws is None else yticklabels_kws
