@@ -8,7 +8,7 @@ from .annotations import *
 from .dotHeatmap import *
 from .colors import *
 from .utils import set_default_style
-
+import fire
 # __all__=['*']
 from ._version import version as __version__
 # __version__ = "1.6.5"

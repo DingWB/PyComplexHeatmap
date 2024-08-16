@@ -7,6 +7,16 @@ import random
 from .utils import _calculate_luminance
 import pandas as pd
 default_cmaps = matplotlib.pyplot.colormaps()
+import colorsys
+import numpy as np
+from matplotlib import colors as mcolors
+named_colors=mcolors.CSS4_COLORS
+named_colors.update(mcolors.BASE_COLORS) #kes is color string, values are hex
+# named_colors.update(mcolors.TABLEAU_COLORS)
+named_colors.update(mcolors.CSS4_COLORS)
+for k in named_colors:
+	if isinstance(named_colors[k],tuple):
+		named_colors[k]=mcolors.to_hex(named_colors[k])
 
 def register_cmap(c):
 	try:
@@ -265,6 +275,52 @@ def register_palettable():
 			continue
 		c = LinearSegmentedColormap.from_list(name, colors)
 		register_cmap(c)
+
+def identify_color_format(color):
+	if color in named_colors:
+		return 'named_color'
+	elif isinstance(color, str) and color.startswith('#'):
+		if len(color) == 7 or len(color) == 4:
+			return 'HEX'
+	elif isinstance(color, tuple) and len(color) == 3:
+		if all(isinstance(val, int) and 0 <= val <= 255 for val in color):
+			return 'RGB (integer)'
+		elif all(isinstance(val, float) and 0 <= val <= 1 for val in color):
+			return 'RGB (float)'
+	elif isinstance(color, tuple) and len(color) == 3:
+		h, l, s = color
+		if (isinstance(h, float) and 0 <= h <= 1) or (isinstance(h, int) and 0 <= h <= 360):
+			if isinstance(l, float) and 0 <= l <= 1 and isinstance(s, float) and 0 <= s <= 1:
+				return 'HLS'
+	return 'Unknown'
+
+def interpolate_colors(color1, color2, num_colors, fmt='RGB'):
+	if fmt == 'HLS':
+		color1 = colorsys.hls_to_rgb(*color1)
+		color2 = colorsys.hls_to_rgb(*color2)
+	elif fmt != 'RGB':
+		color1 = mcolors.to_rgb(color1)
+		color2 = mcolors.to_rgb(color2)
+	color1 = np.array(color1)
+	color2 = np.array(color2)
+	colors = [tuple(color1 + (color2 - color1) * i / (num_colors - 1)) for i in range(num_colors)]
+	return colors
+
+
+def generate_quantive_colors(color, n=5, white=(0.9, 0.9, 0.9), black=(0.3, 0.3, 0.3), ret_fmt='HEX'):
+	fmt = identify_color_format(color)
+	if not fmt.startswith('RGB'):
+		color = mcolors.to_rgb(color)
+	light_colors = interpolate_colors(white, color, n // 2 + 2)[1:-1]  # from white to color
+	dark_colors = interpolate_colors(color, black, n // 2 + 2)[1:-1]  # from color to black;white=(1,1,1),black=(0,0,0)
+	if len(light_colors) + len(dark_colors) == n:
+		results = light_colors + dark_colors
+	else:
+		results = light_colors + [color] + dark_colors
+	if ret_fmt == 'RGB':
+		return results
+	elif ret_fmt == 'HEX':
+		return [mcolors.to_hex(c) for c in results]
 
 try:
 	define_cmap()
