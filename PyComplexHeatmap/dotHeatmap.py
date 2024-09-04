@@ -641,7 +641,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		if not self.spines:
 			for ax in self.heatmap_axes.ravel():
 				despine(ax=ax, left=True, bottom=True, right=True, top=True)
-		if not self.grid is None:
+		if not self.grid is None and self.grid!=False:
 			for ax in self.heatmap_axes.ravel():
 				ax.grid(axis='both', which=self.grid, color='black', linestyle='dashdot',
 						alpha=0.1)  # which can also be set to major
