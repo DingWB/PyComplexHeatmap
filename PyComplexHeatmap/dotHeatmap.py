@@ -194,13 +194,24 @@ def dotHeatmap2d(
 			df["C"] = df["Hue"].map(colors).fillna(c_na)
 			norm=kwargs.pop('norm') #not color values are provided, remove norm parameter
 			cmap=kwargs.pop('cmap')
-			ax.scatter(
-				x=df.X.values,
-				y=df.Y.values,
-				s=df.S * max_s,
-				c=df.C.values,
-				**kwargs
-			)
+			for mk in df.Markers.unique():
+				df1 = df.loc[df.Markers == mk].copy()
+				kwargs["marker"] = mk
+				ax.scatter(
+					x=df1.X.values,
+					y=df1.Y.values,
+					s=df1.S * max_s,
+					c=df1.C.values,
+					**kwargs
+				)
+			
+			# ax.scatter(
+			# 	x=df.X.values,
+			# 	y=df.Y.values,
+			# 	s=df.S * max_s,
+			# 	c=df.C.values,
+			# 	**kwargs
+			# )
 
 	ax.set_ylim([0.5, len(row_labels) + 0.5])
 	ax.set_xlim(0.5, len(col_labels) + 0.5)
