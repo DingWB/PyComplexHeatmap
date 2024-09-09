@@ -19,7 +19,7 @@ How to install?
 
 2. **Install the developmental version directly from [github](https://github.com/DingWB/PyComplexHeatmap)**  ::
 [https://github.com/DingWB/PyComplexHeatmap](https://github.com/DingWB/PyComplexHeatmap)
-    pip install git+https://github.com/DingWB/PyComplexHeatmap
+pip install git+https://github.com/DingWB/PyComplexHeatmap
 
 if you have installed it previously and want to update it, please run  ::
 

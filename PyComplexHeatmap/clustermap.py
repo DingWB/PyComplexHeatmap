@@ -1084,19 +1084,19 @@ class ClusterMapPlotter:
 		True or False, whether to plot heatmap legend, determined by cmap.
 	legend_kws :dict
 		vmax, vmin and other kws passed to plot legend, such asfontsize,
-		 fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
-		 shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
-		 so on (see ?plt.legend)
-		Alaternatively, we can also change the outline color and linewidth of cbar
-		after plotting:
+		fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
+		shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
+		so on (see ?plt.legend) Alaternatively, we can also change the
+		outline color and linewidth of cbar after plotting:
+		```
 		cm=ClusterMapPlotter(...)
 		for cbar in cm.cbars:
-			if isinstance(cbar,matplotlib.colorbar.Colorbar):
-				cbar.outline.set_color('white')
-				cbar.outline.set_linewidth(2)
-				cbar.dividers.set_color('red')
-				cbar.dividers.set_linewidth(2)
-
+		if isinstance(cbar,matplotlib.colorbar.Colorbar):
+			cbar.outline.set_color('white')
+			cbar.outline.set_linewidth(2)
+			cbar.dividers.set_color('red')
+			cbar.dividers.set_linewidth(2)
+		```
 	plot :bool
 		whether to plot or not.
 	plot_legend :bool
@@ -1134,8 +1134,13 @@ class ClusterMapPlotter:
 		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 		zorder,verticalalignment,horizontalalignment.
 		See ax.xaxis.label.properties(), for example:
-				cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())
-		or matplotlib.axis.XAxis.label.properties() for detail.
+		```
+		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())
+		```
+		or
+		```
+		matplotlib.axis.XAxis.label.properties() for detail.
+		```
 	ylabel_kws: dict
 		sams as xlabel_kws
 	xlabel_side: str
@@ -1147,7 +1152,9 @@ class ClusterMapPlotter:
 		linestyle, linewidth,rasterized,visible,width.
 		See ax.xaxis.label.get_bbox_patch().properties() for more information.
 		For example:
-			cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())
+		```
+		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())
+		```
 	ylabel_bbox_kws: dict
 		same as xlabel_bbox_kws
 	rasterized :bool

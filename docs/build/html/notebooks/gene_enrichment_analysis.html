@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -18,7 +18,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../_static/js/rtd_search_config.js"></script>
@@ -172,6 +172,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -273,7 +274,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -385,7 +389,7 @@
 <section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
 <h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
 <h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
-</h3><p><img alt="339f36603c1c4c4cb96f09c18e3a27b1" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="4a24e4e8a42a4d6fada0f4552f38f062" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+</h3><p><img alt="8d417d57f6a04a51876db9b48353fe48" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="f45fa84c94bc43fb980fec5a77e0f074" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
 <h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
 </h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
 </section>
@@ -1146,7 +1150,7 @@ Estimated legend width: 23.6375 mm
 </h4></section>
 <section id="How-to-select-marker:">
 <h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
-<p><img alt="3084786c157243f4b2ba847e4c397ede" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
+<p><img alt="35a8e4a5e101418fad18508d7de1d5a1" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
 </section>
 </section>
 

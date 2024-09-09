@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>PyComplexHeatmap.clustermap module &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6897dc88"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/js/rtd_search_config.js"></script>
@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul class="current">
@@ -270,7 +271,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -416,25 +420,22 @@ groups and pass the clsutered order to row_split_order.</p></li>
 <li><p><strong>mask</strong> (<em class="hover">dataframe</em><em> or </em><em class="hover">array</em>) – mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</p></li>
 <li><p><strong>subplot_gap</strong> (<em class="hover">float</em>) – the gap between subplots, default is 1mm.</p></li>
 <li><p><strong>legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot heatmap legend, determined by cmap.</p></li>
-<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – <dl class="simple">
-<dt>vmax, vmin and other kws passed to plot legend, such asfontsize,</dt><dd><p>fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
+<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – <p>vmax, vmin and other kws passed to plot legend, such asfontsize,
+fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
 shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
-so on (see ?plt.legend)</p>
-</dd>
-</dl>
-<p>Alaternatively, we can also change the outline color and linewidth of cbar
-after plotting:
+so on (see ?plt.legend) Alaternatively, we can also change the
+outline color and linewidth of cbar after plotting:
+<a href="#id1"><span class="problematic" id="id2">``</span></a>`
 cm=ClusterMapPlotter(…)
-for cbar in cm.cbars:</p>
+for cbar in cm.cbars:
+if isinstance(cbar,matplotlib.colorbar.Colorbar):</p>
 <blockquote>
-<div><dl class="simple">
-<dt>if isinstance(cbar,matplotlib.colorbar.Colorbar):</dt><dd><p>cbar.outline.set_color(‘white’)
+<div><p>cbar.outline.set_color(‘white’)
 cbar.outline.set_linewidth(2)
 cbar.dividers.set_color(‘red’)
 cbar.dividers.set_linewidth(2)</p>
-</dd>
-</dl>
 </div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
 </p></li>
 <li><p><strong>plot</strong> (<em class="hover">bool</em>) – whether to plot or not.</p></li>
 <li><p><strong>plot_legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot legend, if False, legends can be plot with
@@ -454,26 +455,27 @@ For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</
 <li><p><strong>yticklabels_kws</strong> (<em class="hover">dict</em>) – the same as xticklabels_kws.</p></li>
 <li><p><strong>xlabel</strong> (<em class="hover">str</em>) – default is None (no xlabel would be shown).</p></li>
 <li><p><strong>ylabel</strong> (<em class="hover">str</em>) – default is None (no ylabel would be shown).</p></li>
-<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – <p>alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
+<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
 fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 zorder,verticalalignment,horizontalalignment.
-See ax.xaxis.label.properties(), for example:</p>
-<blockquote>
-<div><p>cm=ClusterMapPlotter(<a href="#id1"><span class="problematic" id="id2">**</span></a><a href="#id3"><span class="problematic" id="id4">*</span></a>), print(cm.ax.xaxis.label.properties())</p>
-</div></blockquote>
-<p>or matplotlib.axis.XAxis.label.properties() for detail.</p>
-</p></li>
+See ax.xaxis.label.properties(), for example:
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">cm=ClusterMapPlotter(***),</span> <span class="pre">print(cm.ax.xaxis.label.properties())</span>
+<span class="pre">`</span></code>
+or
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">matplotlib.axis.XAxis.label.properties()</span> <span class="pre">for</span> <span class="pre">detail.</span>
+<span class="pre">`</span></code></p></li>
 <li><p><strong>ylabel_kws</strong> (<em class="hover">dict</em>) – sams as xlabel_kws</p></li>
 <li><p><strong>xlabel_side</strong> (<em class="hover">str</em>) – bottom or top, default is bottom,</p></li>
 <li><p><strong>ylabel_side</strong> (<em class="hover">str</em>) – left or right, default is left</p></li>
-<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – <p>alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
+<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
 linestyle, linewidth,rasterized,visible,width.
 See ax.xaxis.label.get_bbox_patch().properties() for more information.
-For example:</p>
-<blockquote>
-<div><p>cm=ClusterMapPlotter(<a href="#id5"><span class="problematic" id="id6">**</span></a><a href="#id7"><span class="problematic" id="id8">*</span></a>), print(cm.ax.xaxis.label.get_bbox_patch().properties())</p>
-</div></blockquote>
-</p></li>
+For example:
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">cm=ClusterMapPlotter(***),</span> <span class="pre">print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
+<span class="pre">`</span></code></p></li>
 <li><p><strong>ylabel_bbox_kws</strong> (<em class="hover">dict</em>) – same as xlabel_bbox_kws</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is auto, when the number of rows or number of cols &gt; 5000,
 rasterized would be automatically set to True to speed up the plotting.</p></li>

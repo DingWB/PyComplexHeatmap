@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Default matplotlib colormaps &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>Default matplotlib colormaps &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -18,7 +18,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../_static/js/rtd_search_config.js"></script>
@@ -172,6 +172,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -273,7 +274,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -357,7 +361,7 @@
   <p>Colormap in PyComplexHeatmap</p>
 <section id="Default-matplotlib-colormaps">
 <h1>Default matplotlib colormaps<a class="headerlink" href="#Default-matplotlib-colormaps" title="Permalink to this heading">¶</a></h1>
-<p><img alt="98a526b72f99425da7bc261942832e12" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_001.png" style="width: 600px;" /> <img alt="c72aee0db07f4975ac094e757973aa6e" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_002.png" style="width: 600px;" /> <img alt="de90060129924cc6b2ec19e9770563fd" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_003.png" style="width: 600px;" /> <img alt="df14b1c2b6784351839578eb7eae45c1" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_004.png" style="width: 600px;" /> <img alt="c4588a5b03d1430197a8aa7c2a64f2bc" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_005.png" style="width: 600px;" /> <img alt="09a992314a9c420a86f01579794111ad" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_006.png" style="width: 600px;" /> <img alt="ae93e3790e97449cb66163f8549af656" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_007.png" style="width: 600px;" /></p>
+<p><img alt="3ce43e54ca7b4acbbad8becf32209f3c" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_001.png" style="width: 600px;" /> <img alt="aef53efc95794b2fad149718cb3c94b1" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_002.png" style="width: 600px;" /> <img alt="1a9c5185e12b4f2bbf04c21cb781216e" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_003.png" style="width: 600px;" /> <img alt="06a11755bc24413ba8145ecabbf9be3a" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_004.png" style="width: 600px;" /> <img alt="3da0f4efd1654cbfbc2f999c2a1077a6" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_005.png" style="width: 600px;" /> <img alt="18c77874ee424b0993614a06d66b73bb" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_006.png" style="width: 600px;" /> <img alt="ab16967a03494e248313184142b91cf2" class="no-scaled-link" src="https://matplotlib.org/stable/_images/sphx_glr_colormap_reference_007.png" style="width: 600px;" /></p>
 </section>
 <section id="Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">
 <h1>Build-in colormaps (Not included in matplotlib default cmaps)<a class="headerlink" href="#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)" title="Permalink to this heading">¶</a></h1>

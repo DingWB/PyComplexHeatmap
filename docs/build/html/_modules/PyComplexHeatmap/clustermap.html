@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>PyComplexHeatmap.clustermap &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/rtd_sphinx_search.min.css" />
@@ -16,7 +16,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6897dc88"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../_static/js/rtd_search_config.js"></script>
@@ -166,6 +166,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComplexHeatmap</a><ul>
@@ -267,7 +268,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -1434,19 +1438,19 @@
 <span class="sd">		True or False, whether to plot heatmap legend, determined by cmap.</span>
 <span class="sd">	legend_kws :dict</span>
 <span class="sd">		vmax, vmin and other kws passed to plot legend, such asfontsize,</span>
-<span class="sd">		 fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon</span>
-<span class="sd">		 shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and</span>
-<span class="sd">		 so on (see ?plt.legend)</span>
-<span class="sd">		Alaternatively, we can also change the outline color and linewidth of cbar</span>
-<span class="sd">		after plotting:</span>
+<span class="sd">		fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon</span>
+<span class="sd">		shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and</span>
+<span class="sd">		so on (see ?plt.legend) Alaternatively, we can also change the</span>
+<span class="sd">		outline color and linewidth of cbar after plotting:</span>
+<span class="sd">		```</span>
 <span class="sd">		cm=ClusterMapPlotter(...)</span>
 <span class="sd">		for cbar in cm.cbars:</span>
-<span class="sd">			if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
-<span class="sd">				cbar.outline.set_color(&#39;white&#39;)</span>
-<span class="sd">				cbar.outline.set_linewidth(2)</span>
-<span class="sd">				cbar.dividers.set_color(&#39;red&#39;)</span>
-<span class="sd">				cbar.dividers.set_linewidth(2)</span>
-
+<span class="sd">		if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
+<span class="sd">			cbar.outline.set_color(&#39;white&#39;)</span>
+<span class="sd">			cbar.outline.set_linewidth(2)</span>
+<span class="sd">			cbar.dividers.set_color(&#39;red&#39;)</span>
+<span class="sd">			cbar.dividers.set_linewidth(2)</span>
+<span class="sd">		```</span>
 <span class="sd">	plot :bool</span>
 <span class="sd">		whether to plot or not.</span>
 <span class="sd">	plot_legend :bool</span>
@@ -1484,8 +1488,13 @@
 <span class="sd">		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,</span>
 <span class="sd">		zorder,verticalalignment,horizontalalignment.</span>
 <span class="sd">		See ax.xaxis.label.properties(), for example:</span>
-<span class="sd">				cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())</span>
-<span class="sd">		or matplotlib.axis.XAxis.label.properties() for detail.</span>
+<span class="sd">		```</span>
+<span class="sd">		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())</span>
+<span class="sd">		```</span>
+<span class="sd">		or</span>
+<span class="sd">		```</span>
+<span class="sd">		matplotlib.axis.XAxis.label.properties() for detail.</span>
+<span class="sd">		```</span>
 <span class="sd">	ylabel_kws: dict</span>
 <span class="sd">		sams as xlabel_kws</span>
 <span class="sd">	xlabel_side: str</span>
@@ -1497,7 +1506,9 @@
 <span class="sd">		linestyle, linewidth,rasterized,visible,width.</span>
 <span class="sd">		See ax.xaxis.label.get_bbox_patch().properties() for more information.</span>
 <span class="sd">		For example:</span>
-<span class="sd">			cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
+<span class="sd">		```</span>
+<span class="sd">		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
+<span class="sd">		```</span>
 <span class="sd">	ylabel_bbox_kws: dict</span>
 <span class="sd">		same as xlabel_bbox_kws</span>
 <span class="sd">	rasterized :bool</span>
@@ -1648,7 +1659,7 @@
 				<span class="k">else</span><span class="p">:</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">plot_legends</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span>
 
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_processing</span><span class="p">()</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">post_processing</span><span class="p">()</span>
 
 	<span class="k">def</span> <span class="nf">_define_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xticklabels_kws</span><span class="p">,</span> <span class="n">yticklabels_kws</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">yticklabels_kws</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">yticklabels_kws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">yticklabels_kws</span>

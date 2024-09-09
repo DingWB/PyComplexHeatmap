@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Understand the layout: &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>Understand the layout: &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -18,7 +18,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../_static/js/rtd_search_config.js"></script>
@@ -172,6 +172,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -273,7 +274,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -1290,6 +1294,336 @@ Collecting annotation legends..
 </div>
 </div>
 </section>
+</section>
+<section id="Color-palette-design">
+<h1>Color palette design<a class="headerlink" href="#Color-palette-design" title="Permalink to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[269]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">colorsys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span> <span class="k">as</span> <span class="n">mcolors</span>
+<span class="n">named_colors</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">CSS4_COLORS</span>
+<span class="n">named_colors</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">BASE_COLORS</span><span class="p">)</span> <span class="c1">#kes is color string, values are hex</span>
+<span class="c1"># named_colors.update(mcolors.TABLEAU_COLORS)</span>
+<span class="n">named_colors</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">CSS4_COLORS</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">named_colors</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">named_colors</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">named_colors</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">(</span><span class="n">named_colors</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">identify_color_format</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">named_colors</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;named_color&#39;</span>
+    <span class="c1"># Check if the color is in HEX format (e.g., #RRGGBB or #RGB)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">color</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;HEX&#39;</span>
+    <span class="c1"># Check if the color is in RGB format (tuple of 3 integers/floats)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">255</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">color</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;RGB (integer)&#39;</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">color</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;RGB (float)&#39;</span>
+    <span class="c1"># Check if the color is in HLS format (tuple of 3 floats)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">360</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;HLS&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;Unknown&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">generate_similar_colors</span><span class="p">(</span><span class="n">base_color</span><span class="p">,</span> <span class="n">num_colors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h_delta</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">l_delta</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">s_delta</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+                           <span class="n">l_min</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">l_max</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="n">s_min</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">s_max</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="n">identify_color_format</span><span class="p">(</span><span class="n">base_color</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fmt</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">):</span>
+        <span class="n">base_color</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">base_color</span><span class="p">)</span>
+
+    <span class="c1"># Convert the base RGB color to HLS (Hue, Lightness, Saturation)</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">base_color</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">rgb_to_hls</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+    <span class="c1"># Generate a list of similar colors by varying the hue</span>
+    <span class="c1"># The hue determines the &quot;base&quot; color:</span>
+    <span class="c1">#     0 or 1 (or 360 degrees) = Red</span>
+    <span class="c1">#     1/6 (or 60 degrees) = Yellow</span>
+    <span class="c1">#     2/6 (or 120 degrees) = Green</span>
+    <span class="c1">#     3/6 (or 180 degrees) = Cyan</span>
+    <span class="c1">#     4/6 (or 240 degrees) = Blue</span>
+    <span class="c1">#     5/6 (or 300 degrees) = Magenta</span>
+    <span class="c1">#     Back to Red as it cycles around the wheel.</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">hues</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">h_delta</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="n">h_delta</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">num_colors</span><span class="p">)</span>
+    <span class="n">lightness</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">l_delta</span><span class="p">,</span><span class="n">l_min</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">l_delta</span><span class="p">,</span><span class="n">l_max</span><span class="p">),</span><span class="n">num_colors</span><span class="p">)</span>
+    <span class="n">saturations</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="o">-</span><span class="n">s_delta</span><span class="p">,</span><span class="n">s_min</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="n">s_delta</span><span class="p">,</span><span class="n">s_max</span><span class="p">),</span><span class="n">num_colors</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">h1</span><span class="p">,</span><span class="n">l1</span><span class="p">,</span><span class="n">s1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hues</span><span class="p">,</span><span class="n">lightness</span><span class="p">,</span><span class="n">saturations</span><span class="p">):</span>
+        <span class="n">new_color</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">hls_to_rgb</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">colors</span>
+
+<span class="k">def</span> <span class="nf">interpolate_colors</span><span class="p">(</span><span class="n">color1</span><span class="p">,</span> <span class="n">color2</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;rgb&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">fmt</span><span class="o">==</span><span class="s1">&#39;hls&#39;</span><span class="p">:</span>
+        <span class="n">color1</span><span class="o">=</span><span class="n">colorsys</span><span class="o">.</span><span class="n">hls_to_rgb</span><span class="p">(</span><span class="o">*</span><span class="n">color1</span><span class="p">)</span>
+        <span class="n">color2</span><span class="o">=</span><span class="n">colorsys</span><span class="o">.</span><span class="n">hls_to_rgb</span><span class="p">(</span><span class="o">*</span><span class="n">color2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">fmt</span><span class="o">!=</span><span class="s1">&#39;rgb&#39;</span><span class="p">:</span>
+        <span class="n">color1</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color1</span><span class="p">)</span>
+        <span class="n">color2</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color2</span><span class="p">)</span>
+    <span class="c1"># Convert colors to numpy arrays for easy interpolation</span>
+    <span class="n">color1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">color1</span><span class="p">)</span>
+    <span class="n">color2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">color2</span><span class="p">)</span>
+
+    <span class="c1"># Generate a linear interpolation between the two colors</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">color1</span> <span class="o">+</span> <span class="p">(</span><span class="n">color2</span> <span class="o">-</span> <span class="n">color1</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_colors</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_colors</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">colors</span>
+
+<span class="k">def</span> <span class="nf">generate_quantive_colors</span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">white</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span><span class="n">black</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">),</span><span class="n">ret_fmt</span><span class="o">=</span><span class="s1">&#39;hex&#39;</span><span class="p">):</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="n">identify_color_format</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fmt</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">):</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">light_colors</span><span class="o">=</span><span class="n">interpolate_colors</span><span class="p">(</span><span class="n">white</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># from white to color</span>
+    <span class="n">dark_colors</span><span class="o">=</span><span class="n">interpolate_colors</span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="n">black</span><span class="p">,</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># from color to black;white=(1,1,1),black=(0,0,0)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">light_colors</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">dark_colors</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">=</span><span class="n">light_colors</span><span class="o">+</span><span class="n">dark_colors</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">=</span><span class="n">light_colors</span><span class="o">+</span><span class="p">[</span><span class="n">color</span><span class="p">]</span><span class="o">+</span><span class="n">dark_colors</span>
+    <span class="k">if</span> <span class="n">ret_fmt</span><span class="o">==</span><span class="s1">&#39;rgb&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="k">elif</span> <span class="n">ret_fmt</span><span class="o">==</span><span class="s1">&#39;hex&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[236]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 3: Plot the generated colors</span>
+<span class="k">def</span> <span class="nf">plot_colors</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[]))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[238]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span> <span class="o">=</span> <span class="n">generate_similar_colors</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">num_colors</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">## Light blue</span>
+<span class="c1"># Plot the generated similar colors</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_32_0.png" src="../_images/notebooks_dev_32_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[242]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span><span class="o">=</span><span class="n">interpolate_colors</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;named_color&#39;</span><span class="p">)</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_33_0.png" src="../_images/notebooks_dev_33_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[270]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span><span class="o">=</span><span class="n">generate_quantive_colors</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_34_0.png" src="../_images/notebooks_dev_34_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[271]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span><span class="o">=</span><span class="n">generate_quantive_colors</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_35_0.png" src="../_images/notebooks_dev_35_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[272]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span><span class="o">=</span><span class="n">generate_quantive_colors</span><span class="p">(</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_36_0.png" src="../_images/notebooks_dev_36_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[273]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span><span class="o">=</span><span class="n">generate_quantive_colors</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plot_colors</span><span class="p">(</span><span class="n">similar_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_37_0.png" src="../_images/notebooks_dev_37_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[274]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">similar_colors</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[274]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;#99c499&#39;, &#39;#4da24d&#39;, &#39;#008000&#39;, &#39;#196f19&#39;, &#39;#335e33&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[263]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_colors</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">),(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dev_39_0.png" src="../_images/notebooks_dev_39_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1.0, 0.0, 0.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[247]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[247]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(0.0, 0.0, 0.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[128]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colorsys</span><span class="o">.</span><span class="n">rgb_to_hls</span><span class="p">(</span><span class="o">*</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[128]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(0.0, 0.5, 1.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[129]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colorsys</span><span class="o">.</span><span class="n">rgb_to_hls</span><span class="p">(</span><span class="o">*</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="s1">&#39;pink&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[129]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(0.9708994708994709, 0.8764705882352941, 1.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[267]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[267]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;#000000&#39;
+</pre></div></div>
+</div>
 </section>
 
 

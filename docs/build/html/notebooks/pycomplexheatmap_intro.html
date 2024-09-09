@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. 安装 &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>1. 安装 &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -18,7 +18,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../_static/js/rtd_search_config.js"></script>
@@ -170,6 +170,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -271,7 +272,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -563,7 +567,7 @@ Collecting annotation legends..
 </div>
 </div>
 <p>除了boxplot,barplot, scatter plot和sinmple annotation， 还有图片注释和标签注释，比如：</p>
-<p><img alt="0e3dc1f0ff444ef381b1043e6241ffd5" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_dev_26_1.png" style="width: 600px;" /> <img alt="7187498f4b0c4aba8d3edba24a0187f2" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_single_cell_methylation_8_1.png" style="width: 600px;" /></p>
+<p><img alt="680a90f85aeb41f2904533692fd11d63" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_dev_26_1.png" style="width: 600px;" /> <img alt="f5474f74445845fab3103cf75652268d" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_single_cell_methylation_8_1.png" style="width: 600px;" /></p>
 </section>
 <section id="3.-单独画热图">
 <h1>3. 单独画热图<a class="headerlink" href="#3.-单独画热图" title="Permalink to this heading">¶</a></h1>
@@ -661,14 +665,14 @@ Collecting annotation legends..
 </div>
 </div>
 <p>热图中几乎所有的元素都可以通过代码和参数来控制，比如，如下图所示，可以控制各种距离：</p>
-<p><img alt="14206f30542845c48b464c655b696c98" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 600px;" /></p>
+<p><img alt="f2b583c48df74295a5f54167d5b3da25" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 600px;" /></p>
 <p>来自官网<a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap">https://dingwb.github.io/PyComplexHeatmap</a>的更多好看的热图示例：</p>
-<p><img alt="c62ef894645149aa95fe7d8b35417f69" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_cpg_modules_15_0.png" style="width: 400px;" /> <img alt="9c300a84e1ee489eb475a97969408f00" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_23_0.png" style="width: 400px;" /> <img alt="51dd9d8f72e049d6bacea95ba27eee85" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_25_0.png" style="width: 400px;" /></p>
+<p><img alt="f5b9595d43764c28a7548bdc84e25777" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_cpg_modules_15_0.png" style="width: 400px;" /> <img alt="9c670895f67840dc86caf167f38869e8" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_23_0.png" style="width: 400px;" /> <img alt="e9e8b0cdce794150a412c3afa9c1b891" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_advanced_usage_25_0.png" style="width: 400px;" /></p>
 </section>
 <section id="5.-点状热图：">
 <h1>5. 点状热图：<a class="headerlink" href="#5.-点状热图：" title="Permalink to this heading">¶</a></h1>
 <p>点状热图(dotHeatmap)可以用来展示多大5个维度的数据：行、列、点的颜色、点的大小、点的形状。如下图所示：</p>
-<p><img alt="18bc514a44ab4e4a88155650412d22f9" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_gene_enrichment_analysis_16_1.png" style="width: 600px;" /></p>
+<p><img alt="76b6d2d8aa2e4ccfb3d3d9192c1d8c8d" class="no-scaled-link" src="https://dingwb.github.io/PyComplexHeatmap/build/html/_images/notebooks_gene_enrichment_analysis_16_1.png" style="width: 600px;" /></p>
 <p>更多关于PyComplexHeatmap的教程和示例代码，请访问：<a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">https://github.com/DingWB/PyComplexHeatmap</a> 和 <a class="reference external" href="https://dingwb.github.io/PyComplexHeatmap">https://dingwb.github.io/PyComplexHeatmap</a></p>
 </section>
 

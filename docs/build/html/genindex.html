@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; PyComplexHeatmap 1.7.2.dev0+g8abf70a.d20240415 documentation</title>
+  <title>Index &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
@@ -16,7 +16,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0b4b8aa9"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6897dc88"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/js/rtd_search_config.js"></script>
@@ -166,6 +166,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/dev.html#extent">extent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#Color-palette-design">Color palette design</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">PyComplexHeatmap</a><ul>
@@ -267,7 +268,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
 </ul>
@@ -357,6 +361,7 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
@@ -474,16 +479,18 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors">generate_quantive_colors() (in module PyComplexHeatmap.colors)</a>
+</li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap">get_colormap() (in module PyComplexHeatmap.utils)</a>
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords">get_coords() (PyComplexHeatmap.clustermap.DendrogramPlotter method)</a>
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width">get_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">get_max_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">get_max_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+</li>
       <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors">get_palettable_colors() (in module PyComplexHeatmap.colors)</a>
 </li>
       <li><a href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order">get_samples_order() (PyComplexHeatmap.oncoPrint.oncoPrintPlotter method)</a>
@@ -507,6 +514,18 @@
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation">HeatmapAnnotation (class in PyComplexHeatmap.annotations)</a>
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter">heatmapPlotter (class in PyComplexHeatmap.clustermap)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format">identify_color_format() (in module PyComplexHeatmap.colors)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors">interpolate_colors() (in module PyComplexHeatmap.colors)</a>
 </li>
   </ul></td>
 </tr></table>
