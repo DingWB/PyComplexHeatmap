@@ -1161,8 +1161,8 @@ class ClusterMapPlotter:
 		default is auto, when the number of rows or number of cols > 5000,
 		rasterized would be automatically set to True to speed up the plotting.
 	kwargs :kws passed to plot_heatmap, including vmin, vmax,center,robust,
-		annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
-		,xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+		annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss,
+		xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
 		If annot is True, the values of data will be plotted on the top of heatmap,
 		if annot is a dataframe, then the custom values will be plotted on heatmap,
 		fmt should be set to None if dtype of annot is str. For documentation of
