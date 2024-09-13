@@ -426,7 +426,11 @@ class anno_label(AnnotationBase):
 	extend: bool
 		whether to distribute all the labels extend to the all axis, figure or ax or False.
 	frac: float
-		fraction of the armA and armB.
+		fraction of the armA and armB relative to length of connection label, will be passed to
+		connectionstyle: f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={self.rad}",
+		frac will be used to calculate arm_height: arm_height = arrow_height * self.frac
+	rad: int
+		rad of the connection arrow.
 	majority: bool
 		If there are multiple group for one label, whether to annotate the label in the largest group. [True]
 	adjust_color: bool
@@ -442,7 +446,12 @@ class anno_label(AnnotationBase):
 		passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
 		more information about arrowprops could be found in
 		matplotlib.patches.FancyArrowPatch. For example, to remove arrow, just set
-		arrowprops = dict(visible=False,)
+		arrowprops = dict(visible=False). See: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html for more information.
+		arrowprops:
+			arrowstyle:
+				https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html
+			connectionstyle:
+				https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
 
 	Returns
 	----------
@@ -457,6 +466,7 @@ class anno_label(AnnotationBase):
 		merge=False,
 		extend=False,
 		frac=0.2,
+		rad=2,
 		majority=True,
 		adjust_color=True,
 		luminance=0.8,
@@ -481,6 +491,7 @@ class anno_label(AnnotationBase):
 		self.luminance = luminance
 		self.extend = extend
 		self.frac = frac
+		self.rad=rad
 		self.relpos = relpos
 		self.annotated_texts = []
 
@@ -628,7 +639,7 @@ class anno_label(AnnotationBase):
 			text_xycoords = "offset pixels"
 		if self.plot_kws["arrowprops"]["connectionstyle"] is None:
 			arm_height = arrow_height * self.frac
-			rad = 2  # arm_height / 10
+			# rad = self.rad  # arm_height / 10
 			if axis == 1 and self.orientation == "up":
 				angleA, angleB = (self.plot_kws["rotation"] - 180, 90)
 			elif axis == 1 and self.orientation == "down":
@@ -637,8 +648,9 @@ class anno_label(AnnotationBase):
 				angleA, angleB = (self.plot_kws["rotation"], -180)
 			else:
 				angleA, angleB = (self.plot_kws["rotation"] - 180, 0)
-			connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={rad}"
+			connectionstyle = f"arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={self.rad}"
 			self.plot_kws["arrowprops"]["connectionstyle"] = connectionstyle
+		# print("connectionstyle: ",self.plot_kws["arrowprops"]["connectionstyle"])
 		# import pdb;
 		# pdb.set_trace()
 		for t, x_0, y_0, x_1, y_1 in zip(labels, x, y, x1, y1):
