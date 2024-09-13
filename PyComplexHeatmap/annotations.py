@@ -1513,7 +1513,7 @@ class HeatmapAnnotation:
 		self.cmap = {}
 		if cmap == "auto":
 			for col in self.df.columns:
-				if self.df.dtypes[col] == object:
+				if self.df.dtypes[col] in [object,'category']:
 					if self.df[col].nunique() <= 10:
 						self.cmap[col] = "Set1"
 					elif self.df[col].nunique() <= 20:
