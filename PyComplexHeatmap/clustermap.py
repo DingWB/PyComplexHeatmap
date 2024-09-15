@@ -1013,8 +1013,10 @@ class ClusterMapPlotter:
 		the same as top_annotation.
 	row_cluster :bool
 		whether to perform cluster on rows/columns.
+		Setting it to False will preserve the row order of the input data.
 	col_cluster :bool
 		whether to perform cluster on rows/columns.
+		Setting it to False will preserve the column order of the input data.
 	row_cluster_method :str
 		cluster method for row/columns linkage, such single, complete, average,weighted,
 		centroid, median, ward. see scipy.cluster.hierarchy.linkage or
