@@ -5,12 +5,9 @@ import numpy as np
 import matplotlib
 import matplotlib.pylab as plt
 from scipy.cluster import hierarchy
-import collections
 import warnings
-import copy
-from .utils import mm2inch
-
 from .utils import (
+	mm2inch,
 	_check_mask,
 	_calculate_luminance,
 	despine,

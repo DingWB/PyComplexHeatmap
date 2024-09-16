@@ -14,7 +14,7 @@ mm2inch = 1 / 25.4
 
 
 # =============================================================================
-def set_default_style():
+def use_pch_style():
 	from matplotlib import rcParams
 
 	D = {
@@ -26,7 +26,7 @@ def set_default_style():
 		"legend.frameon": True,
 		"legend.fontsize": 10,
 		# Savefig
-		"figure.dpi": 100,
+		# "figure.dpi": 100,
 		"savefig.bbox": "tight",
 		"savefig.dpi": 300,
 		"savefig.pad_inches": 0.05,
@@ -954,4 +954,4 @@ def plot_legend_list(
 
 
 # =============================================================================
-# set_default_style()
+# use_pch_style()
