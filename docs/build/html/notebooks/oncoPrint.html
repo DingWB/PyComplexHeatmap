@@ -318,8 +318,8 @@
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.use_pch_style"><code class="docutils literal notranslate"><span class="pre">use_pch_style()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -365,6 +365,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -374,8 +375,8 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
 <span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
-<span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">use_pch_style</span><span class="p">()</span> <span class="c1"># or plt.style.use(&#39;default&#39;) to restore default style</span>
 </pre></div>
 </div>
 </div>

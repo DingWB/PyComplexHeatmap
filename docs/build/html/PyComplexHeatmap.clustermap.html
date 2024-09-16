@@ -315,8 +315,8 @@
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.use_pch_style"><code class="docutils literal notranslate"><span class="pre">use_pch_style()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -375,8 +375,10 @@ value range would be from -1 to 1.</p></li>
 <li><p><strong>bottom_annotation</strong> (<em class="hover">class AnnotationBase</em>) – the same as top_annotation.</p></li>
 <li><p><strong>left_annotation</strong> (<em class="hover">class AnnotationBase</em>) – the same as top_annotation.</p></li>
 <li><p><strong>right_annotation</strong> (<em class="hover">class AnnotationBase</em>) – the same as top_annotation.</p></li>
-<li><p><strong>row_cluster</strong> (<em class="hover">bool</em>) – whether to perform cluster on rows/columns.</p></li>
-<li><p><strong>col_cluster</strong> (<em class="hover">bool</em>) – whether to perform cluster on rows/columns.</p></li>
+<li><p><strong>row_cluster</strong> (<em class="hover">bool</em>) – whether to perform cluster on rows/columns.
+Setting it to False will preserve the row order of the input data.</p></li>
+<li><p><strong>col_cluster</strong> (<em class="hover">bool</em>) – whether to perform cluster on rows/columns.
+Setting it to False will preserve the column order of the input data.</p></li>
 <li><p><strong>row_cluster_method</strong> (<em class="hover">str</em>) – cluster method for row/columns linkage, such single, complete, average,weighted,
 centroid, median, ward. see scipy.cluster.hierarchy.linkage or
 (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html</a>) for detail.</p></li>
@@ -479,8 +481,8 @@ For example:
 <li><p><strong>ylabel_bbox_kws</strong> (<em class="hover">dict</em>) – same as xlabel_bbox_kws</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is auto, when the number of rows or number of cols &gt; 5000,
 rasterized would be automatically set to True to speed up the plotting.</p></li>
-<li><p><strong>kwargs</strong> (<em class="hover">kws passed to plot_heatmap</em><em>, </em><em class="hover">including vmin</em><em>, </em><em class="hover">vmax</em><em>,</em><em class="hover">center</em><em>,</em><em class="hover">robust</em><em>,</em>) – annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss
-,xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
+<li><p><strong>kwargs</strong> (<em class="hover">kws passed to plot_heatmap</em><em>, </em><em class="hover">including vmin</em><em>, </em><em class="hover">vmax</em><em>,</em><em class="hover">center</em><em>,</em><em class="hover">robust</em><em>,</em>) – annot, annot_kws, fmt, mask, linewidths linecolor, na_col, cbar,cbar_kwss,
+xticklabels/yticklabels and so on (see ?PyComplexHeatmap.clustermap.plot_heatmap).
 If annot is True, the values of data will be plotted on the top of heatmap,
 if annot is a dataframe, then the custom values will be plotted on heatmap,
 fmt should be set to None if dtype of annot is str. For documentation of

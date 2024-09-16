@@ -16,6 +16,7 @@
    "outputs": [],
    "source": [
     "import os,sys\n",
+    "import pandas as pd\n",
     "%matplotlib inline\n",
     "import matplotlib.pylab as plt\n",
     "import pickle\n",
@@ -25,8 +26,8 @@
     "plt.rcParams['font.sans-serif']='Arial'\n",
     "plt.rcParams['pdf.fonttype']=42\n",
     "# sys.path.append(os.path.expanduser(\"~/Projects/Github/PyComplexHeatmap/\"))\n",
-    "import PyComplexHeatmap\n",
-    "from PyComplexHeatmap import *"
+    "from PyComplexHeatmap import *\n",
+    "use_pch_style() # or plt.style.use('default') to restore default style"
    ]
   },
   {

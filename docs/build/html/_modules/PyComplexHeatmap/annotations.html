@@ -312,8 +312,8 @@
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.set_default_style"><code class="docutils literal notranslate"><span class="pre">set_default_style()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.use_pch_style"><code class="docutils literal notranslate"><span class="pre">use_pch_style()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -780,7 +780,11 @@
 <span class="sd">	extend: bool</span>
 <span class="sd">		whether to distribute all the labels extend to the all axis, figure or ax or False.</span>
 <span class="sd">	frac: float</span>
-<span class="sd">		fraction of the armA and armB.</span>
+<span class="sd">		fraction of the armA and armB relative to length of connection label, will be passed to</span>
+<span class="sd">		connectionstyle: f&quot;arc,angleA={angleA},angleB={angleB},armA={arm_height},armB={arm_height},rad={self.rad}&quot;,</span>
+<span class="sd">		frac will be used to calculate arm_height: arm_height = arrow_height * self.frac</span>
+<span class="sd">	rad: int</span>
+<span class="sd">		rad of the connection arrow.</span>
 <span class="sd">	majority: bool</span>
 <span class="sd">		If there are multiple group for one label, whether to annotate the label in the largest group. [True]</span>
 <span class="sd">	adjust_color: bool</span>
@@ -796,7 +800,12 @@
 <span class="sd">		passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,</span>
 <span class="sd">		more information about arrowprops could be found in</span>
 <span class="sd">		matplotlib.patches.FancyArrowPatch. For example, to remove arrow, just set</span>
-<span class="sd">		arrowprops = dict(visible=False,)</span>
+<span class="sd">		arrowprops = dict(visible=False). See: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html for more information.</span>
+<span class="sd">		arrowprops:</span>
+<span class="sd">			arrowstyle:</span>
+<span class="sd">				https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html</span>
+<span class="sd">			connectionstyle:</span>
+<span class="sd">				https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html</span>
 
 <span class="sd">	Returns</span>
 <span class="sd">	----------</span>
@@ -811,6 +820,7 @@
 		<span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">extend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+		<span class="n">rad</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">majority</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">adjust_color</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">luminance</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
@@ -835,6 +845,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">luminance</span> <span class="o">=</span> <span class="n">luminance</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">extend</span> <span class="o">=</span> <span class="n">extend</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">frac</span> <span class="o">=</span> <span class="n">frac</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="o">=</span><span class="n">rad</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">relpos</span> <span class="o">=</span> <span class="n">relpos</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">annotated_texts</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -982,7 +993,7 @@
 			<span class="n">text_xycoords</span> <span class="o">=</span> <span class="s2">&quot;offset pixels&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">][</span><span class="s2">&quot;connectionstyle&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">arm_height</span> <span class="o">=</span> <span class="n">arrow_height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">frac</span>
-			<span class="n">rad</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># arm_height / 10</span>
+			<span class="c1"># rad = self.rad  # arm_height / 10</span>
 			<span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;up&quot;</span><span class="p">:</span>
 				<span class="n">angleA</span><span class="p">,</span> <span class="n">angleB</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 			<span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;down&quot;</span><span class="p">:</span>
@@ -991,8 +1002,9 @@
 				<span class="n">angleA</span><span class="p">,</span> <span class="n">angleB</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">180</span><span class="p">)</span>
 			<span class="k">else</span><span class="p">:</span>
 				<span class="n">angleA</span><span class="p">,</span> <span class="n">angleB</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-			<span class="n">connectionstyle</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;arc,angleA=</span><span class="si">{</span><span class="n">angleA</span><span class="si">}</span><span class="s2">,angleB=</span><span class="si">{</span><span class="n">angleB</span><span class="si">}</span><span class="s2">,armA=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,armB=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,rad=</span><span class="si">{</span><span class="n">rad</span><span class="si">}</span><span class="s2">&quot;</span>
+			<span class="n">connectionstyle</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;arc,angleA=</span><span class="si">{</span><span class="n">angleA</span><span class="si">}</span><span class="s2">,angleB=</span><span class="si">{</span><span class="n">angleB</span><span class="si">}</span><span class="s2">,armA=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,armB=</span><span class="si">{</span><span class="n">arm_height</span><span class="si">}</span><span class="s2">,rad=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="si">}</span><span class="s2">&quot;</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;arrowprops&quot;</span><span class="p">][</span><span class="s2">&quot;connectionstyle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connectionstyle</span>
+		<span class="c1"># print(&quot;connectionstyle: &quot;,self.plot_kws[&quot;arrowprops&quot;][&quot;connectionstyle&quot;])</span>
 		<span class="c1"># import pdb;</span>
 		<span class="c1"># pdb.set_trace()</span>
 		<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
@@ -1867,7 +1879,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="p">{}</span>
 		<span class="k">if</span> <span class="n">cmap</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
 			<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">object</span><span class="p">,</span><span class="s1">&#39;category&#39;</span><span class="p">]:</span>
 					<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
 						<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Set1&quot;</span>
 					<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
