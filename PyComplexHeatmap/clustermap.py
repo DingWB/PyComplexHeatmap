@@ -1103,6 +1103,10 @@ class ClusterMapPlotter:
 		ClusterMapPlotter.plot_legends()
 	legend_anchor :str
 		ax_heatmap or ax, the ax to which legend anchor.
+	legend_order: str, bool or list
+		control the order of legends, default is 'auto', sorted by length of legend.
+		could also be True/False or a list (or tuple), if a list / tuple is provided,
+		values should be the label (title) of each legend.
 	legend_gap :float
 		the columns gap between different legends.
 	legend_width: float [mm]
@@ -1215,6 +1219,7 @@ class ClusterMapPlotter:
 		legend_kws=None,
 		plot=True,
 		plot_legend=True,
+		legend_order="auto",
 		legend_anchor="auto",
 		legend_gap=7,
 		legend_width=None,
@@ -1279,6 +1284,7 @@ class ClusterMapPlotter:
 		self.legend_hpad = legend_hpad
 		self.legend_vpad = legend_vpad
 		self.legend_anchor = legend_anchor
+		self.legend_order=legend_order
 		self.legend_delta_x = legend_delta_x
 		self.xlabel = xlabel
 		self.ylabel = ylabel
@@ -2198,10 +2204,21 @@ class ClusterMapPlotter:
 					self.ylabel_bbox_kws
 				)  # ax.xaxis.label.get_bbox_patch().properties()
 
+	def get_legend_list(self):
+		if len(self.legend_dict) > 1 and self.legend_order in [True, "auto"]:
+			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
+			self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
+		elif len(self.legend_dict) > 1 and isinstance(self.legend_order, (list, tuple)):
+			self.legend_list = [self.legend_dict[k] for k in self.legend_order if k in self.legend_dict]
+		elif len(self.legend_dict) > 1:
+			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
+		else:
+			self.legend_list = []
+
 	def collect_legends(self):
 		if self.verbose >= 1:
 			print("Collecting legends..")
-		self.legend_list = []
+		self.legend_dict = {}
 		self.label_max_width = 0
 		for annotation in [
 			self.top_annotation,
@@ -2211,8 +2228,9 @@ class ClusterMapPlotter:
 		]:
 			if not annotation is None:
 				annotation.collect_legends()
-				if annotation.plot_legend and len(annotation.legend_list) > 0:
-					self.legend_list.extend(annotation.legend_list)
+				if annotation.plot_legend and len(annotation.legend_dict) > 0:
+					for k in annotation.legend_dict:
+						self.legend_dict[k]=annotation.legend_dict[k]
 				# print(annotation.label_max_width,self.label_max_width)
 				if annotation.label_max_width > self.label_max_width:
 					self.label_max_width = annotation.label_max_width
@@ -2226,7 +2244,7 @@ class ClusterMapPlotter:
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
 			self.legend_kws.setdefault("center", self.kwargs.get('center',None))
-			self.legend_list.append([self.cmap, self.label, self.legend_kws, 4, "cmap"])
+			self.legend_dict[self.label]=tuple([self.cmap, self.label, self.legend_kws, 4, "cmap"])
 			if len(self.yticklabels) > 0 and self.row_names_side == "right":
 				max_yticklabel_w = max(
 					[label.get_window_extent().width for label in self.yticklabels]
@@ -2248,8 +2266,7 @@ class ClusterMapPlotter:
 				or self.legend_anchor == "ax_heatmap"
 			):
 				self.label_max_width = heatmap_label_max_width  # * 1.1
-			if len(self.legend_list) > 1:
-				self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
+			self.get_legend_list() #self.legend_list will be created
 
 	def plot_legends(self, ax=None):
 		if self.verbose >= 1:

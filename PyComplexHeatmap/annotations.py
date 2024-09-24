@@ -1420,6 +1420,10 @@ class HeatmapAnnotation:
 		control the horizontal gap between two annotations.
 	plot_legend : bool
 		whether to plot legends.
+	legend_order: str, bool or list
+		control the order of legends, default is 'auto', sorted by length of legend.
+		could also be True/False or a list (or tuple), if a list / tuple is provided,
+		values should be the label (title) of each legend.
 	args : name-value pair
 		key is the annotation label (name), values can be a pandas dataframe,
 		series, or annotation such as
@@ -1451,6 +1455,7 @@ class HeatmapAnnotation:
 		wgap=0.1,
 		hgap=0.1,
 		plot_legend=True,
+		legend_order='auto',
 		rasterized=False,
 		verbose=1,
 		**args
@@ -1477,6 +1482,7 @@ class HeatmapAnnotation:
 		self.legend_hpad = legend_hpad
 		self.legend_vpad = legend_vpad
 		self.plot_legend = plot_legend
+		self.legend_order=legend_order
 		self.rasterized = rasterized
 		self.orientation = orientation
 		self.plot = plot
@@ -1770,6 +1776,17 @@ class HeatmapAnnotation:
 					)
 					self.axes[0, j].xaxis.set_tick_params(**self.ticklabels_kws)
 
+	def get_legend_list(self):
+		if len(self.legend_dict) > 1 and self.legend_order in [True,"auto"]:
+			self.legend_list=[self.legend_dict[k] for k in self.legend_dict.keys()]
+			self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
+		elif len(self.legend_dict) > 1 and isinstance(self.legend_order,(list,tuple)):
+			self.legend_list = [self.legend_dict[k] for k in self.legend_order if k in self.legend_dict]
+		elif len(self.legend_dict) > 1:
+			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
+		else:
+			self.legend_list=[]
+
 	def collect_legends(self):
 		"""
 		Collect legends.
@@ -1779,7 +1796,7 @@ class HeatmapAnnotation:
 		"""
 		if self.verbose >= 1:
 			print("Collecting annotation legends..")
-		self.legend_list = []  # handles(dict) / cmap, title, kws
+		self.legend_dict = {}  # handles(dict) / cmap, title, kws
 		for annotation in self.annotations:
 			if not annotation.legend:
 				continue
@@ -1796,15 +1813,13 @@ class HeatmapAnnotation:
 				color_dict = annotation.color_dict
 				if color_dict is None:
 					continue
-				self.legend_list.append(
-					[
+				self.legend_dict[annotation.label]=tuple([
 						annotation.color_dict,
 						annotation.label,
 						legend_kws,
 						len(annotation.color_dict),
 						"color_dict",
-					]
-				)
+					])
 			else:
 				if annotation.df.shape[1] == 1:
 					array = annotation.df.iloc[:, 0].values
@@ -1815,11 +1830,14 @@ class HeatmapAnnotation:
 				# print(vmax,vmin,annotation)
 				legend_kws.setdefault("vmin", round(vmin, 2))
 				legend_kws.setdefault("vmax", round(vmax, 2))
-				self.legend_list.append(
-					[annotation.cmap, annotation.label, legend_kws, 4, "cmap"]
+				self.legend_dict[annotation.label]=tuple(
+					[
+						annotation.cmap,
+						annotation.label,
+						legend_kws, 4, "cmap"]
 				)
-		if len(self.legend_list) > 1:
-			self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
+		self.get_legend_list() #self.legend_list will be created
+
 		if self.label_side == "right":
 			self.label_max_width = max(
 				[ann.get_max_label_width() for ann in self.annotations]
@@ -2020,7 +2038,7 @@ class HeatmapAnnotation:
 		None
 		"""
 		if self.legend_list is None:
-			self.collect_legends()
+			self.collect_legends() #create self.legend_dict and self.legend_list
 		if len(self.legend_list) > 0:
 			# if the legend is on the right side
 			space = (
