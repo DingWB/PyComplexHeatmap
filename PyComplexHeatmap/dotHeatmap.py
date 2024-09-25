@@ -551,7 +551,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 	def collect_legends(self):
 		if self.verbose >= 1:
 			print("Collecting legends..")
-		self.legend_list = []
+		self.legend_dict = {}
 		self.label_max_width = 0
 		for annotation in [
 			self.top_annotation,
@@ -561,8 +561,9 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		]:
 			if not annotation is None:
 				annotation.collect_legends()
-				if annotation.plot_legend and len(annotation.legend_list) > 0:
-					self.legend_list.extend(annotation.legend_list)
+				if annotation.plot_legend and len(annotation.legend_dict) > 0:
+					for k in annotation.legend_dict:
+						self.legend_dict[k] = annotation.legend_dict[k]
 				# print(annotation.label_max_width,self.label_max_width)
 				if annotation.label_max_width > self.label_max_width:
 					self.label_max_width = annotation.label_max_width
@@ -573,7 +574,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				marker = self.kwargs.get("marker", None)
 				max_s = self.kwargs['max_s']
 				if type(marker) == dict:
-					self.legend_list.append(
+					self.legend_dict[self.hue]=tuple(
 						[
 							(marker, colors, np.sqrt(max_s) * self.alpha),
 							self.hue,
@@ -583,7 +584,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 						]  # size of s in scatter equal to marker_size**2
 					)  # markersize is r*0.8
 				elif isinstance(colors,dict):
-					self.legend_list.append(
+					self.legend_dict[self.hue]=tuple(
 						[
 							colors,
 							self.hue,
@@ -596,7 +597,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				if isinstance(self.cmap, dict):  #
 					cmap_legend_kws = self.cmap_legend_kws.copy()
 					for key in self.cmap:
-						self.legend_list.append([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
+						self.legend_dict[key]=tuple([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
 			else: # hue is None
 				cmap = self.cmap
 				c = self.kwargs.get("c", None)
@@ -612,7 +613,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					and type(c) != str
 				):
 					# print(cmap_legend_kws)
-					self.legend_list.append([cmap, self.value, cmap_legend_kws, 4, "cmap"])
+					self.legend_dict[self.value]=tuple([cmap, self.value, cmap_legend_kws, 4, "cmap"])
 			# dot size legend:
 			if type(self.s) == str:
 				# s=self.kwargs.get('s',None)
@@ -626,7 +627,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					ms[k] = f  * np.sqrt(max_s) * self.alpha
 					# ms[k] = np.sqrt(f * max_s * self.alpha)
 				title = self.s if not self.s is None else self.value
-				self.legend_list.append(
+				self.legend_dict[title]=tuple(
 					[
 						(markers1, None, ms),
 						title,
@@ -645,8 +646,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				or self.legend_anchor == "ax_heatmap"
 			):
 				self.label_max_width = heatmap_label_max_width * 1.1
-			if len(self.legend_list) > 1:
-				self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
+			self.get_legend_list() #self.legend_list will be created
 
 	def post_processing(self):
 		if not self.spines:
