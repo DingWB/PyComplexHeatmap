@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import collections
+from math import factorial
 import matplotlib
 import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap
@@ -952,6 +953,52 @@ def plot_legend_list(
 		)
 	return legend_axes, cbars, boundry
 
+def getControlPoints(p1,p4,axis=0):
+	"""
+	A diagonal in this context is a quadratic bezier with the control points positioned halfway between the start and end points but on the same axis.
 
+	Parameters
+	----------
+	p0 :
+	p2 :
+
+	Returns
+	-------
+
+	"""
+	if axis==0:
+		center_x=(p4[0]+p1[0])/2 # delta x
+		p2=(center_x,p1[1]) # control point
+		p3=(center_x,p4[1])
+	else:
+		p1,p4=p4,p1
+		center_y = (p4[1] + p1[1]) / 2
+		p2 = (p1[0], center_y)  # control point
+		p3 = (p4[0], center_y)
+	return [np.array(p1),np.array(p2),np.array(p3),np.array(p4)]
+
+def comb(n, k):
+	return factorial(n) // (factorial(k) * factorial(n-k))
+
+def get_bezier_curve(points):
+	n = len(points) - 1
+	return lambda t: sum(comb(n, i)*t**i * (1-t)**(n-i)*points[i] for i in range(n+1))
+
+def evaluate_bezier(points, total=50):
+	"""
+	ref: https://www.aiuai.cn/aifarm1570.html
+
+	Parameters
+	----------
+	points :
+	total :
+
+	Returns
+	-------
+
+	"""
+	bezier = get_bezier_curve(points)
+	new_points = np.array([bezier(t) for t in np.linspace(0, 1, total)])
+	return new_points[:, 0], new_points[:, 1]
 # =============================================================================
 # use_pch_style()

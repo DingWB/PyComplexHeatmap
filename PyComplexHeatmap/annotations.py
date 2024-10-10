@@ -1349,6 +1349,7 @@ class anno_lineplot(anno_barplot):
 		self.ax = ax
 		return self.ax
 # =============================================================================
+
 class HeatmapAnnotation:
 	"""
 	Generate and plot heatmap annotations.

@@ -19,6 +19,7 @@ from .utils import (
 	_index_to_ticklabels,
 	plot_legend_list,
 	get_colormap,
+	evaluate_bezier,getControlPoints
 )
 
 
@@ -720,6 +721,60 @@ def plot_heatmap(
 	ax.yaxis.tick_left()
 	return ax
 
+class Branch():
+	def __init__(self, x,y):
+		self.x = x
+		self.y = y
+		self.parent = None
+		self.left=None
+		self.right=None
+		self.create_branch()
+
+	def create_branch(self):
+		self.left_pos=(self.x[0],self.y[0])
+		self.right_pos=(self.x[-1],self.y[-1])
+		# self.h_diff=self.x[2]-self.x[1]
+		self.root_pos=(np.mean(self.x[1:-1]),np.mean(self.y[1:-1]))
+		self.left_is_parent=self.left_pos[1]!=0 #y pos not equal to 0
+		self.right_is_parent=self.right_pos[1]!=0 # y pos not equal to 0
+
+class DenTree:
+	def __init__(self, icoord,dcoord):
+		self.icoord = icoord
+		self.dcoord = dcoord
+		self.create_tree()
+
+	def create_tree(self):
+		self.branches={} #keys are root, values are brahcn
+		self.parents = [] #keys are root
+		self.leaves = [] # keys are left or right node
+		for x,y in zip(self.icoord,self.dcoord):
+			branch=Branch(x,y)
+			self.branches[branch.root_pos]=branch
+		for root_pos in self.branches:
+			branch=self.branches[root_pos]
+			# set parent node
+			if branch.left_is_parent or branch.right_is_parent: # has child
+				self.parents.append(branch.root_pos)
+				if branch.left_is_parent:
+					branch.left = self.branches[branch.left_pos]
+					branch.left.parent=branch
+				if branch.right_is_parent:
+					branch.right = self.branches[branch.right_pos]
+					branch.right.parent=branch
+			if not branch.left_is_parent:
+				self.leaves.append(branch.left_pos)
+			if not branch.right_is_parent:
+				self.leaves.append(branch.right_pos)
+		self.leaves=sorted(self.leaves, key=lambda x: x[0]) #sort leaves by x coordinate
+		self.parents=sorted(self.parents, key=lambda x: x[1]) #sort parents by y coordinate
+		for key in self.branches:
+			if self.branches[key].parent is None:
+				root_pos=self.branches[key].root_pos
+				self.root=self.branches[root_pos]
+
+	def __str__(self):
+		return f"Root: {self.root}, {len(self.leaves)} leaves"
 
 # =============================================================================
 class DendrogramPlotter(object):
@@ -747,10 +802,8 @@ class DendrogramPlotter(object):
 		dendrogram_kws : dict
 		"""
 		self.axis = axis
-		if (
-			self.axis == 1  # columns dendrogram
-		):  # if not transpose, when calculating dendrogram, each row is a point.
-			data = data.T
+		if self.axis == 1:  # columns dendrogram
+			data = data.T # if not transpose, when calculating dendrogram, each row is a point.
 		self.check_array(data)
 		self.shape = self.data.shape
 		self.metric = metric
@@ -796,7 +849,6 @@ class DendrogramPlotter(object):
 			self.xticks, self.yticks = [], []
 			self.yticklabels, self.xticklabels = [], []
 			self.xlabel, self.ylabel = "", ""
-		# self.get_coords()
 
 	def check_array(self, data):
 		if not isinstance(data, pd.DataFrame):
@@ -869,7 +921,7 @@ class DendrogramPlotter(object):
 			return None
 		icoord_max = self.icoord_max
 		ratio, x_gap = 1, 0
-		sizes = [self.sizes[idx] for idx in self.dendrogram['ivl']]
+		sizes = [self.sizes[idx] for idx in self.dendrogram['ivl']] #self.sizes is a dict
 		# sizes is the number of samples in each group
 		cum_sizes = np.cumsum(sizes)
 		if not gap_pixel is None:
@@ -878,11 +930,11 @@ class DendrogramPlotter(object):
 				real_width = (
 					ax.get_window_extent().width -
 					(len(self.sizes) - 1) * gap_pixel
-				)  # width: number_of_leaves, real_width:?
+				)  # real_width = width after removing the gap
 				ratio = real_width / ax.get_window_extent().width  # scale the original x
 				x_gap = (
 					(gap_pixel / ax.get_window_extent().width) * icoord_max
-				)  # x_gap for each gap
+				)  # average gap for each leaf
 			else: #horizontal
 				ax.set_ylim(0, self.icoord_max)
 				real_height = (
@@ -893,30 +945,60 @@ class DendrogramPlotter(object):
 				x_gap = (
 					(gap_pixel / ax.get_window_extent().height) * icoord_max
 				)
+		self.DenTree = DenTree(self.independent_coord, self.dependent_coord)
 		xcoord_mapping = {}  # map the old independent_coord to new coord
-		# print(sizes,cum_sizes, ratio, x_gap, gap_pixel)
-		icoord=np.unique(self.independent_coord.flatten())
+		# print(sizes,cum_sizes, ratio, x_gap, gap_pixel,root_x)
 		if root_x is None:
-			Frac=[x % 1 for x in icoord]
-		else: # use the root_x from dendrogram for each group
+			Frac=[x[0] % 1 for x in self.DenTree.leaves]
+		else: # match root of deeper layer dendro to leaves of current dendro (upper layer)
+			assert len(self.DenTree.leaves) == len(self.sizes) == len(root_x)
 			root_x=[x / size for x,size in zip(root_x,sizes)]
-			Frac=[root_x[int(x)] if (x - 0.5) % 1 == 0 else x % 1 for x in icoord]
-		# print(icoord,root_x,Frac)
-		for x,frac in zip(icoord,Frac):
-			new_x = frac * sizes[int(x)] * ratio
-			idx = int(x)
-			if idx > 0:
+			Frac=[root_x[int(x[0])] if (x[0] - 0.5) % 1 == 0 else x[0] % 1 for x in self.DenTree.leaves]
+		# print(self.DenTree.leaves,root_x,Frac)
+		# print(self.independent_coord,self.dependent_coord)
+		for x,frac in zip(self.DenTree.leaves,Frac):
+			idx = int(x[0])
+			new_x = frac * sizes[idx] * ratio
+			if idx > 0: #not the first one, add the gap
 				new_x += cum_sizes[idx - 1] * ratio + x_gap*idx
-			xcoord_mapping[x] = new_x
-		# for i in range(1,icoord_max+2):
-		#     if self.axis==1:
-		#         ax.plot([i,i],[0,1],color='red',linewidth=0.5)
-		#         ax.plot([i-0.5, i-0.5], [0, 1], color='red', linestyle='--',linewidth=0.2)
+			xcoord_mapping[x[0]] = new_x
+		# update the x coordinate for leaves node
+		for key in self.DenTree.branches:
+			branch=self.DenTree.branches[key]
+			if not branch.left_is_parent: #left is leaf
+				x1=xcoord_mapping[branch.left_pos[0]]
+				y1=branch.left_pos[1]
+				branch.left_pos = (x1, y1)
+			if not branch.right_is_parent:
+				x2 = xcoord_mapping[branch.right_pos[0]]
+				y2=branch.right_pos[1]
+				branch.right_pos=(x2, y2)
+			y_root=branch.root_pos[1]
+			x_root=(branch.left_pos[0]+branch.right_pos[0]) / 2
+			branch.root_pos=(x_root,y_root)
+		for parent_pos in self.DenTree.parents:
+			branch=self.DenTree.branches[parent_pos]
+			if branch.left_is_parent:
+				x1=branch.left.root_pos[0]
+				xcoord_mapping[branch.left_pos[0]] = x1
+			else: #leaf
+				x1 = branch.left_pos[0]
+			if branch.right_is_parent:
+				x2=branch.right.root_pos[0]
+				xcoord_mapping[branch.right_pos[0]] = x2
+			else: # leaf
+				x2 = branch.right_pos[0]
+			xcoord_mapping[branch.root_pos[0]]=(x1+x2) / 2
+			y_root = branch.root_pos[1]
+			x_root = (x1+x2) / 2
+			branch.root_pos = (x_root, y_root)
+
 		self.independent_coord = np.array(
 			[[xcoord_mapping[i] for i in a] for a in self.independent_coord]
 		)
 
-	def plot(self, ax, gap_pixel=None, root_x=None,tree_kws=None):
+	def plot(self, ax, gap_pixel=None, root_x=None,tree_kws=None,
+			 bezier=False,dotsize=1,root_dot=True):
 		"""Plots a dendrogram of the similarities between data on the axes
 		Parameters
 		----------
@@ -929,7 +1011,7 @@ class DendrogramPlotter(object):
 		if self.sizes is None:
 			self.icoord_max = len(self.reordered_ind)
 		else:
-			self.icoord_max = sum([self.sizes[k] for k in self.sizes])
+			self.icoord_max = sum([self.sizes[k] for k in self.sizes]) # total number of leaves
 		self.get_coords(ax,gap_pixel,root_x)
 		# tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
 		self.root_x=np.mean(self.independent_coord[-1][1:3])
@@ -951,11 +1033,22 @@ class DendrogramPlotter(object):
 		if type(colors) == str:
 			colors = [colors] * len(self.dendrogram["ivl"])
 		for (x, y), color in zip(coords, colors):
-			ax.plot(x, y, color=color, **tree_kws)
-		# if self.axis==1:
-		#     ax.scatter(self.root_x, root_y,c='red',s=1)
-		# else:
-		#     ax.scatter(root_y,self.root_x, c='red', s=1)
+			# if len(x)<4:
+			# 	continue
+			if bezier:
+				center_x = np.mean(x[1:-1])
+				center_y = np.mean(y[1:-1])
+				center = (center_x, center_y)
+				bx, by = evaluate_bezier(getControlPoints((x[0],y[0]),center,axis=self.axis))
+				ax.plot(bx, by, color=color)
+				bx, by = evaluate_bezier(getControlPoints((x[-1], y[-1]), center,axis=self.axis))
+				ax.plot(bx, by, color=color)
+				if root_dot:
+					ax.scatter(center_x, center_y, color=color,s=dotsize)
+				ax.scatter(x[0], y[0], color=color, s=dotsize)
+				ax.scatter(x[-1], y[-1], color=color, s=dotsize)
+			else:
+				ax.plot(x, y, color=color, **tree_kws)
 
 		if self.rotate:  # if axis==0, rotate should be set to True
 			ax.yaxis.set_ticks_position("right")
@@ -984,7 +1077,6 @@ class DendrogramPlotter(object):
 			plt.setp(xtl, rotation="vertical")
 		self.ax = ax
 		return self
-
 
 # =============================================================================
 class ClusterMapPlotter:
@@ -1208,6 +1300,8 @@ class ClusterMapPlotter:
 		col_split=None,
 		row_dendrogram_kws=None,
 		col_dendrogram_kws=None,
+		bezier=False,
+		dotsize=1,
 		tree_kws=None,
 		row_split_order=None,
 		col_split_order=None,
@@ -1267,6 +1361,8 @@ class ClusterMapPlotter:
 		self.subplot_gap = subplot_gap
 		self.row_dendrogram_kws = {} if row_dendrogram_kws is None else row_dendrogram_kws
 		self.col_dendrogram_kws = {} if col_dendrogram_kws is None else col_dendrogram_kws
+		self.bezier=bezier
+		self.dotsize=dotsize
 		self.tree_kws = {} if tree_kws is None else tree_kws
 		self.row_split = row_split
 		self.col_split = col_split
@@ -1820,7 +1916,8 @@ class ClusterMapPlotter:
 			self.row_split_dendrogram.plot(
 				ax=self.ax_row_dendrogram,
 				gap_pixel=self.row_split_gap_pixel,
-				tree_kws=self.tree_kws.copy())
+				tree_kws=self.tree_kws.copy(),
+				bezier=self.bezier,dotsize=self.dotsize)
 
 		elif self.row_cluster and self.row_dendrogram:
 			if self.left_annotation is None:
@@ -1845,6 +1942,10 @@ class ClusterMapPlotter:
 				ax1.set_axis_off()
 				self.ax_row_dendrogram_axes.append(ax1)
 
+			if ncols > 1 and self.row_split_dendrogram:
+				root_dot=True
+			else:
+				root_dot=False
 			try:
 				n=len(self.dendrogram_rows)
 				tree_kws = self.tree_kws.copy()
@@ -1864,10 +1965,12 @@ class ClusterMapPlotter:
 					if dendrogram_row is None:
 						continue
 					tree_kws["colors"] = [color] * len(dendrogram_row.dendrogram["ivl"])
-					dendrogram_row.plot(ax=ax_row_dendrogram, tree_kws=tree_kws)
+					dendrogram_row.plot(ax=ax_row_dendrogram, tree_kws=tree_kws,
+										bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot)
 			except: #self.dendrogram_rows does not existed, because row_split is None
 				self.dendrogram_row.plot(
-					ax=self.ax_row_dendrogram, tree_kws=self.tree_kws
+					ax=self.ax_row_dendrogram, tree_kws=self.tree_kws,
+					bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot
 				)
 			if ncols > 1 and self.row_split_dendrogram: #plot extra parent self.row_split_dendrogram
 				if 'colors' not in self.tree_kws:
@@ -1884,7 +1987,9 @@ class ClusterMapPlotter:
 					ax=self.ax_row_split_dendrogram,
 					gap_pixel=self.row_split_gap_pixel,
 					root_x=root_x,
-					tree_kws=tree_kws)
+					tree_kws=tree_kws,
+					bezier=self.bezier,dotsize=self.dotsize,
+					root_dot=False)
 
 		if (self.col_split_order == 'cluster_between_groups' and
 			self.col_split_dendrogram and self.col_dendrogram
@@ -1892,7 +1997,8 @@ class ClusterMapPlotter:
 			self.col_split_dendrogram.plot(
 				ax=self.ax_col_dendrogram,
 				gap_pixel=self.col_split_gap_pixel,
-				tree_kws=self.tree_kws.copy())
+				tree_kws=self.tree_kws.copy(),
+				bezier=self.bezier,dotsize=self.dotsize,root_dot=False)
 		elif self.col_cluster and self.col_dendrogram:
 			if self.top_annotation is None:
 				gs = self.gs[0, 1]
@@ -1916,7 +2022,10 @@ class ClusterMapPlotter:
 				)
 				ax1.set_axis_off()
 				self.ax_col_dendrogram_axes.append(ax1)
-
+			if nrows > 1 and self.col_split_dendrogram:
+				root_dot=True
+			else:
+				root_dot=False
 			try:
 				n=len(self.dendrogram_cols)
 				tree_kws = self.tree_kws.copy()
@@ -1936,10 +2045,12 @@ class ClusterMapPlotter:
 					if dendrogram_col is None:
 						continue
 					tree_kws["colors"] = [color] * len(dendrogram_col.dendrogram["ivl"])
-					dendrogram_col.plot(ax=ax_col_dendrogram, tree_kws=tree_kws)
+					dendrogram_col.plot(ax=ax_col_dendrogram, tree_kws=tree_kws,
+										bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot)
 			except:
 				self.dendrogram_col.plot(
-					ax=self.ax_col_dendrogram, tree_kws=self.tree_kws
+					ax=self.ax_col_dendrogram, tree_kws=self.tree_kws,
+					bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot
 				)
 			if nrows > 1 and self.col_split_dendrogram: #plot between groups dendrogram
 				if 'colors' not in self.tree_kws:
@@ -1956,7 +2067,8 @@ class ClusterMapPlotter:
 					ax=self.ax_col_split_dendrogram,
 					gap_pixel=self.col_split_gap_pixel,
 					root_x=root_x,
-					tree_kws=tree_kws)
+					tree_kws=tree_kws,
+					bezier=self.bezier,dotsize=self.dotsize,root_dot=False)
 
 	def plot_matrix(self, row_order, col_order):
 		if self.verbose >= 1:
