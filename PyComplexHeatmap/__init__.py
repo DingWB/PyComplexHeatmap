@@ -7,7 +7,8 @@ from .oncoPrint import oncoprint, oncoPrintPlotter
 from .annotations import (
 	HeatmapAnnotation,anno_lineplot,anno_img,
 	anno_scatterplot,anno_barplot,anno_boxplot,
-	anno_label,anno_simple,AnnotationBase
+	anno_label,anno_simple,AnnotationBase,
+	anno_dendrogram
 )
 from .dotHeatmap import DotClustermapPlotter,dotHeatmap2d
 from .colors import define_cmap
