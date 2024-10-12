@@ -13,7 +13,7 @@ from .utils import (
 	define_cmap,
 	get_colormap,
 )
-from .clustermap import plot_heatmap, heatmap
+from .clustermap import plot_heatmap, DendrogramPlotter
 
 
 # -----------------------------------------------------------------------------
@@ -73,8 +73,8 @@ class AnnotationBase:
 		self.label = None
 		self.ylim = None
 		self.color_dict = None
-		self.nrows = self._n_rows()
-		self.ncols = self._n_cols()
+		self.nrows = self.df.shape[0]
+		self.ncols = self.df.shape[1]
 		self.height = self._height(height)
 		self._type_specific_params()
 		self.legend = legend
@@ -96,12 +96,6 @@ class AnnotationBase:
 			self.df = df
 		else:
 			raise TypeError("df must be a pandas DataFrame or Series.")
-
-	def _n_rows(self):
-		return self.df.shape[0]
-
-	def _n_cols(self):
-		return self.df.shape[1]
 
 	def _height(self, height):
 		return 3 * self.ncols if height is None else height
@@ -230,14 +224,9 @@ class AnnotationBase:
 
 	def reorder(self, idx):
 		# Before plotting, df needs to be reordered according to the new clustered order.
-		# n_overlap = len(set(self.df.index.tolist()) & set(idx))
-		# if n_overlap == 0:
-		#     raise ValueError("The input idx is not consistent with the df.index")
-		# else:
 		self.plot_data = self.df.reindex(idx)  #
 		self.plot_data.fillna(np.nan, inplace=True)
 		self.nrows = self.plot_data.shape[0]
-		# self._set_default_plot_kws(self.plot_kws)
 
 	def get_label_width(self):
 		return self.ax.yaxis.label.get_window_extent(
@@ -1349,7 +1338,83 @@ class anno_lineplot(anno_barplot):
 		self.ax = ax
 		return self.ax
 # =============================================================================
+class anno_dendrogram(AnnotationBase):
+	"""
+		Annotate and plot dendrogram.
+	"""
+	def __init__(
+		self,
+		df=None,
+		cmap="auto",
+		colors=None,
+		add_text=False,
+		majority=True,
+		text_kws=None,
+		height=None,
+		dendrogram_kws=None,
+		**plot_kws
+	):
+		self.add_text = add_text
+		self.majority = majority
+		self.text_kws = text_kws if not text_kws is None else {}
+		self.plot_kws = plot_kws
+		self.dendrogram_kws={} if dendrogram_kws is None else dendrogram_kws
+		super().__init__(
+			df=df,
+			cmap=cmap,
+			colors=colors,
+			height=height,
+			**plot_kws
+		)
 
+	def _height(self, height):
+		return 15 if height is None else height
+
+	def _set_default_plot_kws(self, plot_kws):
+		self.plot_kws = {} if plot_kws is None else plot_kws
+		self.dendrogram_kws.setdefault("label", False)
+
+	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
+		self.color_dict = {}
+		col = self.df.columns.tolist()[0]
+		if get_colormap(self.cmap).N < 256:
+			cc_list = (
+				self.df[col].value_counts().index.tolist()
+			)  # sorted by value counts
+			for v in cc_list:
+				color = get_colormap(self.cmap)(cc_list.index(v))
+				self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
+		else:  # float
+			cc_list = None
+			self.color_dict = {
+				v: get_colormap(self.cmap)(v) for v in self.df[col].values
+			}
+		self.cc_list = cc_list
+		self.colors = None
+
+	def _calculate_cmap(self):
+		self.cmap = None
+		pass
+
+	def _type_specific_params(self):
+		pass
+
+	def plot(self, ax=None, axis=1):
+		# inint the DendrogramPlotter class object
+		rotate=True if axis==0 else False
+		dend = DendrogramPlotter(
+			self.plot_data,
+			axis=axis,
+			rotate=rotate,
+			**self.dendrogram_kws
+		)
+		ax.set_axis_off()
+		dend.plot(ax=ax,**self.plot_kws)
+		self.ax = ax
+		self.fig = self.ax.figure
+		return self.ax
+
+# =============================================================================
 class HeatmapAnnotation:
 	"""
 	Generate and plot heatmap annotations.
@@ -1493,8 +1558,8 @@ class HeatmapAnnotation:
 		else:
 			self._check_colors(colors)
 		self._process_data()
-		self._heights()
-		self._nrows()
+		self.heights = [ann.height for ann in self.annotations]
+		self.nrows = [ann.nrows for ann in self.annotations]
 		self.label_kws, self.ticklabels_kws = label_kws, ticklabels_kws
 		if self.plot:
 			self.plot_annotations()
@@ -1637,12 +1702,6 @@ class HeatmapAnnotation:
 	def _set_orentation(self, orientation):
 		if self.orientation is None:
 			self.orientation = orientation
-
-	def _heights(self):
-		self.heights = [ann.height for ann in self.annotations]
-
-	def _nrows(self):
-		self.nrows = [ann.nrows for ann in self.annotations]
 
 	def _set_label_kws(self, label_kws, ticklabels_kws):
 		if self.label_side in ["left", "right"] and self.axis != 1:

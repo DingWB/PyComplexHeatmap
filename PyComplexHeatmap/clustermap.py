@@ -1033,8 +1033,6 @@ class DendrogramPlotter(object):
 		if type(colors) == str:
 			colors = [colors] * len(self.dendrogram["ivl"])
 		for (x, y), color in zip(coords, colors):
-			# if len(x)<4:
-			# 	continue
 			if bezier:
 				center_x = np.mean(x[1:-1])
 				center_y = np.mean(y[1:-1])
@@ -1151,7 +1149,7 @@ class ClusterMapPlotter:
 		col_dendrogram_kws=dict(linkage=my_linkage); Other kws passed to
 		hierarchy.dendrogram.
 	tree_kws :dict
-		kws passed to DendrogramPlotter.plot()
+		in addition to parameter colors, all other kws passed to DendrogramPlotter.plot()
 	row_split_order: list or str
 		a list to specify the order of row_split, could also be
 		'cluster_between_groups', if cluster_between_groups was specified,
@@ -1413,8 +1411,6 @@ class ClusterMapPlotter:
 		# self.yticklabels_kws.setdefault('labelrotation', 0)
 		self.xticklabels_kws = {} if xticklabels_kws is None else xticklabels_kws
 
-	# self.xticklabels_kws.setdefault('labelrotation', 90)
-
 	def format_data(self, data, mask=None, z_score=None, standard_scale=None):
 		data2d = data.copy()
 		if z_score is not None and standard_scale is not None:
@@ -1479,7 +1475,7 @@ class ClusterMapPlotter:
 			self.ax.get_window_extent().height
 			- sum(self.top_heights)
 			- sum(self.bottom_heights)
-		)
+		) # heights for annotations is already fixed, the rest is for heatmap
 		heatmap_w = (
 			self.ax.get_window_extent().width
 			- sum(self.left_widths)
@@ -1726,7 +1722,6 @@ class ClusterMapPlotter:
 		)
 		if not self.ax_row_dendrogram is None:
 			self.ax_row_dendrogram.set_axis_off()
-
 	# despine(ax=self.ax_row_dendrogram, bottom=True, left=True, top=True, right=True)
 	# self.ax_col_dendrogram.spines['top'].set_visible(False)
 
@@ -1759,7 +1754,6 @@ class ClusterMapPlotter:
 		mat.index = row_clusters.index.tolist()
 		sizes = row_clusters.apply(lambda x: len(x)).tolist()
 		self.calculate_row_dendrograms(mat, sizes=sizes)
-		# return self.dendrogram_row
 
 	def cal_cold_between_groups(self,col_clusters):
 		mat = pd.concat([
@@ -2076,25 +2070,17 @@ class ClusterMapPlotter:
 		nrows = len(row_order)
 		ncols = len(col_order)
 		self.col_split_gap_pixel = self.col_split_gap * mm2inch * self.ax.figure.dpi
-		# self.wspace = (
-		#     self.col_split_gap_pixel
-		#     / (self.ax_heatmap.get_window_extent().width / ncols)
-		# )  # 1mm=mm2inch inch; pixels divided by average pixels
 		self.wspace=(
 			(self.col_split_gap_pixel * ncols)
 			/ (
 				self.ax_heatmap.get_window_extent().width
 			   + self.col_split_gap_pixel - self.col_split_gap_pixel*ncols
 			)
-		)
+		) # 1mm=mm2inch inch; pixels divided by average pixels
 		# wspace: The amount of width reserved for space between subplots,
 		# expressed as a fraction of the average axis width.
-		# 20231130: refer to: https://github.com/matplotlib/matplotlib/blob/main/lib/matplotlib/gridspec.py
+		# refer to: https://github.com/matplotlib/matplotlib/blob/main/lib/matplotlib/gridspec.py
 		self.row_split_gap_pixel = self.row_split_gap * mm2inch * self.ax.figure.dpi
-		# self.hspace = (
-		#     self.row_split_gap_pixel
-		#     / (self.ax_heatmap.get_window_extent().height / nrows)
-		# )  # height
 		self.hspace = (
 			(self.row_split_gap_pixel * nrows)
 			/ (
