@@ -1339,9 +1339,6 @@ class anno_lineplot(anno_barplot):
 		return self.ax
 # =============================================================================
 class anno_dendrogram(AnnotationBase):
-	"""
-		Annotate and plot dendrogram.
-	"""
 	def __init__(
 		self,
 		df=None,
@@ -1354,6 +1351,23 @@ class anno_dendrogram(AnnotationBase):
 		dendrogram_kws=None,
 		**plot_kws
 	):
+		"""
+		Annotate and plot dendrogram.
+
+		Parameters
+		----------
+		df : DataFrame
+			Calculate linkage for rows, to calculate linkage for columns, please
+			provide df.T.
+		cmap :
+		colors :
+		add_text :
+		majority :
+		text_kws :
+		height :
+		dendrogram_kws :
+		plot_kws :
+		"""
 		self.add_text = add_text
 		self.majority = majority
 		self.text_kws = text_kws if not text_kws is None else {}
@@ -1364,33 +1378,53 @@ class anno_dendrogram(AnnotationBase):
 			cmap=cmap,
 			colors=colors,
 			height=height,
+			legend=False,
 			**plot_kws
 		)
+		self.dend = DendrogramPlotter(
+			self.plot_data,
+			**self.dendrogram_kws
+		)
+		self.row_order = [
+			self.dend.dendrogram["ivl"]
+		]
 
 	def _height(self, height):
-		return 15 if height is None else height
+		return 10 if height is None else height
 
 	def _set_default_plot_kws(self, plot_kws):
 		self.plot_kws = {} if plot_kws is None else plot_kws
-		self.dendrogram_kws.setdefault("label", False)
+		self.plot_kws.setdefault("invert", False)
+		# self.dendrogram_kws.setdefault("label", False)
+
+	def _check_cmap(self, cmap):
+		if cmap == "auto":
+			if self.df.shape[0] <= 10:
+				self.cmap = "Set1"
+			elif self.df.shape[0] <= 20:
+				self.cmap = "tab20"
+			else:
+				self.cmap = "random50"
+		elif type(cmap) == str:
+			self.cmap = cmap
+		else:
+			print("WARNING: cmap is not a string!")
+			self.cmap = cmap
+
+	def _check_colors(self, colors):
+		if isinstance(colors,str):
+			colors=[colors]*self.nrows
+		assert isinstance(colors,list)
+		assert len(colors)==self.nrows
+		self.colors=colors
 
 	def _calculate_colors(self):  # add self.color_dict (each col is a dict)
-		self.color_dict = {}
-		col = self.df.columns.tolist()[0]
-		if get_colormap(self.cmap).N < 256:
-			cc_list = (
-				self.df[col].value_counts().index.tolist()
-			)  # sorted by value counts
-			for v in cc_list:
-				color = get_colormap(self.cmap)(cc_list.index(v))
-				self.color_dict[v] = color  # matplotlib.colors.to_hex(color)
-		else:  # float
-			cc_list = None
-			self.color_dict = {
-				v: get_colormap(self.cmap)(v) for v in self.df[col].values
-			}
-		self.cc_list = cc_list
-		self.colors = None
+		if self.cmap is None:
+			self.colors = ['black'] * self.nrows
+		else:
+			self.colors = [
+				get_colormap(self.cmap)(i) for i in range(self.nrows)
+			]
 
 	def _calculate_cmap(self):
 		self.cmap = None
@@ -1400,16 +1434,10 @@ class anno_dendrogram(AnnotationBase):
 		pass
 
 	def plot(self, ax=None, axis=1):
+		self.plot_kws.setdefault("tree_kws", dict(colors=self.colors))
 		# inint the DendrogramPlotter class object
-		rotate=True if axis==0 else False
-		dend = DendrogramPlotter(
-			self.plot_data,
-			axis=axis,
-			rotate=rotate,
-			**self.dendrogram_kws
-		)
 		ax.set_axis_off()
-		dend.plot(ax=ax,**self.plot_kws)
+		self.dend.plot(ax=ax,axis=axis,**self.plot_kws)
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
@@ -1706,10 +1734,10 @@ class HeatmapAnnotation:
 	def _set_label_kws(self, label_kws, ticklabels_kws):
 		if self.label_side in ["left", "right"] and self.axis != 1:
 			raise ValueError(
-				"For columns annotation, label_side must be left or right!"
+				"For row annotation, label_side must be top or bottom!"
 			)
 		if self.label_side in ["top", "bottom"] and self.axis != 0:
-			raise ValueError("For row annotation, label_side must be top or bottom!")
+			raise ValueError("For columns annotation, label_side must be left or right!")
 		if self.orientation is None:
 			if self.axis == 1:
 				self.orientation = "up"
@@ -1940,7 +1968,13 @@ class HeatmapAnnotation:
 		else:
 			self.ax = ax
 		if idxs is None:
-			idxs = [self.annotations[0].plot_data.index.tolist()]
+			# search for ann.row_order in anno_dendrogram
+			for ann in self.annotations:
+				if hasattr(ann,"row_order"):
+					idxs=ann.row_order
+			if idxs is None:
+				idxs = [self.annotations[0].plot_data.index.tolist()]
+		# print(idxs)
 		if self.axis == 1:
 			nrows = len(self.heights)
 			ncols = len(idxs)
@@ -1983,6 +2017,7 @@ class HeatmapAnnotation:
 				if wspace is None
 				else wspace
 			)  # The amount of width reserved for space between subplots, expressed as a fraction of the average axis width
+		# print(wspace,hspace)
 		if subplot_spec is None:
 			self.gs = self.ax.figure.add_gridspec(
 				nrows,

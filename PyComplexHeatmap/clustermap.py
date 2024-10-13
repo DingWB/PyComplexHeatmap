@@ -779,9 +779,10 @@ class DenTree:
 # =============================================================================
 class DendrogramPlotter(object):
 	def __init__(self, data=None, linkage=None, metric='correlation', method='average',
-				 axis=0, label=True, rotate=False, sizes=None, dendrogram_kws=None):
+				 sizes=None, dendrogram_kws=None):
 		"""
-		Dendrogram plotter.
+		Dendrogram plotter. In default, calculate the linkage for rows, index will
+		be converted into labels.
 
 		Parameters
 		----------
@@ -790,26 +791,17 @@ class DendrogramPlotter(object):
 			custom linkage.
 		metric : str
 		method : str
-		axis : int
-			0 for rows (default) and 1 for columns.
-		label : bool
-		rotate : bool
-			If axis==0 and one would like to plot row dendrogram, rotate
-			should be True
 		sizes : list
 			Sizes of rows or columns to scale x or y coordinate based on given
 			sizes.
 		dendrogram_kws : dict
 		"""
-		self.axis = axis
-		if self.axis == 1:  # columns dendrogram
-			data = data.T # if not transpose, when calculating dendrogram, each row is a point.
+		# if self.axis == 1:  # columns dendrogram
+		# 	data = data.T # if not transpose, when calculating dendrogram, each row is a point.
 		self.check_array(data)
 		self.shape = self.data.shape
 		self.metric = metric
 		self.method = method
-		self.label = label
-		self.rotate = rotate
 		self.dendrogram_kws = dendrogram_kws if not dendrogram_kws is None else {}
 		if linkage is None:
 			self.linkage = self.calculated_linkage
@@ -824,41 +816,10 @@ class DendrogramPlotter(object):
 		else:  # only 1 row or col
 			self.dendrogram = dict(icoord=[[5, 5, 5, 5]], dcoord=[[0, 1, 1, 0]],
 								   ivl=data.index.tolist(), leaves=[0])
-		# Dendrogram ends are always at multiples of 5, who knows why
-		ticks = np.arange(self.data.shape[0]) + 0.5  # xticklabels
-
-		if self.label:
-			ticklabels = _index_to_ticklabels(self.data.index)
-			ticklabels = [ticklabels[i] for i in self.reordered_ind]
-			if self.rotate:  # horizonal
-				self.xticks = []
-				self.yticks = ticks
-				self.xticklabels = []
-
-				self.yticklabels = ticklabels
-				self.ylabel = _index_to_label(self.data.index)
-				self.xlabel = ""
-			else:  # vertical
-				self.xticks = ticks
-				self.yticks = []
-				self.xticklabels = ticklabels
-				self.yticklabels = []
-				self.ylabel = ""
-				self.xlabel = _index_to_label(self.data.index)
-		else:
-			self.xticks, self.yticks = [], []
-			self.yticklabels, self.xticklabels = [], []
-			self.xlabel, self.ylabel = "", ""
 
 	def check_array(self, data):
 		if not isinstance(data, pd.DataFrame):
 			data = pd.DataFrame(data)
-		# To avoid missing values and infinite values and further error, remove missing values
-		# nrow = data.shape[0]
-		# keep_col = data.apply(np.isfinite).sum() == nrow
-		# if keep_col.sum() < 3:
-		#     raise ValueError("There are too many missing values or infinite values")
-		# data = data.loc[:, keep_col[keep_col].index.tolist()]
 		if data.isna().sum().sum() > 0:
 			data = data.apply(lambda x: x.fillna(x.median()), axis=1)
 		self.data = data
@@ -998,16 +959,24 @@ class DendrogramPlotter(object):
 		)
 
 	def plot(self, ax, gap_pixel=None, root_x=None,tree_kws=None,
-			 bezier=False,dotsize=1,root_dot=True):
+			 bezier=False,dotsize=1,root_dot=True,axis=1,label=False,
+			 orientation=None,invert=True):
 		"""Plots a dendrogram of the similarities between data on the axes
 		Parameters
 		----------
 		ax : matplotlib.axes.Axes
 			Axes object upon which the dendrogram is plotted
+		axis : int
+			0 for rows (default) and 1 for columns.
+		label : bool
+		rotate : bool
+			If axis==0 and one would like to plot row dendrogram, rotate
+			should be True
 		"""
 		tree_kws = {} if tree_kws is None else tree_kws
 		tree_kws.setdefault("linewidth", 0.5)
 		tree_kws.setdefault("colors", None)
+		self.axis=axis
 		if self.sizes is None:
 			self.icoord_max = len(self.reordered_ind)
 		else:
@@ -1016,7 +985,9 @@ class DendrogramPlotter(object):
 		# tree_kws.setdefault("colors", tree_kws.pop("color", (.2, .2, .2)))
 		self.root_x=np.mean(self.independent_coord[-1][1:3])
 		root_y = np.mean(self.dependent_coord[-1][1:3])
-		if self.rotate and self.axis == 0:  # 0 is rows, 1 is columns (default)
+		if orientation is None:
+			orientation='left' if axis==0 else 'top'
+		if axis == 0:  # 0 is rows, 1 is columns (default)
 			coords = zip(
 				self.dependent_coord, self.independent_coord
 			)  # independent is icoord (x), such as 0.5,1.5,2.5,1.25.., horizontal
@@ -1048,13 +1019,39 @@ class DendrogramPlotter(object):
 			else:
 				ax.plot(x, y, color=color, **tree_kws)
 
-		if self.rotate:  # if axis==0, rotate should be set to True
+		# Dendrogram ends are always at multiples of 5, who knows why
+		ticks = np.arange(self.data.shape[0]) + 0.5  # xticklabels
+
+		if label:
+			ticklabels = _index_to_ticklabels(self.data.index)
+			ticklabels = [ticklabels[i] for i in self.reordered_ind]
+			if orientation=='left':  # horizonal, axis=0
+				self.xticks = []
+				self.yticks = ticks
+				self.xticklabels = []
+
+				self.yticklabels = ticklabels
+				self.ylabel = _index_to_label(self.data.index)
+				self.xlabel = ""
+			else:  # vertical
+				self.xticks = ticks
+				self.yticks = []
+				self.xticklabels = ticklabels
+				self.yticklabels = []
+				self.ylabel = ""
+				self.xlabel = _index_to_label(self.data.index)
+		else:
+			self.xticks, self.yticks = [], []
+			self.yticklabels, self.xticklabels = [], []
+			self.xlabel, self.ylabel = "", ""
+		if orientation=='left':  # if axis==0, rotate should be set to True
 			ax.yaxis.set_ticks_position("right")
 			ax.set_ylim(0, self.icoord_max)
 			ax.set_xlim(0, root_y)
 			# before rotate: left -> right, bottom -> top
-			ax.invert_xaxis() # right -> left, root on the left, leaf on the right.
-			ax.invert_yaxis() # top -> bottom, consistent with heatmap pcolormesh
+			if invert:
+				ax.invert_xaxis() # right -> left, root on the left, leaf on the right.
+				ax.invert_yaxis() # top -> bottom, consistent with heatmap pcolormesh
 		else:  # vertical,  left -> right, bototom -> top. y for leaf is 0, y_root is larger.
 			ax.set_xlim(0, self.icoord_max)
 			ax.set_ylim(0, root_y)
@@ -1067,8 +1064,6 @@ class DendrogramPlotter(object):
 		)
 		xtl = ax.set_xticklabels(self.xticklabels)
 		ytl = ax.set_yticklabels(self.yticklabels, rotation="vertical")
-		# Force a draw of the plot to avoid matplotlib window error
-		# _draw_figure(ax.figure)
 		if len(ytl) > 0 and axis_ticklabels_overlap(ytl):
 			plt.setp(ytl, rotation="horizontal")
 		if len(xtl) > 0 and axis_ticklabels_overlap(xtl):
@@ -1712,11 +1707,8 @@ class ClusterMapPlotter:
 		self.dendrogram_row = DendrogramPlotter(
 			data,
 			linkage=linkage,
-			axis=0,
 			metric=self.row_cluster_metric,
 			method=self.row_cluster_method,
-			label=False,
-			rotate=True,
 			sizes=sizes,
 			dendrogram_kws=row_dendrogram_kws,
 		)
@@ -1732,13 +1724,10 @@ class ClusterMapPlotter:
 		else:
 			linkage = None
 		self.dendrogram_col = DendrogramPlotter(
-			data,
+			data.T,
 			linkage=linkage,
-			axis=1,
 			metric=self.col_cluster_metric,
 			method=self.col_cluster_method,
-			label=False,
-			rotate=False,
 			sizes=sizes,
 			dendrogram_kws=col_dendrogram_kws,
 		)
@@ -1908,7 +1897,7 @@ class ClusterMapPlotter:
 			self.row_split_dendrogram and self.row_dendrogram
 		):
 			self.row_split_dendrogram.plot(
-				ax=self.ax_row_dendrogram,
+				ax=self.ax_row_dendrogram,axis=0,
 				gap_pixel=self.row_split_gap_pixel,
 				tree_kws=self.tree_kws.copy(),
 				bezier=self.bezier,dotsize=self.dotsize)
@@ -1959,11 +1948,11 @@ class ClusterMapPlotter:
 					if dendrogram_row is None:
 						continue
 					tree_kws["colors"] = [color] * len(dendrogram_row.dendrogram["ivl"])
-					dendrogram_row.plot(ax=ax_row_dendrogram, tree_kws=tree_kws,
+					dendrogram_row.plot(ax=ax_row_dendrogram, axis=0,tree_kws=tree_kws,
 										bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot)
 			except: #self.dendrogram_rows does not existed, because row_split is None
 				self.dendrogram_row.plot(
-					ax=self.ax_row_dendrogram, tree_kws=self.tree_kws,
+					ax=self.ax_row_dendrogram, axis=0,tree_kws=self.tree_kws,
 					bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot
 				)
 			if ncols > 1 and self.row_split_dendrogram: #plot extra parent self.row_split_dendrogram
@@ -1978,7 +1967,7 @@ class ClusterMapPlotter:
 					)
 				self.ax_row_split_dendrogram.set_axis_off()
 				self.row_split_dendrogram.plot(
-					ax=self.ax_row_split_dendrogram,
+					ax=self.ax_row_split_dendrogram,axis=0,
 					gap_pixel=self.row_split_gap_pixel,
 					root_x=root_x,
 					tree_kws=tree_kws,
@@ -1989,7 +1978,7 @@ class ClusterMapPlotter:
 			self.col_split_dendrogram and self.col_dendrogram
 		):
 			self.col_split_dendrogram.plot(
-				ax=self.ax_col_dendrogram,
+				ax=self.ax_col_dendrogram,axis=1,
 				gap_pixel=self.col_split_gap_pixel,
 				tree_kws=self.tree_kws.copy(),
 				bezier=self.bezier,dotsize=self.dotsize,root_dot=False)
@@ -2039,11 +2028,11 @@ class ClusterMapPlotter:
 					if dendrogram_col is None:
 						continue
 					tree_kws["colors"] = [color] * len(dendrogram_col.dendrogram["ivl"])
-					dendrogram_col.plot(ax=ax_col_dendrogram, tree_kws=tree_kws,
+					dendrogram_col.plot(ax=ax_col_dendrogram, axis=1,tree_kws=tree_kws,
 										bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot)
 			except:
 				self.dendrogram_col.plot(
-					ax=self.ax_col_dendrogram, tree_kws=self.tree_kws,
+					ax=self.ax_col_dendrogram, axis=1,tree_kws=self.tree_kws,
 					bezier=self.bezier,dotsize=self.dotsize,root_dot=root_dot
 				)
 			if nrows > 1 and self.col_split_dendrogram: #plot between groups dendrogram
@@ -2058,7 +2047,7 @@ class ClusterMapPlotter:
 					)
 				self.ax_col_split_dendrogram.set_axis_off()
 				self.col_split_dendrogram.plot(
-					ax=self.ax_col_split_dendrogram,
+					ax=self.ax_col_split_dendrogram,axis=1,
 					gap_pixel=self.col_split_gap_pixel,
 					root_x=root_x,
 					tree_kws=tree_kws,
