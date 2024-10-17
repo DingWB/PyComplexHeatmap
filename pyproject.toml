@@ -3,7 +3,8 @@ requires = ["setuptools>=61.0","wheel","setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-version_scheme = "guess-next-dev"
+version_scheme="post-release" #"guess-next-dev"
+local_scheme="no-local-version"
 write_to = 'PyComplexHeatmap/_version.py'
 
 [project]
