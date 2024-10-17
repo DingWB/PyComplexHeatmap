@@ -1352,7 +1352,8 @@ class anno_dendrogram(AnnotationBase):
 		**plot_kws
 	):
 		"""
-		Annotate and plot dendrogram.
+		Annotate and plot dendrogram. Please Note, when use anno_dendrogram
+		together with heatmap, there may be some issue.
 
 		Parameters
 		----------
