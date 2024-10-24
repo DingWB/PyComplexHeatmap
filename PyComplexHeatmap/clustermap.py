@@ -852,7 +852,7 @@ class DendrogramPlotter(object):
 		try:
 			return self._calculate_linkage_fastcluster()
 		except ImportError:
-			if np.product(self.shape) >= 1000:
+			if self.shape[0] * self.shape[1] >= 1000:
 				msg = (
 					"Clustering large matrix with scipy. Installing "
 					"`fastcluster` may give better performance."
