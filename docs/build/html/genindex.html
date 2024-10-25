@@ -160,7 +160,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev.html">For Developers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html">Understand the layout:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#Test-dendrogram">Test dendrogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#Bezier-dendrogram">Bezier dendrogram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#anno_label">anno_label</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/dev.html#anno_img">anno_img</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/dev.html#extent">extent</a></li>
@@ -187,6 +187,7 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.get_legend_list()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
@@ -199,6 +200,10 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram.plot"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram.plot()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img"><code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a><ul>
@@ -227,6 +232,10 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch"><code class="docutils literal notranslate"><span class="pre">Branch</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch.create_branch"><code class="docutils literal notranslate"><span class="pre">Branch.create_branch()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
@@ -234,6 +243,7 @@
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.get_legend_list"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.get_legend_list()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
@@ -246,6 +256,10 @@
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree"><code class="docutils literal notranslate"><span class="pre">DenTree</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree.create_tree"><code class="docutils literal notranslate"><span class="pre">DenTree.create_tree()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
@@ -305,8 +319,12 @@
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.comb"><code class="docutils literal notranslate"><span class="pre">comb()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.evaluate_bezier"><code class="docutils literal notranslate"><span class="pre">evaluate_bezier()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.getControlPoints"><code class="docutils literal notranslate"><span class="pre">getControlPoints()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_bezier_curve"><code class="docutils literal notranslate"><span class="pre">get_bezier_curve()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap"><code class="docutils literal notranslate"><span class="pre">get_colormap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
@@ -356,8 +374,10 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
@@ -381,12 +401,14 @@
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot">anno_boxplot (class in PyComplexHeatmap.annotations)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img">anno_img (class in PyComplexHeatmap.annotations)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram">anno_dendrogram (class in PyComplexHeatmap.annotations)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label">anno_label (class in PyComplexHeatmap.annotations)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img">anno_img (class in PyComplexHeatmap.annotations)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label">anno_label (class in PyComplexHeatmap.annotations)</a>
+</li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot">anno_lineplot (class in PyComplexHeatmap.annotations)</a>
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot">anno_scatterplot (class in PyComplexHeatmap.annotations)</a>
@@ -396,6 +418,14 @@
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase">AnnotationBase (class in PyComplexHeatmap.annotations)</a>
 </li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap">axis_ticklabels_overlap() (in module PyComplexHeatmap.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch">Branch (class in PyComplexHeatmap.clustermap)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -417,12 +447,12 @@
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage">calculated_linkage (PyComplexHeatmap.clustermap.DendrogramPlotter property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array">check_array() (PyComplexHeatmap.clustermap.DendrogramPlotter method)</a>
 </li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels">cluster_labels() (in module PyComplexHeatmap.utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter">ClusterMapPlotter (class in PyComplexHeatmap.clustermap)</a>
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends">collect_legends() (PyComplexHeatmap.annotations.HeatmapAnnotation method)</a>
@@ -435,7 +465,13 @@
         <li><a href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends">(PyComplexHeatmap.oncoPrint.oncoPrintPlotter method)</a>
 </li>
       </ul></li>
+      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.comb">comb() (in module PyComplexHeatmap.utils)</a>
+</li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite">composite() (in module PyComplexHeatmap.clustermap)</a>
+</li>
+      <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch.create_branch">create_branch() (PyComplexHeatmap.clustermap.Branch method)</a>
+</li>
+      <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree.create_tree">create_tree() (PyComplexHeatmap.clustermap.DenTree method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -453,11 +489,21 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree">DenTree (class in PyComplexHeatmap.clustermap)</a>
+</li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine">despine() (in module PyComplexHeatmap.utils)</a>
 </li>
       <li><a href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter">DotClustermapPlotter (class in PyComplexHeatmap.dotHeatmap)</a>
 </li>
       <li><a href="PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d">dotHeatmap2d() (in module PyComplexHeatmap.dotHeatmap)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.evaluate_bezier">evaluate_bezier() (in module PyComplexHeatmap.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -481,12 +527,20 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors">generate_quantive_colors() (in module PyComplexHeatmap.colors)</a>
 </li>
+      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_bezier_curve">get_bezier_curve() (in module PyComplexHeatmap.utils)</a>
+</li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap">get_colormap() (in module PyComplexHeatmap.utils)</a>
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords">get_coords() (PyComplexHeatmap.clustermap.DendrogramPlotter method)</a>
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width">get_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list">get_legend_list() (PyComplexHeatmap.annotations.HeatmapAnnotation method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.get_legend_list">(PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">get_max_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
@@ -501,6 +555,8 @@
         <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
       </ul></li>
+      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.getControlPoints">getControlPoints() (in module PyComplexHeatmap.utils)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -574,6 +630,8 @@
 
       <ul>
         <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot">(PyComplexHeatmap.annotations.anno_boxplot method)</a>
+</li>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram.plot">(PyComplexHeatmap.annotations.anno_dendrogram method)</a>
 </li>
         <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot">(PyComplexHeatmap.annotations.anno_img method)</a>
 </li>

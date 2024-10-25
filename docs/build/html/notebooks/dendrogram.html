@@ -1,0 +1,3184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test anno_dendrogram &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=161b7e8c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/js/rtd_search_config.js"></script>
+        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#how-to-install">How to install?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#2.-Plot-heatmap-annotations">2. Plot heatmap annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#3.-Plot-the-heatmap-with-rows-and-columns-split">3. Plot the heatmap with rows and columns split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#4.-Plot-the-annotations-along-side-with-main-heatmap">4. Plot the annotations along side with main heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Plotting-annotations">Plotting annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Only-plot-the-row/column-annotation">Only plot the row/column annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_label:">anno_label:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_simple:">anno_simple:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#To-add-a-annotation-quickly,-you-just-need-a-dataframe">To add a annotation quickly, you just need a dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Plot-the-figure-and-legend-separately">Plot the figure and legend separately</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Clustermap">Dot Clustermap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../oncoPrint.html">oncoPrint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html">Generate dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-annotation">Custom annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-linkage">Custom linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Image-annotation">Image annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../more_examples.html">More Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Processing-the-data">Processing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html">Understand the layout:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Bezier-dendrogram">Bezier dendrogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_label">anno_label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_img">anno_img</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase"><code class="docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_orientation()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.update_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.get_legend_list()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.show_ticklabels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot"><code class="docutils literal notranslate"><span class="pre">anno_barplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_barplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram.plot"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img"><code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot"><code class="docutils literal notranslate"><span class="pre">anno_img.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.read_img"><code class="docutils literal notranslate"><span class="pre">anno_img.read_img()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label"><code class="docutils literal notranslate"><span class="pre">anno_label</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_label.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.plot"><code class="docutils literal notranslate"><span class="pre">anno_label.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws"><code class="docutils literal notranslate"><span class="pre">anno_label.set_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch"><code class="docutils literal notranslate"><span class="pre">Branch</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch.create_branch"><code class="docutils literal notranslate"><span class="pre">Branch.create_branch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.get_legend_list"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.get_legend_list()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.post_processing()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_xy_labels"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_xy_labels()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree"><code class="docutils literal notranslate"><span class="pre">DenTree</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree.create_tree"><code class="docutils literal notranslate"><span class="pre">DenTree.create_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.get_coords()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite"><code class="docutils literal notranslate"><span class="pre">composite()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d"><code class="docutils literal notranslate"><span class="pre">dotHeatmap2d()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html">PyComplexHeatmap.oncoPrint module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoprint"><code class="docutils literal notranslate"><span class="pre">oncoprint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.comb"><code class="docutils literal notranslate"><span class="pre">comb()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.evaluate_bezier"><code class="docutils literal notranslate"><span class="pre">evaluate_bezier()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.getControlPoints"><code class="docutils literal notranslate"><span class="pre">getControlPoints()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_bezier_curve"><code class="docutils literal notranslate"><span class="pre">get_bezier_curve()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap"><code class="docutils literal notranslate"><span class="pre">get_colormap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.use_pch_style"><code class="docutils literal notranslate"><span class="pre">use_pch_style()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Test anno_dendrogram</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/dendrogram.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">anndata</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ps.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;BG_HBA_with_SI_BNST_metadata.tsv.gz&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">metadata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InputReadPairs</th>
+      <th>InputReadPairsBP</th>
+      <th>TrimmedReadPairs</th>
+      <th>R1WithAdapters</th>
+      <th>R1QualTrimBP</th>
+      <th>R1TrimmedReadsBP</th>
+      <th>R2WithAdapters</th>
+      <th>R2QualTrimBP</th>
+      <th>R2TrimmedReadsBP</th>
+      <th>UniqueMappedReads</th>
+      <th>...</th>
+      <th>cell_type_id</th>
+      <th>donor</th>
+      <th>SubType</th>
+      <th>MajorType</th>
+      <th>CellClass</th>
+      <th>Batch</th>
+      <th>tech</th>
+      <th>HmCHCov</th>
+      <th>HmCHmC</th>
+      <th>HmCHFrac</th>
+    </tr>
+    <tr>
+      <th>cell</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P2-6-K18-A12</th>
+      <td>3184122</td>
+      <td>960543685</td>
+      <td>3182755</td>
+      <td>1226</td>
+      <td>824864</td>
+      <td>403058366</td>
+      <td>2202</td>
+      <td>754710</td>
+      <td>428407311</td>
+      <td>3700850.0</td>
+      <td>...</td>
+      <td>100</td>
+      <td>h1930002</td>
+      <td>MGC_0</td>
+      <td>MGC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P1-2-M14-B4</th>
+      <td>714291</td>
+      <td>215123881</td>
+      <td>713928</td>
+      <td>174</td>
+      <td>167867</td>
+      <td>90238832</td>
+      <td>247</td>
+      <td>159533</td>
+      <td>95965419</td>
+      <td>865327.0</td>
+      <td>...</td>
+      <td>101</td>
+      <td>h1930002</td>
+      <td>ODC_0</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P2-6-K18-I12</th>
+      <td>2362328</td>
+      <td>712868646</td>
+      <td>2361328</td>
+      <td>616</td>
+      <td>732621</td>
+      <td>299026864</td>
+      <td>1225</td>
+      <td>592537</td>
+      <td>317949179</td>
+      <td>2645129.0</td>
+      <td>...</td>
+      <td>102</td>
+      <td>h1930002</td>
+      <td>ODC_1</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P3-6-K20-K24</th>
+      <td>1907937</td>
+      <td>575333721</td>
+      <td>1906879</td>
+      <td>858</td>
+      <td>485511</td>
+      <td>241396661</td>
+      <td>1272</td>
+      <td>433803</td>
+      <td>256613183</td>
+      <td>2223558.0</td>
+      <td>...</td>
+      <td>100</td>
+      <td>h1930002</td>
+      <td>MGC_0</td>
+      <td>MGC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P7-5-L3-P22</th>
+      <td>2607976</td>
+      <td>785266032</td>
+      <td>2606126</td>
+      <td>684</td>
+      <td>477698</td>
+      <td>329541152</td>
+      <td>1132</td>
+      <td>611508</td>
+      <td>350215270</td>
+      <td>3057751.0</td>
+      <td>...</td>
+      <td>102</td>
+      <td>h1930002</td>
+      <td>ODC_1</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P8-2-I15-B16</th>
+      <td>1490463</td>
+      <td>433485515</td>
+      <td>1489686</td>
+      <td>366</td>
+      <td>299823</td>
+      <td>180726445</td>
+      <td>692</td>
+      <td>387242</td>
+      <td>192405819</td>
+      <td>2377792.0</td>
+      <td>...</td>
+      <td>69</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_0</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P7-5-A11-M21</th>
+      <td>514477</td>
+      <td>148303482</td>
+      <td>513170</td>
+      <td>131</td>
+      <td>107399</td>
+      <td>61700350</td>
+      <td>253</td>
+      <td>141387</td>
+      <td>65724216</td>
+      <td>811064.0</td>
+      <td>...</td>
+      <td>74</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_5</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P7-3-A11-J5</th>
+      <td>358402</td>
+      <td>103672865</td>
+      <td>357594</td>
+      <td>172</td>
+      <td>82742</td>
+      <td>43161242</td>
+      <td>241</td>
+      <td>119223</td>
+      <td>45937846</td>
+      <td>575320.0</td>
+      <td>...</td>
+      <td>8</td>
+      <td>h1930004</td>
+      <td>Foxp2_1</td>
+      <td>Foxp2</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P6-2-M9-K16</th>
+      <td>582025</td>
+      <td>168063194</td>
+      <td>581002</td>
+      <td>208</td>
+      <td>90416</td>
+      <td>69977950</td>
+      <td>320</td>
+      <td>176457</td>
+      <td>74491658</td>
+      <td>929579.0</td>
+      <td>...</td>
+      <td>74</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_5</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P5-5-K9-P10</th>
+      <td>980998</td>
+      <td>286409224</td>
+      <td>980590</td>
+      <td>155</td>
+      <td>171953</td>
+      <td>119535585</td>
+      <td>443</td>
+      <td>332883</td>
+      <td>127104385</td>
+      <td>1521846.0</td>
+      <td>...</td>
+      <td>63</td>
+      <td>h1930004</td>
+      <td>SubCtx_Exc_1</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>99061 rows × 74 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;df_pca.tsv&quot;</span><span class="p">):</span>
+    <span class="n">mean_pca</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;X_pca&#39;</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span><span class="p">)</span>
+    <span class="n">mean_pca</span><span class="p">[</span><span class="s1">&#39;MajorType&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">mean_pca</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;MajorType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+    <span class="n">mean_pca</span><span class="o">=</span><span class="n">mean_pca</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;MajorType&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span> <span class="c1">#mean or median?</span>
+    <span class="n">df_pca</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_pca</span><span class="p">)</span>
+    <span class="n">df_pca</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;df_pca.tsv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">df_pca</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;df_pca.tsv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df_pca</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>31</th>
+      <th>32</th>
+      <th>33</th>
+      <th>34</th>
+      <th>35</th>
+      <th>36</th>
+      <th>37</th>
+      <th>38</th>
+      <th>39</th>
+      <th>40</th>
+    </tr>
+    <tr>
+      <th>MajorType</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ASC</th>
+      <td>-6.185385</td>
+      <td>2.063680</td>
+      <td>-2.673907</td>
+      <td>-26.243917</td>
+      <td>-10.898765</td>
+      <td>7.697167</td>
+      <td>-2.974320</td>
+      <td>1.026790</td>
+      <td>0.775394</td>
+      <td>-1.070190</td>
+      <td>...</td>
+      <td>0.077760</td>
+      <td>0.010935</td>
+      <td>0.112232</td>
+      <td>0.154969</td>
+      <td>0.021569</td>
+      <td>-0.166352</td>
+      <td>-0.066355</td>
+      <td>-0.075087</td>
+      <td>0.001657</td>
+      <td>0.097887</td>
+    </tr>
+    <tr>
+      <th>Amy-Exc</th>
+      <td>-38.930565</td>
+      <td>-3.533070</td>
+      <td>-4.327548</td>
+      <td>0.313341</td>
+      <td>1.105036</td>
+      <td>-1.860224</td>
+      <td>7.141367</td>
+      <td>1.754738</td>
+      <td>-4.916781</td>
+      <td>7.849453</td>
+      <td>...</td>
+      <td>-0.826889</td>
+      <td>-3.989859</td>
+      <td>0.055244</td>
+      <td>2.209698</td>
+      <td>-5.034589</td>
+      <td>-3.008329</td>
+      <td>-3.377766</td>
+      <td>1.798049</td>
+      <td>-1.144573</td>
+      <td>1.898596</td>
+    </tr>
+    <tr>
+      <th>Chd7</th>
+      <td>-45.256973</td>
+      <td>3.364799</td>
+      <td>-0.269149</td>
+      <td>-10.733472</td>
+      <td>8.293569</td>
+      <td>-1.043610</td>
+      <td>16.352848</td>
+      <td>4.031204</td>
+      <td>0.273276</td>
+      <td>-0.059995</td>
+      <td>...</td>
+      <td>0.749673</td>
+      <td>-0.175595</td>
+      <td>0.092543</td>
+      <td>-0.924502</td>
+      <td>1.124693</td>
+      <td>1.283872</td>
+      <td>0.366372</td>
+      <td>-0.082858</td>
+      <td>-0.561670</td>
+      <td>0.307433</td>
+    </tr>
+    <tr>
+      <th>EC</th>
+      <td>26.527790</td>
+      <td>-32.688114</td>
+      <td>3.547755</td>
+      <td>3.290614</td>
+      <td>-9.286152</td>
+      <td>13.747752</td>
+      <td>17.052784</td>
+      <td>-26.857656</td>
+      <td>-3.802744</td>
+      <td>-1.965232</td>
+      <td>...</td>
+      <td>-0.454820</td>
+      <td>0.112404</td>
+      <td>-0.249004</td>
+      <td>-0.404655</td>
+      <td>-0.115365</td>
+      <td>0.185276</td>
+      <td>0.162324</td>
+      <td>-0.059130</td>
+      <td>0.321319</td>
+      <td>-0.346724</td>
+    </tr>
+    <tr>
+      <th>Foxp2</th>
+      <td>-39.184080</td>
+      <td>-3.191470</td>
+      <td>-7.375666</td>
+      <td>11.819609</td>
+      <td>-10.055280</td>
+      <td>0.527003</td>
+      <td>8.994095</td>
+      <td>6.077620</td>
+      <td>-3.421436</td>
+      <td>6.529488</td>
+      <td>...</td>
+      <td>0.193791</td>
+      <td>1.811393</td>
+      <td>-0.045932</td>
+      <td>0.191962</td>
+      <td>0.276209</td>
+      <td>0.760037</td>
+      <td>0.084653</td>
+      <td>-0.728828</td>
+      <td>0.759542</td>
+      <td>-0.386478</td>
+    </tr>
+    <tr>
+      <th>L2/3-IT</th>
+      <td>-26.673965</td>
+      <td>-4.740163</td>
+      <td>-11.936588</td>
+      <td>12.619617</td>
+      <td>-15.753070</td>
+      <td>-5.141675</td>
+      <td>0.197362</td>
+      <td>4.383984</td>
+      <td>-10.579296</td>
+      <td>10.414892</td>
+      <td>...</td>
+      <td>-1.967462</td>
+      <td>-8.375200</td>
+      <td>2.469593</td>
+      <td>3.431513</td>
+      <td>-11.031931</td>
+      <td>-10.825530</td>
+      <td>-5.029544</td>
+      <td>5.434872</td>
+      <td>-1.934668</td>
+      <td>2.062068</td>
+    </tr>
+    <tr>
+      <th>L4-IT</th>
+      <td>-31.200870</td>
+      <td>-3.501565</td>
+      <td>-11.205349</td>
+      <td>2.381891</td>
+      <td>-5.737471</td>
+      <td>-3.612785</td>
+      <td>2.949486</td>
+      <td>2.524159</td>
+      <td>-7.884211</td>
+      <td>9.838444</td>
+      <td>...</td>
+      <td>-1.117531</td>
+      <td>-7.639537</td>
+      <td>1.560820</td>
+      <td>3.544555</td>
+      <td>-9.953213</td>
+      <td>-8.711222</td>
+      <td>-5.156053</td>
+      <td>4.452472</td>
+      <td>-1.650653</td>
+      <td>2.180878</td>
+    </tr>
+    <tr>
+      <th>L5-ET</th>
+      <td>-37.951553</td>
+      <td>-4.090756</td>
+      <td>-1.749908</td>
+      <td>6.474921</td>
+      <td>-6.822777</td>
+      <td>-3.110141</td>
+      <td>6.139513</td>
+      <td>6.207369</td>
+      <td>-9.818862</td>
+      <td>5.759337</td>
+      <td>...</td>
+      <td>-0.751153</td>
+      <td>-5.099033</td>
+      <td>1.523441</td>
+      <td>2.615486</td>
+      <td>-7.550120</td>
+      <td>-5.248197</td>
+      <td>-2.845663</td>
+      <td>4.359980</td>
+      <td>-0.328301</td>
+      <td>1.857810</td>
+    </tr>
+    <tr>
+      <th>L5-IT</th>
+      <td>-37.812460</td>
+      <td>-3.408605</td>
+      <td>-6.648603</td>
+      <td>3.468422</td>
+      <td>-4.425308</td>
+      <td>-4.785133</td>
+      <td>4.412619</td>
+      <td>2.770933</td>
+      <td>-7.552199</td>
+      <td>7.736069</td>
+      <td>...</td>
+      <td>-1.393592</td>
+      <td>-6.683504</td>
+      <td>1.539244</td>
+      <td>3.907492</td>
+      <td>-9.450362</td>
+      <td>-7.772538</td>
+      <td>-3.954494</td>
+      <td>4.600186</td>
+      <td>-1.241237</td>
+      <td>2.778129</td>
+    </tr>
+    <tr>
+      <th>L5/6-NP</th>
+      <td>-58.737946</td>
+      <td>-2.229365</td>
+      <td>12.160391</td>
+      <td>-7.503811</td>
+      <td>11.286453</td>
+      <td>-3.773336</td>
+      <td>11.555239</td>
+      <td>2.394086</td>
+      <td>-1.065539</td>
+      <td>3.039342</td>
+      <td>...</td>
+      <td>-0.183951</td>
+      <td>-0.623756</td>
+      <td>1.202788</td>
+      <td>2.001793</td>
+      <td>-3.876940</td>
+      <td>-0.872864</td>
+      <td>-0.893597</td>
+      <td>0.289134</td>
+      <td>0.500606</td>
+      <td>1.112785</td>
+    </tr>
+    <tr>
+      <th>L6-CT</th>
+      <td>-32.139828</td>
+      <td>-3.766077</td>
+      <td>-2.158981</td>
+      <td>3.031826</td>
+      <td>-6.985947</td>
+      <td>-5.030187</td>
+      <td>4.349265</td>
+      <td>4.375680</td>
+      <td>-7.517894</td>
+      <td>9.483222</td>
+      <td>...</td>
+      <td>-0.891854</td>
+      <td>-4.078591</td>
+      <td>0.842091</td>
+      <td>3.602021</td>
+      <td>-7.107698</td>
+      <td>-6.869207</td>
+      <td>-2.692422</td>
+      <td>3.139607</td>
+      <td>0.685700</td>
+      <td>1.016641</td>
+    </tr>
+    <tr>
+      <th>L6-IT</th>
+      <td>-31.097511</td>
+      <td>-3.548752</td>
+      <td>-8.236399</td>
+      <td>12.533125</td>
+      <td>-14.565815</td>
+      <td>-7.415996</td>
+      <td>2.770380</td>
+      <td>3.943814</td>
+      <td>-11.381795</td>
+      <td>7.899622</td>
+      <td>...</td>
+      <td>-1.736178</td>
+      <td>-10.083274</td>
+      <td>0.848328</td>
+      <td>3.400883</td>
+      <td>-11.544861</td>
+      <td>-9.841734</td>
+      <td>-5.581735</td>
+      <td>5.295687</td>
+      <td>-2.270966</td>
+      <td>3.565928</td>
+    </tr>
+    <tr>
+      <th>L6-IT-Car3</th>
+      <td>-38.308950</td>
+      <td>-1.903866</td>
+      <td>-8.136124</td>
+      <td>4.100742</td>
+      <td>-6.565193</td>
+      <td>-5.007244</td>
+      <td>3.163473</td>
+      <td>2.974542</td>
+      <td>-7.906044</td>
+      <td>7.013512</td>
+      <td>...</td>
+      <td>-1.397685</td>
+      <td>-5.223508</td>
+      <td>1.986899</td>
+      <td>3.173890</td>
+      <td>-8.168158</td>
+      <td>-7.511103</td>
+      <td>-3.323859</td>
+      <td>4.045861</td>
+      <td>0.190077</td>
+      <td>1.776625</td>
+    </tr>
+    <tr>
+      <th>L6b</th>
+      <td>-47.408920</td>
+      <td>-5.245673</td>
+      <td>3.454485</td>
+      <td>-3.808722</td>
+      <td>6.709682</td>
+      <td>-3.233792</td>
+      <td>9.348725</td>
+      <td>3.163352</td>
+      <td>-4.818781</td>
+      <td>4.665468</td>
+      <td>...</td>
+      <td>-1.522568</td>
+      <td>-2.760672</td>
+      <td>-0.082948</td>
+      <td>0.396135</td>
+      <td>-4.506656</td>
+      <td>-3.589789</td>
+      <td>-2.327524</td>
+      <td>2.307548</td>
+      <td>-0.135169</td>
+      <td>2.961795</td>
+    </tr>
+    <tr>
+      <th>Lamp5</th>
+      <td>-39.644398</td>
+      <td>2.617424</td>
+      <td>-1.074082</td>
+      <td>-9.310522</td>
+      <td>5.041016</td>
+      <td>2.387072</td>
+      <td>15.927599</td>
+      <td>3.467832</td>
+      <td>1.190357</td>
+      <td>2.461777</td>
+      <td>...</td>
+      <td>0.575064</td>
+      <td>-0.914867</td>
+      <td>-0.196399</td>
+      <td>0.168482</td>
+      <td>-0.737702</td>
+      <td>-0.250824</td>
+      <td>-0.002979</td>
+      <td>-0.436584</td>
+      <td>-0.003029</td>
+      <td>0.413360</td>
+    </tr>
+    <tr>
+      <th>Lamp5-Lhx6</th>
+      <td>-40.506240</td>
+      <td>4.478299</td>
+      <td>-3.723694</td>
+      <td>-4.603326</td>
+      <td>5.442305</td>
+      <td>0.836165</td>
+      <td>16.252256</td>
+      <td>3.748447</td>
+      <td>-0.713584</td>
+      <td>-0.059195</td>
+      <td>...</td>
+      <td>-0.510765</td>
+      <td>0.433785</td>
+      <td>1.052773</td>
+      <td>-0.531846</td>
+      <td>-0.635088</td>
+      <td>0.956534</td>
+      <td>0.165097</td>
+      <td>-0.867622</td>
+      <td>-1.703597</td>
+      <td>-1.547097</td>
+    </tr>
+    <tr>
+      <th>MGC</th>
+      <td>23.130985</td>
+      <td>-49.061287</td>
+      <td>-10.258989</td>
+      <td>-2.834709</td>
+      <td>7.410598</td>
+      <td>-4.562579</td>
+      <td>-2.733469</td>
+      <td>2.428369</td>
+      <td>1.202679</td>
+      <td>-0.332088</td>
+      <td>...</td>
+      <td>0.109763</td>
+      <td>-0.014652</td>
+      <td>-0.012294</td>
+      <td>0.071227</td>
+      <td>-0.053112</td>
+      <td>0.044598</td>
+      <td>0.013556</td>
+      <td>-0.027773</td>
+      <td>0.052251</td>
+      <td>0.015968</td>
+    </tr>
+    <tr>
+      <th>MSN-D1</th>
+      <td>-57.910263</td>
+      <td>-4.461303</td>
+      <td>-2.699527</td>
+      <td>11.381494</td>
+      <td>-2.133878</td>
+      <td>0.376105</td>
+      <td>-2.674363</td>
+      <td>-0.965273</td>
+      <td>1.214698</td>
+      <td>-1.471622</td>
+      <td>...</td>
+      <td>-0.657642</td>
+      <td>-0.288972</td>
+      <td>-0.134528</td>
+      <td>-0.561866</td>
+      <td>0.241412</td>
+      <td>-0.610215</td>
+      <td>-0.222880</td>
+      <td>-0.182204</td>
+      <td>0.306737</td>
+      <td>-0.034117</td>
+    </tr>
+    <tr>
+      <th>MSN-D2</th>
+      <td>-57.890410</td>
+      <td>-4.805495</td>
+      <td>-2.617100</td>
+      <td>11.228474</td>
+      <td>-2.056234</td>
+      <td>0.402090</td>
+      <td>-5.543216</td>
+      <td>-2.926044</td>
+      <td>1.228502</td>
+      <td>-1.455745</td>
+      <td>...</td>
+      <td>0.567150</td>
+      <td>-0.115680</td>
+      <td>-0.030148</td>
+      <td>0.603628</td>
+      <td>-0.158990</td>
+      <td>0.761413</td>
+      <td>0.280589</td>
+      <td>0.338141</td>
+      <td>-0.297994</td>
+      <td>0.012521</td>
+    </tr>
+    <tr>
+      <th>ODC</th>
+      <td>15.432378</td>
+      <td>11.212210</td>
+      <td>-0.394837</td>
+      <td>2.723094</td>
+      <td>3.187174</td>
+      <td>0.706419</td>
+      <td>-0.605962</td>
+      <td>0.082230</td>
+      <td>-0.592523</td>
+      <td>-0.708755</td>
+      <td>...</td>
+      <td>-0.026474</td>
+      <td>0.004479</td>
+      <td>-0.021013</td>
+      <td>0.039172</td>
+      <td>-0.018999</td>
+      <td>0.032720</td>
+      <td>0.035563</td>
+      <td>-0.021798</td>
+      <td>0.054503</td>
+      <td>-0.034355</td>
+    </tr>
+    <tr>
+      <th>OPC</th>
+      <td>6.644025</td>
+      <td>10.284329</td>
+      <td>-3.580192</td>
+      <td>-9.224529</td>
+      <td>-7.448525</td>
+      <td>-17.900670</td>
+      <td>2.748838</td>
+      <td>-5.193218</td>
+      <td>4.950306</td>
+      <td>0.339529</td>
+      <td>...</td>
+      <td>0.070251</td>
+      <td>0.265234</td>
+      <td>-0.106605</td>
+      <td>-0.251945</td>
+      <td>-0.042705</td>
+      <td>0.091219</td>
+      <td>-0.243692</td>
+      <td>0.093993</td>
+      <td>-0.195914</td>
+      <td>0.340544</td>
+    </tr>
+    <tr>
+      <th>PC</th>
+      <td>21.583878</td>
+      <td>-21.470558</td>
+      <td>-1.909089</td>
+      <td>1.244724</td>
+      <td>-13.491482</td>
+      <td>4.056090</td>
+      <td>13.912548</td>
+      <td>-17.514519</td>
+      <td>-22.209126</td>
+      <td>-2.855245</td>
+      <td>...</td>
+      <td>-1.341004</td>
+      <td>1.876619</td>
+      <td>1.236435</td>
+      <td>-1.438446</td>
+      <td>-1.408302</td>
+      <td>-0.797942</td>
+      <td>-0.335037</td>
+      <td>-0.281604</td>
+      <td>0.331111</td>
+      <td>0.050967</td>
+    </tr>
+    <tr>
+      <th>Pvalb</th>
+      <td>-56.778637</td>
+      <td>1.126719</td>
+      <td>6.300942</td>
+      <td>-13.469451</td>
+      <td>17.806187</td>
+      <td>1.205066</td>
+      <td>16.274351</td>
+      <td>-0.568181</td>
+      <td>1.356439</td>
+      <td>4.349398</td>
+      <td>...</td>
+      <td>0.196988</td>
+      <td>-0.854911</td>
+      <td>0.430726</td>
+      <td>0.610283</td>
+      <td>-0.572428</td>
+      <td>0.543374</td>
+      <td>-0.136059</td>
+      <td>-1.388560</td>
+      <td>-0.996198</td>
+      <td>0.015460</td>
+    </tr>
+    <tr>
+      <th>Pvalb-ChC</th>
+      <td>-53.519530</td>
+      <td>4.710317</td>
+      <td>-2.150654</td>
+      <td>-10.196558</td>
+      <td>9.852634</td>
+      <td>-3.766301</td>
+      <td>14.023699</td>
+      <td>2.568954</td>
+      <td>0.805342</td>
+      <td>3.500673</td>
+      <td>...</td>
+      <td>0.727362</td>
+      <td>-1.550385</td>
+      <td>0.707371</td>
+      <td>0.563310</td>
+      <td>-0.341633</td>
+      <td>-1.002833</td>
+      <td>0.620860</td>
+      <td>-1.134522</td>
+      <td>-1.081277</td>
+      <td>-1.684098</td>
+    </tr>
+    <tr>
+      <th>Sncg</th>
+      <td>-50.480335</td>
+      <td>1.493617</td>
+      <td>6.341222</td>
+      <td>-13.835500</td>
+      <td>13.308707</td>
+      <td>1.075407</td>
+      <td>16.157661</td>
+      <td>0.426305</td>
+      <td>5.779812</td>
+      <td>4.111438</td>
+      <td>...</td>
+      <td>-0.451735</td>
+      <td>0.559489</td>
+      <td>0.336273</td>
+      <td>-0.664962</td>
+      <td>-0.008487</td>
+      <td>0.532989</td>
+      <td>0.113517</td>
+      <td>-0.172804</td>
+      <td>-0.228933</td>
+      <td>0.754394</td>
+    </tr>
+    <tr>
+      <th>Sst</th>
+      <td>-52.663895</td>
+      <td>0.764031</td>
+      <td>-0.347393</td>
+      <td>-8.751980</td>
+      <td>12.126772</td>
+      <td>1.639341</td>
+      <td>17.111448</td>
+      <td>2.682146</td>
+      <td>1.426244</td>
+      <td>2.052679</td>
+      <td>...</td>
+      <td>0.147085</td>
+      <td>-0.794579</td>
+      <td>0.220507</td>
+      <td>0.857341</td>
+      <td>0.092671</td>
+      <td>0.724540</td>
+      <td>1.145283</td>
+      <td>-1.441809</td>
+      <td>-0.363931</td>
+      <td>0.649626</td>
+    </tr>
+    <tr>
+      <th>SubCtx-Cplx</th>
+      <td>-37.825140</td>
+      <td>-1.337457</td>
+      <td>-0.373808</td>
+      <td>-8.323234</td>
+      <td>5.825504</td>
+      <td>2.486180</td>
+      <td>13.157622</td>
+      <td>2.102881</td>
+      <td>0.597597</td>
+      <td>3.441587</td>
+      <td>...</td>
+      <td>-0.189279</td>
+      <td>-0.580508</td>
+      <td>-0.165884</td>
+      <td>0.279170</td>
+      <td>0.939053</td>
+      <td>0.648316</td>
+      <td>0.314144</td>
+      <td>-0.148271</td>
+      <td>0.389553</td>
+      <td>-0.194526</td>
+    </tr>
+    <tr>
+      <th>VLMC</th>
+      <td>32.083275</td>
+      <td>-20.747717</td>
+      <td>1.497320</td>
+      <td>1.917748</td>
+      <td>-20.415955</td>
+      <td>4.642291</td>
+      <td>13.065974</td>
+      <td>-18.413430</td>
+      <td>-13.263156</td>
+      <td>-4.724891</td>
+      <td>...</td>
+      <td>3.339949</td>
+      <td>-2.788125</td>
+      <td>-2.205272</td>
+      <td>3.949465</td>
+      <td>1.412605</td>
+      <td>2.238862</td>
+      <td>0.764011</td>
+      <td>0.325424</td>
+      <td>-0.722004</td>
+      <td>0.792239</td>
+    </tr>
+    <tr>
+      <th>Vip</th>
+      <td>-51.157560</td>
+      <td>3.132333</td>
+      <td>5.028330</td>
+      <td>-15.125410</td>
+      <td>14.272235</td>
+      <td>1.677506</td>
+      <td>15.566135</td>
+      <td>-0.374252</td>
+      <td>5.044553</td>
+      <td>2.994858</td>
+      <td>...</td>
+      <td>0.242094</td>
+      <td>0.005533</td>
+      <td>-0.023746</td>
+      <td>0.129438</td>
+      <td>-0.164893</td>
+      <td>0.491951</td>
+      <td>-0.411548</td>
+      <td>0.018306</td>
+      <td>-0.490980</td>
+      <td>-0.279255</td>
+    </tr>
+  </tbody>
+</table>
+<p>29 rows × 41 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dend</span><span class="o">=</span><span class="n">DendrogramPlotter</span><span class="p">(</span><span class="n">df_pca</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">dend</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">tree_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dendrogram_3_0.png" src="../_images/notebooks_dendrogram_3_0.png" />
+</div>
+</div>
+<section id="Test-anno_dendrogram">
+<h1>Test anno_dendrogram<a class="headerlink" href="#Test-anno_dendrogram" title="Permalink to this heading">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InputReadPairs</th>
+      <th>InputReadPairsBP</th>
+      <th>TrimmedReadPairs</th>
+      <th>R1WithAdapters</th>
+      <th>R1QualTrimBP</th>
+      <th>R1TrimmedReadsBP</th>
+      <th>R2WithAdapters</th>
+      <th>R2QualTrimBP</th>
+      <th>R2TrimmedReadsBP</th>
+      <th>UniqueMappedReads</th>
+      <th>...</th>
+      <th>cell_type_id</th>
+      <th>donor</th>
+      <th>SubType</th>
+      <th>MajorType</th>
+      <th>CellClass</th>
+      <th>Batch</th>
+      <th>tech</th>
+      <th>HmCHCov</th>
+      <th>HmCHmC</th>
+      <th>HmCHFrac</th>
+    </tr>
+    <tr>
+      <th>cell</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P2-6-K18-A12</th>
+      <td>3184122</td>
+      <td>960543685</td>
+      <td>3182755</td>
+      <td>1226</td>
+      <td>824864</td>
+      <td>403058366</td>
+      <td>2202</td>
+      <td>754710</td>
+      <td>428407311</td>
+      <td>3700850.0</td>
+      <td>...</td>
+      <td>100</td>
+      <td>h1930002</td>
+      <td>MGC_0</td>
+      <td>MGC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P1-2-M14-B4</th>
+      <td>714291</td>
+      <td>215123881</td>
+      <td>713928</td>
+      <td>174</td>
+      <td>167867</td>
+      <td>90238832</td>
+      <td>247</td>
+      <td>159533</td>
+      <td>95965419</td>
+      <td>865327.0</td>
+      <td>...</td>
+      <td>101</td>
+      <td>h1930002</td>
+      <td>ODC_0</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P2-6-K18-I12</th>
+      <td>2362328</td>
+      <td>712868646</td>
+      <td>2361328</td>
+      <td>616</td>
+      <td>732621</td>
+      <td>299026864</td>
+      <td>1225</td>
+      <td>592537</td>
+      <td>317949179</td>
+      <td>2645129.0</td>
+      <td>...</td>
+      <td>102</td>
+      <td>h1930002</td>
+      <td>ODC_1</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P3-6-K20-K24</th>
+      <td>1907937</td>
+      <td>575333721</td>
+      <td>1906879</td>
+      <td>858</td>
+      <td>485511</td>
+      <td>241396661</td>
+      <td>1272</td>
+      <td>433803</td>
+      <td>256613183</td>
+      <td>2223558.0</td>
+      <td>...</td>
+      <td>100</td>
+      <td>h1930002</td>
+      <td>MGC_0</td>
+      <td>MGC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220322_H1930002_CX48_GPe_3C_1_P7-5-L3-P22</th>
+      <td>2607976</td>
+      <td>785266032</td>
+      <td>2606126</td>
+      <td>684</td>
+      <td>477698</td>
+      <td>329541152</td>
+      <td>1132</td>
+      <td>611508</td>
+      <td>350215270</td>
+      <td>3057751.0</td>
+      <td>...</td>
+      <td>102</td>
+      <td>h1930002</td>
+      <td>ODC_1</td>
+      <td>ODC</td>
+      <td>Non-neuronal Cells</td>
+      <td>HBA_snm3C</td>
+      <td>snm3C</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P8-2-I15-B16</th>
+      <td>1490463</td>
+      <td>433485515</td>
+      <td>1489686</td>
+      <td>366</td>
+      <td>299823</td>
+      <td>180726445</td>
+      <td>692</td>
+      <td>387242</td>
+      <td>192405819</td>
+      <td>2377792.0</td>
+      <td>...</td>
+      <td>69</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_0</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P7-5-A11-M21</th>
+      <td>514477</td>
+      <td>148303482</td>
+      <td>513170</td>
+      <td>131</td>
+      <td>107399</td>
+      <td>61700350</td>
+      <td>253</td>
+      <td>141387</td>
+      <td>65724216</td>
+      <td>811064.0</td>
+      <td>...</td>
+      <td>74</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_5</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P7-3-A11-J5</th>
+      <td>358402</td>
+      <td>103672865</td>
+      <td>357594</td>
+      <td>172</td>
+      <td>82742</td>
+      <td>43161242</td>
+      <td>241</td>
+      <td>119223</td>
+      <td>45937846</td>
+      <td>575320.0</td>
+      <td>...</td>
+      <td>8</td>
+      <td>h1930004</td>
+      <td>Foxp2_1</td>
+      <td>Foxp2</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P6-2-M9-K16</th>
+      <td>582025</td>
+      <td>168063194</td>
+      <td>581002</td>
+      <td>208</td>
+      <td>90416</td>
+      <td>69977950</td>
+      <td>320</td>
+      <td>176457</td>
+      <td>74491658</td>
+      <td>929579.0</td>
+      <td>...</td>
+      <td>74</td>
+      <td>h1930004</td>
+      <td>SubCtx_Inh_5</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HBA_220201_H1930004_CX47_BNST_1_P5-5-K9-P10</th>
+      <td>980998</td>
+      <td>286409224</td>
+      <td>980590</td>
+      <td>155</td>
+      <td>171953</td>
+      <td>119535585</td>
+      <td>443</td>
+      <td>332883</td>
+      <td>127104385</td>
+      <td>1521846.0</td>
+      <td>...</td>
+      <td>63</td>
+      <td>h1930004</td>
+      <td>SubCtx_Exc_1</td>
+      <td>SubCtx-Cplx</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+      <td>HBA_snmC</td>
+      <td>snmC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>99061 rows × 74 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;MajorType&#39;</span><span class="p">,</span><span class="s1">&#39;mCGFrac&#39;</span><span class="p">,</span><span class="s1">&#39;mCHFrac&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;MajorType&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">vc</span><span class="o">=</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;MajorType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;#Cells&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span>
+<span class="n">CellClass</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;MajorType&#39;</span><span class="p">,</span><span class="s1">&#39;CellClass&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;MajorType&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">CellClass</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CellClass&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">CellClass</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mCGFrac</th>
+      <th>mCHFrac</th>
+      <th>#Cells</th>
+      <th>CellClass</th>
+    </tr>
+    <tr>
+      <th>MajorType</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ASC</th>
+      <td>0.780405</td>
+      <td>0.013840</td>
+      <td>6285</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>Amy-Exc</th>
+      <td>0.807098</td>
+      <td>0.049853</td>
+      <td>12</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>CA3</th>
+      <td>0.780362</td>
+      <td>0.022678</td>
+      <td>3</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>CB</th>
+      <td>0.786929</td>
+      <td>0.025257</td>
+      <td>5</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Chd7</th>
+      <td>0.833616</td>
+      <td>0.047265</td>
+      <td>2467</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>EC</th>
+      <td>0.747018</td>
+      <td>0.009164</td>
+      <td>485</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>Foxp2</th>
+      <td>0.815653</td>
+      <td>0.033836</td>
+      <td>4459</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>HIP-Misc1</th>
+      <td>0.823063</td>
+      <td>0.042266</td>
+      <td>1</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L2/3-IT</th>
+      <td>0.798390</td>
+      <td>0.045121</td>
+      <td>244</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L4-IT</th>
+      <td>0.801353</td>
+      <td>0.044941</td>
+      <td>51</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L5-ET</th>
+      <td>0.816475</td>
+      <td>0.043745</td>
+      <td>72</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L5-IT</th>
+      <td>0.813015</td>
+      <td>0.064449</td>
+      <td>95</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L5/6-NP</th>
+      <td>0.844824</td>
+      <td>0.060690</td>
+      <td>89</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L6-CT</th>
+      <td>0.816696</td>
+      <td>0.048172</td>
+      <td>56</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L6-IT</th>
+      <td>0.815931</td>
+      <td>0.047066</td>
+      <td>137</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L6-IT-Car3</th>
+      <td>0.812854</td>
+      <td>0.055256</td>
+      <td>39</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>L6b</th>
+      <td>0.826362</td>
+      <td>0.071769</td>
+      <td>59</td>
+      <td>Telencephalic excitatory neurons</td>
+    </tr>
+    <tr>
+      <th>Lamp5</th>
+      <td>0.824296</td>
+      <td>0.033166</td>
+      <td>172</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Lamp5-Lhx6</th>
+      <td>0.835225</td>
+      <td>0.039866</td>
+      <td>81</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>MGC</th>
+      <td>0.760441</td>
+      <td>0.007458</td>
+      <td>5711</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>MSN-D1</th>
+      <td>0.828343</td>
+      <td>0.051954</td>
+      <td>18415</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>MSN-D2</th>
+      <td>0.827637</td>
+      <td>0.051323</td>
+      <td>17733</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>ODC</th>
+      <td>0.765380</td>
+      <td>0.010655</td>
+      <td>32903</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>OPC</th>
+      <td>0.773379</td>
+      <td>0.008045</td>
+      <td>2694</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>PC</th>
+      <td>0.756550</td>
+      <td>0.008576</td>
+      <td>410</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>PKJ</th>
+      <td>0.814125</td>
+      <td>0.019970</td>
+      <td>1</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Pvalb</th>
+      <td>0.848834</td>
+      <td>0.059397</td>
+      <td>145</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Pvalb-ChC</th>
+      <td>0.844349</td>
+      <td>0.054269</td>
+      <td>50</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Sncg</th>
+      <td>0.837328</td>
+      <td>0.050938</td>
+      <td>68</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>Sst</th>
+      <td>0.838024</td>
+      <td>0.054413</td>
+      <td>443</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>SubCtx-Cplx</th>
+      <td>0.827779</td>
+      <td>0.038447</td>
+      <td>4667</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>THM-MB</th>
+      <td>0.834764</td>
+      <td>0.071817</td>
+      <td>39</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+    <tr>
+      <th>VLMC</th>
+      <td>0.751109</td>
+      <td>0.011100</td>
+      <td>314</td>
+      <td>Non-neuronal Cells</td>
+    </tr>
+    <tr>
+      <th>Vip</th>
+      <td>0.834406</td>
+      <td>0.043179</td>
+      <td>367</td>
+      <td>Inhibitory/non-telencephalic neurons</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keep_rows</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">df_pca</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+<span class="n">df_pca</span><span class="o">=</span><span class="n">df_pca</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep_rows</span><span class="p">]</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep_rows</span><span class="p">]</span>
+<span class="n">df_pca</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>31</th>
+      <th>32</th>
+      <th>33</th>
+      <th>34</th>
+      <th>35</th>
+      <th>36</th>
+      <th>37</th>
+      <th>38</th>
+      <th>39</th>
+      <th>40</th>
+    </tr>
+    <tr>
+      <th>MajorType</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Chd7</th>
+      <td>-45.256973</td>
+      <td>3.364799</td>
+      <td>-0.269149</td>
+      <td>-10.733472</td>
+      <td>8.293569</td>
+      <td>-1.043610</td>
+      <td>16.352848</td>
+      <td>4.031204</td>
+      <td>0.273276</td>
+      <td>-0.059995</td>
+      <td>...</td>
+      <td>0.749673</td>
+      <td>-0.175595</td>
+      <td>0.092543</td>
+      <td>-0.924502</td>
+      <td>1.124693</td>
+      <td>1.283872</td>
+      <td>0.366372</td>
+      <td>-0.082858</td>
+      <td>-0.561670</td>
+      <td>0.307433</td>
+    </tr>
+    <tr>
+      <th>L6-IT</th>
+      <td>-31.097511</td>
+      <td>-3.548752</td>
+      <td>-8.236399</td>
+      <td>12.533125</td>
+      <td>-14.565815</td>
+      <td>-7.415996</td>
+      <td>2.770380</td>
+      <td>3.943814</td>
+      <td>-11.381795</td>
+      <td>7.899622</td>
+      <td>...</td>
+      <td>-1.736178</td>
+      <td>-10.083274</td>
+      <td>0.848328</td>
+      <td>3.400883</td>
+      <td>-11.544861</td>
+      <td>-9.841734</td>
+      <td>-5.581735</td>
+      <td>5.295687</td>
+      <td>-2.270966</td>
+      <td>3.565928</td>
+    </tr>
+    <tr>
+      <th>MSN-D1</th>
+      <td>-57.910263</td>
+      <td>-4.461303</td>
+      <td>-2.699527</td>
+      <td>11.381494</td>
+      <td>-2.133878</td>
+      <td>0.376105</td>
+      <td>-2.674363</td>
+      <td>-0.965273</td>
+      <td>1.214698</td>
+      <td>-1.471622</td>
+      <td>...</td>
+      <td>-0.657642</td>
+      <td>-0.288972</td>
+      <td>-0.134528</td>
+      <td>-0.561866</td>
+      <td>0.241412</td>
+      <td>-0.610215</td>
+      <td>-0.222880</td>
+      <td>-0.182204</td>
+      <td>0.306737</td>
+      <td>-0.034117</td>
+    </tr>
+    <tr>
+      <th>ASC</th>
+      <td>-6.185385</td>
+      <td>2.063680</td>
+      <td>-2.673907</td>
+      <td>-26.243917</td>
+      <td>-10.898765</td>
+      <td>7.697167</td>
+      <td>-2.974320</td>
+      <td>1.026790</td>
+      <td>0.775394</td>
+      <td>-1.070190</td>
+      <td>...</td>
+      <td>0.077760</td>
+      <td>0.010935</td>
+      <td>0.112232</td>
+      <td>0.154969</td>
+      <td>0.021569</td>
+      <td>-0.166352</td>
+      <td>-0.066355</td>
+      <td>-0.075087</td>
+      <td>0.001657</td>
+      <td>0.097887</td>
+    </tr>
+    <tr>
+      <th>Pvalb-ChC</th>
+      <td>-53.519530</td>
+      <td>4.710317</td>
+      <td>-2.150654</td>
+      <td>-10.196558</td>
+      <td>9.852634</td>
+      <td>-3.766301</td>
+      <td>14.023699</td>
+      <td>2.568954</td>
+      <td>0.805342</td>
+      <td>3.500673</td>
+      <td>...</td>
+      <td>0.727362</td>
+      <td>-1.550385</td>
+      <td>0.707371</td>
+      <td>0.563310</td>
+      <td>-0.341633</td>
+      <td>-1.002833</td>
+      <td>0.620860</td>
+      <td>-1.134522</td>
+      <td>-1.081277</td>
+      <td>-1.684098</td>
+    </tr>
+    <tr>
+      <th>Amy-Exc</th>
+      <td>-38.930565</td>
+      <td>-3.533070</td>
+      <td>-4.327548</td>
+      <td>0.313341</td>
+      <td>1.105036</td>
+      <td>-1.860224</td>
+      <td>7.141367</td>
+      <td>1.754738</td>
+      <td>-4.916781</td>
+      <td>7.849453</td>
+      <td>...</td>
+      <td>-0.826889</td>
+      <td>-3.989859</td>
+      <td>0.055244</td>
+      <td>2.209698</td>
+      <td>-5.034589</td>
+      <td>-3.008329</td>
+      <td>-3.377766</td>
+      <td>1.798049</td>
+      <td>-1.144573</td>
+      <td>1.898596</td>
+    </tr>
+    <tr>
+      <th>Vip</th>
+      <td>-51.157560</td>
+      <td>3.132333</td>
+      <td>5.028330</td>
+      <td>-15.125410</td>
+      <td>14.272235</td>
+      <td>1.677506</td>
+      <td>15.566135</td>
+      <td>-0.374252</td>
+      <td>5.044553</td>
+      <td>2.994858</td>
+      <td>...</td>
+      <td>0.242094</td>
+      <td>0.005533</td>
+      <td>-0.023746</td>
+      <td>0.129438</td>
+      <td>-0.164893</td>
+      <td>0.491951</td>
+      <td>-0.411548</td>
+      <td>0.018306</td>
+      <td>-0.490980</td>
+      <td>-0.279255</td>
+    </tr>
+    <tr>
+      <th>SubCtx-Cplx</th>
+      <td>-37.825140</td>
+      <td>-1.337457</td>
+      <td>-0.373808</td>
+      <td>-8.323234</td>
+      <td>5.825504</td>
+      <td>2.486180</td>
+      <td>13.157622</td>
+      <td>2.102881</td>
+      <td>0.597597</td>
+      <td>3.441587</td>
+      <td>...</td>
+      <td>-0.189279</td>
+      <td>-0.580508</td>
+      <td>-0.165884</td>
+      <td>0.279170</td>
+      <td>0.939053</td>
+      <td>0.648316</td>
+      <td>0.314144</td>
+      <td>-0.148271</td>
+      <td>0.389553</td>
+      <td>-0.194526</td>
+    </tr>
+    <tr>
+      <th>L5-IT</th>
+      <td>-37.812460</td>
+      <td>-3.408605</td>
+      <td>-6.648603</td>
+      <td>3.468422</td>
+      <td>-4.425308</td>
+      <td>-4.785133</td>
+      <td>4.412619</td>
+      <td>2.770933</td>
+      <td>-7.552199</td>
+      <td>7.736069</td>
+      <td>...</td>
+      <td>-1.393592</td>
+      <td>-6.683504</td>
+      <td>1.539244</td>
+      <td>3.907492</td>
+      <td>-9.450362</td>
+      <td>-7.772538</td>
+      <td>-3.954494</td>
+      <td>4.600186</td>
+      <td>-1.241237</td>
+      <td>2.778129</td>
+    </tr>
+    <tr>
+      <th>Pvalb</th>
+      <td>-56.778637</td>
+      <td>1.126719</td>
+      <td>6.300942</td>
+      <td>-13.469451</td>
+      <td>17.806187</td>
+      <td>1.205066</td>
+      <td>16.274351</td>
+      <td>-0.568181</td>
+      <td>1.356439</td>
+      <td>4.349398</td>
+      <td>...</td>
+      <td>0.196988</td>
+      <td>-0.854911</td>
+      <td>0.430726</td>
+      <td>0.610283</td>
+      <td>-0.572428</td>
+      <td>0.543374</td>
+      <td>-0.136059</td>
+      <td>-1.388560</td>
+      <td>-0.996198</td>
+      <td>0.015460</td>
+    </tr>
+    <tr>
+      <th>Sst</th>
+      <td>-52.663895</td>
+      <td>0.764031</td>
+      <td>-0.347393</td>
+      <td>-8.751980</td>
+      <td>12.126772</td>
+      <td>1.639341</td>
+      <td>17.111448</td>
+      <td>2.682146</td>
+      <td>1.426244</td>
+      <td>2.052679</td>
+      <td>...</td>
+      <td>0.147085</td>
+      <td>-0.794579</td>
+      <td>0.220507</td>
+      <td>0.857341</td>
+      <td>0.092671</td>
+      <td>0.724540</td>
+      <td>1.145283</td>
+      <td>-1.441809</td>
+      <td>-0.363931</td>
+      <td>0.649626</td>
+    </tr>
+    <tr>
+      <th>VLMC</th>
+      <td>32.083275</td>
+      <td>-20.747717</td>
+      <td>1.497320</td>
+      <td>1.917748</td>
+      <td>-20.415955</td>
+      <td>4.642291</td>
+      <td>13.065974</td>
+      <td>-18.413430</td>
+      <td>-13.263156</td>
+      <td>-4.724891</td>
+      <td>...</td>
+      <td>3.339949</td>
+      <td>-2.788125</td>
+      <td>-2.205272</td>
+      <td>3.949465</td>
+      <td>1.412605</td>
+      <td>2.238862</td>
+      <td>0.764011</td>
+      <td>0.325424</td>
+      <td>-0.722004</td>
+      <td>0.792239</td>
+    </tr>
+    <tr>
+      <th>L6-CT</th>
+      <td>-32.139828</td>
+      <td>-3.766077</td>
+      <td>-2.158981</td>
+      <td>3.031826</td>
+      <td>-6.985947</td>
+      <td>-5.030187</td>
+      <td>4.349265</td>
+      <td>4.375680</td>
+      <td>-7.517894</td>
+      <td>9.483222</td>
+      <td>...</td>
+      <td>-0.891854</td>
+      <td>-4.078591</td>
+      <td>0.842091</td>
+      <td>3.602021</td>
+      <td>-7.107698</td>
+      <td>-6.869207</td>
+      <td>-2.692422</td>
+      <td>3.139607</td>
+      <td>0.685700</td>
+      <td>1.016641</td>
+    </tr>
+    <tr>
+      <th>MGC</th>
+      <td>23.130985</td>
+      <td>-49.061287</td>
+      <td>-10.258989</td>
+      <td>-2.834709</td>
+      <td>7.410598</td>
+      <td>-4.562579</td>
+      <td>-2.733469</td>
+      <td>2.428369</td>
+      <td>1.202679</td>
+      <td>-0.332088</td>
+      <td>...</td>
+      <td>0.109763</td>
+      <td>-0.014652</td>
+      <td>-0.012294</td>
+      <td>0.071227</td>
+      <td>-0.053112</td>
+      <td>0.044598</td>
+      <td>0.013556</td>
+      <td>-0.027773</td>
+      <td>0.052251</td>
+      <td>0.015968</td>
+    </tr>
+    <tr>
+      <th>Lamp5-Lhx6</th>
+      <td>-40.506240</td>
+      <td>4.478299</td>
+      <td>-3.723694</td>
+      <td>-4.603326</td>
+      <td>5.442305</td>
+      <td>0.836165</td>
+      <td>16.252256</td>
+      <td>3.748447</td>
+      <td>-0.713584</td>
+      <td>-0.059195</td>
+      <td>...</td>
+      <td>-0.510765</td>
+      <td>0.433785</td>
+      <td>1.052773</td>
+      <td>-0.531846</td>
+      <td>-0.635088</td>
+      <td>0.956534</td>
+      <td>0.165097</td>
+      <td>-0.867622</td>
+      <td>-1.703597</td>
+      <td>-1.547097</td>
+    </tr>
+    <tr>
+      <th>L5/6-NP</th>
+      <td>-58.737946</td>
+      <td>-2.229365</td>
+      <td>12.160391</td>
+      <td>-7.503811</td>
+      <td>11.286453</td>
+      <td>-3.773336</td>
+      <td>11.555239</td>
+      <td>2.394086</td>
+      <td>-1.065539</td>
+      <td>3.039342</td>
+      <td>...</td>
+      <td>-0.183951</td>
+      <td>-0.623756</td>
+      <td>1.202788</td>
+      <td>2.001793</td>
+      <td>-3.876940</td>
+      <td>-0.872864</td>
+      <td>-0.893597</td>
+      <td>0.289134</td>
+      <td>0.500606</td>
+      <td>1.112785</td>
+    </tr>
+    <tr>
+      <th>ODC</th>
+      <td>15.432378</td>
+      <td>11.212210</td>
+      <td>-0.394837</td>
+      <td>2.723094</td>
+      <td>3.187174</td>
+      <td>0.706419</td>
+      <td>-0.605962</td>
+      <td>0.082230</td>
+      <td>-0.592523</td>
+      <td>-0.708755</td>
+      <td>...</td>
+      <td>-0.026474</td>
+      <td>0.004479</td>
+      <td>-0.021013</td>
+      <td>0.039172</td>
+      <td>-0.018999</td>
+      <td>0.032720</td>
+      <td>0.035563</td>
+      <td>-0.021798</td>
+      <td>0.054503</td>
+      <td>-0.034355</td>
+    </tr>
+    <tr>
+      <th>EC</th>
+      <td>26.527790</td>
+      <td>-32.688114</td>
+      <td>3.547755</td>
+      <td>3.290614</td>
+      <td>-9.286152</td>
+      <td>13.747752</td>
+      <td>17.052784</td>
+      <td>-26.857656</td>
+      <td>-3.802744</td>
+      <td>-1.965232</td>
+      <td>...</td>
+      <td>-0.454820</td>
+      <td>0.112404</td>
+      <td>-0.249004</td>
+      <td>-0.404655</td>
+      <td>-0.115365</td>
+      <td>0.185276</td>
+      <td>0.162324</td>
+      <td>-0.059130</td>
+      <td>0.321319</td>
+      <td>-0.346724</td>
+    </tr>
+    <tr>
+      <th>L6b</th>
+      <td>-47.408920</td>
+      <td>-5.245673</td>
+      <td>3.454485</td>
+      <td>-3.808722</td>
+      <td>6.709682</td>
+      <td>-3.233792</td>
+      <td>9.348725</td>
+      <td>3.163352</td>
+      <td>-4.818781</td>
+      <td>4.665468</td>
+      <td>...</td>
+      <td>-1.522568</td>
+      <td>-2.760672</td>
+      <td>-0.082948</td>
+      <td>0.396135</td>
+      <td>-4.506656</td>
+      <td>-3.589789</td>
+      <td>-2.327524</td>
+      <td>2.307548</td>
+      <td>-0.135169</td>
+      <td>2.961795</td>
+    </tr>
+    <tr>
+      <th>Sncg</th>
+      <td>-50.480335</td>
+      <td>1.493617</td>
+      <td>6.341222</td>
+      <td>-13.835500</td>
+      <td>13.308707</td>
+      <td>1.075407</td>
+      <td>16.157661</td>
+      <td>0.426305</td>
+      <td>5.779812</td>
+      <td>4.111438</td>
+      <td>...</td>
+      <td>-0.451735</td>
+      <td>0.559489</td>
+      <td>0.336273</td>
+      <td>-0.664962</td>
+      <td>-0.008487</td>
+      <td>0.532989</td>
+      <td>0.113517</td>
+      <td>-0.172804</td>
+      <td>-0.228933</td>
+      <td>0.754394</td>
+    </tr>
+    <tr>
+      <th>L5-ET</th>
+      <td>-37.951553</td>
+      <td>-4.090756</td>
+      <td>-1.749908</td>
+      <td>6.474921</td>
+      <td>-6.822777</td>
+      <td>-3.110141</td>
+      <td>6.139513</td>
+      <td>6.207369</td>
+      <td>-9.818862</td>
+      <td>5.759337</td>
+      <td>...</td>
+      <td>-0.751153</td>
+      <td>-5.099033</td>
+      <td>1.523441</td>
+      <td>2.615486</td>
+      <td>-7.550120</td>
+      <td>-5.248197</td>
+      <td>-2.845663</td>
+      <td>4.359980</td>
+      <td>-0.328301</td>
+      <td>1.857810</td>
+    </tr>
+    <tr>
+      <th>L6-IT-Car3</th>
+      <td>-38.308950</td>
+      <td>-1.903866</td>
+      <td>-8.136124</td>
+      <td>4.100742</td>
+      <td>-6.565193</td>
+      <td>-5.007244</td>
+      <td>3.163473</td>
+      <td>2.974542</td>
+      <td>-7.906044</td>
+      <td>7.013512</td>
+      <td>...</td>
+      <td>-1.397685</td>
+      <td>-5.223508</td>
+      <td>1.986899</td>
+      <td>3.173890</td>
+      <td>-8.168158</td>
+      <td>-7.511103</td>
+      <td>-3.323859</td>
+      <td>4.045861</td>
+      <td>0.190077</td>
+      <td>1.776625</td>
+    </tr>
+    <tr>
+      <th>OPC</th>
+      <td>6.644025</td>
+      <td>10.284329</td>
+      <td>-3.580192</td>
+      <td>-9.224529</td>
+      <td>-7.448525</td>
+      <td>-17.900670</td>
+      <td>2.748838</td>
+      <td>-5.193218</td>
+      <td>4.950306</td>
+      <td>0.339529</td>
+      <td>...</td>
+      <td>0.070251</td>
+      <td>0.265234</td>
+      <td>-0.106605</td>
+      <td>-0.251945</td>
+      <td>-0.042705</td>
+      <td>0.091219</td>
+      <td>-0.243692</td>
+      <td>0.093993</td>
+      <td>-0.195914</td>
+      <td>0.340544</td>
+    </tr>
+    <tr>
+      <th>Foxp2</th>
+      <td>-39.184080</td>
+      <td>-3.191470</td>
+      <td>-7.375666</td>
+      <td>11.819609</td>
+      <td>-10.055280</td>
+      <td>0.527003</td>
+      <td>8.994095</td>
+      <td>6.077620</td>
+      <td>-3.421436</td>
+      <td>6.529488</td>
+      <td>...</td>
+      <td>0.193791</td>
+      <td>1.811393</td>
+      <td>-0.045932</td>
+      <td>0.191962</td>
+      <td>0.276209</td>
+      <td>0.760037</td>
+      <td>0.084653</td>
+      <td>-0.728828</td>
+      <td>0.759542</td>
+      <td>-0.386478</td>
+    </tr>
+    <tr>
+      <th>MSN-D2</th>
+      <td>-57.890410</td>
+      <td>-4.805495</td>
+      <td>-2.617100</td>
+      <td>11.228474</td>
+      <td>-2.056234</td>
+      <td>0.402090</td>
+      <td>-5.543216</td>
+      <td>-2.926044</td>
+      <td>1.228502</td>
+      <td>-1.455745</td>
+      <td>...</td>
+      <td>0.567150</td>
+      <td>-0.115680</td>
+      <td>-0.030148</td>
+      <td>0.603628</td>
+      <td>-0.158990</td>
+      <td>0.761413</td>
+      <td>0.280589</td>
+      <td>0.338141</td>
+      <td>-0.297994</td>
+      <td>0.012521</td>
+    </tr>
+    <tr>
+      <th>Lamp5</th>
+      <td>-39.644398</td>
+      <td>2.617424</td>
+      <td>-1.074082</td>
+      <td>-9.310522</td>
+      <td>5.041016</td>
+      <td>2.387072</td>
+      <td>15.927599</td>
+      <td>3.467832</td>
+      <td>1.190357</td>
+      <td>2.461777</td>
+      <td>...</td>
+      <td>0.575064</td>
+      <td>-0.914867</td>
+      <td>-0.196399</td>
+      <td>0.168482</td>
+      <td>-0.737702</td>
+      <td>-0.250824</td>
+      <td>-0.002979</td>
+      <td>-0.436584</td>
+      <td>-0.003029</td>
+      <td>0.413360</td>
+    </tr>
+    <tr>
+      <th>L2/3-IT</th>
+      <td>-26.673965</td>
+      <td>-4.740163</td>
+      <td>-11.936588</td>
+      <td>12.619617</td>
+      <td>-15.753070</td>
+      <td>-5.141675</td>
+      <td>0.197362</td>
+      <td>4.383984</td>
+      <td>-10.579296</td>
+      <td>10.414892</td>
+      <td>...</td>
+      <td>-1.967462</td>
+      <td>-8.375200</td>
+      <td>2.469593</td>
+      <td>3.431513</td>
+      <td>-11.031931</td>
+      <td>-10.825530</td>
+      <td>-5.029544</td>
+      <td>5.434872</td>
+      <td>-1.934668</td>
+      <td>2.062068</td>
+    </tr>
+    <tr>
+      <th>L4-IT</th>
+      <td>-31.200870</td>
+      <td>-3.501565</td>
+      <td>-11.205349</td>
+      <td>2.381891</td>
+      <td>-5.737471</td>
+      <td>-3.612785</td>
+      <td>2.949486</td>
+      <td>2.524159</td>
+      <td>-7.884211</td>
+      <td>9.838444</td>
+      <td>...</td>
+      <td>-1.117531</td>
+      <td>-7.639537</td>
+      <td>1.560820</td>
+      <td>3.544555</td>
+      <td>-9.953213</td>
+      <td>-8.711222</td>
+      <td>-5.156053</td>
+      <td>4.452472</td>
+      <td>-1.650653</td>
+      <td>2.180878</td>
+    </tr>
+    <tr>
+      <th>PC</th>
+      <td>21.583878</td>
+      <td>-21.470558</td>
+      <td>-1.909089</td>
+      <td>1.244724</td>
+      <td>-13.491482</td>
+      <td>4.056090</td>
+      <td>13.912548</td>
+      <td>-17.514519</td>
+      <td>-22.209126</td>
+      <td>-2.855245</td>
+      <td>...</td>
+      <td>-1.341004</td>
+      <td>1.876619</td>
+      <td>1.236435</td>
+      <td>-1.438446</td>
+      <td>-1.408302</td>
+      <td>-0.797942</td>
+      <td>-0.335037</td>
+      <td>-0.281604</td>
+      <td>0.331111</td>
+      <td>0.050967</td>
+    </tr>
+  </tbody>
+</table>
+<p>29 rows × 41 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+            <span class="n">dend</span><span class="o">=</span><span class="n">anno_dendrogram</span><span class="p">(</span><span class="n">df_pca</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">),</span>
+            <span class="n">CellClass</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CellClass</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">mCGFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">mCHFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">Count</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;#Cells&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">hgap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">wgap</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># col_ha.plot_annotations(hspace=0.1)</span>
+<span class="n">col_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">col_ha</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;test.pdf&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting plotting HeatmapAnnotations
+Collecting annotation legends..
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dendrogram_8_1.png" src="../_images/notebooks_dendrogram_8_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+            <span class="n">dend</span><span class="o">=</span><span class="n">anno_dendrogram</span><span class="p">(</span><span class="n">df_pca</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">),</span>
+            <span class="n">CellClass</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CellClass</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">mCGFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">mCHFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">Count</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;#Cells&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">df_pca</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_ha</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">row_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">5</span><span class="p">],</span><span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+            <span class="c1"># row_split=3,row_split_gap=3,</span>
+            <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="c1">#legend_hpad=10,legend_vpad=5,</span>
+            <span class="n">annot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+            <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+            <span class="n">yticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span><span class="c1">#subplot_gap=8</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting plotting HeatmapAnnotations
+Collecting annotation legends..
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dendrogram_9_1.png" src="../_images/notebooks_dendrogram_9_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
+            <span class="n">CellClass</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CellClass</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">mCGFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">mCHFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mCGFrac</span><span class="p">),</span>
+            <span class="n">Count</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;#Cells&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">ClusterMapPlotter</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">df_pca</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">5</span><span class="p">],</span><span class="n">left_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
+            <span class="n">row_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="c1">#legend_hpad=10,legend_vpad=5,</span>
+            <span class="n">annot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+            <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
+            <span class="n">yticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span><span class="c1">#subplot_gap=8</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting plotting HeatmapAnnotations
+Collecting annotation legends..
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dendrogram_10_1.png" src="../_images/notebooks_dendrogram_10_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_ha</span><span class="o">.</span><span class="n">gs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+GridSpec(1, 5, width_ratios=[10, 3, 3, 3, 5])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dend</span><span class="o">=</span><span class="n">DendrogramPlotter</span><span class="p">(</span><span class="n">df_pca</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">dend</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">tree_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_dendrogram_12_0.png" src="../_images/notebooks_dendrogram_12_0.png" />
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRB2NBWG05"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VRB2NBWG05', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

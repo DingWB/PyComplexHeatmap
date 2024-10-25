@@ -2257,7 +2257,6 @@ class ClusterMapPlotter:
 				ax_box = self.ax.get_window_extent()
 				pos_x=(np.mean([ax_heatmap_box.x0,ax_heatmap_box.x1])-ax_box.x0) / ax_box.width
 				self.xlabel_kws.setdefault('position',(pos_x,0))
-
 			self.xlabel_kws.setdefault("verticalalignment", "center")
 			self.ax.set_xlabel(self.xlabel, labelpad=labelpad + self.ax.xaxis.labelpad)
 			self.ax.xaxis.label.update(self.xlabel_kws)
@@ -2560,7 +2559,7 @@ def composite(
 		sharey = axes[0] if axis == 1 and i > 0 else None
 		gs1 = gs[i, 0] if axis == 0 else gs[0, i]
 		ax1 = ax.figure.add_subplot(gs1, sharex=sharex, sharey=sharey)
-		ax1.set_axis_off()
+		# ax1.set_axis_off() #20241024 fix the bug for the display of xlabel
 		axes.append(ax1)
 	cm_1 = cmlist[main]
 	ax1 = axes[main]
