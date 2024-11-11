@@ -2291,12 +2291,12 @@ class ClusterMapPlotter:
 				)  # ax.xaxis.label.get_bbox_patch().properties()
 
 	def get_legend_list(self):
-		if len(self.legend_dict) > 1 and self.legend_order in [True, "auto"]:
+		if len(self.legend_dict) >= 1 and self.legend_order in [True, "auto"]:
 			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
 			self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
-		elif len(self.legend_dict) > 1 and isinstance(self.legend_order, (list, tuple)):
+		elif len(self.legend_dict) >= 1 and isinstance(self.legend_order, (list, tuple)):
 			self.legend_list = [self.legend_dict[k] for k in self.legend_order if k in self.legend_dict]
-		elif len(self.legend_dict) > 1:
+		elif len(self.legend_dict) >= 1:
 			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
 		else:
 			self.legend_list = []
@@ -2594,23 +2594,24 @@ def composite(
 		)
 		if w > label_max_width:
 			label_max_width = w
-	if len(legend_list) == 0:
-		return None
-	legend_list = sorted(legend_list, key=lambda x: x[3])
-	if legend_hpad is None:
-		space = col_gap * mm2inch * ax.figure.dpi + label_max_width
+	if len(legend_list) > 0:
+		legend_list = sorted(legend_list, key=lambda x: x[3])
+		if legend_hpad is None:
+			space = col_gap * mm2inch * ax.figure.dpi + label_max_width
+		else:
+			space = legend_hpad * ax.figure.dpi / 72
+		legend_axes, cbars, boundry = plot_legend_list(
+			legend_list,
+			ax=ax,
+			space=space,
+			legend_side=legend_side,
+			gap=legend_gap,
+			y0=legend_y,
+			legend_width=legend_width,
+			verbose=verbose
+		)
 	else:
-		space = legend_hpad * ax.figure.dpi / 72
-	legend_axes, cbars, boundry = plot_legend_list(
-		legend_list,
-		ax=ax,
-		space=space,
-		legend_side=legend_side,
-		gap=legend_gap,
-		y0=legend_y,
-		legend_width=legend_width,
-		verbose=verbose
-	)
+		legend_axes=None
 	# ax.set_axis_off()
 	despine(ax=ax, left=True, bottom=True, top=True, right=True)
 	ax.tick_params(
