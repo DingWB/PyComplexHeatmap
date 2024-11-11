@@ -28,7 +28,7 @@ setup(
     author_email="ding.wu.bin.gm@gmail.com",
     url="https://github.com/DingWB/PyComplexHeatmap",
     packages=["PyComplexHeatmap"],  # src
-    install_requires=["matplotlib","numpy","pandas>=1.3.5", "scipy","fastcluster","palettable"],
+    install_requires=["matplotlib","numpy","pandas>=1.3.5", "scipy","palettable"],
     include_package_data=True,
 )
 # rm -rf dist && rm -rf PyComplexHeatmap/PyComplexHeatmap.egg-info/
