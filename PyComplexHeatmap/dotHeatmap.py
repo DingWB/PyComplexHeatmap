@@ -596,6 +596,8 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
 				if isinstance(self.cmap, dict):  #
 					cmap_legend_kws = self.cmap_legend_kws.copy()
+					cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
+					cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
 					for key in self.cmap:
 						self.legend_dict[key]=tuple([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
 			else: # hue is None
