@@ -67,11 +67,12 @@ class AnnotationBase:
 		height=None,
 		legend=None,
 		legend_kws=None,
+		ylim=None,
 		**plot_kws
 	):
 		self._check_df(df)
 		self.label = None
-		self.ylim = None
+		self.ylim = ylim
 		self.color_dict = None
 		self.nrows = self.df.shape[0]
 		self.ncols = self.df.shape[1]
