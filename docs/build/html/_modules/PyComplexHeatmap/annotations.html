@@ -439,11 +439,12 @@
 		<span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">plot_kws</span>
 	<span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_check_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">ylim</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="kc">None</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>

@@ -599,13 +599,11 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
 					cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
 					for key in self.cmap:
-						self.legend_dict[key]=tuple([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
+						self.legend_dict[f"{key} (cmap)"]=tuple([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
 			else: # hue is None
 				cmap = self.cmap
 				c = self.kwargs.get("c", None)
 				cmap_legend_kws = self.cmap_legend_kws.copy()
-				# cmap_legend_kws["vmax"] = self.kwargs.get('vmax',1)
-				# cmap_legend_kws["vmin"] = self.kwargs.get('vmin',0)
 				cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
 				cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
 				if (
@@ -614,8 +612,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					and not c is None
 					and type(c) != str
 				):
-					# print(cmap_legend_kws)
-					self.legend_dict[self.value]=tuple([cmap, self.value, cmap_legend_kws, 4, "cmap"])
+					self.legend_dict[f"{self.value} (cmap)"]=tuple([cmap, self.value, cmap_legend_kws, 4, "cmap"])
 			# dot size legend:
 			if type(self.s) == str:
 				# s=self.kwargs.get('s',None)
@@ -629,7 +626,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					ms[k] = f  * np.sqrt(max_s) * self.alpha
 					# ms[k] = np.sqrt(f * max_s * self.alpha)
 				title = self.s if not self.s is None else self.value
-				self.legend_dict[title]=tuple(
+				self.legend_dict[f"{title} (dot)"]=tuple(
 					[
 						(markers1, None, ms),
 						title,
