@@ -10,7 +10,7 @@ write_to = 'PyComplexHeatmap/_version.py'
 [project]
 name = "PyComplexHeatmap"
 dynamic = ["version"]
-dependencies = ["matplotlib","numpy","pandas>=1.3.5", "scipy","palettable"]
+dependencies = ["matplotlib","numpy","pandas>=1.3.5", "scipy","palettable"] #matplotlib<=3.7.5
 authors = [
   { name="Wubin Ding", email="ding.wu.bin.gm@gmail.com" },
 ]

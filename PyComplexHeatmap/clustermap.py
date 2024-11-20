@@ -700,10 +700,11 @@ def plot_heatmap(
 		mesh.update_scalarmappable()
 		height, width = annot_data.shape
 		xpos, ypos = np.meshgrid(np.arange(width) + 0.5, np.arange(height) + 0.5)
+		# print(mesh.get_array().flat)
 		for x, y, m, color, val in zip(
 			xpos.flat,
 			ypos.flat,
-			mesh.get_array(),
+			mesh.get_array().flat,
 			mesh.get_facecolors(),
 			annot_data.flat,
 		):
