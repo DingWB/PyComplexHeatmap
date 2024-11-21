@@ -8,6 +8,7 @@ from math import factorial
 import matplotlib
 import matplotlib.pylab as plt
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.font_manager import FontProperties
 import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 
@@ -658,16 +659,15 @@ def plot_marker_legend(
 # =============================================================================
 def cal_legend_width(legend_list):
 	lgd_w = 4.5
-	if isinstance(plt.rcParams["legend.fontsize"],int):
-		lgd_fontsize=plt.rcParams["legend.fontsize"]
-	else:
-		lgd_fontsize=10
+	lgd_fontsize=plt.rcParams["legend.fontsize"]
+	if isinstance(lgd_fontsize, str): ##fontsize can be str, such as medium
+		lgd_fontsize = FontProperties(size=lgd_fontsize).get_size_in_points()
 	legend_width = 0
 	for lgd in legend_list:
 		obj, title, legend_kws, n, lgd_t = lgd
 		if lgd_t == "color_dict":
 			max_text_len = max(len(str(title)), max([len(str(k)) for k in obj]))
-			fontsize = legend_kws.get("fontsize", plt.rcParams["legend.fontsize"])
+			fontsize = legend_kws.get("fontsize", lgd_fontsize)
 			lgd_w = (
 				max_text_len * fontsize * 0.65 / 72 / mm2inch
 			)  # point to inches to mm. in average, width = height * 0.6
@@ -731,14 +731,14 @@ def plot_legend_list(
 		)  # labelpad unit is points
 		left = ax.get_position().x1 + pad
 	if legend_width is None:
-		try:
-			legend_width = (
-				cal_legend_width(legend_list) + 3
-			)  # base width for color rectangle is set to 3 mm
-			if verbose > 0:
-				print(f"Estimated legend width: {legend_width} mm")
-		except:
-			legend_width=15
+		# try:
+		legend_width = (
+			cal_legend_width(legend_list) + 3
+		)  # base width for color rectangle is set to 3 mm
+		if verbose > 0:
+			print(f"Estimated legend width: {legend_width} mm")
+		# except:
+		# 	legend_width=15
 	legend_width = (
 		legend_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
 	)  # mm to px to fraction
