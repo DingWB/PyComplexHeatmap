@@ -749,6 +749,8 @@ def plot_legend_list(
 		ax_legend = ax.figure.add_axes(
 			[left, ax.get_position().y0, legend_width, ax.get_position().height]
 		)  # left, bottom, width, height
+	else:
+		raise NotImplemented("Not implemented yet, currently only supoort legend_side='right'")
 	legend_axes = [ax_legend]
 	cbars = []
 	leg_pos = ax_legend.get_position()  # left bototm: x0,y0; top right: x1,y1

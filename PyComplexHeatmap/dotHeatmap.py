@@ -204,15 +204,6 @@ def dotHeatmap2d(
 					c=df1.C.values,
 					**kwargs
 				)
-			
-			# ax.scatter(
-			# 	x=df.X.values,
-			# 	y=df.Y.values,
-			# 	s=df.S * max_s,
-			# 	c=df.C.values,
-			# 	**kwargs
-			# )
-
 	ax.set_ylim([0.5, len(row_labels) + 0.5])
 	ax.set_xlim(0.5, len(col_labels) + 0.5)
 	y_locater = list(range(1, len(row_labels) + 1))
