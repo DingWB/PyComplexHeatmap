@@ -439,6 +439,7 @@ def plot_color_dict_legend(
 	)  # gap height between two Patches,  0.05*mm2inch*72
 	lgd_kws.setdefault("columnspacing", 1)
 	lgd_kws.setdefault("bbox_to_anchor", (0, 1))
+	lgd_kws.setdefault("title", title)
 	if label_side == "left":
 		lgd_kws.setdefault("markerfirst", False)
 		align = "right"
@@ -452,7 +453,7 @@ def plot_color_dict_legend(
 	l = [
 		mpatches.Patch(color=c, label=l) for l, c in D.items()
 	]  # kws:?mpatches.Patch; rasterized=True
-	L = ax.legend(handles=l, title=title, **lgd_kws)
+	L = ax.legend(handles=l, **lgd_kws)
 	ax.figure.canvas.draw()
 	while L.get_window_extent().height > availabel_height:
 		# ax.cla()
@@ -462,7 +463,7 @@ def plot_color_dict_legend(
 			print("More than 3 cols is not supported")
 			L.remove()
 			return None
-		L = ax.legend(handles=l, title=title, **lgd_kws)
+		L = ax.legend(handles=l, **lgd_kws)
 		ax.figure.canvas.draw()
 	L._legend_box.align = align
 	if color_text:
@@ -606,6 +607,7 @@ def plot_marker_legend(
 	)  # gap height between two Patches,  0.05*mm2inch*72
 	lgd_kws.setdefault("columnspacing", 1)
 	lgd_kws.setdefault("bbox_to_anchor", (0, 1))
+	lgd_kws.setdefault("title", title)
 	if label_side == "left":
 		lgd_kws.setdefault("markerfirst", False)
 		align = "right"
@@ -630,7 +632,7 @@ def plot_marker_legend(
 		for l, m in markers.items()
 	]  # kws:?mpatches.Patch; rasterized=True
 	ms = lgd_kws.pop("markersize", 10)
-	Lgd = ax.legend(handles=L, title=title, **lgd_kws)
+	Lgd = ax.legend(handles=L, **lgd_kws)
 	ax.figure.canvas.draw()
 	while Lgd.get_window_extent().height > availabel_height:
 		print("Incresing ncol")
@@ -639,7 +641,7 @@ def plot_marker_legend(
 			print("More than 3 cols is not supported")
 			Lgd.remove()
 			return None
-		Lgd = ax.legend(handles=L, title=title, **lgd_kws)
+		Lgd = ax.legend(handles=L, **lgd_kws)
 		ax.figure.canvas.draw()
 	Lgd._legend_box.align = align
 	if color_text:
