@@ -68,10 +68,11 @@ class AnnotationBase:
 		legend=None,
 		legend_kws=None,
 		ylim=None,
+		label=None,
 		**plot_kws
 	):
 		self._check_df(df)
-		self.label = None
+		self.label = label
 		self.ylim = ylim
 		self.color_dict = None
 		self.nrows = self.df.shape[0]
@@ -111,7 +112,8 @@ class AnnotationBase:
 		self.plot_kws.update(plot_kws)
 
 	def set_label(self, label):
-		self.label = label
+		if self.label is None:
+			self.label = label
 
 	def set_legend(self, legend):
 		if self.legend is None:
