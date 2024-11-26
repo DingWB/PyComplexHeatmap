@@ -1408,6 +1408,10 @@ class ClusterMapPlotter:
 		self.xticklabels_kws = {} if xticklabels_kws is None else xticklabels_kws
 
 	def format_data(self, data, mask=None, z_score=None, standard_scale=None):
+		if data.index.duplicated().sum() > 1:
+			raise ValueError("index of input dataframe `data` has duplicated values: ",data.index.duplicated().sum())
+		if data.columns.duplicated().sum() > 1:
+			raise ValueError("columns of input dataframe `data` has duplicated values: ",data.columns.duplicated().sum())
 		data2d = data.copy()
 		if z_score is not None and standard_scale is not None:
 			raise ValueError(
