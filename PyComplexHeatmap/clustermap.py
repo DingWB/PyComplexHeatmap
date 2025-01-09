@@ -18,7 +18,7 @@ from .utils import (
 	_index_to_label,
 	_index_to_ticklabels,
 	plot_legend_list,
-	get_colormap,
+	get_colormap,adjust_cmap,
 	evaluate_bezier,getControlPoints
 )
 
@@ -615,34 +615,8 @@ def plot_heatmap(
 		else:
 			vmax = np.nanmax(calc_data)
 
-	# Choose default colormaps if not provided
-	if isinstance(cmap, str):
-		try:
-			cmap = get_colormap(cmap).copy()
-		except:
-			cmap = get_colormap(cmap)
-
-	cmap.set_bad(color=na_col)  # set the color for NaN values
-	# Recenter a divergent colormap
-	if center is not None:
-		# bad = cmap(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color
-		under = cmap(-np.inf)
-		over = cmap(np.inf)
-		under_set = under != cmap(0)
-		over_set = over != cmap(cmap.N - 1)
-
-		vrange = max(vmax - center, center - vmin)
-		normlize = matplotlib.colors.Normalize(center - vrange, center + vrange)
-		cmin, cmax = normlize([vmin, vmax])
-		cc = np.linspace(cmin, cmax, 256)
-		cmap = matplotlib.colors.ListedColormap(cmap(cc))
-		# self.cmap.set_bad(bad)
-		if under_set:
-			cmap.set_under(
-				under
-			)  # set the color of -np.inf as the color for low out-of-range values.
-		if over_set:
-			cmap.set_over(over)
+	cmap=adjust_cmap(cmap,vmin=vmin,vmax=vmax,center=center,
+					 na_col=na_col)
 
 	# Sort out the annotations
 	if annot is None or annot is False:
@@ -2326,12 +2300,6 @@ class ClusterMapPlotter:
 				if annotation.label_max_width > self.label_max_width:
 					self.label_max_width = annotation.label_max_width
 		if self.legend:
-			# vmax = self.kwargs.get(
-			# 	"vmax", np.nanmax(self.data2d[self.data2d != np.inf])
-			# )
-			# vmin = self.kwargs.get(
-			# 	"vmin", np.nanmin(self.data2d[self.data2d != -np.inf])
-			# )
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
 			self.legend_kws.setdefault("center", self.kwargs.get('center',None))

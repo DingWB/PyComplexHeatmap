@@ -5,9 +5,8 @@ import pandas as pd
 import numpy as np
 import matplotlib
 import matplotlib.pylab as plt
-from .utils import mm2inch, plot_legend_list, despine, get_colormap
+from .utils import mm2inch, despine, get_colormap,adjust_cmap
 from .clustermap import ClusterMapPlotter
-from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 
 # =============================================================================
@@ -21,13 +20,13 @@ def scale(values, vmin=None, vmax=None):
 	delta = vmax - vmin
 	return [(j - vmin) / delta for j in values]
 
-
 # =============================================================================
 def dotHeatmap2d(
 	data,
 	hue=None,
 	vmin=None,
 	vmax=None,
+	center=None,
 	ax=None,
 	colors=None,
 	cmap=None,
@@ -154,6 +153,7 @@ def dotHeatmap2d(
 	kwargs.setdefault(
 		"norm", matplotlib.colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
 	)
+
 	kwargs["cmap"] = cmap
 	if hue is None:
 		#plot using c
@@ -163,6 +163,8 @@ def dotHeatmap2d(
 			if df1.shape[0] == 0:
 				continue
 			kwargs["marker"] = mk
+			if isinstance(kwargs["cmap"],str) and not center is None:
+				kwargs["cmap"]=adjust_cmap(kwargs["cmap"],vmin=vmin,vmax=vmax,center=center)
 			ax.scatter(
 				x=df1.X.values,
 				y=df1.Y.values,
@@ -177,6 +179,8 @@ def dotHeatmap2d(
 				df1 = df.loc[df.Hue == h].copy()
 				if df1.shape[0] == 0:
 					continue
+				if isinstance(cmap[h], str) and not center is None:
+					cmap[h] = adjust_cmap(cmap[h], vmin=vmin, vmax=vmax, center=center)
 				kwargs["cmap"] = cmap[h]
 				for mk in df1.Markers.unique():
 					# df2 = df1.query("Markers==@mk").copy()

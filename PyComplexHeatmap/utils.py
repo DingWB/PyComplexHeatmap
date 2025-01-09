@@ -395,7 +395,36 @@ def cluster_labels(labels=None, xticks=None, majority=True):
 	x = [np.mean(clusters_x[i]) for i in clusters_x]
 	return labels, x
 
+def adjust_cmap(cmap,vmin,vmax,center=None,na_col='white'):
+	# Choose default colormaps if not provided
+	if isinstance(cmap, str):
+		try:
+			cmap = get_colormap(cmap).copy()
+		except:
+			cmap = get_colormap(cmap)
 
+	cmap.set_bad(color=na_col)  # set the color for NaN values
+	# Recenter a divergent colormap
+	if center is not None:
+		# bad = cmap(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color
+		under = cmap(-np.inf)
+		over = cmap(np.inf)
+		under_set = under != cmap(0)
+		over_set = over != cmap(cmap.N - 1)
+
+		vrange = max(vmax - center, center - vmin)
+		normlize = matplotlib.colors.Normalize(center - vrange, center + vrange)
+		cmin, cmax = normlize([vmin, vmax])
+		cc = np.linspace(cmin, cmax, 256)
+		cmap = matplotlib.colors.ListedColormap(cmap(cc))
+		# self.cmap.set_bad(bad)
+		if under_set:
+			cmap.set_under(
+				under
+			)  # set the color of -np.inf as the color for low out-of-range values.
+		if over_set:
+			cmap.set_over(over)
+	return cmap
 # =============================================================================
 def plot_color_dict_legend(
 	D=None, ax=None, title=None, color_text=True, label_side="right", kws=None
@@ -518,17 +547,19 @@ def plot_cmap_legend(
 	vcenter= (vmax + vmin) / 2
 	center=cbar_kws.pop("center",None)
 	if center is None:
-		cbar_kws.setdefault("ticks", [vmin, vcenter, vmax])
+		center=vcenter
 		m = plt.cm.ScalarMappable(
 			norm=matplotlib.colors.Normalize(vmin=vmin, vmax=vmax), cmap=cmap
 		)
 	else:
 		m = plt.cm.ScalarMappable(
-			norm=matplotlib.colors.CenteredNorm(vcenter=center), cmap=cmap
+			norm=matplotlib.colors.TwoSlopeNorm(center,vmin=vmin, vmax=vmax), cmap=cmap
 		)
+	cbar_kws.setdefault("ticks", [vmin, center, vmax])
 	cax.yaxis.set_label_position(label_side)
 	cax.yaxis.set_ticks_position(label_side)
 	cbar = ax.figure.colorbar(m, cax=cax, **cbar_kws)  # use_gridspec=True
+	# cbar.set_ticks([vmin,center,vmax])
 	# cbar.outline.set_color('white')
 	# cbar.outline.set_linewidth(2)
 	# cbar.dividers.set_color('red')
