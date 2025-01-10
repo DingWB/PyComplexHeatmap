@@ -522,7 +522,8 @@ def plot_cmap_legend(
 	ax :  axes to anchor.
 	cmap : turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2
 	label : title for legend.
-	kws : kws passed to plt.colorbar.
+	kws : dict
+		kws passed to plt.colorbar (matplotlib.figure.Figure.colorbar).
 	label_side : right or left.
 
 	Returns
@@ -540,6 +541,8 @@ def plot_cmap_legend(
 	cbar_kws.setdefault("fraction", 1)
 	cbar_kws.setdefault("shrink", 1)
 	cbar_kws.setdefault("pad", 0)
+	# cbar_kws.setdefault("extend", 'both')
+	# cbar_kws.setdefault("extendfrac", 0.1)
 	vmax = cbar_kws.pop("vmax", 1)
 	vmin = cbar_kws.pop("vmin", 0)
 	# print(vmin,vmax,'vmax,vmin')

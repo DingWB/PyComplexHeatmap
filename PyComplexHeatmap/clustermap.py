@@ -1142,11 +1142,9 @@ class ClusterMapPlotter:
 	legend :bool
 		True or False, whether to plot heatmap legend, determined by cmap.
 	legend_kws :dict
-		vmax, vmin and other kws passed to plot legend, such asfontsize,
-		fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
-		shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
-		so on (see ?plt.legend) Alaternatively, we can also change the
-		outline color and linewidth of cbar after plotting:
+		vmax, vmin and other kws passed to plot legend, such as
+		use_gridspec, location, orientation, fraction, shrink, aspect, pad, anchor, panchor,
+		extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing:
 		```
 		cm=ClusterMapPlotter(...)
 		for cbar in cm.cbars:
@@ -1156,6 +1154,8 @@ class ClusterMapPlotter:
 			cbar.dividers.set_color('red')
 			cbar.dividers.set_linewidth(2)
 		```
+		In addition to vmax,vmin, other parameters will be passed to https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar
+
 	plot :bool
 		whether to plot or not.
 	plot_legend :bool
@@ -2302,7 +2302,7 @@ class ClusterMapPlotter:
 		if self.legend:
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
-			self.legend_kws.setdefault("center", self.kwargs.get('center',None))
+			self.legend_kws.setdefault("center", self.kwargs.get('center', None))
 			self.legend_dict[self.label]=tuple([self.cmap, self.label, self.legend_kws, 4, "cmap"])
 			if len(self.yticklabels) > 0 and self.row_names_side == "right":
 				max_yticklabel_w = max(
