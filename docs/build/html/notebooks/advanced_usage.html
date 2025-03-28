@@ -148,6 +148,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
@@ -322,6 +323,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
@@ -377,7 +379,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -387,7 +389,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">use_pch_style</span><span class="p">()</span> <span class="c1"># or plt.style.use(&#39;default&#39;) to restore default style</span>
 <span class="c1"># plt.rcParams</span>
@@ -396,7 +398,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#set font to Arial using the following code</span>
@@ -474,73 +476,73 @@
   <tbody>
     <tr>
       <th>sample1</th>
-      <td>-1.141544</td>
-      <td>-1.854671</td>
-      <td>0.700472</td>
-      <td>-1.453638</td>
+      <td>0.786715</td>
+      <td>-0.268172</td>
+      <td>-0.165060</td>
+      <td>-0.003303</td>
     </tr>
     <tr>
       <th>sample2</th>
-      <td>-1.589981</td>
-      <td>1.318247</td>
-      <td>-0.392954</td>
-      <td>0.854834</td>
+      <td>0.135651</td>
+      <td>-0.108862</td>
+      <td>-0.452932</td>
+      <td>0.542925</td>
     </tr>
     <tr>
       <th>sample3</th>
-      <td>2.473380</td>
-      <td>1.425263</td>
-      <td>1.838210</td>
-      <td>-0.299281</td>
+      <td>-0.569915</td>
+      <td>-0.291013</td>
+      <td>-0.551063</td>
+      <td>0.126623</td>
     </tr>
     <tr>
       <th>sample4</th>
-      <td>0.615659</td>
-      <td>-1.128731</td>
-      <td>-0.918126</td>
+      <td>-0.420822</td>
+      <td>0.200885</td>
+      <td>0.807041</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>sample5</th>
-      <td>-0.326837</td>
-      <td>0.456930</td>
-      <td>1.591883</td>
-      <td>-2.251957</td>
+      <td>1.638377</td>
+      <td>1.261568</td>
+      <td>-0.762235</td>
+      <td>2.018141</td>
     </tr>
     <tr>
       <th>sample6</th>
-      <td>-0.169985</td>
-      <td>0.294284</td>
-      <td>-1.784905</td>
-      <td>0.175566</td>
+      <td>0.074054</td>
+      <td>-2.008517</td>
+      <td>1.742215</td>
+      <td>-0.403439</td>
     </tr>
     <tr>
       <th>sample7</th>
-      <td>0.267317</td>
-      <td>0.164426</td>
-      <td>-0.332801</td>
-      <td>-1.572528</td>
+      <td>-0.436391</td>
+      <td>0.810032</td>
+      <td>-0.354438</td>
+      <td>0.122689</td>
     </tr>
     <tr>
       <th>sample8</th>
-      <td>-1.620649</td>
-      <td>-0.766258</td>
-      <td>0.555885</td>
-      <td>-0.579876</td>
+      <td>1.561714</td>
+      <td>-0.338679</td>
+      <td>-1.749112</td>
+      <td>-2.315677</td>
     </tr>
     <tr>
       <th>sample9</th>
-      <td>-0.769411</td>
-      <td>-2.204664</td>
-      <td>-0.712077</td>
-      <td>-1.359158</td>
+      <td>0.448826</td>
+      <td>0.220147</td>
+      <td>-0.449316</td>
+      <td>-1.141088</td>
     </tr>
     <tr>
       <th>sample10</th>
-      <td>0.539084</td>
-      <td>-0.762180</td>
-      <td>-1.011151</td>
-      <td>1.060917</td>
+      <td>-0.353502</td>
+      <td>0.084744</td>
+      <td>0.912792</td>
+      <td>0.469271</td>
     </tr>
   </tbody>
 </table>
@@ -550,7 +552,7 @@
 <section id="Add-selected-rows-labels">
 <h1>Add selected rows labels<a class="headerlink" href="#Add-selected-rows-labels" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Annotate the rows with average &gt; 0.3</span>
@@ -560,7 +562,8 @@
 
 <span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
             <span class="n">Scatter</span><span class="o">=</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
-                            <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                            <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)),</span>
             <span class="n">Line</span><span class="o">=</span><span class="n">anno_lineplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
             <span class="n">Bar</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
@@ -571,9 +574,10 @@
 
 <span class="n">col_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
             <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                             <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
-                            <span class="p">),</span> <span class="c1">#visible in arrowprops can control whether to show the arrow</span>
-            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                             <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                            <span class="p">),</span>
+            <span class="n">AB</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">CD</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">CD</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">EF</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">EF</span><span class="p">,</span><span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">legend_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;frameon&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}),</span>
@@ -588,10 +592,11 @@
         <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">col_split</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">AB</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">z_score</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="mf">2.2</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span>
         <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+        <span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
         <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span><span class="n">bezier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">),</span> <span class="c1">#label=&#39;values&#39;,</span>
         <span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">grid_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="c1"># for ax in cm.top_annotation.axes[-1,:]:</span>
 <span class="c1">#     ax.cla()</span>
@@ -606,7 +611,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--3.195712714460433 3.3567559056050413
+-3.3541065464638127 2.5905806804216205
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -621,7 +626,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--2.2 2.3 {&#39;vmin&#39;: -2.2, &#39;vmax&#39;: 2.3, &#39;center&#39;: None}
+-2.2 2.3 {&#39;label&#39;: &#39;test&#39;, &#39;vmin&#39;: -2.2, &#39;vmax&#39;: 2.3, &#39;center&#39;: None}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">

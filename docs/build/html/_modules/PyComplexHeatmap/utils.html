@@ -142,6 +142,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
@@ -316,6 +317,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
@@ -767,7 +769,36 @@
 	<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">clusters_x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">clusters_x</span><span class="p">]</span>
 	<span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">x</span></div>
 
+<div class="viewcode-block" id="adjust_cmap"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap">[docs]</a><span class="k">def</span> <span class="nf">adjust_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span><span class="n">vmin</span><span class="p">,</span><span class="n">vmax</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">na_col</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">):</span>
+	<span class="c1"># Choose default colormaps if not provided</span>
+	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cmap</span> <span class="o">=</span> <span class="n">get_colormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">cmap</span> <span class="o">=</span> <span class="n">get_colormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
 
+	<span class="n">cmap</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">na_col</span><span class="p">)</span>  <span class="c1"># set the color for NaN values</span>
+	<span class="c1"># Recenter a divergent colormap</span>
+	<span class="k">if</span> <span class="n">center</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="c1"># bad = cmap(np.ma.masked_invalid([np.nan]))[0]  # set the first color as the na_color</span>
+		<span class="n">under</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+		<span class="n">over</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+		<span class="n">under_set</span> <span class="o">=</span> <span class="n">under</span> <span class="o">!=</span> <span class="n">cmap</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="n">over_set</span> <span class="o">=</span> <span class="n">over</span> <span class="o">!=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+		<span class="n">vrange</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">vmax</span> <span class="o">-</span> <span class="n">center</span><span class="p">,</span> <span class="n">center</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span>
+		<span class="n">normlize</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">vrange</span><span class="p">,</span> <span class="n">center</span> <span class="o">+</span> <span class="n">vrange</span><span class="p">)</span>
+		<span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span> <span class="o">=</span> <span class="n">normlize</span><span class="p">([</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">])</span>
+		<span class="n">cc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+		<span class="n">cmap</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">cc</span><span class="p">))</span>
+		<span class="c1"># self.cmap.set_bad(bad)</span>
+		<span class="k">if</span> <span class="n">under_set</span><span class="p">:</span>
+			<span class="n">cmap</span><span class="o">.</span><span class="n">set_under</span><span class="p">(</span>
+				<span class="n">under</span>
+			<span class="p">)</span>  <span class="c1"># set the color of -np.inf as the color for low out-of-range values.</span>
+		<span class="k">if</span> <span class="n">over_set</span><span class="p">:</span>
+			<span class="n">cmap</span><span class="o">.</span><span class="n">set_over</span><span class="p">(</span><span class="n">over</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">cmap</span></div>
 <span class="c1"># =============================================================================</span>
 <div class="viewcode-block" id="plot_color_dict_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend">[docs]</a><span class="k">def</span> <span class="nf">plot_color_dict_legend</span><span class="p">(</span>
 	<span class="n">D</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">kws</span><span class="o">=</span><span class="kc">None</span>
@@ -811,6 +842,7 @@
 	<span class="p">)</span>  <span class="c1"># gap height between two Patches,  0.05*mm2inch*72</span>
 	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;columnspacing&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
 	<span class="k">if</span> <span class="n">label_side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
 		<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;markerfirst&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
@@ -824,7 +856,7 @@
 	<span class="n">l</span> <span class="o">=</span> <span class="p">[</span>
 		<span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">D</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
 	<span class="p">]</span>  <span class="c1"># kws:?mpatches.Patch; rasterized=True</span>
-	<span class="n">L</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
+	<span class="n">L</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
 	<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 	<span class="k">while</span> <span class="n">L</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">availabel_height</span><span class="p">:</span>
 		<span class="c1"># ax.cla()</span>
@@ -834,7 +866,7 @@
 			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;More than 3 cols is not supported&quot;</span><span class="p">)</span>
 			<span class="n">L</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 			<span class="k">return</span> <span class="kc">None</span>
-		<span class="n">L</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
+		<span class="n">L</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
 		<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 	<span class="n">L</span><span class="o">.</span><span class="n">_legend_box</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="n">align</span>
 	<span class="k">if</span> <span class="n">color_text</span><span class="p">:</span>
@@ -864,7 +896,8 @@
 <span class="sd">	ax :  axes to anchor.</span>
 <span class="sd">	cmap : turbo, hsv, Set1, Dark2, Paired, Accent,tab20,exp1,exp2,meth1,meth2</span>
 <span class="sd">	label : title for legend.</span>
-<span class="sd">	kws : kws passed to plt.colorbar.</span>
+<span class="sd">	kws : dict</span>
+<span class="sd">		kws passed to plt.colorbar (matplotlib.figure.Figure.colorbar).</span>
 <span class="sd">	label_side : right or left.</span>
 
 <span class="sd">	Returns</span>
@@ -882,6 +915,8 @@
 	<span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;fraction&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 	<span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;shrink&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 	<span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;pad&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="c1"># cbar_kws.setdefault(&quot;extend&quot;, &#39;both&#39;)</span>
+	<span class="c1"># cbar_kws.setdefault(&quot;extendfrac&quot;, 0.1)</span>
 	<span class="n">vmax</span> <span class="o">=</span> <span class="n">cbar_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vmax&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 	<span class="n">vmin</span> <span class="o">=</span> <span class="n">cbar_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 	<span class="c1"># print(vmin,vmax,&#39;vmax,vmin&#39;)</span>
@@ -889,17 +924,19 @@
 	<span class="n">vcenter</span><span class="o">=</span> <span class="p">(</span><span class="n">vmax</span> <span class="o">+</span> <span class="n">vmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 	<span class="n">center</span><span class="o">=</span><span class="n">cbar_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;center&quot;</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
 	<span class="k">if</span> <span class="n">center</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-		<span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vcenter</span><span class="p">,</span> <span class="n">vmax</span><span class="p">])</span>
+		<span class="n">center</span><span class="o">=</span><span class="n">vcenter</span>
 		<span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span>
 			<span class="n">norm</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span>
 		<span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span>
-			<span class="n">norm</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(</span><span class="n">vcenter</span><span class="o">=</span><span class="n">center</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span>
+			<span class="n">norm</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">TwoSlopeNorm</span><span class="p">(</span><span class="n">center</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span>
 		<span class="p">)</span>
+	<span class="n">cbar_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">vmin</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">vmax</span><span class="p">])</span>
 	<span class="n">cax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="n">label_side</span><span class="p">)</span>
 	<span class="n">cax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="n">label_side</span><span class="p">)</span>
 	<span class="n">cbar</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">,</span> <span class="o">**</span><span class="n">cbar_kws</span><span class="p">)</span>  <span class="c1"># use_gridspec=True</span>
+	<span class="c1"># cbar.set_ticks([vmin,center,vmax])</span>
 	<span class="c1"># cbar.outline.set_color(&#39;white&#39;)</span>
 	<span class="c1"># cbar.outline.set_linewidth(2)</span>
 	<span class="c1"># cbar.dividers.set_color(&#39;red&#39;)</span>
@@ -978,6 +1015,7 @@
 	<span class="p">)</span>  <span class="c1"># gap height between two Patches,  0.05*mm2inch*72</span>
 	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;columnspacing&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+	<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
 	<span class="k">if</span> <span class="n">label_side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
 		<span class="n">lgd_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;markerfirst&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
@@ -1002,7 +1040,7 @@
 		<span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">markers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
 	<span class="p">]</span>  <span class="c1"># kws:?mpatches.Patch; rasterized=True</span>
 	<span class="n">ms</span> <span class="o">=</span> <span class="n">lgd_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;markersize&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-	<span class="n">Lgd</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
+	<span class="n">Lgd</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
 	<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 	<span class="k">while</span> <span class="n">Lgd</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">availabel_height</span><span class="p">:</span>
 		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Incresing ncol&quot;</span><span class="p">)</span>
@@ -1011,7 +1049,7 @@
 			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;More than 3 cols is not supported&quot;</span><span class="p">)</span>
 			<span class="n">Lgd</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 			<span class="k">return</span> <span class="kc">None</span>
-		<span class="n">Lgd</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
+		<span class="n">Lgd</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="o">**</span><span class="n">lgd_kws</span><span class="p">)</span>
 		<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 	<span class="n">Lgd</span><span class="o">.</span><span class="n">_legend_box</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="n">align</span>
 	<span class="k">if</span> <span class="n">color_text</span><span class="p">:</span>

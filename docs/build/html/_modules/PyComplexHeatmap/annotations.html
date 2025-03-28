@@ -142,6 +142,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
@@ -316,6 +317,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
@@ -416,7 +418,8 @@
 <span class="sd">	legend_kws: dict</span>
 <span class="sd">		vmax, vmin and other kws passed to plt.legend, such as title, prop, fontsize, labelcolor,</span>
 <span class="sd">		markscale, frameon, framealpha, fancybox, shadow, facecolor, edgecolor, mode and so on, for more</span>
-<span class="sd">		arguments, pleast type ?plt.legend. There is an additional parameter `color_text` (default is True),</span>
+<span class="sd">		arguments, pleast type ?plt.legend (https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html).</span>
+<span class="sd">		There is an additional parameter `color_text` (default is True),</span>
 <span class="sd">		which would set the color of the text to the same color as legend marker. if one set</span>
 <span class="sd">		`legend_kws={&#39;color_text&#39;:False}`, then, black would be the default color for the text.</span>
 <span class="sd">		If the user want to use a custom color instead of black (such as blue), please set</span>
@@ -440,10 +443,11 @@
 		<span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">plot_kws</span>
 	<span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_check_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="o">=</span> <span class="kc">None</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -483,7 +487,8 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">plot_kws</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AnnotationBase.set_label"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label">[docs]</a>	<span class="k">def</span> <span class="nf">set_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span></div>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span></div>
 
 <div class="viewcode-block" id="AnnotationBase.set_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend">[docs]</a>	<span class="k">def</span> <span class="nf">set_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend</span><span class="p">):</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

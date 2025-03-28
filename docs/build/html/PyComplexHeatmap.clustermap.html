@@ -145,6 +145,7 @@
 <li class="toctree-l1"><a class="reference internal" href="kwargs.html">Kwargs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
@@ -319,6 +320,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
@@ -451,11 +453,9 @@ groups and pass the clsutered order to row_split_order.</p></li>
 <li><p><strong>mask</strong> (<em class="hover">dataframe</em><em> or </em><em class="hover">array</em>) – mask the data in heatmap, the cell with missing values of infinite values will be masked automatically.</p></li>
 <li><p><strong>subplot_gap</strong> (<em class="hover">float</em>) – the gap between subplots, default is 1mm.</p></li>
 <li><p><strong>legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot heatmap legend, determined by cmap.</p></li>
-<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – <p>vmax, vmin and other kws passed to plot legend, such asfontsize,
-fontsize, labelcolor, numpoints, markerscale, markerfirst, frameon
-shadow, facecolor, edgecolor, title, title_fontsize, labelspacing and
-so on (see ?plt.legend) Alaternatively, we can also change the
-outline color and linewidth of cbar after plotting:
+<li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – <p>vmax, vmin and other kws passed to plot legend, such as
+use_gridspec, location, orientation, fraction, shrink, aspect, pad, anchor, panchor,
+extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing:
 <a href="#id1"><span class="problematic" id="id2">``</span></a>`
 cm=ClusterMapPlotter(…)
 for cbar in cm.cbars:
@@ -466,7 +466,8 @@ cbar.outline.set_linewidth(2)
 cbar.dividers.set_color(‘red’)
 cbar.dividers.set_linewidth(2)</p>
 </div></blockquote>
-<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a>`
+In addition to vmax,vmin, other parameters will be passed to <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar">https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar</a></p>
 </p></li>
 <li><p><strong>plot</strong> (<em class="hover">bool</em>) – whether to plot or not.</p></li>
 <li><p><strong>plot_legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot legend, if False, legends can be plot with

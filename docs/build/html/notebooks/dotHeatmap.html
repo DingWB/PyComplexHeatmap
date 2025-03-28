@@ -148,6 +148,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
@@ -322,6 +323,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
@@ -377,7 +379,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -400,7 +402,7 @@
 <section id="Load-an-example-brain-networks-dataset-from-seaborn">
 <h1>Load an example brain networks dataset from seaborn<a class="headerlink" href="#Load-an-example-brain-networks-dataset-from-seaborn" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -424,7 +426,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -432,7 +434,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -628,7 +630,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">Level</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -636,7 +638,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -645,7 +647,7 @@
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -653,7 +655,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -728,7 +730,7 @@
 <section id="Plot-traditional-heatmap-using-square-marker-marker='s'">
 <h1>Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code><a class="headerlink" href="#Plot-traditional-heatmap-using-square-marker-marker='s'" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -768,7 +770,7 @@ Estimated legend width: 7.5 mm
 <h1>Simple dot heatmap using fixed dot size<a class="headerlink" href="#Simple-dot-heatmap-using-fixed-dot-size" title="Permalink to this heading">¶</a></h1>
 <p>In default, using circle marker: <code class="docutils literal notranslate"><span class="pre">marker='o'</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -807,7 +809,7 @@ Estimated legend width: 7.5 mm
 <h1>Changing the size of point<a class="headerlink" href="#Changing-the-size-of-point" title="Permalink to this heading">¶</a></h1>
 <p>In default, we determined the size of the points based on the <code class="docutils literal notranslate"><span class="pre">value</span></code> col if parameter <code class="docutils literal notranslate"><span class="pre">s</span></code> was not given</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -847,7 +849,7 @@ Estimated legend width: 28.22361111111111 mm
 <section id="Add-parameter-hue-and-use-different-colors-for-different-groups">
 <h1>Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups<a class="headerlink" href="#Add-parameter-hue-and-use-different-colors-for-different-groups" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -887,7 +889,7 @@ Estimated legend width: 28.22361111111111 mm
 <section id="Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">
 <h1>Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups<a class="headerlink" href="#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -924,7 +926,7 @@ Plotting legends..
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -968,7 +970,7 @@ Plotting legends..
 <section id="Plot-clustermap-using-seaborn-brain-networks-dataset">
 <h1>Plot clustermap using seaborn brain networks dataset<a class="headerlink" href="#Plot-clustermap-using-seaborn-brain-networks-dataset" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -976,7 +978,7 @@ Plotting legends..
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1045,7 +1047,7 @@ Plotting legends..
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span><span class="o">=</span><span class="n">corr_mat</span><span class="p">[</span><span class="s1">&#39;level_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
@@ -1083,7 +1085,7 @@ level_1
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">Row</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_row</span><span class="o">.</span><span class="n">RowGroup</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
@@ -1120,7 +1122,7 @@ level_1
 <h1>Visualize up to five dimension data using DotClustermapPlotter<a class="headerlink" href="#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter" title="Permalink to this heading">¶</a></h1>
 <p>Plot enrichment analysis result using example dataset with samples annotations</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/kycg_result.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1145,7 +1147,7 @@ level_1
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1153,7 +1155,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1252,7 +1254,7 @@ level_1
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -1260,7 +1262,7 @@ level_1
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1277,7 +1279,7 @@ Name: -log10(Pval), dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">CpGType</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -1295,7 +1297,7 @@ Name: -log10(Pval), dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_col</span>
@@ -1303,7 +1305,7 @@ Name: -log10(Pval), dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1360,7 +1362,7 @@ Name: -log10(Pval), dtype: float64
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_row</span>
@@ -1368,7 +1370,7 @@ Name: -log10(Pval), dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1479,7 +1481,7 @@ Name: -log10(Pval), dtype: float64
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1533,7 +1535,7 @@ Estimated legend width: 25.930555555555557 mm
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -1575,7 +1577,7 @@ Estimated legend width: 30.516666666666666 mm
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-log10(Pval)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -1583,7 +1585,7 @@ Estimated legend width: 30.516666666666666 mm
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1600,7 +1602,7 @@ Name: -log10(Pval), dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
