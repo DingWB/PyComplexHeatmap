@@ -2358,7 +2358,7 @@ class ClusterMapPlotter:
 
 	def plot(self, ax=None, subplot_spec=None, row_order=None, col_order=None):
 		if self.verbose >= 1:
-			print("Starting plotting..")
+			print("Starting..")
 		if ax is None:
 			self.ax = plt.gca()
 		else:
@@ -2371,12 +2371,12 @@ class ClusterMapPlotter:
 		self._define_right_axes()
 		if row_order is None:
 			if self.verbose >= 1:
-				print("Starting calculating row orders..")
+				print("Calculating row orders..")
 			self._reorder_rows()
 			row_order = self.row_order
 		if col_order is None:
 			if self.verbose >= 1:
-				print("Starting calculating col orders..")
+				print("Calculating col orders..")
 			self._reorder_cols()
 			col_order = self.col_order
 		self.plot_matrix(row_order=row_order, col_order=col_order)

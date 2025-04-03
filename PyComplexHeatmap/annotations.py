@@ -1967,7 +1967,7 @@ class HeatmapAnnotation:
 		# print(ax.figure.get_size_inches())
 		self._set_label_kws(self.label_kws, self.ticklabels_kws)
 		if self.verbose >= 1:
-			print("Starting plotting HeatmapAnnotations")
+			print("Plotting HeatmapAnnotations")
 		if ax is None:
 			self.ax = plt.gca()
 		else:
