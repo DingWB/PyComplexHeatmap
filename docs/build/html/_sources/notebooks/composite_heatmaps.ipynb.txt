@@ -5,7 +5,7 @@
    "id": "81539ee6-de86-4077-8fe9-878614b2f0a0",
    "metadata": {},
    "source": [
-    "## Composite two heatmaps horizontally for mouse DNA methylation array dataset\n",
+    "# Composite two heatmaps horizontally for mouse DNA methylation array dataset\n",
     "The dataset used in the following example was obtained from PMID: 36617464\n",
     "        \n",
     "        \n",
@@ -562,9 +562,7 @@
    "cell_type": "markdown",
    "id": "9d75885c-1979-4142-b105-8dee474fc948",
    "metadata": {},
-   "source": [
-    "## What if the number of column (or row) annotations are different?"
-   ]
+   "source": "## What if the number of column (or row) annotations are different"
   },
   {
    "cell_type": "code",

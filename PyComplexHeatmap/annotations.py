@@ -1449,23 +1449,30 @@ class anno_dendrogram(AnnotationBase):
 		return self.ax
 
 class anno_spacer:
+	"""
+    A class to create a spacer annotation in a HeatmapAnnotation.
+
+    This class is used to add empty space between annotations in a heatmap,
+    providing better visual separation and organization, especially in heatmap
+    composition.
+
+    Parameters
+    ----------
+    height : float, optional
+        The height (height of column annotation and width of row annotation)
+        of the spacer in the heatmap. Default is 3.
+	"""
 	def __init__(
 		self,
-		df=False,
 		height=3,
-		label=None,
-		cmap=None,
-		legend=None,
-		legend_kws=None,
-		ylim=None
 	):
-		self.df=df
+		self.df=False
 		self.height = height
-		self.label=label
-		self.legend=legend
-		self.legend_kws=legend_kws if not legend_kws is None else {}
-		self.ylim=ylim
-		self.cmap=cmap
+		self.label=None
+		self.legend=None
+		self.legend_kws={}
+		self.ylim=None
+		self.cmap=None
 		self.colors=None
 		self.color_dict=None
 		self.nrows = 0
