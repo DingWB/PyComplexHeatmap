@@ -134,6 +134,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different?">What if the number of column (or row) annotations are different?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
@@ -231,6 +232,17 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -761,6 +773,52 @@ and other arguments passed to plt.scatter.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_simple.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_simple.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_simple.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PyComplexHeatmap.annotations.</span></span><span class="sig-name descname"><span class="pre">anno_spacer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class hover docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.get_label_width">
+<span class="sig-name descname"><span class="pre">get_label_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.get_label_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.get_label_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.get_max_label_width">
+<span class="sig-name descname"><span class="pre">get_max_label_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.get_max_label_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width">
+<span class="sig-name descname"><span class="pre">get_ticklabel_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.get_ticklabel_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.reorder">
+<span class="sig-name descname"><span class="pre">reorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.reorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.reorder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.set_label">
+<span class="sig-name descname"><span class="pre">set_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.set_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.set_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.set_legend">
+<span class="sig-name descname"><span class="pre">set_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.set_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.set_legend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyComplexHeatmap.annotations.anno_spacer.set_orientation">
+<span class="sig-name descname"><span class="pre">set_orientation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/annotations.html#anno_spacer.set_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.annotations.anno_spacer.set_orientation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

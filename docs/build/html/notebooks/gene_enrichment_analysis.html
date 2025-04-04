@@ -137,6 +137,7 @@
 <li class="toctree-l2"><a class="reference internal" href="differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different?">What if the number of column (or row) annotations are different?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
@@ -234,6 +235,17 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -409,7 +421,7 @@
 <section id="Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">
 <h2>Why do we need a better way to visualize the gene set enrichment analysis result?<a class="headerlink" href="#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?" title="Permalink to this heading">¶</a></h2>
 <h3><p>Traditionally, we have to plot lots of barplot or dotplot to visualize the gene set enrichment analysis. For example:</p>
-</h3><p><img alt="16eb976381b0479f8a402f538757568e" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="8645c82dd84344b29054758b65ca00f9" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
+</h3><p><img alt="2a3871ee4a4943478d2848f40beb91ec" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Barplot-1.png" style="width: 1000px;" /> <img alt="285790b8fdf045a18cc6976563d78ec8" class="no-scaled-link" src="https://yulab-smu.top/biomedical-knowledge-mining-book/biomedicalKnowledge_files/figure-html/Dotplotcap-1.png" style="width: 1000px;" /></p>
 <h3><p>What if we had lots of cell types and performed gene set enrichment analysis for each cell types? It is not a good idea to plot lots of barplot or dotplot in the manuscript.</p>
 </h3><p>In this case, we can merge all the enriched result into one matrix and plot a <strong>dotHeatmap</strong> using <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap">PyComplexHeatmap</a></p>
 </section>
@@ -1170,7 +1182,7 @@ Estimated legend width: 23.6375 mm
 </h4></section>
 <section id="How-to-select-marker:">
 <h2>How to select marker:<a class="headerlink" href="#How-to-select-marker:" title="Permalink to this heading">¶</a></h2>
-<p><img alt="3ee138931c3149b789483635682e9181" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
+<p><img alt="b8bd0c28e08e4ad9b452dc2c2ae2be16" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/markers.png" style="width: 1000px;" /></p>
 </section>
 </section>
 

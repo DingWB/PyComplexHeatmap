@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different?">What if the number of column (or row) annotations are different?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
@@ -228,6 +229,17 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1624,10 +1636,10 @@
 		<span class="n">right_annotation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-		<span class="n">row_cluster_method</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">,</span>
-		<span class="n">row_cluster_metric</span><span class="o">=</span><span class="s2">&quot;correlation&quot;</span><span class="p">,</span>
-		<span class="n">col_cluster_method</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">,</span>
-		<span class="n">col_cluster_metric</span><span class="o">=</span><span class="s2">&quot;correlation&quot;</span><span class="p">,</span>
+		<span class="n">row_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span>
+		<span class="n">row_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+		<span class="n">col_cluster_method</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span>
+		<span class="n">col_cluster_metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
 		<span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">row_names_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
@@ -2732,7 +2744,7 @@
 
 <div class="viewcode-block" id="ClusterMapPlotter.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting..&quot;</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting..&quot;</span><span class="p">)</span>
 		<span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 		<span class="k">else</span><span class="p">:</span>
@@ -2745,12 +2757,12 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_define_right_axes</span><span class="p">()</span>
 		<span class="k">if</span> <span class="n">row_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating row orders..&quot;</span><span class="p">)</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating row orders..&quot;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_reorder_rows</span><span class="p">()</span>
 			<span class="n">row_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_order</span>
 		<span class="k">if</span> <span class="n">col_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting calculating col orders..&quot;</span><span class="p">)</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating col orders..&quot;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_reorder_cols</span><span class="p">()</span>
 			<span class="n">col_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_order</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_matrix</span><span class="p">(</span><span class="n">row_order</span><span class="o">=</span><span class="n">row_order</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="n">col_order</span><span class="p">)</span>

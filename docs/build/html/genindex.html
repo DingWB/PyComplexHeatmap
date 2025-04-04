@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different?">What if the number of column (or row) annotations are different?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
@@ -228,6 +229,17 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -419,6 +431,8 @@
 </li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple">anno_simple (class in PyComplexHeatmap.annotations)</a>
 </li>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer">anno_spacer (class in PyComplexHeatmap.annotations)</a>
+</li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase">AnnotationBase (class in PyComplexHeatmap.annotations)</a>
 </li>
       <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap">axis_ticklabels_overlap() (in module PyComplexHeatmap.utils)</a>
@@ -537,8 +551,12 @@
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords">get_coords() (PyComplexHeatmap.clustermap.DendrogramPlotter method)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width">get_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width">get_label_width() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
+      </ul></li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list">get_legend_list() (PyComplexHeatmap.annotations.HeatmapAnnotation method)</a>
 
       <ul>
@@ -547,8 +565,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">get_max_label_width() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width">get_max_label_width() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
+      </ul></li>
       <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors">get_palettable_colors() (in module PyComplexHeatmap.colors)</a>
 </li>
       <li><a href="PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order">get_samples_order() (PyComplexHeatmap.oncoPrint.oncoPrintPlotter method)</a>
@@ -556,6 +578,8 @@
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width">get_ticklabel_width() (PyComplexHeatmap.annotations.anno_label method)</a>
 
       <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width">(PyComplexHeatmap.annotations.anno_spacer method)</a>
+</li>
         <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
       </ul></li>
@@ -647,6 +671,8 @@
 </li>
         <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot">(PyComplexHeatmap.annotations.anno_simple method)</a>
 </li>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot">(PyComplexHeatmap.annotations.anno_spacer method)</a>
+</li>
         <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot">(PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>
 </li>
         <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot">(PyComplexHeatmap.clustermap.DendrogramPlotter method)</a>
@@ -672,10 +698,10 @@
         <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">(PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>
 </li>
       </ul></li>
-      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend">plot_marker_legend() (in module PyComplexHeatmap.utils)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend">plot_marker_legend() (in module PyComplexHeatmap.utils)</a>
+</li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix">plot_matrix() (PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>
 
       <ul>
@@ -751,12 +777,16 @@
 </li>
       <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap">register_cmap() (in module PyComplexHeatmap.colors)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable">register_palettable() (in module PyComplexHeatmap.colors)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder">reorder() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder">reorder() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
+      </ul></li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind">reordered_ind (PyComplexHeatmap.clustermap.DendrogramPlotter property)</a>
 </li>
   </ul></td>
@@ -777,14 +807,26 @@
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height">set_height() (PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label">set_label() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label">set_label() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
+      </ul></li>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend">set_legend() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend">set_legend() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
+      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation">set_orientation() (PyComplexHeatmap.annotations.anno_spacer method)</a>
+
+      <ul>
+        <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation">(PyComplexHeatmap.annotations.AnnotationBase method)</a>
 </li>
-      <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation">set_orientation() (PyComplexHeatmap.annotations.AnnotationBase method)</a>
-</li>
+      </ul></li>
       <li><a href="PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws">set_plot_kws() (PyComplexHeatmap.annotations.anno_label method)</a>
 </li>
       <li><a href="PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width">set_width() (PyComplexHeatmap.clustermap.ClusterMapPlotter method)</a>

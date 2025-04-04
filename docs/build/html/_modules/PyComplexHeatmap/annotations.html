@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different?">What if the number of column (or row) annotations are different?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/cpg_modules.html#Processing-the-data">Processing the data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
@@ -228,6 +229,17 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -483,6 +495,7 @@
 
 <div class="viewcode-block" id="AnnotationBase.set_orientation"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation">[docs]</a>	<span class="k">def</span> <span class="nf">set_orientation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span></div>
+
 <div class="viewcode-block" id="AnnotationBase.update_plot_kws"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws">[docs]</a>	<span class="k">def</span> <span class="nf">update_plot_kws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_kws</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">plot_kws</span><span class="p">)</span></div>
 
@@ -703,6 +716,7 @@
 
 	<span class="k">def</span> <span class="nf">_type_specific_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">pass</span>
+
 <div class="viewcode-block" id="anno_simple.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 		<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">):</span>
 			<span class="n">vmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span>
@@ -1163,7 +1177,6 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
-
 <span class="c1"># =============================================================================</span>
 <div class="viewcode-block" id="anno_barplot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot">[docs]</a><span class="k">class</span> <span class="nc">anno_barplot</span><span class="p">(</span><span class="n">anno_boxplot</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
@@ -1457,7 +1470,6 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
 
-
 <div class="viewcode-block" id="anno_img"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img">[docs]</a><span class="k">class</span> <span class="nc">anno_img</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Annotate images.</span>
@@ -1558,6 +1570,7 @@
 
 	<span class="k">def</span> <span class="nf">_type_specific_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">pass</span>
+
 <div class="viewcode-block" id="anno_img.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 		<span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -1820,6 +1833,79 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span></div></div>
+
+<div class="viewcode-block" id="anno_spacer"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer">[docs]</a><span class="k">class</span> <span class="nc">anno_spacer</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+		<span class="bp">self</span><span class="p">,</span>
+		<span class="n">df</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+		<span class="n">height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+		<span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">ylim</span><span class="o">=</span><span class="kc">None</span>
+	<span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">=</span><span class="n">df</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">=</span><span class="n">label</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">=</span><span class="n">legend</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">=</span><span class="n">legend_kws</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">legend_kws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">=</span><span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">=</span><span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="anno_spacer.set_label"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label">[docs]</a>	<span class="k">def</span> <span class="nf">set_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="anno_spacer.set_legend"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend">[docs]</a>	<span class="k">def</span> <span class="nf">set_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="o">=</span> <span class="n">legend</span></div>
+
+<div class="viewcode-block" id="anno_spacer.set_orientation"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation">[docs]</a>	<span class="k">def</span> <span class="nf">set_orientation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span></div>
+
+<div class="viewcode-block" id="anno_spacer.reorder"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder">[docs]</a>	<span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+		<span class="c1"># Before plotting, df needs to be reordered according to the new clustered order.</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="anno_spacer.get_label_width"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width">[docs]</a>	<span class="k">def</span> <span class="nf">get_label_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="anno_spacer.get_ticklabel_width"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width">[docs]</a>	<span class="k">def</span> <span class="nf">get_ticklabel_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="anno_spacer.get_max_label_width"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width">[docs]</a>	<span class="k">def</span> <span class="nf">get_max_label_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="anno_spacer.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1"># ax.tick_params(</span>
+		<span class="c1"># 	axis=&quot;both&quot;,</span>
+		<span class="c1"># 	which=&quot;both&quot;,</span>
+		<span class="c1"># 	left=False,</span>
+		<span class="c1"># 	right=False,</span>
+		<span class="c1"># 	top=False,</span>
+		<span class="c1"># 	bottom=False,</span>
+		<span class="c1"># 	labeltop=False,</span>
+		<span class="c1"># 	labelbottom=False,</span>
+		<span class="c1"># 	labelleft=False,</span>
+		<span class="c1"># 	labelright=False,</span>
+		<span class="c1"># )</span>
+		<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+		<span class="c1"># ax.xaxis.set_visible(False)</span>
+		<span class="c1"># ax.yaxis.label.set_visible(False)</span>
+		<span class="c1"># ax.yaxis.set_visible(False)</span>
+		<span class="c1"># ax.xaxis.label.set_visible(False)</span>
+		<span class="c1"># ax.spines[&quot;top&quot;].set_visible(False)</span>
+		<span class="c1"># ax.spines[&quot;bottom&quot;].set_visible(False)</span>
+		<span class="c1"># ax.spines[&quot;left&quot;].set_visible(False)</span>
+		<span class="c1"># ax.spines[&quot;right&quot;].set_visible(False)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+		<span class="k">return</span> <span class="n">ax</span></div></div>
 
 <span class="c1"># =============================================================================</span>
 <div class="viewcode-block" id="HeatmapAnnotation"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation">[docs]</a><span class="k">class</span> <span class="nc">HeatmapAnnotation</span><span class="p">:</span>
@@ -2088,9 +2174,7 @@
 						<span class="n">anno1</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
 						<span class="n">anno1</span><span class="o">.</span><span class="n">set_legend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
 						<span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anno1</span><span class="p">)</span>
-				<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;set_label&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">AnnotationBase</span><span class="o">.</span><span class="fm">__subclasscheck__</span><span class="p">(</span>
-					<span class="nb">type</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
-				<span class="p">):</span>
+				<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;set_label&quot;</span><span class="p">):</span> <span class="c1">#and AnnotationBase.__subclasscheck__(type(ann)):</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
 					<span class="n">ann</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
 					<span class="n">ann</span><span class="o">.</span><span class="n">set_legend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
@@ -2341,7 +2425,7 @@
 		<span class="c1"># print(ax.figure.get_size_inches())</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_set_label_kws</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_kws</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticklabels_kws</span><span class="p">)</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting plotting HeatmapAnnotations&quot;</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting HeatmapAnnotations&quot;</span><span class="p">)</span>
 		<span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 		<span class="k">else</span><span class="p">:</span>

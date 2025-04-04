@@ -109,6 +109,7 @@ class AnnotationBase:
 
 	def set_orientation(self, orientation):
 		self.orientation = orientation
+
 	def update_plot_kws(self, plot_kws):
 		self.plot_kws.update(plot_kws)
 
@@ -329,6 +330,7 @@ class anno_simple(AnnotationBase):
 
 	def _type_specific_params(self):
 		pass
+
 	def plot(self, ax=None, axis=1):
 		if hasattr(self.cmap, "N"):
 			vmax = self.cmap.N - 1
@@ -789,7 +791,6 @@ class anno_boxplot(AnnotationBase):
 		self.ax = ax
 		return self.ax
 
-
 # =============================================================================
 class anno_barplot(anno_boxplot):
 	"""
@@ -1083,7 +1084,6 @@ class anno_scatterplot(anno_barplot):
 		self.ax = ax
 		return self.ax
 
-
 class anno_img(AnnotationBase):
 	"""
 	Annotate images.
@@ -1184,6 +1184,7 @@ class anno_img(AnnotationBase):
 
 	def _type_specific_params(self):
 		pass
+
 	def plot(self, ax=None, axis=1):
 		if ax is None:
 			ax = plt.gca()
@@ -1446,6 +1447,79 @@ class anno_dendrogram(AnnotationBase):
 		self.ax = ax
 		self.fig = self.ax.figure
 		return self.ax
+
+class anno_spacer:
+	def __init__(
+		self,
+		df=False,
+		height=3,
+		label=None,
+		cmap=None,
+		legend=None,
+		legend_kws=None,
+		ylim=None
+	):
+		self.df=df
+		self.height = height
+		self.label=label
+		self.legend=legend
+		self.legend_kws=legend_kws if not legend_kws is None else {}
+		self.ylim=ylim
+		self.cmap=cmap
+		self.colors=None
+		self.color_dict=None
+		self.nrows = 0
+		self.ncols = 0
+
+	def set_label(self, label):
+		if self.label is None:
+			self.label = label
+
+	def set_legend(self, legend):
+		if self.legend is None:
+			self.legend = legend
+
+	def set_orientation(self, orientation):
+		self.orientation = orientation
+
+	def reorder(self, idx):
+		# Before plotting, df needs to be reordered according to the new clustered order.
+		self.plot_data = None  #
+		self.nrows = []
+
+	def get_label_width(self):
+		return 0
+
+	def get_ticklabel_width(self):
+		return 0
+
+	def get_max_label_width(self):
+		return 0
+
+	def plot(self,ax=None, axis=None):
+		# ax.tick_params(
+		# 	axis="both",
+		# 	which="both",
+		# 	left=False,
+		# 	right=False,
+		# 	top=False,
+		# 	bottom=False,
+		# 	labeltop=False,
+		# 	labelbottom=False,
+		# 	labelleft=False,
+		# 	labelright=False,
+		# )
+		ax.set_axis_off()
+		# ax.xaxis.set_visible(False)
+		# ax.yaxis.label.set_visible(False)
+		# ax.yaxis.set_visible(False)
+		# ax.xaxis.label.set_visible(False)
+		# ax.spines["top"].set_visible(False)
+		# ax.spines["bottom"].set_visible(False)
+		# ax.spines["left"].set_visible(False)
+		# ax.spines["right"].set_visible(False)
+		self.ax=ax
+		return ax
 
 # =============================================================================
 class HeatmapAnnotation:
@@ -1714,9 +1788,7 @@ class HeatmapAnnotation:
 						anno1.set_label(arg)
 						anno1.set_legend(self.legend.get(arg, False))
 						self.annotations.append(anno1)
-				if hasattr(ann, "set_label") and AnnotationBase.__subclasscheck__(
-					type(ann)
-				):
+				if hasattr(ann, "set_label"): #and AnnotationBase.__subclasscheck__(type(ann)):
 					self.annotations.append(ann)
 					ann.set_label(arg)
 					ann.set_legend(self.legend.get(arg, False))
