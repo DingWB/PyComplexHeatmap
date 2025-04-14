@@ -1766,7 +1766,7 @@ class ClusterMapPlotter:
 			if isinstance(self.row_split, pd.Series):
 				self.row_split = self.row_split.to_frame(name=self.row_split.name)
 			cols = self.row_split.columns.tolist()
-			row_clusters = self.row_split.groupby(cols).apply(
+			row_clusters = self.row_split.groupby(cols,sort=False).apply(
 				lambda x: x.index.tolist()
 			)
 			if (
@@ -1833,7 +1833,7 @@ class ClusterMapPlotter:
 			if isinstance(self.col_split, pd.Series):
 				self.col_split = self.col_split.to_frame(name=self.col_split.name)
 			cols = self.col_split.columns.tolist()
-			col_clusters = self.col_split.groupby(cols).apply(
+			col_clusters = self.col_split.groupby(cols,sort=False).apply(
 				lambda x: x.index.tolist()
 			)
 			if (
