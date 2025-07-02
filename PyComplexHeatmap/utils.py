@@ -427,7 +427,7 @@ def adjust_cmap(cmap,vmin,vmax,center=None,na_col='white'):
 	return cmap
 # =============================================================================
 def plot_color_dict_legend(
-	D=None, ax=None, title=None, color_text=True, label_side="right", kws=None
+	D=None, ax=None, title=None, color_text=True, kws=None
 ):
 	"""
 	plot legned for color dict
@@ -438,7 +438,6 @@ def plot_color_dict_legend(
 	ax: axes to plot the legend.
 	title: title of legend.
 	color_text: whether to change the color of text based on the color in D.
-	label_side: right of left.
 	kws: kws passed to plt.legend.
 
 	Returns
@@ -455,7 +454,7 @@ def plot_color_dict_legend(
 	lgd_kws["bbox_transform"] = ax.figure.transFigure
 	lgd_kws.setdefault("borderpad", 0.1 * mm2inch * 72)  # 0.1mm
 	lgd_kws.setdefault("markerscale", 1)
-	lgd_kws.setdefault("handleheight", 1)  # font size, units is points
+	lgd_kws.setdefault("handleheight", 0.7)  # font size, units is points
 	lgd_kws.setdefault("handlelength", 1)  # font size, units is points
 	lgd_kws.setdefault(
 		"borderaxespad", 0.1
@@ -466,15 +465,16 @@ def plot_color_dict_legend(
 	lgd_kws.setdefault(
 		"labelspacing", 0.1
 	)  # gap height between two Patches,  0.05*mm2inch*72
-	lgd_kws.setdefault("columnspacing", 1)
+	lgd_kws.setdefault("columnspacing", 0.4)
 	lgd_kws.setdefault("bbox_to_anchor", (0, 1))
 	lgd_kws.setdefault("title", title)
-	if label_side == "left":
-		lgd_kws.setdefault("markerfirst", False)
-		align = "right"
-	else:
-		lgd_kws.setdefault("markerfirst", True)
-		align = "left"
+	lgd_kws.setdefault("markerfirst", True)
+	# if label_side == "left":
+	# 	lgd_kws.setdefault("markerfirst", False)
+	# 	align = "right"
+	# else:
+	# 	lgd_kws.setdefault("markerfirst", True)
+	# 	align = "left"
 
 	availabel_height = (
 		ax.figure.get_window_extent().height * lgd_kws["bbox_to_anchor"][1]
@@ -494,7 +494,9 @@ def plot_color_dict_legend(
 			return None
 		L = ax.legend(handles=l, **lgd_kws)
 		ax.figure.canvas.draw()
-	L._legend_box.align = align
+	# L._legend_box.align = align
+	L._legend_box.align = 'center'
+	L.get_title().set_ha('center')
 	if color_text:
 		for text in L.get_texts():
 			try:
@@ -576,7 +578,7 @@ def plot_cmap_legend(
 
 # =============================================================================
 def plot_marker_legend(
-	obj=None, ax=None, title=None, color_text=True, label_side="right", kws=None
+	obj=None, ax=None, title=None, color_text=True, kws=None
 ):
 	"""
 	plot legned for different marker
@@ -587,7 +589,6 @@ def plot_marker_legend(
 	ax: axes to plot the legend.
 	title: title of legend.
 	color_text: whether to change the color of text based on the color in D.
-	label_side: right of left.
 	kws: kws passed to plt.legend.
 
 	Returns
@@ -628,7 +629,7 @@ def plot_marker_legend(
 		ms_dict = ms
 
 	lgd_kws.setdefault("markerscale", 1)
-	lgd_kws.setdefault("handleheight", 1)  # font size, units is points
+	lgd_kws.setdefault("handleheight", 0.7)  # font size, units is points
 	lgd_kws.setdefault("handlelength", 1)  # font size, units is points
 	lgd_kws.setdefault(
 		"borderaxespad", 0.1
@@ -642,12 +643,7 @@ def plot_marker_legend(
 	lgd_kws.setdefault("columnspacing", 1)
 	lgd_kws.setdefault("bbox_to_anchor", (0, 1))
 	lgd_kws.setdefault("title", title)
-	if label_side == "left":
-		lgd_kws.setdefault("markerfirst", False)
-		align = "right"
-	else:
-		lgd_kws.setdefault("markerfirst", True)
-		align = "left"
+	lgd_kws.setdefault("markerfirst", True)
 
 	availabel_height = (
 		ax.figure.get_window_extent().height * lgd_kws["bbox_to_anchor"][1]
@@ -666,30 +662,31 @@ def plot_marker_legend(
 		for l, m in markers.items()
 	]  # kws:?mpatches.Patch; rasterized=True
 	ms = lgd_kws.pop("markersize", 10)
-	Lgd = ax.legend(handles=L, **lgd_kws)
+	lgd = ax.legend(handles=L, **lgd_kws)
 	ax.figure.canvas.draw()
-	while Lgd.get_window_extent().height > availabel_height:
+	while lgd.get_window_extent().height > availabel_height:
 		print("Incresing ncol")
 		lgd_kws["ncol"] += 1
 		if lgd_kws["ncol"] >= 3:
 			print("More than 3 cols is not supported")
-			Lgd.remove()
+			lgd.remove()
 			return None
-		Lgd = ax.legend(handles=L, **lgd_kws)
+		lgd = ax.legend(handles=L, **lgd_kws)
 		ax.figure.canvas.draw()
-	Lgd._legend_box.align = align
+	lgd._legend_box.align = 'center'
+	lgd.get_title().set_ha('center')
 	if color_text:
-		for text in Lgd.get_texts():
+		for text in lgd.get_texts():
 			try:
 				lum = _calculate_luminance(color_dict[text.get_text()])
 				text_color = "black" if lum > 0.408 else color_dict[text.get_text()]
 				text.set_color(text_color)
 			except:
 				pass
-	ax.add_artist(Lgd)
+	ax.add_artist(lgd)
 	ax.grid(False)
 	# print(availabel_height,L.get_window_extent().height)
-	return Lgd
+	return lgd
 
 
 # =============================================================================
@@ -870,7 +867,6 @@ def plot_legend_list(
 				D=obj,
 				ax=ax1,
 				title=title,
-				label_side=legend_side,
 				color_text=color_text,
 				kws=legend_kws,
 			)
@@ -906,7 +902,6 @@ def plot_legend_list(
 					D=obj,
 					ax=ax1,
 					title=title,
-					label_side=legend_side,
 					color_text=color_text,
 					kws=legend_kws,
 				)
@@ -929,7 +924,6 @@ def plot_legend_list(
 				obj=obj,
 				ax=ax1,
 				title=title,
-				label_side=legend_side,
 				color_text=color_text,
 				kws=legend_kws,
 			)  # obj is a tuple: markers and colors
@@ -965,7 +959,6 @@ def plot_legend_list(
 					obj=obj,
 					ax=ax1,
 					title=title,
-					label_side=legend_side,
 					color_text=color_text,
 					kws=legend_kws,
 				)
