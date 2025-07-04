@@ -901,12 +901,14 @@ class anno_barplot(anno_boxplot):
 			colors=[self.color_dict[col] for col in self.plot_data.columns]
 
 		base_coordinates = [0] * self.plot_data.shape[0]
+		height=self.plot_kws.pop('bar_height',0.8) # for barh (row)
+		width=self.plot_kws.pop('bar_width',0.8) # for bar (column)
 		for col, color in zip(self.plot_data.columns, colors):
 			if axis == 1: #columns annotations
 				ax.set_xticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.bar(
 					x=np.arange(0.5, self.nrows, 1),
-					height=self.plot_data[col].values,
+					height=self.plot_data[col].values,width=width,
 					bottom=base_coordinates,
 					color=color,
 					**plot_kws
@@ -917,7 +919,7 @@ class anno_barplot(anno_boxplot):
 				ax.set_yticks(ticks=np.arange(0.5, self.nrows, 1))
 				ax.barh(
 					y=np.arange(0.5, self.nrows, 1),
-					width=self.plot_data[col].values,
+					width=self.plot_data[col].values,height=height,
 					left=base_coordinates,
 					color=color,
 					**plot_kws
