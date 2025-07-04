@@ -1440,7 +1440,9 @@ class anno_dendrogram(AnnotationBase):
 		pass
 
 	def plot(self, ax=None, axis=1):
-		self.plot_kws.setdefault("tree_kws", dict(colors=self.colors))
+		if 'tree_kws' not in self.plot_kws:
+			self.plot_kws['tree_kws']={}
+		self.plot_kws["tree_kws"].setdefault(colors=self.colors)
 		# inint the DendrogramPlotter class object
 		ax.set_axis_off()
 		self.dend.plot(ax=ax,axis=axis,**self.plot_kws)

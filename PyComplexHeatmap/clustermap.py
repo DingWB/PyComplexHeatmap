@@ -986,7 +986,7 @@ class DendrogramPlotter(object):
 				bx, by = evaluate_bezier(getControlPoints((x[0],y[0]),center,axis=self.axis))
 				ax.plot(bx, by, color=color)
 				bx, by = evaluate_bezier(getControlPoints((x[-1], y[-1]), center,axis=self.axis))
-				ax.plot(bx, by, color=color)
+				ax.plot(bx, by, color=color,**tree_kws)
 				if root_dot:
 					ax.scatter(center_x, center_y, color=color,s=dotsize)
 				ax.scatter(x[0], y[0], color=color, s=dotsize)
