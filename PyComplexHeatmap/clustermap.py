@@ -2325,7 +2325,7 @@ class ClusterMapPlotter:
 				or self.legend_anchor == "ax_heatmap"
 			):
 				self.label_max_width = heatmap_label_max_width  # * 1.1
-			self.get_legend_list() #self.legend_list will be created
+		self.get_legend_list() #self.legend_list will be created
 
 	def plot_legends(self, ax=None):
 		if self.verbose >= 1:

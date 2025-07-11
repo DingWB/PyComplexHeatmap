@@ -573,9 +573,9 @@ class anno_label(AnnotationBase):
 				orientation = "up"
 			elif axis == 1:
 				orientation = "down"
-			elif axis == 0 and i <= 0.5:
+			elif axis == 0 and i <= 0.5: #anno_label is on the top (left)
 				orientation = "left"
-			else:
+			else: # on the bottom (right)
 				orientation = "right"
 			self.orientation = orientation
 		self.set_plot_kws(axis)
