@@ -17,11 +17,11 @@ PyComplexHeatmap is a Python package to plot complex heatmap (clustermap). Pleas
 
 ## Dependencies:
 ----------------------
-- matplotlib<=3.7.5
+- matplotlib
 - numpy
 - pandas
 - scipy
-- fastcluster
+- fastcluster (optional)
 ```
 pip install --ignore-install matplotlib numpy pandas fastcluster
 ```
