@@ -1088,7 +1088,8 @@ class anno_scatterplot(anno_barplot):
 
 class anno_img(AnnotationBase):
 	"""
-	Annotate images.
+	Annotate images. Tested images format includes png, jpg, svg, and other formats supported by PIL (PIL.Image.open).
+	All arguments are included in AnnotationBase,
 
 	Parameters
 	----------
@@ -1157,10 +1158,19 @@ class anno_img(AnnotationBase):
 				new_shape=tuple([shape[1],shape[0]]+list(shape[2:]))
 				# print(shape, new_shape,type(shape), 'here')
 				return np.full(new_shape, self.border_color)
-		if os.path.exists(img_path):
+		if img_path.lower().endswith('.svg'): # type: ignore #PIL does not support svg
+			# Convert SVG to PNG using cairosvg
+			try:
+				import cairosvg
+			except ImportError:
+				raise ImportError("cairosvg is required to convert SVG images. Please install it via 'pip install cairosvg'.")
+			png_data = BytesIO()
+			cairosvg.svg2png(url=img_path,write_to=png_data,dpi=300) #img_path could be a remote url
+			image = PIL.Image.open(png_data)
+		elif os.path.exists(img_path): # type: ignore
 			image = PIL.Image.open(img_path) #mpimg.imread(img_path)
 		else: #remote file
-			response = requests.get(img_path)
+			response = requests.get(img_path) # type: ignore
 			# Open the image from bytes
 			image = PIL.Image.open(BytesIO(response.content))
 		if image.mode != self.mode:
