@@ -70,6 +70,8 @@ class AnnotationBase:
 		legend_kws=None,
 		ylim=None,
 		label=None,
+		invert_x=False,
+		invert_y=False,
 		**plot_kws
 	):
 		self._check_df(df)
@@ -81,6 +83,8 @@ class AnnotationBase:
 		self.height = self._height(height)
 		self._type_specific_params()
 		self.legend = legend
+		self.invert_x=invert_x
+		self.invert_y=invert_y
 		self.legend_kws = legend_kws if not legend_kws is None else {}
 		self._set_default_plot_kws(plot_kws)
 
@@ -2177,6 +2181,10 @@ class HeatmapAnnotation:
 					self.axes[j, i] = ax1
 					if self.orientation == "left":
 						ax1.invert_xaxis()
+				if ann.invert_x:
+					ax1.invert_xaxis()
+				if ann.invert_y:
+					ax1.invert_yaxis()
 
 		self.set_axes_kws()
 		self.legend_list = None
