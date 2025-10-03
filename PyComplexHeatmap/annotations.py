@@ -1967,12 +1967,12 @@ class HeatmapAnnotation:
 					self.axes[0, j].xaxis.set_tick_params(**self.ticklabels_kws)
 
 	def get_legend_list(self):
-		if len(self.legend_dict) > 1 and self.legend_order in [True,"auto"]:
+		if len(self.legend_dict) >= 1 and self.legend_order in [True,"auto"]:
 			self.legend_list=[self.legend_dict[k] for k in self.legend_dict.keys()]
 			self.legend_list = sorted(self.legend_list, key=lambda x: x[3])
-		elif len(self.legend_dict) > 1 and isinstance(self.legend_order,(list,tuple)):
+		elif len(self.legend_dict) >= 1 and isinstance(self.legend_order,(list,tuple)):
 			self.legend_list = [self.legend_dict[k] for k in self.legend_order if k in self.legend_dict]
-		elif len(self.legend_dict) > 1:
+		elif len(self.legend_dict) >= 1:
 			self.legend_list = [self.legend_dict[k] for k in self.legend_dict.keys()]
 		else:
 			self.legend_list=[]
