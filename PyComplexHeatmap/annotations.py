@@ -50,6 +50,14 @@ class AnnotationBase:
 		`legend_kws={'color_text':False}`, then, black would be the default color for the text.
 		If the user want to use a custom color instead of black (such as blue), please set
 		legend_kws={'color_text':False,'labelcolor':'blue'}.
+	ylim: tuple
+		y axis limits for the annotation when axis=1, x axis limits when axis=0.
+	label: str
+		label for the annotation, will be set to the axis label and the legend title if legend is True.
+	invert_x: bool
+		whether to invert x axis when axis=0, default is False.
+	invert_y: bool
+		whether to invert y axis when axis=1, default is False.
 	plot_kws: dict
 		other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,
 		annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,
