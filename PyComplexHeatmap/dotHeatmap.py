@@ -634,7 +634,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					k = str(round(ratio * smax, 2))
 					markers1[k] = self.dot_legend_marker
 					ms[k] = ratio  * np.sqrt(max_s) * self.alpha
-				print(ms)
+				# print(ms)
 				title = self.s if not self.s is None else self.value
 				self.legend_dict[f"{title} (dot)"]=tuple(
 					[
