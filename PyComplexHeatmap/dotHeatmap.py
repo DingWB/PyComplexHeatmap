@@ -325,6 +325,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		spines=False,
 		grid='minor',
 		max_s=None,
+		min_s=0.01
 		**kwargs
 	):
 		# if not hue is None:
@@ -352,6 +353,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 		self.dot_legend_kws = dot_legend_kws
 		self.dot_legend_marker=dot_legend_marker
 		self.max_s=max_s
+		self.min_s=min_s
 
 		super().__init__(**kwargs)
 
@@ -392,7 +394,7 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
 			if not self.smin is None: #s is a dataframe, perform standard normalization.
 				delta=self.smax-self.smin
-				self.kwargs["s"]=self.kwargs["s"].applymap(lambda x:(x-self.smin)/delta)
+				self.kwargs["s"]=self.kwargs["s"].applymap(lambda x:max((x-self.smin)/delta,self.min_s))
 
 		# c
 		if not self.c is None:
