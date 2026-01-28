@@ -1501,6 +1501,8 @@ class anno_spacer:
 		self.cmap=None
 		self.colors=None
 		self.color_dict=None
+		self.invert_x=False,
+		self.invert_y=False,
 		self.nrows = 0
 		self.ncols = 0
 
