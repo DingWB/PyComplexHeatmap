@@ -26,7 +26,6 @@ def oncoprint(
 	colors=None,
 	cmap="Set1",
 	nvar=None,
-	fillna=None,
 	aspect=None,
 	bgcolor="whitesmoke",
 	row_gap=1,
