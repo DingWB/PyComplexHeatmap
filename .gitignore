@@ -6,3 +6,5 @@
 /notebooks/.ipynb_checkpoints/
 /notebooks/*.pdf
 /dist/
+data/data.pkl
+notebooks/oncoPrint3.ipynb

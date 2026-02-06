@@ -26,6 +26,7 @@ def oncoprint(
 	colors=None,
 	cmap="Set1",
 	nvar=None,
+	fillna=None,
 	aspect=None,
 	bgcolor="whitesmoke",
 	row_gap=1,
@@ -234,6 +235,9 @@ class oncoPrintPlotter(ClusterMapPlotter):
 		)
 		self.col_vc = data2d.apply(lambda x: x.apply(np.array).sum(), axis=0).T
 		self.col_vc.columns = self.values
+		# fillna
+		na_value=[0] * len(self.values)
+		data2d=data2d.applymap(lambda x:na_value if not isinstance(x,list) else x)
 		if self.colors is None:
 			self.colors = [get_colormap(self.cmap)(i) for i in range(len(self.values))]
 		self.color_dict = {}
