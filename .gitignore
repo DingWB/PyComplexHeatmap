@@ -8,3 +8,5 @@
 /dist/
 data/data.pkl
 notebooks/oncoPrint3.ipynb
+data/GBM_data.pkl
+notebooks/GBM.ipynb
