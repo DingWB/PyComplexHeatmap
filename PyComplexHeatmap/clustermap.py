@@ -2175,10 +2175,10 @@ class ClusterMapPlotter:
 			and (
 			(not self.bottom_annotation is None)
 			or (self.bottom_annotation is None and self.col_names_side == "top")
-		)
-		):
+			)
+		): # tick top
 			self.xticklabels_kws.setdefault("labelrotation", 90)
-			ha = 'left' if self.xticklabels_kws.get('labelrotation') > 0 else 'right'
+			ha = 'left' if self.xticklabels_kws.get('labelrotation') > 0 else 'right' if self.xticklabels_kws.get('labelrotation') < 0 else 'center'
 			for j in range(self.heatmap_axes.shape[1]):
 				self.heatmap_axes[0, j].xaxis.tick_top()  # ticks
 				self.heatmap_axes[0, j].xaxis.set_visible(True)
@@ -2195,7 +2195,7 @@ class ClusterMapPlotter:
 				self.xticklabels.extend(self.heatmap_axes[0, j].get_xticklabels())
 		elif self.show_colnames and self.bottom_annotation is None:  # tick bottom
 			self.xticklabels_kws.setdefault("labelrotation", -90)
-			ha='left' if self.xticklabels_kws.get('labelrotation') < 0 else 'right'
+			ha='left' if self.xticklabels_kws.get('labelrotation') < 0 else 'right' if self.xticklabels_kws.get('labelrotation') > 0 else 'center'
 			for j in range(self.heatmap_axes.shape[1]):
 				self.heatmap_axes[-1, j].xaxis.tick_bottom()  # ticks
 				self.heatmap_axes[-1, j].xaxis.set_visible(True)
