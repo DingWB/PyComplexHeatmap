@@ -149,7 +149,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -177,6 +177,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -1708,6 +1712,30 @@ Collecting annotation legends..
 &#39;#000000&#39;
 </pre></div></div>
 </div>
+</section>
+<section id="Plot-legends-only">
+<h1>Plot legends only<a class="headerlink" href="#Plot-legends-only" title="Permalink to this heading">¶</a></h1>
+<section id="plot-color-dict-legend">
+<h2>plot color dict legend<a class="headerlink" href="#plot-color-dict-legend" title="Permalink to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyComplexHeatmap.utils</span> <span class="kn">import</span> <span class="n">plot_color_dict_legend</span>
+<span class="n">D</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">mCG</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span><span class="n">mCH</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">ATAC</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">plot_color_dict_legend</span><span class="p">(</span>
+    <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Modality&quot;</span><span class="p">,</span> <span class="n">color_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.8</span><span class="p">),</span><span class="n">labelspacing</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">handleheight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                            <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bbox_transform</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span><span class="n">title_fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;legend.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
 </section>
 
 

@@ -1167,8 +1167,10 @@ class ClusterMapPlotter:
 		control the order of legends, default is 'auto', sorted by length of legend.
 		could also be True/False or a list (or tuple), if a list / tuple is provided,
 		values should be the label (title) of each legend.
-	legend_gap :float
-		the columns gap between different legends.
+	legend_vgap :float
+		the vertical gap between different legends (default is 5mm).
+	legend_hgap :float
+		the horizontal gap between different legends (two columns of legends), default is 2mm.
 	legend_width: float [mm]
 		width of the legend, default is None (infer from data automatically)
 	legend_hpad: float
@@ -1283,7 +1285,8 @@ class ClusterMapPlotter:
 		plot_legend=True,
 		legend_order="auto",
 		legend_anchor="auto",
-		legend_gap=7,
+		legend_vgap=5,
+		legend_hgap=2,
 		legend_width=None,
 		legend_hpad=1,
 		legend_vpad=5,
@@ -1343,7 +1346,8 @@ class ClusterMapPlotter:
 		self.legend_side = legend_side
 		self.cmap = cmap
 		self.label = label if not label is None else "heatmap"
-		self.legend_gap = legend_gap
+		self.legend_vgap = legend_vgap
+		self.legend_hgap = legend_hgap
 		self.legend_width = legend_width
 		self.legend_hpad = legend_hpad
 		self.legend_vpad = legend_vpad
@@ -2349,7 +2353,8 @@ class ClusterMapPlotter:
 				ax=ax,
 				space=space + legend_hpad,
 				legend_side=self.legend_side,
-				gap=self.legend_gap,
+				v_gap=self.legend_vgap,
+				h_gap=self.legend_hgap,
 				delta_x=self.legend_delta_x,
 				legend_width=self.legend_width,
 				legend_vpad=self.legend_vpad,
@@ -2455,7 +2460,8 @@ def composite(
 	row_gap=15,
 	col_gap=15,
 	legend_side="right",
-	legend_gap=5,
+	legend_vgap=5,
+	legend_hgap=2,
 	legend_y=0.8,
 	legend_hpad=None,
 	legend_width=None,
@@ -2479,8 +2485,10 @@ def composite(
 		the row or columns gap between subplots, unit is mm [15].
 	legend_side: str
 		right,left [right].
-	legend_gap: float
-		row gap between two legends, unit is mm.
+	legend_vgap: float
+		vertical gap between two legends, unit is mm.
+	legend_hgap: float
+		horizontal gap between two columns of legends, unit is mm.
 	legend_width: float
 		default is None, will be estimated automatically
 	width_ratios: list
@@ -2578,7 +2586,8 @@ def composite(
 			ax=ax,
 			space=space,
 			legend_side=legend_side,
-			gap=legend_gap,
+			v_gap=legend_vgap,
+			h_gap=legend_hgap,
 			y0=legend_y,
 			legend_width=legend_width,
 			verbose=verbose

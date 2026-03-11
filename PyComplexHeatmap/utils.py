@@ -719,7 +719,8 @@ def plot_legend_list(
 	space=0,
 	legend_side="right",
 	y0=None,
-	gap=2,
+	v_gap=2,
+	h_gap=2,
 	delta_x=None,
 	legend_width=None,
 	legend_vpad=5,
@@ -736,7 +737,7 @@ def plot_legend_list(
 	space : unit is pixels.
 	legend_side :right, or left
 	y0 : the initate coordinate of y for the legend.
-	gap : gap between legends, default is 2mm.
+	v_gap : vertial gap between legends, default is 2mm.
 	legend_width: width of the legend, default is 4.5mm.
 
 	Returns
@@ -795,10 +796,11 @@ def plot_legend_list(
 		if y0 is None
 		else y0
 	)
-	lgd_col_max_width = 0  # the maximum width of all legends in one column
+	lgd_col_max_width = 0  # the maximum width of all legends in one column, unit is 
 	v_gap = round(
-		gap * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height, 2
+		v_gap * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height, 2
 	)  # 2mm vertically height gap between two legends
+	h_gap=h_gap * mm2inch * ax.figure.dpi # pixels
 	i = 0
 	while i <= len(legend_list) - 1:
 		obj, title, legend_kws, n, lgd_t = legend_list[i]
@@ -811,8 +813,8 @@ def plot_legend_list(
 			)  # 15 mm
 			if y - f < 0:  # add a new column of axes to plot legends
 				offset = (
-					lgd_col_max_width + ax.yaxis.labelpad * 2
-				) / ax.figure.get_window_extent().width
+					lgd_col_max_width + h_gap + ax.yaxis.labelpad * ax.figure.dpi / 72
+				) / ax.figure.get_window_extent().width # unit for labelpad is point, offset: pixels
 				ax2 = ax.figure.add_axes(
 					rect=[
 						ax1.get_position().x0 + offset,
@@ -873,7 +875,7 @@ def plot_legend_list(
 			if L is None:
 				print("Legend too long, generating a new column..")
 				pad = (
-					lgd_col_max_width + ax.yaxis.labelpad * 2
+					lgd_col_max_width + h_gap + ax.yaxis.labelpad * ax.figure.dpi / 72
 				) / ax.figure.get_window_extent().width
 				left_pos = ax1.get_position()
 				ax2 = ax.figure.add_axes(
@@ -930,7 +932,7 @@ def plot_legend_list(
 			if L is None:
 				print("Legend too long, generating a new column..")
 				pad = (
-					lgd_col_max_width + ax.yaxis.labelpad * 2
+					lgd_col_max_width + h_gap + ax.yaxis.labelpad * ax.figure.dpi / 72
 				) / ax.figure.get_window_extent().width
 				left_pos = ax1.get_position()
 				ax2 = ax.figure.add_axes(

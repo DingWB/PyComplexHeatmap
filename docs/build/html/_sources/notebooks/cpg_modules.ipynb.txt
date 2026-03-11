@@ -910,7 +910,7 @@
     "            top_annotation=col_ha,right_annotation=row_ha,\n",
     "            col_split=df_ann.Module,row_split=df_ann.Module, col_split_gap=1,row_split_gap=1,\n",
     "            row_dendrogram=True,legend_anchor=\"ax_heatmap\",legend_hpad=7,legend_vpad=5,\n",
-    "            tree_kws=dict(row_cmap='Dark2'),verbose=0,legend_gap=7,alpha=2,spines=False)\n",
+    "            tree_kws=dict(row_cmap='Dark2'),verbose=0,legend_vgap=7,alpha=2,spines=False)\n",
     "# plot custom spines\n",
     "for i in range(cm.heatmap_axes.shape[0]):\n",
     "    for j in range(cm.heatmap_axes.shape[1]):\n",
@@ -1006,7 +1006,7 @@
     "            top_annotation=col_ha,right_annotation=row_ha,\n",
     "            col_split=df_ann.Module,row_split=df_ann.Module, col_split_gap=1,row_split_gap=1,\n",
     "            row_dendrogram=True,legend_anchor=\"ax_heatmap\",legend_hpad=7,legend_vpad=5,\n",
-    "            tree_kws=dict(row_cmap='Dark2',colors='red',linewidth=2),verbose=0,legend_gap=7,alpha=2,spines=True)\n",
+    "            tree_kws=dict(row_cmap='Dark2',colors='red',linewidth=2),verbose=0,legend_vgap=7,alpha=2,spines=True)\n",
     "plt.savefig(\"dotClustermap2.pdf\", bbox_inches='tight')\n",
     "plt.show()"
    ]

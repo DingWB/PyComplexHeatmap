@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data preprocessing &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=161b7e8c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=6897dc88"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/js/rtd_search_config.js"></script>
+        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2187250519684883"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComplexHeatmap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#how-to-install">How to install?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html">1. Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#2.-Plot-heatmap-annotations">2. Plot heatmap annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#3.-Plot-the-heatmap-with-rows-and-columns-split">3. Plot the heatmap with rows and columns split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_started.html#4.-Plot-the-annotations-along-side-with-main-heatmap">4. Plot the annotations along side with main heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../clustermap.html">Clustermap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Plotting-annotations">Plotting annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Only-plot-the-row/column-annotation">Only plot the row/column annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_label:">anno_label:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#anno_simple:">anno_simple:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#To-add-a-annotation-quickly,-you-just-need-a-dataframe">To add a annotation quickly, you just need a dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustermap.html#Plot-the-figure-and-legend-separately">Plot the figure and legend separately</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustermap.html#Top,-bottom,-left-,right-annotations">Top, bottom, left ,right annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dotHeatmap.html">dotHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html">Load an example brain networks dataset from seaborn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Heatmap">Dot Heatmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-traditional-heatmap-using-square-marker-marker='s'">Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Simple-dot-heatmap-using-fixed-dot-size">Simple dot heatmap using fixed dot size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Changing-the-size-of-point">Changing the size of point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-colors-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">colors</span></code> for different groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Add-parameter-hue-and-use-different-cmap-and-marker-for-different-groups">Add parameter <code class="docutils literal notranslate"><span class="pre">hue</span></code> and use different <code class="docutils literal notranslate"><span class="pre">cmap</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> for different groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dotHeatmap.html#Dot-Clustermap">Dot Clustermap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Plot-clustermap-using-seaborn-brain-networks-dataset">Plot clustermap using seaborn brain networks dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotHeatmap.html#Visualize-up-to-five-dimension-data-using-DotClustermapPlotter">Visualize up to five dimension data using DotClustermapPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gene_enrichment_analysis.html">Visualizing gene set enrichment analysis results (clusterProfiler) using dotHeatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Why-do-we-need-a-better-way-to-visualize-the-gene-set-enrichment-analysis-result?">Why do we need a better way to visualize the gene set enrichment analysis result?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Read-data">Read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#Plot">Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gene_enrichment_analysis.html#How-to-select-marker:">How to select marker:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../oncoPrint.html">oncoPrint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint.html">oncoPrint: visualizing TCGA Lung Adenocarcinoma Carcinoma Variants Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oncoPrint2.html">Visualizing categorical variables using oncoPrint</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html">Generate dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-selected-rows-labels">Add selected rows labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-annotations-on-the-top-of-heatmap-cells">Add annotations on the top of heatmap cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Only-plot-the-annotations">Only plot the annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-down-and-add-extra-space">Change orentation to <code class="docutils literal notranslate"><span class="pre">down</span></code> and add extra space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-left">Change orentation to the left</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Change-orentation-to-the-right">Change orentation to the right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Changing-orientation-using-parameter-orientation">Changing orientation using parameter <code class="docutils literal notranslate"><span class="pre">orientation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Add-multiple-heatmap-annotations-using-for-loop">Add multiple heatmap annotations using <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Cluster-between-groups-and-cluster-within-groups">Cluster between groups and cluster within groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#clsuter-within-groups:-col_split=*,-col_cluster=True">clsuter within groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_cluster=True</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=False">cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=False</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_usage.html#cluster_within_groups-&amp;&amp;-cluster_between_groups:-col_split=*,-col_split_order=%22cluster_between_groups%22,col_cluster=True">cluster_within_groups &amp;&amp; cluster_between_groups: <code class="docutils literal notranslate"><span class="pre">col_split=*,</span> <span class="pre">col_split_order=&quot;cluster_between_groups&quot;,col_cluster=True</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-annotation">Custom annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Custom-linkage">Custom linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#Image-annotation">Image annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#How-to-force-display-all-row/col-ticklabels?">How to force display all row/col ticklabels?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../more_examples.html">More Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="differential_expression_genes.html">Visualizing Differential Expression Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell_methylation.html">Visualizing Single Cell DNA Methylation Data (Loyfer2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composite_heatmaps.html">Composite two heatmaps horizontally for mouse DNA methylation array dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="composite_heatmaps.html#What-if-the-number-of-column-(or-row)-annotations-are-different">What if the number of column (or row) annotations are different</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpg_modules.html">Plot correlation matrix for CpG modules using DotClustermap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Processing-the-data">Processing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#Plotting-the-Dot-clustermap">Plotting the Dot clustermap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#hgap-and-wgap-for-HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#subplot_gap"><code class="docutils literal notranslate"><span class="pre">subplot_gap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kwargs.html#row_split_gap-and-col_split_gap"><code class="docutils literal notranslate"><span class="pre">row_split_gap</span></code> and <code class="docutils literal notranslate"><span class="pre">col_split_gap</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html#How-to-remove-arrow-in-anno_label">How to remove arrow in anno_label</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../colormap.html">colormap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html">Default matplotlib colormaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#Build-in-colormaps-(Not-included-in-matplotlib-default-cmaps)">Build-in colormaps (Not included in matplotlib default cmaps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colormap.html#How-to-use-the-Build-in-cmap?">How to use the Build-in cmap?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html">Understand the layout:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Bezier-dendrogram">Bezier dendrogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_label">anno_label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#anno_img">anno_img</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#extent">extent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PyComplexHeatmap.html">PyComplexHeatmap package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.annotations.html">PyComplexHeatmap.annotations module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase"><code class="docutils literal notranslate"><span class="pre">AnnotationBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.reorder"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_label"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_legend"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.set_orientation"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.set_orientation()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.AnnotationBase.update_plot_kws"><code class="docutils literal notranslate"><span class="pre">AnnotationBase.update_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.collect_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.get_legend_list()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_annotations"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.plot_legends"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.set_axes_kws"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.set_axes_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.show_ticklabels"><code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation.show_ticklabels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot"><code class="docutils literal notranslate"><span class="pre">anno_barplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_barplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_barplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_boxplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_boxplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram.plot"><code class="docutils literal notranslate"><span class="pre">anno_dendrogram.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img"><code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.plot"><code class="docutils literal notranslate"><span class="pre">anno_img.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img.read_img"><code class="docutils literal notranslate"><span class="pre">anno_img.read_img()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label"><code class="docutils literal notranslate"><span class="pre">anno_label</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_label.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.plot"><code class="docutils literal notranslate"><span class="pre">anno_label.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_label.set_plot_kws"><code class="docutils literal notranslate"><span class="pre">anno_label.set_plot_kws()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_lineplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_lineplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_scatterplot.plot"><code class="docutils literal notranslate"><span class="pre">anno_scatterplot.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple"><code class="docutils literal notranslate"><span class="pre">anno_simple</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_simple.plot"><code class="docutils literal notranslate"><span class="pre">anno_simple.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer"><code class="docutils literal notranslate"><span class="pre">anno_spacer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_max_label_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_max_label_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.get_ticklabel_width"><code class="docutils literal notranslate"><span class="pre">anno_spacer.get_ticklabel_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.plot"><code class="docutils literal notranslate"><span class="pre">anno_spacer.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.reorder"><code class="docutils literal notranslate"><span class="pre">anno_spacer.reorder()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_label"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_label()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_legend"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_legend()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_spacer.set_orientation"><code class="docutils literal notranslate"><span class="pre">anno_spacer.set_orientation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html">PyComplexHeatmap.clustermap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch"><code class="docutils literal notranslate"><span class="pre">Branch</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.Branch.create_branch"><code class="docutils literal notranslate"><span class="pre">Branch.create_branch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_cold_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_cold_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.cal_rowd_between_groups"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.cal_rowd_between_groups()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_col_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_col_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.calculate_row_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.calculate_row_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.get_legend_list"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.get_legend_list()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_dendrograms"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_dendrograms()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.post_processing()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_axes_labels_kws"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_axes_labels_kws()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_height"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_height()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_width"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_width()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.set_xy_labels"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.set_xy_labels()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.standard_scale"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.standard_scale()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.tight_layout"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.tight_layout()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.z_score"><code class="docutils literal notranslate"><span class="pre">ClusterMapPlotter.z_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree"><code class="docutils literal notranslate"><span class="pre">DenTree</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DenTree.create_tree"><code class="docutils literal notranslate"><span class="pre">DenTree.create_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculate_dendrogram"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculate_dendrogram()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.calculated_linkage"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.calculated_linkage</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.check_array"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.check_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.get_coords"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.get_coords()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.reordered_ind"><code class="docutils literal notranslate"><span class="pre">DendrogramPlotter.reordered_ind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.composite"><code class="docutils literal notranslate"><span class="pre">composite()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.heatmapPlotter.plot"><code class="docutils literal notranslate"><span class="pre">heatmapPlotter.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.plot_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_heatmap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.colors.html">PyComplexHeatmap.colors module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.generate_quantive_colors"><code class="docutils literal notranslate"><span class="pre">generate_quantive_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.get_palettable_colors"><code class="docutils literal notranslate"><span class="pre">get_palettable_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.identify_color_format"><code class="docutils literal notranslate"><span class="pre">identify_color_format()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.interpolate_colors"><code class="docutils literal notranslate"><span class="pre">interpolate_colors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_cmap"><code class="docutils literal notranslate"><span class="pre">register_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.colors.html#PyComplexHeatmap.colors.register_palettable"><code class="docutils literal notranslate"><span class="pre">register_palettable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html">PyComplexHeatmap.dotHeatmap module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.DotClustermapPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">DotClustermapPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.dotHeatmap2d"><code class="docutils literal notranslate"><span class="pre">dotHeatmap2d()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.dotHeatmap.html#PyComplexHeatmap.dotHeatmap.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html">PyComplexHeatmap.oncoPrint module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.add_default_annotations"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.add_default_annotations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.collect_legends"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.collect_legends()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.format_data"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.format_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.get_samples_order"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.get_samples_order()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.plot_matrix"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.plot_matrix()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoPrintPlotter.post_processing"><code class="docutils literal notranslate"><span class="pre">oncoPrintPlotter.post_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.oncoPrint.html#PyComplexHeatmap.oncoPrint.oncoprint"><code class="docutils literal notranslate"><span class="pre">oncoprint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../PyComplexHeatmap.utils.html">PyComplexHeatmap.utils module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.adjust_cmap"><code class="docutils literal notranslate"><span class="pre">adjust_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.axis_ticklabels_overlap"><code class="docutils literal notranslate"><span class="pre">axis_ticklabels_overlap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cal_legend_width"><code class="docutils literal notranslate"><span class="pre">cal_legend_width()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.cluster_labels"><code class="docutils literal notranslate"><span class="pre">cluster_labels()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.comb"><code class="docutils literal notranslate"><span class="pre">comb()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.define_cmap"><code class="docutils literal notranslate"><span class="pre">define_cmap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.despine"><code class="docutils literal notranslate"><span class="pre">despine()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.evaluate_bezier"><code class="docutils literal notranslate"><span class="pre">evaluate_bezier()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.getControlPoints"><code class="docutils literal notranslate"><span class="pre">getControlPoints()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_bezier_curve"><code class="docutils literal notranslate"><span class="pre">get_bezier_curve()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.get_colormap"><code class="docutils literal notranslate"><span class="pre">get_colormap()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_cmap_legend"><code class="docutils literal notranslate"><span class="pre">plot_cmap_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_color_dict_legend"><code class="docutils literal notranslate"><span class="pre">plot_color_dict_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_legend_list"><code class="docutils literal notranslate"><span class="pre">plot_legend_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.plot_marker_legend"><code class="docutils literal notranslate"><span class="pre">plot_marker_legend()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.to_utf8"><code class="docutils literal notranslate"><span class="pre">to_utf8()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../PyComplexHeatmap.utils.html#PyComplexHeatmap.utils.use_pch_style"><code class="docutils literal notranslate"><span class="pre">use_pch_style()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PyComplexHeatmap.html#module-PyComplexHeatmap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComplexHeatmap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data preprocessing</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/GBM.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[137]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="n">oncoPrintPlotter</span><span class="p">,</span><span class="n">HeatmapAnnotation</span><span class="p">,</span><span class="n">anno_simple</span><span class="p">,</span><span class="n">anno_barplot</span><span class="p">,</span><span class="n">anno_label</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap.utils</span> <span class="kn">import</span> <span class="n">despine</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;sans-serif&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;font.sans-serif&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Base font size (set so text is ~7–8 pt at final print size)</span>
+    <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>                  <span class="c1"># main text (labels, ticks, legend)</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>             <span class="c1"># axis labels (x/y)</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>            <span class="c1"># panel titles / figure titles</span>
+    <span class="s1">&#39;figure.titlesize&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>            <span class="c1"># x-tick labels</span>
+    <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>            <span class="c1"># y-tick labels</span>
+    <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>            <span class="c1"># legend text</span>
+    <span class="s1">&#39;legend.title_fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>      <span class="c1"># legend title (if used)</span>
+
+    <span class="c1"># Lines and elements for clarity</span>
+    <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>          <span class="c1"># data lines</span>
+    <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>           <span class="c1"># axis spines</span>
+    <span class="s1">&#39;xtick.major.width&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.major.width&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.major.size&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.major.size&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+
+    <span class="c1"># General figure appearance</span>
+    <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>               <span class="c1"># high resolution for export</span>
+    <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>              <span class="c1"># when using plt.savefig()</span>
+    <span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span>    <span class="c1"># example starting size (adjust to your needs; e.g., ~17 cm wide for full page)</span>
+    <span class="s1">&#39;savefig.transparent&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">:</span><span class="mi">42</span><span class="p">,</span>
+    <span class="s1">&#39;ps.fonttype&#39;</span><span class="p">:</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>ls<span class="w"> </span>/anvil/projects/x-mcb130189/maywu/GBM/analysis/15.oncoprint/
+<span class="c1"># ! cp /anvil/projects/x-mcb130189/maywu/GBM/analysis/15.oncoprint/Metadata_Salk_methylation_combined_02022026.csv metadata.csv</span>
+<span class="c1"># https://docs.google.com/spreadsheets/d/1HlihgxqEILyKBlEZQvkYSGyCEyJVIhBG-nqp6maHyxo/edit?usp=sharing</span>
+<span class="o">!</span><span class="w"> </span>cat<span class="w"> </span>/anvil/projects/x-mcb130189/maywu/GBM/analysis/15.oncoprint/color_palette.txt
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+color_palette.txt                                sample-loop-state-perc.csv
+Metadata_Salk_methylation_combined_02022026.csv  sample-mcfrac.csv
+sample-celltype-perc.csv                         sample-mchic-state-perc.csv
+sample-dmr-state-perc.csv
+palette_celltype = {&#39;Glia-Astro&#39;: &#39;#258EF5&#39;, &#39;Neuron&#39;:  &#39;#9467bd&#39;,
+                &#39;Glia-OPC&#39;:  &#39;#98df8a&#39;, &#39;Glia-ODC&#39;: &#39;#2ca02c&#39;,&#39;RG&#39;:&#39;#c5b0d5&#39;, &#39;Endo-Ves&#39;: &#39;#c43f52&#39;,
+                 &#39;SmMus_Peri&#39;:&#39;#F78BF1&#39;,&#39;lymphoid&#39;:&#39;#e6c0fa&#39;,&#39;Microglia&#39;:&#39;#1d5d68&#39;,&#39;Myeloid&#39;:&#39;#A7B6FA&#39;,
+                &#39;Cancer&#39;:&#39;#ff7f0e&#39;} #  &#39;ODC&#39;: &#39;#2ca02c&#39;, ,&#39;Cancer-WT&#39;: &#39;#1f77b4&#39;,&#39;MES&#39;: &#39;#ffbb78&#39;,
+palette_idh = {&#39;WT&#39;: &#39;#1f77b4&#39;, &#39;Mut&#39;:&#39;#ff7f0e&#39; }
+palette_state = {&#39;Astro&#39;: &#39;#258EF5&#39;, &#39;MES&#39;:&#39;#faa55f&#39;,&#39;OPC&#39;:&#39;#C8F0A5&#39;,&#39;ODC&#39;:&#39;#25B33C&#39;, &#39;RG&#39;:&#39;#C3AEF5&#39;,&#39;Neu&#39;:&#39;#884BCC&#39;,&#39;Normal&#39;:&#39;#CCCCCC&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[139]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indir</span><span class="o">=</span><span class="s2">&quot;/anvil/projects/x-mcb130189/maywu/GBM/analysis/15.oncoprint&quot;</span>
+</pre></div>
+</div>
+</div>
+<section id="Data-preprocessing">
+<h1>Data preprocessing<a class="headerlink" href="#Data-preprocessing" title="Permalink to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># metadata=pd.read_csv(os.path.join(indir,&quot;Metadata_Salk_methylation_combined_02022026.csv&quot;),index_col=0)</span>
+<span class="c1"># metadata.to_excel(&#39;metadata.xlsx&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[256]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;metadata.xlsx&quot;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">df_donor</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">df_oncoprint</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">7</span><span class="p">:]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;1p/19q Codel&#39;</span><span class="p">,</span><span class="s1">&#39;Chemo/Rad&#39;</span><span class="p">]:</span>
+    <span class="n">df_donor</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">df_donor</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Ki-67&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Ki-67&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;-&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)])</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">df_donor</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[256]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WHO</th>
+      <th>1p/19q Codel</th>
+      <th>Chemo/Rad</th>
+      <th>Sex</th>
+      <th>MGMT methylation</th>
+      <th>SWI/SNF Complex</th>
+      <th>Ki-67</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT0002</th>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>F</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>BT0003</th>
+      <td>3-4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>F</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>BT0008</th>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>M</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>BT00009</th>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>M</td>
+      <td>unmethylated</td>
+      <td>abnormal</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>M</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>15.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[257]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add more mCG, mCH, tumor_type</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span><span class="s2">&quot;sample-mcfrac.csv&quot;</span><span class="p">),</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
+    <span class="n">df_donor</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">df_donor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_donor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_donor</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(47, 11)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[257]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WHO</th>
+      <th>1p/19q Codel</th>
+      <th>Chemo/Rad</th>
+      <th>Sex</th>
+      <th>MGMT methylation</th>
+      <th>SWI/SNF Complex</th>
+      <th>Ki-67</th>
+      <th>mCGFrac</th>
+      <th>mCHFrac</th>
+      <th>IDH</th>
+      <th>tumor_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT0002</th>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>F</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>20.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BT0003</th>
+      <td>3-4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>F</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>15.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BT0008</th>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>M</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>75.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BT00009</th>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>M</td>
+      <td>unmethylated</td>
+      <td>abnormal</td>
+      <td>40.0</td>
+      <td>0.688519</td>
+      <td>0.008883</td>
+      <td>WT</td>
+      <td>Glioblastoma</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>M</td>
+      <td>methylated</td>
+      <td>abnormal</td>
+      <td>15.0</td>
+      <td>0.809730</td>
+      <td>0.007309</td>
+      <td>Mut</td>
+      <td>Oligodendroglioma</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[258]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add celltype percentage</span>
+<span class="n">df_ct_frac</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span><span class="s2">&quot;sample-celltype-perc.csv&quot;</span><span class="p">),</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_ct_frac</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_ct_frac</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(43, 10)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[258]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>celltype-L1</th>
+      <th>Cancer</th>
+      <th>Myeloid</th>
+      <th>Glia-ODC</th>
+      <th>lymphoid</th>
+      <th>Neuron</th>
+      <th>Microglia</th>
+      <th>SmMus_Peri</th>
+      <th>Endo-Ves</th>
+      <th>Glia-OPC</th>
+      <th>Glia-Astro</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT00009</th>
+      <td>0.649351</td>
+      <td>0.186147</td>
+      <td>0.067821</td>
+      <td>0.024531</td>
+      <td>0.027417</td>
+      <td>0.031746</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.012987</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>0.830759</td>
+      <td>0.124614</td>
+      <td>0.014418</td>
+      <td>0.000000</td>
+      <td>0.020941</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.009269</td>
+    </tr>
+    <tr>
+      <th>BT0011</th>
+      <td>0.496812</td>
+      <td>0.250435</td>
+      <td>0.000000</td>
+      <td>0.151304</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0012</th>
+      <td>0.641195</td>
+      <td>0.162904</td>
+      <td>0.070511</td>
+      <td>0.000000</td>
+      <td>0.056617</td>
+      <td>0.043071</td>
+      <td>0.000000</td>
+      <td>0.009378</td>
+      <td>0.000695</td>
+      <td>0.015630</td>
+    </tr>
+    <tr>
+      <th>BT0013</th>
+      <td>0.140892</td>
+      <td>0.082528</td>
+      <td>0.578439</td>
+      <td>0.000000</td>
+      <td>0.086245</td>
+      <td>0.022305</td>
+      <td>0.005948</td>
+      <td>0.000000</td>
+      <td>0.057249</td>
+      <td>0.026394</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[259]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_dmr_state</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span><span class="s2">&quot;sample-dmr-state-perc.csv&quot;</span><span class="p">),</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_dmr_state</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_dmr_state</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(43, 5)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[259]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>dmr_state</th>
+      <th>Astro</th>
+      <th>MES</th>
+      <th>ODC</th>
+      <th>OPC</th>
+      <th>RG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT00009</th>
+      <td>0.862222</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.137778</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>0.146523</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.853477</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0011</th>
+      <td>0.000000</td>
+      <td>0.352246</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.647754</td>
+    </tr>
+    <tr>
+      <th>BT0012</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0013</th>
+      <td>0.184697</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.815303</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[260]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_loop_state</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span><span class="s2">&quot;sample-loop-state-perc.csv&quot;</span><span class="p">),</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_loop_state</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_loop_state</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(43, 5)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[260]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>loop_state_majortype</th>
+      <th>Astro</th>
+      <th>MES</th>
+      <th>ODC</th>
+      <th>OPC</th>
+      <th>RG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT00009</th>
+      <td>0.688889</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.311111</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>0.146523</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.853477</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0011</th>
+      <td>0.000000</td>
+      <td>0.326241</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.673759</td>
+    </tr>
+    <tr>
+      <th>BT0012</th>
+      <td>0.584599</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.415401</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0013</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[261]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_hic_state</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span><span class="s2">&quot;sample-mchic-state-perc.csv&quot;</span><span class="p">),</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_hic_state</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span><span class="s1">&#39;mchic_state&#39;</span><span class="p">,</span><span class="s1">&#39;Percentage&#39;</span><span class="p">]</span>
+<span class="n">df_hic_state</span><span class="p">[</span><span class="s1">&#39;Consistent&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_hic_state</span><span class="o">.</span><span class="n">mchic_state</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;Concord&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)))</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;Disconcordance&#39;</span><span class="p">)</span>
+<span class="n">df_hic_state</span><span class="o">=</span><span class="n">df_hic_state</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;mchic_state&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Consistent&#39;</span><span class="p">,</span><span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)[</span><span class="s1">&#39;Percentage&#39;</span><span class="p">]</span>
+<span class="n">df_hic_state</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[261]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Consistent</th>
+      <th>Concord</th>
+      <th>Disconcordance</th>
+    </tr>
+    <tr>
+      <th>SampleID</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT00009</th>
+      <td>0.826667</td>
+      <td>0.173333</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>BT0011</th>
+      <td>0.709220</td>
+      <td>0.290780</td>
+    </tr>
+    <tr>
+      <th>BT0012</th>
+      <td>0.415401</td>
+      <td>0.584599</td>
+    </tr>
+    <tr>
+      <th>BT0013</th>
+      <td>0.184697</td>
+      <td>0.815303</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[262]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[262]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IDH1</th>
+      <th>chr7</th>
+      <th>chr10</th>
+      <th>chr13</th>
+      <th>chr20</th>
+      <th>CIC</th>
+      <th>P53</th>
+      <th>Rb1</th>
+      <th>ATRX</th>
+      <th>EGFR</th>
+      <th>CDKN2A/B</th>
+      <th>CDKN2A/B/C</th>
+      <th>PTEN</th>
+      <th>EZH2</th>
+      <th>SMARCB1</th>
+      <th>ARID1B</th>
+      <th>ARID1A</th>
+      <th>PBRM1</th>
+      <th>NuRD</th>
+      <th>TERT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BT0002</th>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>1,2</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>BT0003</th>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>2</td>
+      <td>1,2</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1,2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>BT0008</th>
+      <td>0</td>
+      <td>3.0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>BT00009</th>
+      <td>0</td>
+      <td>3.0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>1,3</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1,2</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>BT0010</th>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[263]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_oncoprint</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_oncoprint</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span><span class="s1">&#39;Gene&#39;</span><span class="p">,</span><span class="s1">&#39;Variants&#39;</span><span class="p">]</span>
+<span class="n">df_oncoprint</span><span class="o">.</span><span class="n">Variants</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">Variants</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;,&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">df_oncoprint</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[263]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SampleID</th>
+      <th>Gene</th>
+      <th>Variants</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BT0002</td>
+      <td>IDH1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BT0002</td>
+      <td>chr7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BT0002</td>
+      <td>chr10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BT0002</td>
+      <td>chr13</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BT0002</td>
+      <td>chr20</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[264]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keep_donors</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_donor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">df_ct_frac</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+<span class="n">df_oncoprint</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">keep_donors</span><span class="p">)]</span>
+<span class="n">df_donor</span><span class="o">=</span><span class="n">df_donor</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep_donors</span><span class="p">]</span>
+<span class="n">df_oncoprint</span><span class="o">.</span><span class="n">Variants</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[264]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;0&#39;, &#39;3&#39;, &#39;2&#39;, &#39;1,3&#39;, &#39;1,2&#39;, &#39;1&#39;, &#39;3,2&#39;, &#39;2,3&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[265]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="s1">&#39;Mut&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="s1">&#39;Loss&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">:</span><span class="s1">&#39;Gain&#39;</span><span class="p">}</span> <span class="c1"># 0=Wildtype 1=mutated 2=loss 3=gain</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">D</span><span class="p">:</span>
+    <span class="n">df_oncoprint</span><span class="p">[</span><span class="n">D</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">Variants</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">1</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df_oncoprint</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[265]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SampleID</th>
+      <th>Gene</th>
+      <th>Variants</th>
+      <th>Mut</th>
+      <th>Loss</th>
+      <th>Gain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>60</th>
+      <td>BT00009</td>
+      <td>IDH1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>BT00009</td>
+      <td>chr7</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>BT00009</td>
+      <td>chr10</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>BT00009</td>
+      <td>chr13</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>BT00009</td>
+      <td>chr20</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[266]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span><span class="p">;</span>
+<span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data.pkl&quot;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">);</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">df_donor</span><span class="p">,</span><span class="n">df_oncoprint</span><span class="p">,</span><span class="n">df_ct_frac</span><span class="p">,</span><span class="n">df_dmr_state</span><span class="p">,</span><span class="n">df_loop_state</span><span class="p">,</span><span class="n">df_hic_state</span><span class="p">),</span><span class="n">f</span><span class="p">,</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[267]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # read</span>
+<span class="c1"># f=open(&quot;data.pkl&quot;,&#39;rb&#39;);</span>
+<span class="c1"># df_donor,df_oncoprint,df_ct_frac,df_dmr_state,df_loop_state,df_hic_state=pickle.load(f);</span>
+<span class="c1"># f.close()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[268]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Mut&#39;</span><span class="p">,</span><span class="s1">&#39;Loss&#39;</span><span class="p">,</span><span class="s1">&#39;Gain&#39;</span><span class="p">]</span>
+<span class="n">oncoprint_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#D55E00&#39;</span><span class="p">,</span><span class="s1">&#39;#0072B2&#39;</span><span class="p">,</span><span class="s1">&#39;#CC79A7&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="n">oncoprint_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;Mut&#39;, &#39;Loss&#39;, &#39;Gain&#39;] [&#39;#D55E00&#39;, &#39;#0072B2&#39;, &#39;#CC79A7&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[269]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;WHO&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;WHO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;2/3&#39;</span><span class="p">:</span><span class="s1">&#39;2-3&#39;</span><span class="p">})</span>
+<span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;WHO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[269]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;4&#39;, &#39;3&#39;, &#39;2-3&#39;, &#39;2&#39;, &#39;3-4&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[272]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_vc</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Gene&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">col_vc</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;SampleID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">row_var_freq</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">IsVar</span><span class="o">=</span><span class="p">(</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Gene&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">IsVar</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">df_oncoprint</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+<span class="n">palette_celltype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Glia-Astro&#39;</span><span class="p">:</span> <span class="s1">&#39;#258EF5&#39;</span><span class="p">,</span> <span class="s1">&#39;Neuron&#39;</span><span class="p">:</span>  <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Glia-OPC&#39;</span><span class="p">:</span>  <span class="s1">&#39;#98df8a&#39;</span><span class="p">,</span> <span class="s1">&#39;Glia-ODC&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span><span class="s1">&#39;RG&#39;</span><span class="p">:</span><span class="s1">&#39;#c5b0d5&#39;</span><span class="p">,</span> <span class="s1">&#39;Endo-Ves&#39;</span><span class="p">:</span> <span class="s1">&#39;#c43f52&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;SmMus_Peri&#39;</span><span class="p">:</span><span class="s1">&#39;#F78BF1&#39;</span><span class="p">,</span><span class="s1">&#39;lymphoid&#39;</span><span class="p">:</span><span class="s1">&#39;#e6c0fa&#39;</span><span class="p">,</span><span class="s1">&#39;Microglia&#39;</span><span class="p">:</span><span class="s1">&#39;#1d5d68&#39;</span><span class="p">,</span><span class="s1">&#39;Myeloid&#39;</span><span class="p">:</span><span class="s1">&#39;#A7B6FA&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Cancer&#39;</span><span class="p">:</span><span class="s1">&#39;#ff7f0e&#39;</span><span class="p">}</span> <span class="c1">#  &#39;ODC&#39;: &#39;#2ca02c&#39;, ,&#39;Cancer-WT&#39;: &#39;#1f77b4&#39;,&#39;MES&#39;: &#39;#ffbb78&#39;,</span>
+<span class="n">palette_idh</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;WT&#39;</span><span class="p">:</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;Mut&#39;</span><span class="p">:</span><span class="s1">&#39;#ff7f0e&#39;</span> <span class="p">}</span>
+<span class="n">palette_state</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Astro&#39;</span><span class="p">:</span> <span class="s1">&#39;#258EF5&#39;</span><span class="p">,</span> <span class="s1">&#39;MES&#39;</span><span class="p">:</span><span class="s1">&#39;#faa55f&#39;</span><span class="p">,</span><span class="s1">&#39;OPC&#39;</span><span class="p">:</span><span class="s1">&#39;#C8F0A5&#39;</span><span class="p">,</span><span class="s1">&#39;ODC&#39;</span><span class="p">:</span><span class="s1">&#39;#25B33C&#39;</span><span class="p">,</span> <span class="s1">&#39;RG&#39;</span><span class="p">:</span><span class="s1">&#39;#C3AEF5&#39;</span><span class="p">,</span><span class="s1">&#39;Neu&#39;</span><span class="p">:</span><span class="s1">&#39;#884BCC&#39;</span><span class="p">,</span><span class="s1">&#39;Normal&#39;</span><span class="p">:</span><span class="s1">&#39;#CCCCCC&#39;</span><span class="p">}</span>
+
+<span class="n">top_annotation</span><span class="o">=</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span>
+                                <span class="n">Freq</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">col_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                <span class="n">WHO</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="o">.</span><span class="n">WHO</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="s1">&#39;deepskyblue&#39;</span><span class="p">,</span><span class="s1">&#39;2-3&#39;</span><span class="p">:</span><span class="s1">&#39;lightskyblue&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">:</span><span class="s1">&#39;royalblue&#39;</span><span class="p">,</span><span class="s1">&#39;3-4&#39;</span><span class="p">:</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}),</span>
+                                <span class="n">A</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;1p/19q Codel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="s1">&#39;no codeletion&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="s1">&#39;codeletion&#39;</span><span class="p">}),</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;1p/19q&quot;</span><span class="p">),</span>
+                                <span class="n">Chemo</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Chemo/Rad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="s1">&#39;no&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="s1">&#39;yes&#39;</span><span class="p">}),</span>
+                                                  <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chemo/Rad&quot;</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">no</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span><span class="n">yes</span><span class="o">=</span><span class="s1">&#39;tomato&#39;</span><span class="p">)),</span>
+                                <span class="n">Sex</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">F</span><span class="o">=</span><span class="s2">&quot;orangered&quot;</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">)),</span>
+                                <span class="n">MGMT</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;MGMT methylation&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">methylated</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="n">unmethylated</span><span class="o">=</span><span class="s1">&#39;deepskyblue&#39;</span><span class="p">)),</span>
+                                <span class="n">SWI</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;SWI/SNF Complex&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;SWI/SNF&quot;</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">abnormal</span><span class="o">=</span><span class="s1">&#39;peru&#39;</span><span class="p">,</span><span class="n">normal</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)),</span>
+                                <span class="n">K</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Ki-67&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ki-67&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Tropic&#39;</span><span class="p">,</span>
+                                              <span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                                <span class="n">mCGFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;mCGFrac&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greens_r&#39;</span><span class="p">,</span><span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                               <span class="n">mCHFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;mCGFrac&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues_r&#39;</span><span class="p">,</span><span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                              <span class="n">TumorType</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;tumor_type&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">),</span>
+                              <span class="n">CellTypes</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_ct_frac</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_celltype</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                              <span class="n">DMR</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_dmr_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_state</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                              <span class="n">Loop</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_loop_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_state</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                              <span class="n">hic_state</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_hic_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;mc/hic&#39;</span><span class="p">,</span>
+                                                     <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Concord&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Disconcordance&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                             <span class="n">IDH</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;IDH&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">WT</span><span class="o">=</span><span class="s2">&quot;deepskyblue&quot;</span><span class="p">,</span><span class="n">Mut</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">),</span>
+                                             <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)),</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                 <span class="n">ticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelright&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+                                <span class="p">)</span>
+
+<span class="n">right_annotation</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+                                <span class="n">Row</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">row_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">row_var_freq</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; %&quot;</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                                                 <span class="n">height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                                <span class="p">),</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                                <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[273]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">op</span><span class="o">=</span><span class="n">oncoPrintPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Gene&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">col_split</span><span class="o">=</span><span class="n">df_donor</span><span class="o">.</span><span class="n">IDH</span><span class="p">,</span><span class="n">col_split_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;WT&#39;</span><span class="p">,</span><span class="s1">&#39;Mut&#39;</span><span class="p">],</span><span class="n">col_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Alteration&#39;</span><span class="p">,</span>
+                    <span class="n">top_annotation</span><span class="o">=</span><span class="n">top_annotation</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">right_annotation</span><span class="p">,</span>
+                   <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">legend_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TumorType&#39;</span><span class="p">,</span><span class="s1">&#39;mc/hic&#39;</span><span class="p">,</span><span class="s1">&#39;CellTypes&#39;</span><span class="p">,</span><span class="s1">&#39;1p/19q&#39;</span><span class="p">,</span>
+                                                 <span class="s1">&#39;Chemo/Rad&#39;</span><span class="p">,</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;MGMT&#39;</span><span class="p">,</span><span class="s1">&#39;SWI/SNF&#39;</span><span class="p">,</span><span class="s1">&#39;WHO&#39;</span><span class="p">,</span><span class="s1">&#39;Ki-67&#39;</span><span class="p">,</span>
+                                                 <span class="s1">&#39;mCGFrac&#39;</span><span class="p">,</span><span class="s1">&#39;mCHFrac&#39;</span><span class="p">,</span><span class="s1">&#39;DMR&#39;</span><span class="p">,</span><span class="s1">&#39;Alteration&#39;</span><span class="p">],</span> <span class="c1">#legend_width=50,</span>
+                   <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">},</span>
+                   <span class="p">)</span>
+
+<span class="c1"># remove the grid</span>
+<span class="c1"># op.top_annotation.annotations[0].ax.grid(False)</span>
+<span class="c1">#remove spines for top annotation and right annotation</span>
+<span class="c1"># for ax in op.top_annotation.axes[0]:</span>
+<span class="n">ax1</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">top_annotation</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#ax=op.top_annotation.annotations[0].ax</span>
+<span class="n">ax2</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">top_annotation</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#ax=op.top_annotation.annotations[0].ax</span>
+<span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">right_annotation</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">top_annotation</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+        <span class="c1"># ax.spines[&quot;top&quot;].set_visible(False)</span>
+        <span class="c1"># ax.spines[&quot;bottom&quot;].set_visible(False)</span>
+        <span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;oncoPrint.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting..
+Calculating row orders..
+Reordering rows..
+Calculating col orders..
+Reordering cols..
+Plotting matrix..
+Collecting legends..
+Plotting legends..
+Estimated legend width: 37.85444444444445 mm
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_GBM_20_1.png" src="../_images/notebooks_GBM_20_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[243]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_vc</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Gene&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">col_vc</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;SampleID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">row_var_freq</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">IsVar</span><span class="o">=</span><span class="p">(</span><span class="n">df_oncoprint</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Gene&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">IsVar</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">df_oncoprint</span><span class="o">.</span><span class="n">SampleID</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+<span class="n">palette_celltype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Glia-Astro&#39;</span><span class="p">:</span> <span class="s1">&#39;#258EF5&#39;</span><span class="p">,</span> <span class="s1">&#39;Neuron&#39;</span><span class="p">:</span>  <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Glia-OPC&#39;</span><span class="p">:</span>  <span class="s1">&#39;#98df8a&#39;</span><span class="p">,</span> <span class="s1">&#39;Glia-ODC&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span><span class="s1">&#39;RG&#39;</span><span class="p">:</span><span class="s1">&#39;#c5b0d5&#39;</span><span class="p">,</span> <span class="s1">&#39;Endo-Ves&#39;</span><span class="p">:</span> <span class="s1">&#39;#c43f52&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;SmMus_Peri&#39;</span><span class="p">:</span><span class="s1">&#39;#F78BF1&#39;</span><span class="p">,</span><span class="s1">&#39;lymphoid&#39;</span><span class="p">:</span><span class="s1">&#39;#e6c0fa&#39;</span><span class="p">,</span><span class="s1">&#39;Microglia&#39;</span><span class="p">:</span><span class="s1">&#39;#1d5d68&#39;</span><span class="p">,</span><span class="s1">&#39;Myeloid&#39;</span><span class="p">:</span><span class="s1">&#39;#A7B6FA&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Cancer&#39;</span><span class="p">:</span><span class="s1">&#39;#ff7f0e&#39;</span><span class="p">}</span> <span class="c1">#  &#39;ODC&#39;: &#39;#2ca02c&#39;, ,&#39;Cancer-WT&#39;: &#39;#1f77b4&#39;,&#39;MES&#39;: &#39;#ffbb78&#39;,</span>
+<span class="n">palette_idh</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;WT&#39;</span><span class="p">:</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;Mut&#39;</span><span class="p">:</span><span class="s1">&#39;#ff7f0e&#39;</span> <span class="p">}</span>
+<span class="n">palette_state</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Astro&#39;</span><span class="p">:</span> <span class="s1">&#39;#258EF5&#39;</span><span class="p">,</span> <span class="s1">&#39;MES&#39;</span><span class="p">:</span><span class="s1">&#39;#faa55f&#39;</span><span class="p">,</span><span class="s1">&#39;OPC&#39;</span><span class="p">:</span><span class="s1">&#39;#C8F0A5&#39;</span><span class="p">,</span><span class="s1">&#39;ODC&#39;</span><span class="p">:</span><span class="s1">&#39;#25B33C&#39;</span><span class="p">,</span> <span class="s1">&#39;RG&#39;</span><span class="p">:</span><span class="s1">&#39;#C3AEF5&#39;</span><span class="p">,</span><span class="s1">&#39;Neu&#39;</span><span class="p">:</span><span class="s1">&#39;#884BCC&#39;</span><span class="p">,</span><span class="s1">&#39;Normal&#39;</span><span class="p">:</span><span class="s1">&#39;#CCCCCC&#39;</span><span class="p">}</span>
+
+<span class="n">left_annotation</span><span class="o">=</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                                <span class="n">Freq</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">col_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                <span class="n">WHO</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="o">.</span><span class="n">WHO</span><span class="p">),</span>
+                                <span class="n">A</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;1p/19q Codel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="s1">&#39;no codeletion&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="s1">&#39;codeletion&#39;</span><span class="p">}),</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;1p/19q&quot;</span><span class="p">),</span>
+                                <span class="n">Chemo</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Chemo/Rad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="s1">&#39;no&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="s1">&#39;yes&#39;</span><span class="p">}),</span>
+                                                  <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chemo/Rad&quot;</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">no</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span><span class="n">yes</span><span class="o">=</span><span class="s1">&#39;tomato&#39;</span><span class="p">)),</span>
+                                <span class="n">Sex</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">F</span><span class="o">=</span><span class="s2">&quot;orangered&quot;</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">)),</span>
+                                <span class="n">MGMT</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;MGMT methylation&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">methylated</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="n">unmethylated</span><span class="o">=</span><span class="s1">&#39;deepskyblue&#39;</span><span class="p">)),</span>
+                                <span class="n">SWI</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;SWI/SNF Complex&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;SWI/SNF&quot;</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">abnormal</span><span class="o">=</span><span class="s1">&#39;peru&#39;</span><span class="p">,</span><span class="n">normal</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)),</span>
+                                <span class="n">K</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;Ki-67&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ki-67&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Tropic&#39;</span><span class="p">,</span>
+                                              <span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                                <span class="n">mCGFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;mCGFrac&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greens_r&#39;</span><span class="p">,</span><span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                               <span class="n">mCHFrac</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;mCGFrac&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues_r&#39;</span><span class="p">,</span><span class="n">legend_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">extendfrac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+                              <span class="n">TumorType</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;tumor_type&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">),</span>
+                              <span class="n">CellTypes</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_ct_frac</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_celltype</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                              <span class="n">DMR</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_dmr_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_state</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                              <span class="n">Loop</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_loop_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">palette_state</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                              <span class="n">hic_state</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_hic_state</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;mc/hic&#39;</span><span class="p">,</span>
+                                                     <span class="n">colors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Concord&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;Disconcordance&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                             <span class="n">IDH</span><span class="o">=</span><span class="n">anno_simple</span><span class="p">(</span><span class="n">df_donor</span><span class="p">[</span><span class="s1">&#39;IDH&#39;</span><span class="p">],</span><span class="n">colors</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">WT</span><span class="o">=</span><span class="s2">&quot;deepskyblue&quot;</span><span class="p">,</span><span class="n">Mut</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">),</span>
+                                             <span class="n">add_text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">text_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)),</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                 <span class="n">ticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelbottom&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;top&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">},</span>
+                                <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">}</span>
+                                <span class="p">)</span>
+
+<span class="n">bottom_annotation</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span>
+                                <span class="n">Row</span><span class="o">=</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">row_vc</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                                <span class="n">label</span><span class="o">=</span><span class="n">anno_label</span><span class="p">(</span><span class="n">row_var_freq</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; %&quot;</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                                                 <span class="n">height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                                <span class="p">),</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                                <span class="n">label_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="s1">&#39;rotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[244]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">op</span><span class="o">=</span><span class="n">oncoPrintPlotter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_oncoprint</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Gene&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;SampleID&#39;</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="c1">#row_cluster=True,</span>
+                    <span class="n">row_split</span><span class="o">=</span><span class="n">df_donor</span><span class="o">.</span><span class="n">IDH</span><span class="p">,</span><span class="n">row_split_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;WT&#39;</span><span class="p">,</span><span class="s1">&#39;Mut&#39;</span><span class="p">],</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">oncoprint_colors</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Alteration&#39;</span><span class="p">,</span>
+                    <span class="n">left_annotation</span><span class="o">=</span><span class="n">left_annotation</span><span class="p">,</span><span class="n">bottom_annotation</span><span class="o">=</span><span class="n">bottom_annotation</span><span class="p">,</span>
+                   <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">subplot_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="n">yticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">},</span>
+                    <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;top&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">},</span>
+                   <span class="p">)</span>
+
+<span class="c1"># ax1=op.left_annotation.axes[0,0]</span>
+<span class="c1"># despine(ax=ax1,left=False, bottom=True, right=True, top=True)</span>
+<span class="c1"># ax2=op.left_annotation.axes[1,0]</span>
+<span class="c1"># despine(ax=ax2,left=True, bottom=True, right=False, top=True)</span>
+<span class="c1"># despine(ax=op.bottom_annotation.annotations[0].ax,left=True, bottom=False, right=True, top=False)</span>
+
+<span class="c1"># for i in range(11,15):</span>
+<span class="c1">#     for j in [0,1]:</span>
+<span class="c1">#         ax=op.left_annotation.axes[j,i]</span>
+<span class="c1">#         # ax.spines[&quot;top&quot;].set_visible(False)</span>
+<span class="c1">#         # ax.spines[&quot;bottom&quot;].set_visible(False)</span>
+<span class="c1">#         despine(ax=ax,left=True, bottom=True, right=True, top=True)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;oncoPrint.horizontal.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting..
+Calculating row orders..
+Reordering rows..
+Calculating col orders..
+Reordering cols..
+Plotting matrix..
+Collecting legends..
+Plotting legends..
+Estimated legend width: 37.85444444444445 mm
+Incresing ncol
+Incresing ncol
+Incresing ncol
+More than 3 cols is not supported
+Legend too long, generating a new column..
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_GBM_22_1.png" src="../_images/notebooks_GBM_22_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wubin Ding.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRB2NBWG05"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VRB2NBWG05', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

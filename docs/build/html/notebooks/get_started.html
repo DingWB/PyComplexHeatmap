@@ -149,7 +149,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -177,6 +177,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -473,35 +477,35 @@
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>-0.709613</td>
+      <td>-0.213759</td>
     </tr>
     <tr>
       <th>sample2</th>
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>0.029959</td>
+      <td>0.028589</td>
     </tr>
     <tr>
       <th>sample3</th>
       <td>GroupA</td>
       <td>C</td>
       <td>E</td>
-      <td>1.580365</td>
+      <td>-0.169314</td>
     </tr>
     <tr>
       <th>sample4</th>
       <td>GroupA</td>
       <td>D</td>
       <td>E</td>
-      <td>-0.228082</td>
+      <td>-1.841210</td>
     </tr>
     <tr>
       <th>sample5</th>
       <td>GroupA</td>
       <td>D</td>
       <td>E</td>
-      <td>1.116552</td>
+      <td>-0.180895</td>
     </tr>
   </tbody>
 </table>
@@ -512,7 +516,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">col_ha</span> <span class="o">=</span> <span class="n">pch</span><span class="o">.</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">col_ha</span> <span class="o">=</span> <span class="n">pch</span><span class="o">.</span><span class="n">HeatmapAnnotation</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -558,7 +562,7 @@ Collecting annotation legends..
                             <span class="n">Scatter</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">,</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                            <span class="n">Bar1</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar1</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">),</span>
                            <span class="n">Bar4</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
-                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                           <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">col_ha</span><span class="o">.</span><span class="n">show_ticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">rotation</span><span class="o">=-</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -584,7 +588,7 @@ Collecting annotation legends..
 <section id="3.-Plot-the-heatmap-with-rows-and-columns-split">
 <h1>3. Plot the heatmap with rows and columns split<a class="headerlink" href="#3.-Plot-the-heatmap-with-rows-and-columns-split" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_heatmap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
@@ -599,7 +603,7 @@ Collecting annotation legends..
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">yticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;example0.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -617,7 +621,7 @@ Collecting annotation legends..
 <section id="4.-Plot-the-annotations-along-side-with-main-heatmap">
 <h1>4. Plot the annotations along side with main heatmap<a class="headerlink" href="#4.-Plot-the-annotations-along-side-with-main-heatmap" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rows</span> <span class="o">=</span> <span class="n">df_heatmap</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sample4</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -631,7 +635,7 @@ Collecting annotation legends..
                             <span class="n">Scatter</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_scatter</span><span class="p">),</span>
                            <span class="n">Bar1</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar1</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Dark2&#39;</span><span class="p">),</span>
                            <span class="n">Bar4</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_barplot</span><span class="p">(</span><span class="n">df_bar4</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
-                           <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                           <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">hgap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">row_ha</span> <span class="o">=</span> <span class="n">pch</span><span class="o">.</span><span class="n">HeatmapAnnotation</span><span class="p">(</span>
                            <span class="n">Scatter</span><span class="o">=</span><span class="n">pch</span><span class="o">.</span><span class="n">anno_scatterplot</span><span class="p">(</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">sample4</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
@@ -649,7 +653,7 @@ Collecting annotation legends..
                        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">show_rownames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span><span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;example0.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -661,7 +665,7 @@ Collecting annotation legends..
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting HeatmapAnnotations
+Plotting HeatmapAnnotations
 Collecting annotation legends..
 </pre></div></div>
 </div>

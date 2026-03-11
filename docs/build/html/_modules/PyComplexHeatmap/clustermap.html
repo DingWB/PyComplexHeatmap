@@ -143,7 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -171,6 +171,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComplexHeatmap</a><ul>
@@ -1372,9 +1376,9 @@
 				<span class="n">center_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 				<span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">)</span>
 				<span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">evaluate_bezier</span><span class="p">(</span><span class="n">getControlPoints</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">center</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">))</span>
-				<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+				<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span><span class="o">**</span><span class="n">tree_kws</span><span class="p">)</span>
 				<span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">evaluate_bezier</span><span class="p">(</span><span class="n">getControlPoints</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">center</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">))</span>
-				<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+				<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span><span class="o">**</span><span class="n">tree_kws</span><span class="p">)</span>
 				<span class="k">if</span> <span class="n">root_dot</span><span class="p">:</span>
 					<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">dotsize</span><span class="p">)</span>
 				<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">dotsize</span><span class="p">)</span>
@@ -1555,8 +1559,10 @@
 <span class="sd">		control the order of legends, default is &#39;auto&#39;, sorted by length of legend.</span>
 <span class="sd">		could also be True/False or a list (or tuple), if a list / tuple is provided,</span>
 <span class="sd">		values should be the label (title) of each legend.</span>
-<span class="sd">	legend_gap :float</span>
-<span class="sd">		the columns gap between different legends.</span>
+<span class="sd">	legend_vgap :float</span>
+<span class="sd">		the vertical gap between different legends (default is 5mm).</span>
+<span class="sd">	legend_hgap :float</span>
+<span class="sd">		the horizontal gap between different legends (two columns of legends), default is 2mm.</span>
 <span class="sd">	legend_width: float [mm]</span>
 <span class="sd">		width of the legend, default is None (infer from data automatically)</span>
 <span class="sd">	legend_hpad: float</span>
@@ -1671,7 +1677,8 @@
 		<span class="n">plot_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">legend_order</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
 		<span class="n">legend_anchor</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
-		<span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+		<span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+		<span class="n">legend_hgap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">legend_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">legend_hpad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 		<span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -1731,7 +1738,8 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span> <span class="o">=</span> <span class="n">legend_side</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;heatmap&quot;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span> <span class="o">=</span> <span class="n">legend_gap</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend_vgap</span> <span class="o">=</span> <span class="n">legend_vgap</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend_hgap</span> <span class="o">=</span> <span class="n">legend_hgap</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_width</span> <span class="o">=</span> <span class="n">legend_width</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_hpad</span> <span class="o">=</span> <span class="n">legend_hpad</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_vpad</span> <span class="o">=</span> <span class="n">legend_vpad</span>
@@ -2563,10 +2571,10 @@
 			<span class="ow">and</span> <span class="p">(</span>
 			<span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
 			<span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_names_side</span> <span class="o">==</span> <span class="s2">&quot;top&quot;</span><span class="p">)</span>
-		<span class="p">)</span>
-		<span class="p">):</span>
+			<span class="p">)</span>
+		<span class="p">):</span> <span class="c1"># tick top</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;labelrotation&quot;</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-			<span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;right&#39;</span>
+			<span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;right&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;center&#39;</span>
 			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>  <span class="c1"># ticks</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -2583,7 +2591,7 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">xticklabels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">())</span>
 		<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_colnames</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># tick bottom</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;labelrotation&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>
-			<span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;right&#39;</span>
+			<span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;right&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xticklabels_kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;center&#39;</span>
 			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>  <span class="c1"># ticks</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -2713,7 +2721,7 @@
 				<span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_anchor</span> <span class="o">==</span> <span class="s2">&quot;ax_heatmap&quot;</span>
 			<span class="p">):</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">label_max_width</span> <span class="o">=</span> <span class="n">heatmap_label_max_width</span>  <span class="c1"># * 1.1</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">get_legend_list</span><span class="p">()</span> <span class="c1">#self.legend_list will be created</span></div>
+		<span class="bp">self</span><span class="o">.</span><span class="n">get_legend_list</span><span class="p">()</span> <span class="c1">#self.legend_list will be created</span></div>
 
 <div class="viewcode-block" id="ClusterMapPlotter.plot_legends"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.ClusterMapPlotter.plot_legends">[docs]</a>	<span class="k">def</span> <span class="nf">plot_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
@@ -2737,7 +2745,8 @@
 				<span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
 				<span class="n">space</span><span class="o">=</span><span class="n">space</span> <span class="o">+</span> <span class="n">legend_hpad</span><span class="p">,</span>
 				<span class="n">legend_side</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span><span class="p">,</span>
-				<span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span><span class="p">,</span>
+				<span class="n">v_gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vgap</span><span class="p">,</span>
+				<span class="n">h_gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_hgap</span><span class="p">,</span>
 				<span class="n">delta_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_delta_x</span><span class="p">,</span>
 				<span class="n">legend_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_width</span><span class="p">,</span>
 				<span class="n">legend_vpad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vpad</span><span class="p">,</span>
@@ -2843,7 +2852,8 @@
 	<span class="n">row_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
 	<span class="n">col_gap</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
 	<span class="n">legend_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
-	<span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+	<span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+	<span class="n">legend_hgap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 	<span class="n">legend_y</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
 	<span class="n">legend_hpad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 	<span class="n">legend_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2867,8 +2877,10 @@
 <span class="sd">		the row or columns gap between subplots, unit is mm [15].</span>
 <span class="sd">	legend_side: str</span>
 <span class="sd">		right,left [right].</span>
-<span class="sd">	legend_gap: float</span>
-<span class="sd">		row gap between two legends, unit is mm.</span>
+<span class="sd">	legend_vgap: float</span>
+<span class="sd">		vertical gap between two legends, unit is mm.</span>
+<span class="sd">	legend_hgap: float</span>
+<span class="sd">		horizontal gap between two columns of legends, unit is mm.</span>
 <span class="sd">	legend_width: float</span>
 <span class="sd">		default is None, will be estimated automatically</span>
 <span class="sd">	width_ratios: list</span>
@@ -2966,7 +2978,8 @@
 			<span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
 			<span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span>
 			<span class="n">legend_side</span><span class="o">=</span><span class="n">legend_side</span><span class="p">,</span>
-			<span class="n">gap</span><span class="o">=</span><span class="n">legend_gap</span><span class="p">,</span>
+			<span class="n">v_gap</span><span class="o">=</span><span class="n">legend_vgap</span><span class="p">,</span>
+			<span class="n">h_gap</span><span class="o">=</span><span class="n">legend_hgap</span><span class="p">,</span>
 			<span class="n">y0</span><span class="o">=</span><span class="n">legend_y</span><span class="p">,</span>
 			<span class="n">legend_width</span><span class="o">=</span><span class="n">legend_width</span><span class="p">,</span>
 			<span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>

@@ -147,7 +147,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -175,6 +175,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -1263,7 +1267,7 @@
                           <span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">groupA</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">CellClass</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_vgap</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
                           <span class="c1"># dot_legend_marker=&#39;*&#39;,</span>
                           <span class="c1"># xlabel=Group,xlabel_side=&quot;top&quot;,</span>
                           <span class="c1"># xlabel_kws=dict(labelpad=8,fontweight=&#39;bold&#39;),</span>
@@ -1338,7 +1342,7 @@ Plotting legends..
                           <span class="n">spines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">groupA</span><span class="p">,</span> <span class="n">row_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">CellClass</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_gap</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend_vgap</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
                           <span class="c1"># dot_legend_marker=&#39;*&#39;,</span>
                           <span class="c1"># xlabel=Group,xlabel_side=&quot;top&quot;,</span>
                           <span class="c1"># xlabel_kws=dict(labelpad=8,fontweight=&#39;bold&#39;),</span>

@@ -149,7 +149,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -177,6 +177,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -393,7 +397,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -1119,7 +1123,7 @@ level_1
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">spines</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+                          <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;row_cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;Set1&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">spines</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1518,7 +1522,7 @@ Name: -log10(Pval), dtype: float64
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#if the size of dot in legend is too large, use alpha to control, for example: alpha=0.8</span>
+                          <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#if the size of dot in legend is too large, use alpha to control, for example: alpha=0.8</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;dotHeatmap1.pdf&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1560,7 +1564,7 @@ Estimated legend width: 25.930555555555557 mm
                           <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Enrich&#39;</span><span class="p">:</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">ast$&#39;</span><span class="p">,</span><span class="s1">&#39;Depletion&#39;</span><span class="p">:</span><span class="s1">&#39;X&#39;</span><span class="p">},</span><span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 <span class="c1"># plt.savefig(os.path.expanduser(&quot;~/Gallery/20230227_kycg.pdf&quot;),bbox_inches=&#39;tight&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1627,7 +1631,7 @@ Name: -log10(Pval), dtype: float64
                           <span class="n">value_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">c_na</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
                           <span class="n">top_annotation</span><span class="o">=</span><span class="n">col_ha</span><span class="p">,</span><span class="n">right_annotation</span><span class="o">=</span><span class="n">row_ha</span><span class="p">,</span>
                           <span class="n">col_split</span><span class="o">=</span><span class="n">df_col</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span><span class="n">row_split</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Category</span><span class="p">,</span> <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">row_split_gap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">spines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+                          <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">spines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dot_legend_marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1654,14 +1658,6 @@ Estimated legend width: 25.930555555555557 mm
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_dotHeatmap_33_1.png" src="../_images/notebooks_dotHeatmap_33_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
 </section>

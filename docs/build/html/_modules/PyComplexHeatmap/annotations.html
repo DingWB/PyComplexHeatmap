@@ -143,7 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/kwargs.html#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -171,6 +171,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../notebooks/dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComplexHeatmap</a><ul>
@@ -438,6 +442,14 @@
 <span class="sd">		`legend_kws={&#39;color_text&#39;:False}`, then, black would be the default color for the text.</span>
 <span class="sd">		If the user want to use a custom color instead of black (such as blue), please set</span>
 <span class="sd">		legend_kws={&#39;color_text&#39;:False,&#39;labelcolor&#39;:&#39;blue&#39;}.</span>
+<span class="sd">	ylim: tuple</span>
+<span class="sd">		y axis limits for the annotation when axis=1, x axis limits when axis=0.</span>
+<span class="sd">	label: str</span>
+<span class="sd">		label for the annotation, will be set to the axis label and the legend title if legend is True.</span>
+<span class="sd">	invert_x: bool</span>
+<span class="sd">		whether to invert x axis when axis=0, default is False.</span>
+<span class="sd">	invert_y: bool</span>
+<span class="sd">		whether to invert y axis when axis=1, default is False.</span>
 <span class="sd">	plot_kws: dict</span>
 <span class="sd">		other plot kws passed to annotation.plot, such as rotation, rotation_mode, ha, va,</span>
 <span class="sd">		annotation_clip, arrowprops and matplotlib.text.Text for anno_label. For example, in anno_simple,</span>
@@ -458,6 +470,8 @@
 		<span class="n">legend_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">invert_x</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+		<span class="n">invert_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="o">**</span><span class="n">plot_kws</span>
 	<span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_check_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -469,6 +483,8 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_height</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_type_specific_params</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="o">=</span> <span class="n">legend</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">invert_x</span><span class="o">=</span><span class="n">invert_x</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">invert_y</span><span class="o">=</span><span class="n">invert_y</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span> <span class="o">=</span> <span class="n">legend_kws</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">legend_kws</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_set_default_plot_kws</span><span class="p">(</span><span class="n">plot_kws</span><span class="p">)</span>
 
@@ -961,9 +977,9 @@
 				<span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;up&quot;</span>
 			<span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 				<span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
-			<span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+			<span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">:</span> <span class="c1">#anno_label is on the top (left)</span>
 				<span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
-			<span class="k">else</span><span class="p">:</span>
+			<span class="k">else</span><span class="p">:</span> <span class="c1"># on the bottom (right)</span>
 				<span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">set_plot_kws</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
@@ -1289,12 +1305,14 @@
 			<span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
 		<span class="n">base_coordinates</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bar_height&#39;</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)</span> <span class="c1"># for barh (row)</span>
+		<span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bar_width&#39;</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)</span> <span class="c1"># for bar (column)</span>
 		<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
 			<span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#columns annotations</span>
 				<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 				<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
 					<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-					<span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+					<span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
 					<span class="n">bottom</span><span class="o">=</span><span class="n">base_coordinates</span><span class="p">,</span>
 					<span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
 					<span class="o">**</span><span class="n">plot_kws</span>
@@ -1305,7 +1323,7 @@
 				<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 				<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span>
 					<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-					<span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+					<span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
 					<span class="n">left</span><span class="o">=</span><span class="n">base_coordinates</span><span class="p">,</span>
 					<span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
 					<span class="o">**</span><span class="n">plot_kws</span>
@@ -1474,7 +1492,8 @@
 
 <div class="viewcode-block" id="anno_img"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_img">[docs]</a><span class="k">class</span> <span class="nc">anno_img</span><span class="p">(</span><span class="n">AnnotationBase</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Annotate images.</span>
+<span class="sd">	Annotate images. Tested images format includes png, jpg, svg, and other formats supported by PIL (PIL.Image.open).</span>
+<span class="sd">	All arguments are included in AnnotationBase,</span>
 
 <span class="sd">	Parameters</span>
 <span class="sd">	----------</span>
@@ -1543,10 +1562,19 @@
 				<span class="n">new_shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
 				<span class="c1"># print(shape, new_shape,type(shape), &#39;here&#39;)</span>
 				<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">new_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">)</span>
-		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">img_path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.svg&#39;</span><span class="p">):</span> <span class="c1"># type: ignore #PIL does not support svg</span>
+			<span class="c1"># Convert SVG to PNG using cairosvg</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="kn">import</span> <span class="nn">cairosvg</span>
+			<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;cairosvg is required to convert SVG images. Please install it via &#39;pip install cairosvg&#39;.&quot;</span><span class="p">)</span>
+			<span class="n">png_data</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+			<span class="n">cairosvg</span><span class="o">.</span><span class="n">svg2png</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">img_path</span><span class="p">,</span><span class="n">write_to</span><span class="o">=</span><span class="n">png_data</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> <span class="c1">#img_path could be a remote url</span>
+			<span class="n">image</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">png_data</span><span class="p">)</span>
+		<span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span> <span class="c1"># type: ignore</span>
 			<span class="n">image</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span> <span class="c1">#mpimg.imread(img_path)</span>
 		<span class="k">else</span><span class="p">:</span> <span class="c1">#remote file</span>
-			<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+			<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span> <span class="c1"># type: ignore</span>
 			<span class="c1"># Open the image from bytes</span>
 			<span class="n">image</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
 		<span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
@@ -1828,7 +1856,9 @@
 		<span class="k">pass</span>
 
 <div class="viewcode-block" id="anno_dendrogram.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.anno_dendrogram.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;tree_kws&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+		<span class="k">if</span> <span class="s1">&#39;tree_kws&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s1">&#39;tree_kws&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;tree_kws&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
 		<span class="c1"># inint the DendrogramPlotter class object</span>
 		<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">dend</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kws</span><span class="p">)</span>
@@ -1863,6 +1893,8 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="o">=</span><span class="kc">None</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">=</span><span class="kc">None</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">=</span><span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">invert_x</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">invert_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="mi">0</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1967,8 +1999,10 @@
 <span class="sd">		columns of df.</span>
 <span class="sd">	legend_side : str</span>
 <span class="sd">		right or left</span>
-<span class="sd">	legend_gap : float</span>
-<span class="sd">		the vertical gap between two legends, default is 2 [mm]</span>
+<span class="sd">	legend_vgap : float</span>
+<span class="sd">		the vertical gap between two legends, default is 5 [mm]</span>
+<span class="sd">	legend_hgap: float</span>
+<span class="sd">		the horizontal gap between two legend columns, default is 2 [mm]</span>
 <span class="sd">	legend_width: float</span>
 <span class="sd">		width of the legend, default is 4.5[mm]</span>
 <span class="sd">	legend_hpad: float</span>
@@ -2015,7 +2049,8 @@
 		<span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">legend_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
-		<span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+		<span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+		<span class="n">legend_hgap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">legend_width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
 		<span class="n">legend_hpad</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -2043,7 +2078,8 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_check_legend</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_side</span> <span class="o">=</span> <span class="n">legend_side</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span> <span class="o">=</span> <span class="n">legend_gap</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend_vgap</span> <span class="o">=</span> <span class="n">legend_vgap</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">legend_hgap</span> <span class="o">=</span> <span class="n">legend_hgap</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">wgap</span> <span class="o">=</span> <span class="n">wgap</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">hgap</span> <span class="o">=</span> <span class="n">hgap</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_width</span> <span class="o">=</span> <span class="n">legend_width</span>
@@ -2337,12 +2373,12 @@
 					<span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ticklabels_kws</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HeatmapAnnotation.get_legend_list"><a class="viewcode-back" href="../../PyComplexHeatmap.annotations.html#PyComplexHeatmap.annotations.HeatmapAnnotation.get_legend_list">[docs]</a>	<span class="k">def</span> <span class="nf">get_legend_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_order</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;auto&quot;</span><span class="p">]:</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_order</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;auto&quot;</span><span class="p">]:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-		<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_order</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
+		<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_order</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_order</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">]</span>
-		<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span><span class="o">=</span><span class="p">[]</span></div>
@@ -2551,6 +2587,10 @@
 					<span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax1</span>
 					<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
 						<span class="n">ax1</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">invert_x</span><span class="p">:</span>
+					<span class="n">ax1</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">invert_y</span><span class="p">:</span>
+					<span class="n">ax1</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">set_axes_kws</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">legend_list</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2621,7 +2661,8 @@
 				<span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
 				<span class="n">space</span><span class="o">=</span><span class="n">space</span> <span class="o">+</span> <span class="n">legend_hpad</span><span class="p">,</span>
 				<span class="n">legend_side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
-				<span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_gap</span><span class="p">,</span>
+				<span class="n">v_gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vgap</span><span class="p">,</span>
+				<span class="n">h_gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_hgap</span><span class="p">,</span>
 				<span class="n">legend_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_width</span><span class="p">,</span>
 				<span class="n">legend_vpad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_vpad</span><span class="p">,</span>
 				<span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span>

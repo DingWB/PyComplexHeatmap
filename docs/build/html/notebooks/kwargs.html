@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>label_kws, xticklabels_kws and yticklabels_kws: Modifying the heatmap annotations labels and xticklabels, yticklabels &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
+  <title>label_kws, xticklabels_kws, yticklabels_kws &amp; annot: Modifying the heatmap annotations labels and xticklabels, yticklabels &mdash; PyComplexHeatmap 1.7.7.dev0+gddb18da.d20240909 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
@@ -149,7 +149,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#xlabel_kws-and-ylabel_kws:-Modifying-xlabel-and-ylabel"><code class="docutils literal notranslate"><span class="pre">xlabel_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel_kws</span></code>: Modifying <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Control-legend-using-legend_kws">Control legend using <code class="docutils literal notranslate"><span class="pre">legend_kws</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Control-gap-&amp;-pad-in-heatmap">Control gap &amp; pad in heatmap</a><ul>
@@ -177,6 +177,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dev.html#Color-palette-design">Color palette design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#Plot-legends-only">Plot legends only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev.html#plot-color-dict-legend">plot color dict legend</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComplexHeatmap</a><ul>
@@ -382,7 +386,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../kwargs.html">Kwargs</a></li>
-      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/DingWB/PyComplexHeatmap/blob/main/docs/source/notebooks/kwargs.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -393,7 +397,7 @@
            <div itemprop="articleBody">
              
   <p>Heatmap annotation labels &amp; figure legend label &amp; xlabel &amp; ylabel For all parameters, please see: <a class="reference external" href="https://github.com/DingWB/PyComplexHeatmap/wiki/Parameters/">https://github.com/DingWB/PyComplexHeatmap/wiki/Parameters/</a></p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -404,13 +408,21 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
-<span class="c1"># print(PyComplexHeatmap.__version__)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">PyComplexHeatmap</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">use_pch_style</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.7.7.dev0+gddb18da.d20240909
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -447,11 +459,11 @@
 </pre></div>
 </div>
 </div>
-<section id="label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels">
-<h1><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code> and <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels<a class="headerlink" href="#label_kws,-xticklabels_kws-and-yticklabels_kws:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels" title="Permalink to this heading">¶</a></h1>
+<section id="label_kws,-xticklabels_kws,-yticklabels_kws-&amp;-annot:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels">
+<h1><code class="docutils literal notranslate"><span class="pre">label_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">xticklabels_kws</span></code>, <code class="docutils literal notranslate"><span class="pre">yticklabels_kws</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">annot</span></code>: Modifying the heatmap annotations labels and xticklabels, yticklabels<a class="headerlink" href="#label_kws,-xticklabels_kws,-yticklabels_kws-&-annot:-Modifying-the-heatmap-annotations-labels-and-xticklabels,-yticklabels" title="Permalink to this heading">¶</a></h1>
 <p>for more parameters of label_kws, see <code class="docutils literal notranslate"><span class="pre">ax.yaxis.label.properties()</span></code> for more parameters of ticklabels_kws,see <code class="docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.tick_params</span></code> for more parameters for [x/y]_ticklabels_kws, see: <code class="docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.tick_params</span></code> or ?<code class="docutils literal notranslate"><span class="pre">ax.tick_params</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[112]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># `label_kws` in `HeatmapAnnotation` control the heatmap annotaiton labels</span>
@@ -461,7 +473,7 @@
                 <span class="n">Exp</span><span class="o">=</span><span class="n">anno_boxplot</span><span class="p">(</span><span class="n">df_box</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">),</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
 
-                <span class="n">label_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">fontstyle</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">,</span>
+                <span class="n">label_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">fontstyle</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">,</span>
                               <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">),</span>
                 <span class="c1">#for more parameters of label_kws, see ax.yaxis.label.properties()</span>
 
@@ -477,12 +489,28 @@
                        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-                       <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                       <span class="c1"># annot=df_heatmap.applymap(lambda x:&quot;$\\oplus$&quot; if x &gt;=1.5 else &#39;$\\times$&#39; if x &lt;= -1.5 else &#39;$\\bullet$&#39;),</span>
+                       <span class="n">annot</span><span class="o">=</span><span class="n">df_heatmap</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">))),</span>
+                       <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">annot_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">),</span>
+                       <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
                        <span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                        <span class="n">yticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
                        <span class="c1">#more parameters for [x/y]_ticklabels_kws, see: matplotlib.axes.Axes.tick_params or ?ax.tick_params</span>
                       <span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">cm</span><span class="o">.</span><span class="n">heatmap_axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">artist</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="c1"># Example: change all text fontsize</span>
+            <span class="c1"># print(artist.get_text())</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">s</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">artist</span><span class="o">.</span><span class="n">get_text</span><span class="p">()))</span> <span class="o">*</span> <span class="mi">14</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">artist</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">bullet$&#39;</span><span class="p">)</span>
+            <span class="n">artist</span><span class="o">.</span><span class="n">set_verticalalignment</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+            <span class="n">artist</span><span class="o">.</span><span class="n">set_horizontalalignment</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+            <span class="n">artist</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -533,7 +561,7 @@
                        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">row_names_side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">col_cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">col_cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
                        <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
                        <span class="n">xticklabels_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span><span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>
                        <span class="c1">#more parameters for [x/y]_ticklabels_kws, see: matplotlib.axes.Axes.tick_params or ?ax.tick_params</span>
@@ -581,7 +609,7 @@
                        <span class="n">col_split_gap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">col_dendrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                       <span class="n">tree_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;colors&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
                        <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.1g&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
                       <span class="p">)</span>
 <span class="n">cm</span><span class="o">.</span><span class="n">cbars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_title</span><span class="p">()</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
@@ -659,7 +687,7 @@
             <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span><span class="n">row_dendrogram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">show_rownames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">show_colnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">legend_vgap</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">legend_hpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">legend_vpad</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="c1">#annot=True,fmt=&#39;.1g&#39;,linewidths=0.05,linecolor=&#39;gold&#39;,</span>
             <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
             <span class="n">xticklabels_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;labelrotation&#39;</span><span class="p">:</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="s1">&#39;labelcolor&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span>
@@ -673,7 +701,7 @@
 </pre></div>
 </div>
 </div>
-<p><img alt="190e6755f30f48de94e2fe92c3abd79a" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 800px;" /></p>
+<p><img alt="98f4226de819452a93a7c39c1a6a3a25" class="no-scaled-link" src="https://raw.githubusercontent.com/DingWB/PyComplexHeatmap/main/docs/images/gallery1.png" style="width: 800px;" /></p>
 <section id="hgap-and-wgap-for-HeatmapAnnotation">
 <h2><code class="docutils literal notranslate"><span class="pre">hgap</span></code> and <code class="docutils literal notranslate"><span class="pre">wgap</span></code> for <code class="docutils literal notranslate"><span class="pre">HeatmapAnnotation</span></code><a class="headerlink" href="#hgap-and-wgap-for-HeatmapAnnotation" title="Permalink to this heading">¶</a></h2>
 <p>control the gap between two rows/columns of column annotations (axis=1) or row annotations (axis=0), unit is mm</p>

@@ -1607,8 +1607,10 @@ class HeatmapAnnotation:
 		columns of df.
 	legend_side : str
 		right or left
-	legend_gap : float
-		the vertical gap between two legends, default is 2 [mm]
+	legend_vgap : float
+		the vertical gap between two legends, default is 5 [mm]
+	legend_hgap: float
+		the horizontal gap between two legend columns, default is 2 [mm]
 	legend_width: float
 		width of the legend, default is 4.5[mm]
 	legend_hpad: float
@@ -1655,7 +1657,8 @@ class HeatmapAnnotation:
 		plot=False,
 		legend=True,
 		legend_side="right",
-		legend_gap=5,
+		legend_vgap=5,
+		legend_hgap=2,
 		legend_width=4.5,
 		legend_hpad=2,
 		legend_vpad=5,
@@ -1683,7 +1686,8 @@ class HeatmapAnnotation:
 		self.args = args
 		self._check_legend(legend)
 		self.legend_side = legend_side
-		self.legend_gap = legend_gap
+		self.legend_vgap = legend_vgap
+		self.legend_hgap = legend_hgap
 		self.wgap = wgap
 		self.hgap = hgap
 		self.legend_width = legend_width
@@ -2265,7 +2269,8 @@ class HeatmapAnnotation:
 				ax=ax,
 				space=space + legend_hpad,
 				legend_side="right",
-				gap=self.legend_gap,
+				v_gap=self.legend_vgap,
+				h_gap=self.legend_hgap,
 				legend_width=self.legend_width,
 				legend_vpad=self.legend_vpad,
 				verbose=self.verbose
