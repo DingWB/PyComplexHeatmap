@@ -418,7 +418,7 @@
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">300</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap&quot;))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap&quot;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ClusterMapPlotter</span><span class="p">,</span><span class="n">DotClustermapPlotter</span><span class="p">,</span><span class="n">HeatmapAnnotation</span><span class="p">,</span><span class="n">anno_simple</span><span class="p">,</span><span class="n">anno_scatterplot</span><span class="p">,</span><span class="n">anno_lineplot</span><span class="p">,</span><span class="n">anno_barplot</span><span class="p">,</span>
     <span class="n">anno_label</span><span class="p">,</span><span class="n">anno_boxplot</span><span class="p">,</span><span class="n">anno_img</span><span class="p">,</span>
@@ -958,11 +958,11 @@
 </table>
 </div></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # download image to local</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Images could be a url or file path, for example: download image to local</span>
 <span class="c1"># import requests</span>
 <span class="c1"># img_dir=&#39;images&#39;</span>
 <span class="c1"># if not os.path.exists(img_dir):</span>
@@ -972,21 +972,15 @@
 <span class="c1">#     file=os.path.basename(url)</span>
 <span class="c1">#     with open(os.path.join(img_dir,file), &#39;wb&#39;) as handler:</span>
 <span class="c1">#         handler.write(img_data)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img_dir</span><span class="o">=</span><span class="s1">&#39;images&#39;</span>
-<span class="n">df_row</span><span class="o">.</span><span class="n">Logo</span><span class="o">=</span><span class="n">df_row</span><span class="o">.</span><span class="n">Logo</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img_dir</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="c1"># img_dir=&#39;images&#39;</span>
+<span class="c1"># df_row.Logo=df_row.Logo.apply(lambda x:os.path.join(img_dir,os.path.basename(x)))</span>
 <span class="n">df_row</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1033,7 +1027,7 @@
       <td>0.767527</td>
       <td>-0.149461</td>
       <td>ASC|Nfia</td>
-      <td>images/jaspar__MA0670.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Tcf4</th>
@@ -1042,7 +1036,7 @@
       <td>0.508175</td>
       <td>-0.282496</td>
       <td>CGE-Vip|Tcf4</td>
-      <td>images/tfdimers__MD00119.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Erg</th>
@@ -1051,7 +1045,7 @@
       <td>0.857981</td>
       <td>-0.114057</td>
       <td>EC|Erg</td>
-      <td>images/metacluster_135.7.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Fli1</th>
@@ -1060,7 +1054,7 @@
       <td>0.747177</td>
       <td>-0.171242</td>
       <td>EC|Fli1</td>
-      <td>images/metacluster_135.7.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Zbtb43</th>
@@ -1069,7 +1063,7 @@
       <td>0.784200</td>
       <td>-0.144034</td>
       <td>Exc|Zbtb43</td>
-      <td>images/metacluster_131.8.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Mef2c</th>
@@ -1078,7 +1072,7 @@
       <td>0.680693</td>
       <td>-0.177612</td>
       <td>IT-L6|Mef2c</td>
-      <td>images/transfac_pro__M04846.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Spi1</th>
@@ -1087,7 +1081,7 @@
       <td>0.736412</td>
       <td>-0.185941</td>
       <td>MGC|Spi1</td>
-      <td>images/metacluster_167.5.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Hdx</th>
@@ -1096,7 +1090,7 @@
       <td>0.852639</td>
       <td>-0.120034</td>
       <td>MGC|Hdx</td>
-      <td>images/tfdimers__MD00488.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Bach1</th>
@@ -1105,7 +1099,7 @@
       <td>0.855795</td>
       <td>-0.100834</td>
       <td>MGE-Pvalb|Bach1</td>
-      <td>images/jaspar__MA1633.2.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Sox10</th>
@@ -1114,7 +1108,7 @@
       <td>0.280051</td>
       <td>-0.354296</td>
       <td>ODC|Sox10</td>
-      <td>images/metacluster_4.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Sox8</th>
@@ -1123,7 +1117,7 @@
       <td>0.361547</td>
       <td>-0.215307</td>
       <td>ODC|Sox8</td>
-      <td>images/metacluster_4.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Emx1</th>
@@ -1132,7 +1126,7 @@
       <td>0.655946</td>
       <td>-0.114102</td>
       <td>P|Emx1</td>
-      <td>images/metacluster_164.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Lhx2</th>
@@ -1141,7 +1135,7 @@
       <td>0.623909</td>
       <td>-0.101292</td>
       <td>P|Lhx2</td>
-      <td>images/metacluster_164.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Lhx3</th>
@@ -1150,7 +1144,7 @@
       <td>0.550733</td>
       <td>-0.109488</td>
       <td>P|Lhx3</td>
-      <td>images/metacluster_9.26.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Pou5f1</th>
@@ -1159,7 +1153,7 @@
       <td>0.800837</td>
       <td>-0.124454</td>
       <td>P|Pou5f1</td>
-      <td>images/taipale_cyt_meth__POU5F1_NYTAATTATGCGNR...</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Barhl1</th>
@@ -1168,7 +1162,7 @@
       <td>0.469806</td>
       <td>-0.116628</td>
       <td>P|Barhl1</td>
-      <td>images/metacluster_124.2.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Emx2</th>
@@ -1177,7 +1171,7 @@
       <td>0.522485</td>
       <td>-0.105113</td>
       <td>P|Emx2</td>
-      <td>images/metacluster_164.1.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Hnf1b</th>
@@ -1186,7 +1180,7 @@
       <td>0.793915</td>
       <td>-0.115062</td>
       <td>PC|Hnf1b</td>
-      <td>images/tfdimers__MD00345.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Ebf4</th>
@@ -1195,7 +1189,7 @@
       <td>0.797483</td>
       <td>-0.125697</td>
       <td>PC|Ebf4</td>
-      <td>images/metacluster_172.20.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Ebf1</th>
@@ -1204,7 +1198,7 @@
       <td>0.821295</td>
       <td>-0.125705</td>
       <td>PC|Ebf1</td>
-      <td>images/metacluster_172.20.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Ovol2</th>
@@ -1213,7 +1207,7 @@
       <td>0.775894</td>
       <td>-0.119117</td>
       <td>PC|Ovol2</td>
-      <td>images/tfdimers__MD00481.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
     <tr>
       <th>Ikzf2</th>
@@ -1222,14 +1216,14 @@
       <td>0.830263</td>
       <td>-0.130275</td>
       <td>PC|Ikzf2</td>
-      <td>images/tfdimers__MD00008.png</td>
+      <td>https://motifcollections.aertslab.org/v10nr_cl...</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1301,11 +1295,11 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_anno_img_example_9_1.png" src="../_images/notebooks_anno_img_example_9_1.png" />
+<img alt="../_images/notebooks_anno_img_example_8_1.png" src="../_images/notebooks_anno_img_example_8_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_ha</span> <span class="o">=</span> <span class="n">HeatmapAnnotation</span><span class="p">(</span>
@@ -1388,7 +1382,7 @@ Plotting legends..
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_anno_img_example_10_1.png" src="../_images/notebooks_anno_img_example_10_1.png" />
+<img alt="../_images/notebooks_anno_img_example_9_1.png" src="../_images/notebooks_anno_img_example_9_1.png" />
 </div>
 </div>
 </section>
