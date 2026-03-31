@@ -210,7 +210,7 @@ def despine(fig=None, ax=None, top=True, right=True, left=False, bottom=False):
 
 
 # =============================================================================
-def _draw_figure(fig):
+def _draw_figure_deprecated(fig):
 	"""
 	Force draw of a matplotlib figure, accounting for back-compat.
 
@@ -223,6 +223,17 @@ def _draw_figure(fig):
 		except AttributeError:
 			pass
 
+def _draw_figure(fig):
+	"""
+	Force draw of a matplotlib figure, accounting for back-compat.
+	fig.canvas.draw() re-renders the entire figure (every axis, every artist), which is very expensive for complex heatmaps. get_renderer() just returns the renderer object so you can measure sizes without triggering a full draw.
+
+	"""
+	try:
+		renderer = fig.canvas.get_renderer()
+	except AttributeError:
+		fig.canvas.draw()
+		renderer = fig.canvas.get_renderer()
 
 # =============================================================================
 def axis_ticklabels_overlap(labels):
@@ -364,10 +375,15 @@ def cluster_labels(labels=None, xticks=None, majority=True):
 	"""
 	clusters_x = collections.defaultdict(list)
 	clusters_labels = {}
-	scanned_labels = ""
+	_sentinel = object()
+	scanned_labels = _sentinel
 	i = 0
 	for label, x in zip(labels, xticks):
-		if label != scanned_labels:
+		is_nan = pd.isna(label)
+		prev_is_nan = scanned_labels is not _sentinel and pd.isna(scanned_labels)
+		if is_nan and prev_is_nan:
+			pass  # consecutive NaNs belong to the same cluster
+		elif is_nan or label != scanned_labels:
 			scanned_labels = label
 			i += 1
 			clusters_labels[i] = scanned_labels
@@ -376,18 +392,20 @@ def cluster_labels(labels=None, xticks=None, majority=True):
 		cluster_size = collections.defaultdict(int)
 		largest_cluster = {}
 		for i in clusters_labels:
-			if len(clusters_x[i]) > cluster_size[clusters_labels[i]]:
-				cluster_size[clusters_labels[i]] = len(clusters_x[i])
-				largest_cluster[clusters_labels[i]] = i
+			lbl = clusters_labels[i]
+			key = lbl if not pd.isna(lbl) else "__nan__"
+			if len(clusters_x[i]) > cluster_size[key]:
+				cluster_size[key] = len(clusters_x[i])
+				largest_cluster[key] = i
 		labels = [
 			clusters_labels[i]
 			for i in clusters_x
-			if i == largest_cluster[clusters_labels[i]]
+			if i == largest_cluster[clusters_labels[i] if not pd.isna(clusters_labels[i]) else "__nan__"]
 		]
 		x = [
 			np.mean(clusters_x[i])
 			for i in clusters_x
-			if i == largest_cluster[clusters_labels[i]]
+			if i == largest_cluster[clusters_labels[i] if not pd.isna(clusters_labels[i]) else "__nan__"]
 		]
 		return labels, x
 
@@ -543,8 +561,8 @@ def plot_cmap_legend(
 	cbar_kws.setdefault("fraction", 1)
 	cbar_kws.setdefault("shrink", 1)
 	cbar_kws.setdefault("pad", 0)
-	# cbar_kws.setdefault("extend", 'both')
-	# cbar_kws.setdefault("extendfrac", 0.1)
+	cbar_kws.setdefault("extend", 'both')
+	cbar_kws.setdefault("extendfrac", 0.1)
 	vmax = cbar_kws.pop("vmax", 1)
 	vmin = cbar_kws.pop("vmin", 0)
 	# print(vmin,vmax,'vmax,vmin')
@@ -765,14 +783,11 @@ def plot_legend_list(
 		)  # labelpad unit is points
 		left = ax.get_position().x1 + pad
 	if legend_width is None:
-		# try:
 		legend_width = (
 			cal_legend_width(legend_list) + 3
 		)  # base width for color rectangle is set to 3 mm
 		if verbose > 0:
 			print(f"Estimated legend width: {legend_width} mm")
-		# except:
-		# 	legend_width=15
 	legend_width = (
 		legend_width * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().width
 	)  # mm to px to fraction
@@ -803,14 +818,14 @@ def plot_legend_list(
 	h_gap=h_gap * mm2inch * ax.figure.dpi # pixels
 	i = 0
 	while i <= len(legend_list) - 1:
-		obj, title, legend_kws, n, lgd_t = legend_list[i]
+		obj, title, legend_kws, lgd_h, lgd_t = legend_list[i]
 		ax1 = legend_axes[-1]  # ax for the legend on the right
 		ax1.set_axis_off()
 		color_text = legend_kws.pop("color_text", True)
 		if lgd_t == "cmap":  # type(obj)==str: # a cmap, plot colorbar
 			f = (
-				15 * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height
-			)  # 15 mm
+				lgd_h * mm2inch * ax.figure.dpi / ax.figure.get_window_extent().height
+			)  # 15 mm in default for colorbar height, f is a fraction of legend height
 			if y - f < 0:  # add a new column of axes to plot legends
 				offset = (
 					lgd_col_max_width + h_gap + ax.yaxis.labelpad * ax.figure.dpi / 72
@@ -861,7 +876,7 @@ def plot_legend_list(
 			# print(obj, title, legend_kws)
 			legend_kws["bbox_to_anchor"] = (
 				leg_pos.x0,
-				y,
+				y, # y is the bottom position of the first legend (from top to the bottom)
 			)  # lower left position of the box.
 			# x, y, width, height #kws['bbox_transform'] = ax.figure.transFigure
 			# ax1.scatter(leg_pos.x0,y,s=6,color='red',zorder=20,transform=ax1.figure.transFigure)

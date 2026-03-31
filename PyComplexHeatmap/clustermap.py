@@ -936,7 +936,8 @@ class DendrogramPlotter(object):
 	def plot(self, ax, gap_pixel=None, root_x=None,tree_kws=None,
 			 bezier=False,dotsize=1,root_dot=True,axis=1,label=False,
 			 orientation=None,invert=True):
-		"""Plots a dendrogram of the similarities between data on the axes
+		"""Plots a dendrogram of the similarities between data on the axes.
+
 		Parameters
 		----------
 		ax : matplotlib.axes.Axes
@@ -944,6 +945,7 @@ class DendrogramPlotter(object):
 		axis : int
 			0 for rows (default) and 1 for columns.
 		label : bool
+			Whether to show labels on the dendrogram.
 		rotate : bool
 			If axis==0 and one would like to plot row dendrogram, rotate
 			should be True
@@ -1144,16 +1146,19 @@ class ClusterMapPlotter:
 	legend_kws :dict
 		vmax, vmin and other kws passed to plot legend, such as
 		use_gridspec, location, orientation, fraction, shrink, aspect, pad, anchor, panchor,
-		extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing:
-		```
-		cm=ClusterMapPlotter(...)
-		for cbar in cm.cbars:
-		if isinstance(cbar,matplotlib.colorbar.Colorbar):
-			cbar.outline.set_color('white')
-			cbar.outline.set_linewidth(2)
-			cbar.dividers.set_color('red')
-			cbar.dividers.set_linewidth(2)
-		```
+		extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing.
+		Default extend is set to 'both' (change to neither to turn off) and default extendfrac is set to 0.1
+		An extra parameter ``cbar_height`` could be passed in legend_kws to control the height of the colorbar for heatmap, default is 20 [mm].
+		Example::
+
+			cm=ClusterMapPlotter(...)
+			for cbar in cm.cbars:
+				if isinstance(cbar,matplotlib.colorbar.Colorbar):
+					cbar.outline.set_color('white')
+					cbar.outline.set_linewidth(2)
+					cbar.dividers.set_color('red')
+					cbar.dividers.set_linewidth(2)
+
 		In addition to vmax,vmin, other parameters will be passed to https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar
 
 	plot :bool
@@ -1198,14 +1203,12 @@ class ClusterMapPlotter:
 		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
 		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 		zorder,verticalalignment,horizontalalignment.
-		See ax.xaxis.label.properties(), for example:
-		```
-		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())
-		```
-		or
-		```
-		matplotlib.axis.XAxis.label.properties() for detail.
-		```
+		See ax.xaxis.label.properties(), for example::
+
+			cm=ClusterMapPlotter(...)
+			print(cm.ax.xaxis.label.properties())
+
+		or ``matplotlib.axis.XAxis.label.properties()`` for detail.
 	ylabel_kws: dict
 		sams as xlabel_kws
 	xlabel_side: str
@@ -1216,10 +1219,11 @@ class ClusterMapPlotter:
 		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
 		linestyle, linewidth,rasterized,visible,width.
 		See ax.xaxis.label.get_bbox_patch().properties() for more information.
-		For example:
-		```
-		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())
-		```
+		For example::
+
+			cm=ClusterMapPlotter(...)
+			print(cm.ax.xaxis.label.get_bbox_patch().properties())
+
 	ylabel_bbox_kws: dict
 		same as xlabel_bbox_kws
 	rasterized :bool
@@ -2307,7 +2311,10 @@ class ClusterMapPlotter:
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
 			self.legend_kws.setdefault("center", self.kwargs.get('center', None))
-			self.legend_dict[self.label]=tuple([self.cmap, self.label, self.legend_kws, 4, "cmap"])
+			self.legend_kws.setdefault("extend", 'both')
+			self.legend_kws.setdefault("extendfrac", 0.15)
+			cbar_height=self.legend_kws.pop('cbar_height',20)
+			self.legend_dict[self.label]=tuple([self.cmap, self.label, self.legend_kws, cbar_height, "cmap"])
 			if len(self.yticklabels) > 0 and self.row_names_side == "right":
 				max_yticklabel_w = max(
 					[label.get_window_extent().width for label in self.yticklabels]

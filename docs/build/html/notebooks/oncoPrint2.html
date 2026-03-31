@@ -146,6 +146,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="anno_img_example.html">Visualizing motif enrichment results using <code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
@@ -403,8 +404,13 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
-<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">oncoPrintPlotter</span><span class="p">,</span><span class="n">HeatmapAnnotation</span><span class="p">,</span><span class="n">anno_simple</span><span class="p">,</span><span class="n">anno_scatterplot</span><span class="p">,</span><span class="n">anno_lineplot</span><span class="p">,</span><span class="n">anno_barplot</span><span class="p">,</span>
+    <span class="n">anno_label</span><span class="p">,</span><span class="n">anno_boxplot</span><span class="p">,</span><span class="n">anno_img</span><span class="p">,</span><span class="n">use_pch_style</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap.utils</span> <span class="kn">import</span> <span class="n">despine</span>
 <span class="n">use_pch_style</span><span class="p">()</span> <span class="c1"># or plt.style.use(&#39;default&#39;) to restore default style</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">random</span>
@@ -505,33 +511,33 @@
       <th>1</th>
       <td>Sample_1</td>
       <td>Gene_2</td>
-      <td>1</td>
       <td>0</td>
+      <td>1</td>
       <td>0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Sample_1</td>
       <td>Gene_3</td>
-      <td>0</td>
       <td>1</td>
+      <td>0</td>
       <td>0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Sample_1</td>
       <td>Gene_4</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Sample_1</td>
       <td>Gene_5</td>
+      <td>0</td>
+      <td>0</td>
       <td>1</td>
-      <td>0</td>
-      <td>0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -553,24 +559,24 @@
       <th>96</th>
       <td>Sample_10</td>
       <td>Gene_7</td>
-      <td>1</td>
       <td>0</td>
+      <td>1</td>
       <td>0</td>
     </tr>
     <tr>
       <th>97</th>
       <td>Sample_10</td>
       <td>Gene_8</td>
-      <td>1</td>
       <td>0</td>
+      <td>1</td>
       <td>0</td>
     </tr>
     <tr>
       <th>98</th>
       <td>Sample_10</td>
       <td>Gene_9</td>
-      <td>0</td>
       <td>1</td>
+      <td>0</td>
       <td>0</td>
     </tr>
     <tr>
@@ -630,27 +636,27 @@
     <tr>
       <th>Sample_1</th>
       <td>Sample_1</td>
-      <td>patient4</td>
+      <td>patient2</td>
     </tr>
     <tr>
       <th>Sample_2</th>
       <td>Sample_2</td>
-      <td>patient3</td>
+      <td>patient1</td>
     </tr>
     <tr>
       <th>Sample_3</th>
       <td>Sample_3</td>
-      <td>patient5</td>
+      <td>patient3</td>
     </tr>
     <tr>
       <th>Sample_4</th>
       <td>Sample_4</td>
-      <td>patient1</td>
+      <td>patient5</td>
     </tr>
     <tr>
       <th>Sample_5</th>
       <td>Sample_5</td>
-      <td>patient1</td>
+      <td>patient4</td>
     </tr>
     <tr>
       <th>Sample_6</th>
@@ -660,22 +666,22 @@
     <tr>
       <th>Sample_7</th>
       <td>Sample_7</td>
-      <td>patient3</td>
+      <td>patient4</td>
     </tr>
     <tr>
       <th>Sample_8</th>
       <td>Sample_8</td>
-      <td>patient4</td>
+      <td>patient5</td>
     </tr>
     <tr>
       <th>Sample_9</th>
       <td>Sample_9</td>
-      <td>patient3</td>
+      <td>patient1</td>
     </tr>
     <tr>
       <th>Sample_10</th>
       <td>Sample_10</td>
-      <td>patient2</td>
+      <td>patient3</td>
     </tr>
   </tbody>
 </table>
@@ -725,52 +731,52 @@
     <tr>
       <th>Sample_1</th>
       <td>Sample_1</td>
-      <td>31</td>
+      <td>51</td>
     </tr>
     <tr>
       <th>Sample_2</th>
       <td>Sample_2</td>
-      <td>5</td>
+      <td>42</td>
     </tr>
     <tr>
       <th>Sample_3</th>
       <td>Sample_3</td>
-      <td>26</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>Sample_4</th>
       <td>Sample_4</td>
-      <td>96</td>
+      <td>72</td>
     </tr>
     <tr>
       <th>Sample_5</th>
       <td>Sample_5</td>
-      <td>17</td>
+      <td>92</td>
     </tr>
     <tr>
       <th>Sample_6</th>
       <td>Sample_6</td>
-      <td>32</td>
+      <td>26</td>
     </tr>
     <tr>
       <th>Sample_7</th>
       <td>Sample_7</td>
-      <td>4</td>
+      <td>96</td>
     </tr>
     <tr>
       <th>Sample_8</th>
       <td>Sample_8</td>
-      <td>96</td>
+      <td>80</td>
     </tr>
     <tr>
       <th>Sample_9</th>
       <td>Sample_9</td>
-      <td>3</td>
+      <td>68</td>
     </tr>
     <tr>
       <th>Sample_10</th>
       <td>Sample_10</td>
-      <td>92</td>
+      <td>97</td>
     </tr>
   </tbody>
 </table>
@@ -820,52 +826,52 @@
     <tr>
       <th>Sample_1</th>
       <td>Sample_1</td>
-      <td>4870</td>
+      <td>2459</td>
     </tr>
     <tr>
       <th>Sample_2</th>
       <td>Sample_2</td>
-      <td>4572</td>
+      <td>4938</td>
     </tr>
     <tr>
       <th>Sample_3</th>
       <td>Sample_3</td>
-      <td>2378</td>
+      <td>1993</td>
     </tr>
     <tr>
       <th>Sample_4</th>
       <td>Sample_4</td>
-      <td>4970</td>
+      <td>4286</td>
     </tr>
     <tr>
       <th>Sample_5</th>
       <td>Sample_5</td>
-      <td>4662</td>
+      <td>2492</td>
     </tr>
     <tr>
       <th>Sample_6</th>
       <td>Sample_6</td>
-      <td>1196</td>
+      <td>3222</td>
     </tr>
     <tr>
       <th>Sample_7</th>
       <td>Sample_7</td>
-      <td>3065</td>
+      <td>1677</td>
     </tr>
     <tr>
       <th>Sample_8</th>
       <td>Sample_8</td>
-      <td>2553</td>
+      <td>589</td>
     </tr>
     <tr>
       <th>Sample_9</th>
       <td>Sample_9</td>
-      <td>4390</td>
+      <td>3727</td>
     </tr>
     <tr>
       <th>Sample_10</th>
       <td>Sample_10</td>
-      <td>4068</td>
+      <td>4144</td>
     </tr>
   </tbody>
 </table>
@@ -912,13 +918,13 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
-Starting plotting HeatmapAnnotations
+Plotting HeatmapAnnotations
 Collecting legends..
 Collecting annotation legends..
 Plotting legends..

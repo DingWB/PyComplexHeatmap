@@ -8,3 +8,4 @@ More Examples
    notebooks/single_cell_methylation.ipynb
    notebooks/composite_heatmaps.ipynb
    notebooks/cpg_modules.ipynb
+   notebooks/anno_img_example.ipynb

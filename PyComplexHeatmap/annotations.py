@@ -50,6 +50,7 @@ class AnnotationBase:
 		`legend_kws={'color_text':False}`, then, black would be the default color for the text.
 		If the user want to use a custom color instead of black (such as blue), please set
 		legend_kws={'color_text':False,'labelcolor':'blue'}.
+		An extra parameter `cbar_height` could be passed in legend_kws to control the height of the colorbar for heatmap, default is 15 [mm].
 	ylim: tuple
 		y axis limits for the annotation when axis=1, x axis limits when axis=0.
 	label: str
@@ -453,12 +454,10 @@ class anno_label(AnnotationBase):
 		passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
 		more information about arrowprops could be found in
 		matplotlib.patches.FancyArrowPatch. For example, to remove arrow, just set
-		arrowprops = dict(visible=False). See: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html for more information.
-		arrowprops:
-			arrowstyle:
-				https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html
-			connectionstyle:
-				https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
+		arrowprops = dict(visible=False). See https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html for more information.
+
+		- arrowprops.arrowstyle: https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html
+		- arrowprops.connectionstyle: https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html
 
 	Returns
 	----------
@@ -2038,7 +2037,7 @@ class HeatmapAnnotation:
 					[
 						annotation.cmap,
 						annotation.label,
-						legend_kws, 4, "cmap"]
+						legend_kws, legend_kws.pop('cbar_height',15), "cmap"]
 				)
 		self.get_legend_list() #self.legend_list will be created
 

@@ -146,6 +146,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="anno_img_example.html">Visualizing motif enrichment results using <code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../kwargs.html">Kwargs</a><ul>
@@ -397,7 +398,7 @@
            <div itemprop="articleBody">
              
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
@@ -410,9 +411,11 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans serif&#39;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">42</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/Projects/Github/PyComplexHeatmap/&quot;</span><span class="p">))</span>
-<span class="kn">import</span> <span class="nn">PyComplexHeatmap</span>
-<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># sys.path.append(os.path.expanduser(&quot;~/Projects/Github/PyComplexHeatmap/&quot;))</span>
+<span class="kn">from</span> <span class="nn">PyComplexHeatmap</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ClusterMapPlotter</span><span class="p">,</span><span class="n">DotClustermapPlotter</span><span class="p">,</span><span class="n">HeatmapAnnotation</span><span class="p">,</span><span class="n">anno_simple</span><span class="p">,</span><span class="n">anno_scatterplot</span><span class="p">,</span><span class="n">anno_lineplot</span><span class="p">,</span><span class="n">anno_barplot</span><span class="p">,</span>
+    <span class="n">anno_label</span><span class="p">,</span><span class="n">anno_boxplot</span><span class="p">,</span><span class="n">anno_img</span><span class="p">,</span><span class="n">use_pch_style</span>
+<span class="p">)</span>
 <span class="n">use_pch_style</span><span class="p">()</span> <span class="c1"># or plt.style.use(&#39;default&#39;) to restore default style</span>
 </pre></div>
 </div>
@@ -420,7 +423,7 @@
 <section id="Load-an-example-brain-networks-dataset-from-seaborn">
 <h1>Load an example brain networks dataset from seaborn<a class="headerlink" href="#Load-an-example-brain-networks-dataset-from-seaborn" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -444,7 +447,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -452,7 +455,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -648,7 +651,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">Level</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -656,7 +659,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -665,7 +668,7 @@
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -673,7 +676,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -748,7 +751,7 @@
 <section id="Plot-traditional-heatmap-using-square-marker-marker='s'">
 <h1>Plot traditional heatmap using square marker <code class="docutils literal notranslate"><span class="pre">marker='s'</span></code><a class="headerlink" href="#Plot-traditional-heatmap-using-square-marker-marker='s'" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -764,10 +767,10 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -788,7 +791,7 @@ Estimated legend width: 7.5 mm
 <h1>Simple dot heatmap using fixed dot size<a class="headerlink" href="#Simple-dot-heatmap-using-fixed-dot-size" title="Permalink to this heading">¶</a></h1>
 <p>In default, using circle marker: <code class="docutils literal notranslate"><span class="pre">marker='o'</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -803,10 +806,10 @@ Estimated legend width: 7.5 mm
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -827,7 +830,7 @@ Estimated legend width: 7.5 mm
 <h1>Changing the size of point<a class="headerlink" href="#Changing-the-size-of-point" title="Permalink to this heading">¶</a></h1>
 <p>In default, we determined the size of the points based on the <code class="docutils literal notranslate"><span class="pre">value</span></code> col if parameter <code class="docutils literal notranslate"><span class="pre">s</span></code> was not given</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -844,10 +847,10 @@ Estimated legend width: 7.5 mm
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -884,10 +887,10 @@ Estimated legend width: 28.22361111111111 mm
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -925,10 +928,10 @@ Estimated legend width: 28.22361111111111 mm
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -963,10 +966,10 @@ Plotting legends..
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 132.808800071564
@@ -1533,10 +1536,10 @@ Name: -log10(Pval), dtype: float64
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 180.09263168093761
@@ -1575,10 +1578,10 @@ Estimated legend width: 25.930555555555557 mm
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 180.09263168093761
@@ -1641,10 +1644,10 @@ Name: -log10(Pval), dtype: float64
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting plotting..
-Starting calculating row orders..
+Starting..
+Calculating row orders..
 Reordering rows..
-Starting calculating col orders..
+Calculating col orders..
 Reordering cols..
 Plotting matrix..
 Inferred max_s (max size of scatter point) is: 110.41377726332676

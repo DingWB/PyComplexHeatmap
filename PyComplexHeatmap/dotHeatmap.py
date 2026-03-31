@@ -599,8 +599,11 @@ class DotClustermapPlotter(ClusterMapPlotter):
 					cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
 					cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
 					cmap_legend_kws.setdefault("center", self.kwargs.get('center', None))
+					cmap_legend_kws.setdefault("extend", 'both')
+					cmap_legend_kws.setdefault("extendfrac", 0.15)
+					cbar_height=cmap_legend_kws.pop('cbar_height',20)
 					for key in self.cmap:
-						self.legend_dict[f"{key} (cmap)"]=tuple([self.cmap[key], key, cmap_legend_kws, 4, "cmap"])
+						self.legend_dict[f"{key} (cmap)"]=tuple([self.cmap[key], key, cmap_legend_kws, cbar_height, "cmap"])
 			else: # hue is None
 				cmap = self.cmap
 				c = self.kwargs.get("c", None)
@@ -608,13 +611,16 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
 				cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
 				cmap_legend_kws.setdefault("center", self.kwargs.get('center', None))
+				cmap_legend_kws.setdefault("extend", 'both')
+				cmap_legend_kws.setdefault("extendfrac", 0.15)
+				cbar_height=cmap_legend_kws.pop('cbar_height',20)
 				if (
 					not cmap is None
 					and type(cmap) == str
 					and not c is None
 					and type(c) != str
 				):
-					self.legend_dict[f"{self.value} (cmap)"]=tuple([cmap, self.value, cmap_legend_kws, 4, "cmap"])
+					self.legend_dict[f"{self.value} (cmap)"]=tuple([cmap, self.value, cmap_legend_kws, cbar_height, "cmap"])
 			# dot size legend:
 			if type(self.s) == str:
 				# s=self.kwargs.get('s',None)

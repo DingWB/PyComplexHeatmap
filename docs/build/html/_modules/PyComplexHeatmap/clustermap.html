@@ -140,6 +140,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/anno_img_example.html">Visualizing motif enrichment results using <code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../kwargs.html">Kwargs</a><ul>
@@ -1328,7 +1329,8 @@
 <div class="viewcode-block" id="DendrogramPlotter.plot"><a class="viewcode-back" href="../../PyComplexHeatmap.clustermap.html#PyComplexHeatmap.clustermap.DendrogramPlotter.plot">[docs]</a>	<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">gap_pixel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">root_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">tree_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			 <span class="n">bezier</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">dotsize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">root_dot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 			 <span class="n">orientation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Plots a dendrogram of the similarities between data on the axes</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;Plots a dendrogram of the similarities between data on the axes.</span>
+
 <span class="sd">		Parameters</span>
 <span class="sd">		----------</span>
 <span class="sd">		ax : matplotlib.axes.Axes</span>
@@ -1336,6 +1338,7 @@
 <span class="sd">		axis : int</span>
 <span class="sd">			0 for rows (default) and 1 for columns.</span>
 <span class="sd">		label : bool</span>
+<span class="sd">			Whether to show labels on the dendrogram.</span>
 <span class="sd">		rotate : bool</span>
 <span class="sd">			If axis==0 and one would like to plot row dendrogram, rotate</span>
 <span class="sd">			should be True</span>
@@ -1536,16 +1539,19 @@
 <span class="sd">	legend_kws :dict</span>
 <span class="sd">		vmax, vmin and other kws passed to plot legend, such as</span>
 <span class="sd">		use_gridspec, location, orientation, fraction, shrink, aspect, pad, anchor, panchor,</span>
-<span class="sd">		extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing:</span>
-<span class="sd">		```</span>
-<span class="sd">		cm=ClusterMapPlotter(...)</span>
-<span class="sd">		for cbar in cm.cbars:</span>
-<span class="sd">		if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
-<span class="sd">			cbar.outline.set_color(&#39;white&#39;)</span>
-<span class="sd">			cbar.outline.set_linewidth(2)</span>
-<span class="sd">			cbar.dividers.set_color(&#39;red&#39;)</span>
-<span class="sd">			cbar.dividers.set_linewidth(2)</span>
-<span class="sd">		```</span>
+<span class="sd">		extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing.</span>
+<span class="sd">		Default extend is set to &#39;both&#39; (change to neither to turn off) and default extendfrac is set to 0.1</span>
+<span class="sd">		An extra parameter ``cbar_height`` could be passed in legend_kws to control the height of the colorbar for heatmap, default is 20 [mm].</span>
+<span class="sd">		Example::</span>
+
+<span class="sd">			cm=ClusterMapPlotter(...)</span>
+<span class="sd">			for cbar in cm.cbars:</span>
+<span class="sd">				if isinstance(cbar,matplotlib.colorbar.Colorbar):</span>
+<span class="sd">					cbar.outline.set_color(&#39;white&#39;)</span>
+<span class="sd">					cbar.outline.set_linewidth(2)</span>
+<span class="sd">					cbar.dividers.set_color(&#39;red&#39;)</span>
+<span class="sd">					cbar.dividers.set_linewidth(2)</span>
+
 <span class="sd">		In addition to vmax,vmin, other parameters will be passed to https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar</span>
 
 <span class="sd">	plot :bool</span>
@@ -1590,14 +1596,12 @@
 <span class="sd">		alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,</span>
 <span class="sd">		fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,</span>
 <span class="sd">		zorder,verticalalignment,horizontalalignment.</span>
-<span class="sd">		See ax.xaxis.label.properties(), for example:</span>
-<span class="sd">		```</span>
-<span class="sd">		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.properties())</span>
-<span class="sd">		```</span>
-<span class="sd">		or</span>
-<span class="sd">		```</span>
-<span class="sd">		matplotlib.axis.XAxis.label.properties() for detail.</span>
-<span class="sd">		```</span>
+<span class="sd">		See ax.xaxis.label.properties(), for example::</span>
+
+<span class="sd">			cm=ClusterMapPlotter(...)</span>
+<span class="sd">			print(cm.ax.xaxis.label.properties())</span>
+
+<span class="sd">		or ``matplotlib.axis.XAxis.label.properties()`` for detail.</span>
 <span class="sd">	ylabel_kws: dict</span>
 <span class="sd">		sams as xlabel_kws</span>
 <span class="sd">	xlabel_side: str</span>
@@ -1608,10 +1612,11 @@
 <span class="sd">		alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,</span>
 <span class="sd">		linestyle, linewidth,rasterized,visible,width.</span>
 <span class="sd">		See ax.xaxis.label.get_bbox_patch().properties() for more information.</span>
-<span class="sd">		For example:</span>
-<span class="sd">		```</span>
-<span class="sd">		cm=ClusterMapPlotter(***), print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
-<span class="sd">		```</span>
+<span class="sd">		For example::</span>
+
+<span class="sd">			cm=ClusterMapPlotter(...)</span>
+<span class="sd">			print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
+
 <span class="sd">	ylabel_bbox_kws: dict</span>
 <span class="sd">		same as xlabel_bbox_kws</span>
 <span class="sd">	rasterized :bool</span>
@@ -2699,7 +2704,10 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmin&#39;</span><span class="p">))</span> <span class="c1">#round(vmin, 2))</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;vmax&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmax&#39;</span><span class="p">))</span> <span class="c1">#round(vmax, 2))</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">]</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;extend&quot;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;extendfrac&quot;</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+			<span class="n">cbar_height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cbar_height&#39;</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">legend_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">]</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_kws</span><span class="p">,</span> <span class="n">cbar_height</span><span class="p">,</span> <span class="s2">&quot;cmap&quot;</span><span class="p">])</span>
 			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yticklabels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_names_side</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
 				<span class="n">max_yticklabel_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
 					<span class="p">[</span><span class="n">label</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">yticklabels</span><span class="p">]</span>

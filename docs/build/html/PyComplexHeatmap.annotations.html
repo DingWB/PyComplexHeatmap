@@ -143,6 +143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/anno_img_example.html">Visualizing motif enrichment results using <code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kwargs.html">Kwargs</a><ul>
@@ -424,7 +425,8 @@ There is an additional parameter <cite>color_text</cite> (default is True),
 which would set the color of the text to the same color as legend marker. if one set
 <cite>legend_kws={‘color_text’:False}</cite>, then, black would be the default color for the text.
 If the user want to use a custom color instead of black (such as blue), please set
-legend_kws={‘color_text’:False,’labelcolor’:’blue’}.</p></li>
+legend_kws={‘color_text’:False,’labelcolor’:’blue’}.
+An extra parameter <cite>cbar_height</cite> could be passed in legend_kws to control the height of the colorbar for heatmap, default is 15 [mm].</p></li>
 <li><p><strong>ylim</strong> (<em class="hover">tuple</em>) – y axis limits for the annotation when axis=1, x axis limits when axis=0.</p></li>
 <li><p><strong>label</strong> (<em class="hover">str</em>) – label for the annotation, will be set to the axis label and the legend title if legend is True.</p></li>
 <li><p><strong>invert_x</strong> (<em class="hover">bool</em>) – whether to invert x axis when axis=0, default is False.</p></li>
@@ -711,16 +713,11 @@ else (0, 0) for rows labels.</p>
 <li><p><strong>plot_kws</strong> (<em class="hover">dict</em>) – <p>passed to plt.annotate, including annotation_clip, arrowprops and matplotlib.text.Text,
 more information about arrowprops could be found in
 matplotlib.patches.FancyArrowPatch. For example, to remove arrow, just set
-arrowprops = dict(visible=False). See: <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html</a> for more information.
-arrowprops:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>arrowstyle:</dt><dd><p><a class="reference external" href="https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html">https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html</a></p>
-</dd>
-<dt>connectionstyle:</dt><dd><p><a class="reference external" href="https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html">https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html</a></p>
-</dd>
-</dl>
-</div></blockquote>
+arrowprops = dict(visible=False). See <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html</a> for more information.</p>
+<ul>
+<li><p>arrowprops.arrowstyle: <a class="reference external" href="https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html">https://matplotlib.org/stable/gallery/text_labels_and_annotations/fancyarrow_demo.html</a></p></li>
+<li><p>arrowprops.connectionstyle: <a class="reference external" href="https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html">https://matplotlib.org/stable/gallery/userdemo/connectionstyle_demo.html</a></p></li>
+</ul>
 </p></li>
 </ul>
 </dd>

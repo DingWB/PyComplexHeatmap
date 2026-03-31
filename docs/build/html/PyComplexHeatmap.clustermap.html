@@ -143,6 +143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="notebooks/cpg_modules.html#A-smaller-dot-clustermap">A smaller dot clustermap</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/anno_img_example.html">Visualizing motif enrichment results using <code class="docutils literal notranslate"><span class="pre">anno_img</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kwargs.html">Kwargs</a><ul>
@@ -473,19 +474,20 @@ groups and pass the clsutered order to row_split_order.</p></li>
 <li><p><strong>legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot heatmap legend, determined by cmap.</p></li>
 <li><p><strong>legend_kws</strong> (<em class="hover">dict</em>) – <p>vmax, vmin and other kws passed to plot legend, such as
 use_gridspec, location, orientation, fraction, shrink, aspect, pad, anchor, panchor,
-extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing:
-<a href="#id1"><span class="problematic" id="id2">``</span></a>`
-cm=ClusterMapPlotter(…)
-for cbar in cm.cbars:
-if isinstance(cbar,matplotlib.colorbar.Colorbar):</p>
-<blockquote>
-<div><p>cbar.outline.set_color(‘white’)
-cbar.outline.set_linewidth(2)
-cbar.dividers.set_color(‘red’)
-cbar.dividers.set_linewidth(2)</p>
-</div></blockquote>
-<p><a href="#id3"><span class="problematic" id="id4">``</span></a>`
-In addition to vmax,vmin, other parameters will be passed to <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar">https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar</a></p>
+extend, extendfrac, extendrect, ticks, format, drawedges, label, doundaries, values, spacing.
+Default extend is set to ‘both’ (change to neither to turn off) and default extendfrac is set to 0.1
+An extra parameter <code class="docutils literal notranslate"><span class="pre">cbar_height</span></code> could be passed in legend_kws to control the height of the colorbar for heatmap, default is 20 [mm].
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">=</span><span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cbar</span> <span class="ow">in</span> <span class="n">cm</span><span class="o">.</span><span class="n">cbars</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cbar</span><span class="p">,</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colorbar</span><span class="o">.</span><span class="n">Colorbar</span><span class="p">):</span>
+                <span class="n">cbar</span><span class="o">.</span><span class="n">outline</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+                <span class="n">cbar</span><span class="o">.</span><span class="n">outline</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">cbar</span><span class="o">.</span><span class="n">dividers</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+                <span class="n">cbar</span><span class="o">.</span><span class="n">dividers</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In addition to vmax,vmin, other parameters will be passed to <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar">https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar</a></p>
 </p></li>
 <li><p><strong>plot</strong> (<em class="hover">bool</em>) – whether to plot or not.</p></li>
 <li><p><strong>plot_legend</strong> (<em class="hover">bool</em>) – True or False, whether to plot legend, if False, legends can be plot with
@@ -509,27 +511,28 @@ For more information,see ?matplotlib.axes.Axes.tick_params or ?ax.tick_params.</
 <li><p><strong>yticklabels_kws</strong> (<em class="hover">dict</em>) – the same as xticklabels_kws.</p></li>
 <li><p><strong>xlabel</strong> (<em class="hover">str</em>) – default is None (no xlabel would be shown).</p></li>
 <li><p><strong>ylabel</strong> (<em class="hover">str</em>) – default is None (no ylabel would be shown).</p></li>
-<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
+<li><p><strong>xlabel_kws</strong> (<em class="hover">dict</em>) – <p>alpha,color,fontfamily,fontname,fontproperties,fontsize,fontstyle,
 fontweight,label,rasterized,rotation,rotation_mode(default,anchor),visible,
 zorder,verticalalignment,horizontalalignment.
-See ax.xaxis.label.properties(), for example:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">cm=ClusterMapPlotter(***),</span> <span class="pre">print(cm.ax.xaxis.label.properties())</span>
-<span class="pre">`</span></code>
-or
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">matplotlib.axis.XAxis.label.properties()</span> <span class="pre">for</span> <span class="pre">detail.</span>
-<span class="pre">`</span></code></p></li>
+See ax.xaxis.label.properties(), for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">=</span><span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">properties</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>or <code class="docutils literal notranslate"><span class="pre">matplotlib.axis.XAxis.label.properties()</span></code> for detail.</p>
+</p></li>
 <li><p><strong>ylabel_kws</strong> (<em class="hover">dict</em>) – sams as xlabel_kws</p></li>
 <li><p><strong>xlabel_side</strong> (<em class="hover">str</em>) – bottom or top, default is bottom,</p></li>
 <li><p><strong>ylabel_side</strong> (<em class="hover">str</em>) – left or right, default is left</p></li>
-<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
+<li><p><strong>xlabel_bbox_kws</strong> (<em class="hover">dict</em>) – <p>alpha,clip_box, clip_on,edgecolor,facecolor,fill,height,in_layout,label,
 linestyle, linewidth,rasterized,visible,width.
 See ax.xaxis.label.get_bbox_patch().properties() for more information.
-For example:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">cm=ClusterMapPlotter(***),</span> <span class="pre">print(cm.ax.xaxis.label.get_bbox_patch().properties())</span>
-<span class="pre">`</span></code></p></li>
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">=</span><span class="n">ClusterMapPlotter</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">get_bbox_patch</span><span class="p">()</span><span class="o">.</span><span class="n">properties</span><span class="p">())</span>
+</pre></div>
+</div>
+</p></li>
 <li><p><strong>ylabel_bbox_kws</strong> (<em class="hover">dict</em>) – same as xlabel_bbox_kws</p></li>
 <li><p><strong>rasterized</strong> (<em class="hover">bool</em>) – default is auto, when the number of rows or number of cols &gt; 5000,
 rasterized would be automatically set to True to speed up the plotting.</p></li>
@@ -717,18 +720,17 @@ specified axis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PyComplexHeatmap.clustermap.DendrogramPlotter.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap_pixel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bezier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dotsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_dot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PyComplexHeatmap/clustermap.html#DendrogramPlotter.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PyComplexHeatmap.clustermap.DendrogramPlotter.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots a dendrogram of the similarities between data on the axes
-:param ax: Axes object upon which the dendrogram is plotted
-:type ax: matplotlib.axes.Axes
-:param axis: 0 for rows (default) and 1 for columns.
-:type axis: int
-:param label:
-:type label: bool
-:param rotate: If axis==0 and one would like to plot row dendrogram, rotate</p>
-<blockquote>
-<div><p>should be True</p>
-</div></blockquote>
+<dd><p>Plots a dendrogram of the similarities between data on the axes.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em class="hover">matplotlib.axes.Axes</em>) – Axes object upon which the dendrogram is plotted</p></li>
+<li><p><strong>axis</strong> (<em class="hover">int</em>) – 0 for rows (default) and 1 for columns.</p></li>
+<li><p><strong>label</strong> (<em class="hover">bool</em>) – Whether to show labels on the dendrogram.</p></li>
+<li><p><strong>rotate</strong> (<em class="hover">bool</em>) – If axis==0 and one would like to plot row dendrogram, rotate
+should be True</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
