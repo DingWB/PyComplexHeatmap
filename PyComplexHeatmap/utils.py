@@ -561,7 +561,7 @@ def plot_cmap_legend(
 	cbar_kws.setdefault("fraction", 1)
 	cbar_kws.setdefault("shrink", 1)
 	cbar_kws.setdefault("pad", 0)
-	cbar_kws.setdefault("extend", 'both')
+	cbar_kws.setdefault("extend", 'both') # 'neither', 'both', 'min', 'max'
 	cbar_kws.setdefault("extendfrac", 0.1)
 	vmax = cbar_kws.pop("vmax", 1)
 	vmin = cbar_kws.pop("vmin", 0)
@@ -582,7 +582,26 @@ def plot_cmap_legend(
 	cax.yaxis.set_label_position(label_side)
 	cax.yaxis.set_ticks_position(label_side)
 	cbar = ax.figure.colorbar(m, cax=cax, **cbar_kws)  # use_gridspec=True
-	# cbar.set_ticks([vmin,center,vmax])
+	# Fix white-Line bug in colorbar: Replace the colorbar's QuadMesh body with a single imshow gradient.
+	# matplotlib issue #1188: PDF/SVG viewers render sub-pixel seams between
+	# QuadMesh cells (and between the QuadMesh and the cax border) as thin
+	# white lines. A single imshow image has no internal seams and fills
+	# the cax exactly, so the colorbar body renders cleanly. Outline,
+	# ticks, label and dividers remain vector graphics.
+	cbar.solids.set_visible(False)
+	gradient = np.linspace(vmin, vmax, 1024).reshape(-1, 1)
+	cax.imshow(
+		gradient,
+		aspect="auto",
+		cmap=m.cmap,
+		norm=m.norm,
+		origin="lower",
+		extent=(0, 1, vmin, vmax),
+		interpolation="bilinear",
+		zorder=cbar.solids.get_zorder(),
+	)
+	cax.set_xlim(0, 1)
+	cax.set_ylim(vmin, vmax)
 	# cbar.outline.set_color('white')
 	# cbar.outline.set_linewidth(2)
 	# cbar.dividers.set_color('red')

@@ -139,11 +139,16 @@ class heatmapPlotter:
 				vmin = np.nanpercentile(calc_data, 2)
 			else:
 				vmin = np.nanmin(calc_data)
+			# Round to align colorbar QuadMesh boundary with the cax pixel
+			# grid; avoids sub-pixel seams that PDF viewers render as white
+			# lines (matplotlib issue #1188).
+			vmin = round(float(vmin), 2)
 		if vmax is None:
 			if robust:
 				vmax = np.nanpercentile(calc_data, 98)
 			else:
 				vmax = np.nanmax(calc_data)
+			vmax = round(float(vmax), 2)
 		self.vmin, self.vmax = vmin, vmax
 
 		# Choose default colormaps if not provided
@@ -361,7 +366,10 @@ class heatmapPlotter:
 		# Possibly add a colorbar
 		if self.cbar:
 			cb = ax.figure.colorbar(mesh, cax, ax, **self.cbar_kws)
-			cb.outline.set_linewidth(0)
+			# cb.outline.set_linewidth(0)
+			# Hide the sub-pixel seams between QuadMesh cells that PDF/SVG
+			# viewers render as thin white lines (matplotlib issue #1188).
+			cb.solids.set_edgecolor("face")
 			# If rasterized is passed to pcolormesh, also rasterize the
 			# colorbar to avoid white lines on the PDF rendering
 			if kws.get("rasterized", False):
@@ -609,11 +617,16 @@ def plot_heatmap(
 			vmin = np.nanpercentile(calc_data, 2)
 		else:
 			vmin = np.nanmin(calc_data)
+		# Round to align colorbar QuadMesh boundary with the cax pixel grid;
+		# avoids sub-pixel seams that PDF viewers render as white lines
+		# (matplotlib issue #1188).
+		vmin = round(float(vmin), 2)
 	if vmax is None:
 		if robust:
 			vmax = np.nanpercentile(calc_data, 98)
 		else:
 			vmax = np.nanmax(calc_data)
+		vmax = round(float(vmax), 2)
 
 	cmap=adjust_cmap(cmap,vmin=vmin,vmax=vmax,center=center,
 					 na_col=na_col)
@@ -2311,7 +2324,7 @@ class ClusterMapPlotter:
 			self.legend_kws.setdefault("vmin", self.kwargs.get('vmin')) #round(vmin, 2))
 			self.legend_kws.setdefault("vmax", self.kwargs.get('vmax')) #round(vmax, 2))
 			self.legend_kws.setdefault("center", self.kwargs.get('center', None))
-			self.legend_kws.setdefault("extend", 'both')
+			self.legend_kws.setdefault("extend", 'both') # 'neither', 'both', 'min', 'max'
 			self.legend_kws.setdefault("extendfrac", 0.15)
 			cbar_height=self.legend_kws.pop('cbar_height',20)
 			self.legend_dict[self.label]=tuple([self.cmap, self.label, self.legend_kws, cbar_height, "cmap"])

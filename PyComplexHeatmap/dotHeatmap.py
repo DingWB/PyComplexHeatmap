@@ -440,10 +440,13 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				self.kwargs["marker"] = self.marker
 
 		if 'vmin' not in self.kwargs:
-			self.vmin = np.nanmin(data2d.values)
+			# Round to align the colorbar QuadMesh boundary with the cax pixel
+			# grid; avoids sub-pixel seams that PDF viewers render as white
+			# lines (matplotlib issue #1188).
+			self.vmin = round(float(np.nanmin(data2d.values)), 2)
 			self.kwargs.setdefault("vmin", self.vmin)
 		if 'vmax' not in self.kwargs:
-			self.vmax = np.nanmax(data2d.values)
+			self.vmax = round(float(np.nanmax(data2d.values)), 2)
 			self.kwargs.setdefault("vmax", self.vmax)
 
 		if z_score is not None and standard_scale is not None:
@@ -596,8 +599,10 @@ class DotClustermapPlotter(ClusterMapPlotter):
 
 				if isinstance(self.cmap, dict):  #
 					cmap_legend_kws = self.cmap_legend_kws.copy()
-					cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
-					cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
+					_vmin = self.kwargs.get('vmin')
+					_vmax = self.kwargs.get('vmax')
+					cmap_legend_kws.setdefault("vmin", round(_vmin, 2) if _vmin is not None else _vmin)
+					cmap_legend_kws.setdefault("vmax", round(_vmax, 2) if _vmax is not None else _vmax)
 					cmap_legend_kws.setdefault("center", self.kwargs.get('center', None))
 					cmap_legend_kws.setdefault("extend", 'both')
 					cmap_legend_kws.setdefault("extendfrac", 0.15)
@@ -608,8 +613,10 @@ class DotClustermapPlotter(ClusterMapPlotter):
 				cmap = self.cmap
 				c = self.kwargs.get("c", None)
 				cmap_legend_kws = self.cmap_legend_kws.copy()
-				cmap_legend_kws.setdefault("vmin", self.kwargs.get('vmin'))  # round(vmin, 2))
-				cmap_legend_kws.setdefault("vmax", self.kwargs.get('vmax'))  # round(vmax, 2))
+				_vmin = self.kwargs.get('vmin')
+				_vmax = self.kwargs.get('vmax')
+				cmap_legend_kws.setdefault("vmin", round(_vmin, 2) if _vmin is not None else _vmin)
+				cmap_legend_kws.setdefault("vmax", round(_vmax, 2) if _vmax is not None else _vmax)
 				cmap_legend_kws.setdefault("center", self.kwargs.get('center', None))
 				cmap_legend_kws.setdefault("extend", 'both')
 				cmap_legend_kws.setdefault("extendfrac", 0.15)
