@@ -658,16 +658,30 @@ class DotClustermapPlotter(ClusterMapPlotter):
 						"markers",
 					]
 				)
-			heatmap_label_max_width = (
-				max([label.get_window_extent().width for label in self.yticklabels])
-				if len(self.yticklabels) > 0
-				else 0
-			)
+			# Only count yticklabels / ylabel toward the legend offset when they
+			# are on the same side as the legend (right). Otherwise they don't
+			# sit between the heatmap and the legend, so they shouldn't push the
+			# legend further right (this was the cause of legend_hpad appearing
+			# to have no effect for DotClustermapPlotter).
+			if len(self.yticklabels) > 0 and self.row_names_side == "right":
+				max_yticklabel_w = max(
+					[label.get_window_extent().width for label in self.yticklabels]
+				)
+			else:
+				max_yticklabel_w = 0
+			if not self.ylabel is None and self.ylabel_side == 'right':
+				ylabel_w = self.ax.yaxis.label.get_window_extent().width
+			else:
+				ylabel_w = 0
+			if self.row_names_side == self.ylabel_side == 'right':
+				heatmap_label_max_width = sum([max_yticklabel_w, ylabel_w])
+			else:
+				heatmap_label_max_width = max([max_yticklabel_w, ylabel_w])
 			if (
 				heatmap_label_max_width >= self.label_max_width
 				or self.legend_anchor == "ax_heatmap"
 			):
-				self.label_max_width = heatmap_label_max_width * 1.1
+				self.label_max_width = heatmap_label_max_width
 			self.get_legend_list() #self.legend_list will be created
 
 	def post_processing(self):

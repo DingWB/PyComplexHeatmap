@@ -1172,7 +1172,8 @@ class ClusterMapPlotter:
 					cbar.dividers.set_color('red')
 					cbar.dividers.set_linewidth(2)
 
-		In addition to vmax,vmin, other parameters will be passed to https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar
+		In addition to vmax,vmin, other parameters will be passed to colorbar (https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.colorbar.html#matplotlib.figure.Figure.colorbar) 
+		or legend (https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.legend.html) depending on the type of legend.
 
 	plot :bool
 		whether to plot or not.
