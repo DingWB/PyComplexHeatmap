@@ -684,11 +684,24 @@ class anno_label(AnnotationBase):
 		return self.ax
 
 	def get_ticklabel_width(self):
-		hs = [text.get_window_extent().width for text in self.annotated_texts]
-		if len(hs) == 0:
+		# Return only the rightward overhang of the annotated texts past the
+		# right edge of self.ax (in pixels). The annotated texts are placed
+		# inside the annotation axes, so their full bbox width should NOT be
+		# treated as horizontal space between the heatmap and the legend
+		# (that incorrectly inflated label_max_width and made legend_hpad
+		# appear to have no effect when an anno_label was present on the
+		# right side of a clustermap / DotClustermapPlotter).
+		if not self.annotated_texts:
 			return 0
-		else:
-			return max(hs)
+		try:
+			ax_right = self.ax.get_window_extent().x1
+		except Exception:
+			return 0
+		overhangs = [
+			max(0, text.get_window_extent().x1 - ax_right)
+			for text in self.annotated_texts
+		]
+		return max(overhangs) if overhangs else 0
 
 
 # =============================================================================
