@@ -358,6 +358,8 @@ class heatmapPlotter:
 
 		# Draw the heatmap
 		mesh = ax.pcolormesh(self.plot_data, cmap=self.cmap, **kws)
+		# Disable any grid inherited from a global style (e.g. seaborn/scanpy)
+		ax.grid(False)
 		# Set the axis limits
 		ax.set(xlim=(0, self.data.shape[1]), ylim=(0, self.data.shape[0]))
 		# Invert the y axis to show the plot in matrix form
@@ -660,6 +662,8 @@ def plot_heatmap(
 
 	# Draw the heatmap
 	mesh = ax.pcolormesh(plot_data, cmap=cmap, **kwargs)
+	# Disable any grid inherited from a global style (e.g. seaborn/scanpy)
+	ax.grid(False)
 	# Set the axis limits
 	ax.set(xlim=(0, data.shape[1]), ylim=(0, data.shape[0]))
 	# Invert the y axis to show the plot in matrix form
