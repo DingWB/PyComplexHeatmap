@@ -23,6 +23,15 @@ from .utils import (
 )
 
 
+def _groupby_apply(grouped, func):
+	# pandas >=2.2 deprecated including grouping columns in apply; include_groups
+	# was added in 2.2 and is scheduled for removal in a future version.
+	try:
+		return grouped.apply(func, include_groups=False)
+	except TypeError:
+		return grouped.apply(func)
+
+
 # =============================================================================
 class heatmapPlotter:
 	def __init__(
@@ -812,10 +821,21 @@ class DendrogramPlotter(object):
 	def check_array(self, data):
 		if not isinstance(data, pd.DataFrame):
 			data = pd.DataFrame(data)
-		if data.isna().sum().sum() > 0:
-			data = data.apply(lambda x: x.fillna(x.median()), axis=1)
+		array = data.values
+		if np.issubdtype(array.dtype, np.floating):
+			nan_mask = np.isnan(array)
+		else:
+			nan_mask = pd.isna(array)
+		if nan_mask.any():  # fill NaN with row median (vectorized)
+			array = array.astype(float, copy=True)
+			with warnings.catch_warnings():
+				warnings.simplefilter("ignore", category=RuntimeWarning)
+				row_median = np.nanmedian(array, axis=1)
+			rows = np.where(nan_mask)[0]
+			array[nan_mask] = np.take(row_median, rows)
+			data = pd.DataFrame(array, index=data.index, columns=data.columns)
 		self.data = data
-		self.array = data.values
+		self.array = array
 
 	def _calculate_linkage_scipy(self):  # linkage is calculated by columns
 		# print(type(self.array),self.method,self.metric)
@@ -1792,8 +1812,9 @@ class ClusterMapPlotter:
 			if isinstance(self.row_split, pd.Series):
 				self.row_split = self.row_split.to_frame(name=self.row_split.name)
 			cols = self.row_split.columns.tolist()
-			row_clusters = self.row_split.groupby(cols,sort=False).apply(
-				lambda x: x.index.tolist()
+			row_clusters = _groupby_apply(
+				self.row_split.groupby(cols, sort=False),
+				lambda x: x.index.tolist(),
 			)
 			if (
 				self.row_split_order is None or
@@ -1859,8 +1880,9 @@ class ClusterMapPlotter:
 			if isinstance(self.col_split, pd.Series):
 				self.col_split = self.col_split.to_frame(name=self.col_split.name)
 			cols = self.col_split.columns.tolist()
-			col_clusters = self.col_split.groupby(cols,sort=False).apply(
-				lambda x: x.index.tolist()
+			col_clusters = _groupby_apply(
+				self.col_split.groupby(cols, sort=False),
+				lambda x: x.index.tolist(),
 			)
 			if (
 				self.col_split_order is None or
