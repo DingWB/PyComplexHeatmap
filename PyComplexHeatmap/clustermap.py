@@ -32,6 +32,20 @@ def _groupby_apply(grouped, func):
 		return grouped.apply(func)
 
 
+def _deprecated_legend_gap(legend_gap, legend_vgap):
+	"""Backward compatibility: map deprecated legend_gap to legend_vgap."""
+	if legend_gap is None:
+		return legend_vgap
+	warnings.warn(
+		"Parameter `legend_gap` is deprecated and its value will be passed to "
+		"`legend_vgap`; please use `legend_vgap` or `legend_hgap` to control the "
+		"vertical and horizontal gap between legends.",
+		FutureWarning,
+		stacklevel=3,
+	)
+	return legend_gap
+
+
 # =============================================================================
 class heatmapPlotter:
 	def __init__(
@@ -1214,6 +1228,9 @@ class ClusterMapPlotter:
 		the vertical gap between different legends (default is 5mm).
 	legend_hgap :float
 		the horizontal gap between different legends (two columns of legends), default is 2mm.
+	legend_gap :float
+		deprecated, please use legend_vgap or legend_hgap instead. If provided,
+		the value will be passed to legend_vgap.
 	legend_width: float [mm]
 		width of the legend, default is None (infer from data automatically)
 	legend_hpad: float
@@ -1346,8 +1363,10 @@ class ClusterMapPlotter:
 		rasterized='auto',
 		legend_delta_x=None,
 		verbose=1,
+		legend_gap=None,
 		**kwargs
 	):
+		legend_vgap = _deprecated_legend_gap(legend_gap, legend_vgap)
 		self.kwargs = kwargs if not kwargs is None else {}
 		self.rasterized = rasterized
 		self.data2d = self.format_data(data, mask, z_score, standard_scale)
@@ -2514,7 +2533,8 @@ def composite(
 	legend_width=None,
 	width_ratios=None,
 	height_ratios=None,
-	verbose=1
+	verbose=1,
+	legend_gap=None,
 ):
 	"""
 	Assemble multiple ClusterMapPlotter objects vertically or horizontally together.
@@ -2536,6 +2556,9 @@ def composite(
 		vertical gap between two legends, unit is mm.
 	legend_hgap: float
 		horizontal gap between two columns of legends, unit is mm.
+	legend_gap: float
+		deprecated, please use legend_vgap or legend_hgap instead. If provided,
+		the value will be passed to legend_vgap.
 	legend_width: float
 		default is None, will be estimated automatically
 	width_ratios: list
@@ -2549,6 +2572,7 @@ def composite(
 		ax,legend_axes
 
 	"""
+	legend_vgap = _deprecated_legend_gap(legend_gap, legend_vgap)
 	if ax is None:
 		ax = plt.gca()
 	n = len(cmlist)

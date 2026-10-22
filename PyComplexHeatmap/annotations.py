@@ -13,7 +13,7 @@ from .utils import (
 	define_cmap,
 	get_colormap,
 )
-from .clustermap import plot_heatmap, DendrogramPlotter
+from .clustermap import plot_heatmap, DendrogramPlotter, _deprecated_legend_gap
 
 
 # -----------------------------------------------------------------------------
@@ -1623,6 +1623,9 @@ class HeatmapAnnotation:
 		the vertical gap between two legends, default is 5 [mm]
 	legend_hgap: float
 		the horizontal gap between two legend columns, default is 2 [mm]
+	legend_gap: float
+		deprecated, please use legend_vgap or legend_hgap instead. If provided,
+		the value will be passed to legend_vgap.
 	legend_width: float
 		width of the legend, default is 4.5[mm]
 	legend_hpad: float
@@ -1681,8 +1684,10 @@ class HeatmapAnnotation:
 		legend_order='auto',
 		rasterized=False,
 		verbose=1,
+		legend_gap=None,
 		**args
 	):
+		legend_vgap = _deprecated_legend_gap(legend_gap, legend_vgap)
 		if df is None and len(args) == 0:
 			raise ValueError("Please specify either df or other args")
 		if not df is None and len(args) > 0:
